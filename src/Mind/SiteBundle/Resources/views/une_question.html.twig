@@ -1,0 +1,51 @@
+{# empty Twig template #}
+<section class="row-fluid">
+
+<div id="les-questions">
+    <h3>{% block titre_group %} {{ titreGroup }} {% endblock %}</h3>
+</div>
+        
+{% if lesQuestions is defined %}
+    {% set nbElmts = 1 %}
+    
+    {% for uneQuestion in lesQuestions %}
+    
+        {% if nbElmts == 3 %}
+            {% set nbElmts = 1 %}
+        {% endif %}
+        
+        {% if nbElmts == 1 %}
+            <span class="row-fluid">
+        {% endif %}
+            
+                <div id="{{uneQuestion.id}}" class="media span6 elmtEntityOne" style="margin-top:0px;">
+                        <a class="pull-left" href="#">
+                            <img class="media-object" data-src="" />
+                        </a>
+
+                        <div class="media-body">
+                            <div class="media-heading">
+                                {% include 'MindSiteBundle:Forms:form_supprimer_question.html.twig' %}
+                                <a href="{{ path('mind_site_question_voir', {"auteur": lesAuteurs[uneQuestion.id].slug, "slug": uneQuestion.slug }) }}">
+                                    {{ uneQuestion.questionTitre }} 
+                                </a>
+                                <p>Par {{ lesAuteurs[uneQuestion.id].profileLink|raw }}</p> 
+                                 <p>{{ lesDates[uneQuestion.id].message }}</p>
+
+                            </div>
+                            <p class="infosLigne2">
+                                 <a href="{{ path('mind_site_question_voir', {"auteur": lesAuteurs[uneQuestion.id].pseudo, "slug": uneQuestion.slug }) }}#groupCommentaires"><i class="icon-comment"></i>{{ lesNbCom[uneQuestion.id] }}</a>
+                            </p>
+                        </div>
+                </div>
+    
+        {% set nbElmts = nbElmts +1 %}
+        
+        {% if nbElmts == 1 %}
+            </span>
+        {% endif %}
+    {% endfor %}
+                    
+{% endif %}  
+            
+</section>

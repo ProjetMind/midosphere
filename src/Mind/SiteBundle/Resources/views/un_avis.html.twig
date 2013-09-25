@@ -1,0 +1,63 @@
+{# empty Twig template #}
+
+{% if is_granted('ROLE_USER') %}
+    {% set idUserCourant = app.user.id %}
+{% endif %}
+
+<section class="row-fluid">
+
+<div id="les-avis">
+    <h3>{% block titre_group %} {{ titreGroup }} {% endblock %}</h3>
+</div>
+    
+{% if lesAvis is defined %}
+    {% set nbElmts = 1 %}
+    
+    {% for unAvis in lesAvis %}
+    
+        {% if nbElmts == 3 %}
+            {% set nbElmts = 1 %}
+        {% endif %}
+        
+        {% if nbElmts == 1 %}
+            <span class="row-fluid">
+        {% endif %}
+        
+                <div id="{{unAvis.id}}" class="media span6 elmtEntityOne">
+                        <a class="pull-left" href="#">
+                            <img class="media-object" src="{{ asset(images[unAvis.id][0].path) }}" />
+                        </a>
+
+                        <div class="media-body">
+                            <div class="media-heading">
+                                {% include 'MindSiteBundle:Forms:form_avis_supprimer.html.twig' %}
+                                
+                                <a href="{{ path('mind_site_avis_voir', {"auteur": lesAuteurs[unAvis.id].slug, "slug": unAvis.slug }) }}">
+                                    {{ unAvis.avisTitre }} 
+                                </a>
+                                <p>Par {{ lesAuteurs[unAvis.id].profileLink|raw }}</p> 
+                                 <p>{{ lesDates[unAvis.id].message }}</p>
+                                 
+                            </div>
+                            
+                            <p class="infosLigne2">
+                                 <a href="{{ path('mind_site_avis_voir', {"auteur": lesAuteurs[unAvis.id].pseudo, "slug": unAvis.slug }) }}#groupCommentaires"><i class="icon-comment"></i>{{ lesNbCom[unAvis.id] }}</a>
+                            </p>
+                        </div>
+                </div>
+        {# Fermeture form supprimer #}
+        {% if is_granted('ROLE_USER') and idUserCourant == unAvis.avisAuteur %}            
+             
+        {% endif %}
+                    
+        {% set nbElmts = nbElmts +1 %}
+        
+        {% if nbElmts == 1 %}
+            </span>
+        {% endif %}
+    
+    {% endfor %}
+            
+{% endif %}  
+            
+</section>

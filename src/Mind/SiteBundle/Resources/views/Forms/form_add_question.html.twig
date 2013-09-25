@@ -1,0 +1,61 @@
+{# empty Twig template #}
+
+{% extends "MindSiteBundle::layout.html.twig" %}
+
+{% block sectionCorps %}
+
+        <span class="formSpan">
+            
+            <form action="{{ path("mind_site_question_ajouter") }}" class="form-horizontal" method="POST" {{ form_enctype(form) }}>
+            
+                <fieldset>
+                    <legend class="btn-primary">Posez votre question</legend>
+                        
+                        {{ form_errors(form) }}
+                        
+                    <div>
+                        {{ form_label(form.questionTitre) }}
+                        {{ form_widget(form.questionTitre) }}
+                        {{ form_errors(form.questionTitre) }}
+                    </div>
+
+                    <div>
+                        {# form_widget(form.sujet) }}
+                        {{ form_errors(form.sujet) #}
+                    </div>
+
+                    <div>
+                        {{ form_label(form.question) }}
+                        {{ form_widget(form.question) }}
+                        {{ form_errors(form.question) }}
+                    </div>
+
+
+                    <div>
+                        {{ lesDomaines|raw }}
+                    </div>
+                    
+                    <div class="hide">
+                        {{ form_label(form.questionDomaine) }}
+                        {{ form_widget(form.questionDomaine) }} 
+                        
+                    </div>
+
+                    <div>
+                        {# include "PunkAveFileUploaderBundle:Default:templates.html.twig" #}
+                    </div>
+
+                    <div>
+                        <input type="submit" class="btn btn-primary" value="Ajoutez ma question">
+                    </div>
+
+                    {{ form_rest(form) }}
+
+                    
+                </fieldset>
+                
+            </form>
+        
+        </span>
+        
+{% endblock %}

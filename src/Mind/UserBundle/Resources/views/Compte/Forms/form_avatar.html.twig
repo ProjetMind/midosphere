@@ -1,0 +1,28 @@
+{# empty Twig template #}
+
+<div class="media">
+        <a class="pull-left" href="{{ path('mind_user_profile_voir', {'slug': app.user.slug }) }}">
+            <img class="media-object" src="{{ asset(avatar.path) }}" />
+        </a>
+        <div class="media-body">
+            <p class="media-heading">
+                <form id="formAvatar" action="{{ path('mind_user_compte_edit_avatar') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal">
+    
+                    {{ form_errors(form) }}
+                        <div>
+                        {{ form_label(form.file) }}
+                        </div>
+                        <div>
+                            {{ form_widget(form.file) }}
+                        </div>
+
+                        <div>
+                            <input class="btn btn-primary btn-small" type="submit" value="Modifier mon avatar"/>
+                        </div>
+
+                                    {{ form_rest(form) }}
+                </form>
+
+        </div>
+</div>
+        

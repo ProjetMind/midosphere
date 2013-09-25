@@ -1,0 +1,22 @@
+
+
+<section class="row-fluid">
+    
+    <span class="span6 offset3 formSpan">
+
+
+        <form class="form-horizontal" action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST">
+            
+            <fieldset>
+                <legend class="btn-primary">Nouveau mot de passe</legend>
+                    {{ form_widget(form) }}
+                
+            <div class="control-group">
+                <div class="controls">
+                    <input type="submit" class="btn btn-primary" value="{{ 'resetting.reset.submit'|trans({}, 'FOSUserBundle') }}" />
+                 </div>
+            </div>
+        </form>
+        
+        </span>
+ </section>

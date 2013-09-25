@@ -1,0 +1,17 @@
+mind_message_homepage:
+    pattern:  /
+    defaults: { _controller: MindMpBundle:Message:index }
+    
+mind_message_archive:
+  pattern: /mes-archives-de-messagerie
+  defaults: { _controller: MindMpBundle:Message:archive }
+
+mind_message_conversation:
+  pattern: /conversation/{idConversation}
+  defaults: { _controller: MindMpBundle:Message:messageConversation }
+  
+mind_message_nouveau:
+  pattern: /conversation/nouveau-message/{idConversation}
+  defaults: { _controller: MindMpBundle:Message:nouveauMessage }
+  options:
+     expose: true

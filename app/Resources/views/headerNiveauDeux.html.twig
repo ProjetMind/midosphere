@@ -1,0 +1,22 @@
+{# empty Twig template #}
+
+<nav class="navbar navbar-static-top">
+  <div class="navbar-inner">
+    <div class="container-fluid" style= "margin-left:10px; padding-right: 0; padding-left: 0; ">
+      
+      {# Le menu est gérer par KnpMenuBundle et Bootstrap(précisiement BcBootstrapBundle 
+         La class se situe dans SiteBundle/Menu/Menu.php #}
+        
+      {{ knp_menu_render('MindSiteBundle:Menu:getMenuHeader', {'currentClass': 'active'}) }}
+      
+                {# HEADER NIVEAU 1. #}
+                    {% include '::headerNiveauUn_CompteLogin.html.twig' %}
+
+     
+
+    </div>
+  </div>
+</nav>
+
+
+ 

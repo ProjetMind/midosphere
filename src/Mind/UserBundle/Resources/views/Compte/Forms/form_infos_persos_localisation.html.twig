@@ -1,0 +1,30 @@
+{# empty Twig template #}
+
+<form id="formInfosPersosLocalisationCompteEdit" action="{{ path('mind_user_compte_edit_localisation') }}" {{ form_enctype(form) }} method="POST" class="form-inline">
+    
+    {{ form_errors(form) }}
+    
+    <div class="control-group">
+        {{ form_label(form.pays) }}
+        <div class="controls">
+            {{ form_widget(form.pays) }}
+            {{ form_errors(form.pays) }}
+        </div>
+    </div>
+    
+    <div class="control-group">
+        {{ form_label(form.ville) }}
+        <div class="controls">
+            {{ form_widget(form.ville) }}
+            {{ form_errors(form.ville) }}
+        </div>
+    </div>
+    
+    
+    <div>
+        <input class="btn btn-primary" type="submit" value="Valider" />
+        <span onclick="annulerEditInfos('localisation')" class="btn btn-warning">Annuler</span>
+    </div>
+    {{ form_rest(form) }}
+    
+</form>

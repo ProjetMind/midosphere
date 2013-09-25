@@ -1,0 +1,19 @@
+{# empty Twig template #}
+
+ 
+    {{ form_errors(form) }}
+    
+    <div class="btn-group">
+
+        {{ form_widget(form.idUser) }}
+        {{ form_widget(form.idSouscripteur) }}
+
+        {% if estAbonner == false %}
+            <input type="submit" name="abonner" class="btn" value="S'abonner"/>
+        {% else %}
+            <input type="submit" name="desabonner" class="btn" value="Se désabonner"/>
+        {% endif %}
+            
+    </div>
+
+{{ form_rest(form) }}

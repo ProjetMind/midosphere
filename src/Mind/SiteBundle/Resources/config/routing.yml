@@ -1,0 +1,17 @@
+mind_site_homepage:
+    pattern:  /
+    defaults: { _controller: MindSiteBundle:Site:index }
+
+mind_site_recherche:
+    pattern: /recherche
+    defaults: { _controller: MindSiteBundle:Recherche:index }
+    
+mind_site_get_domaine_ajax:
+  pattern: get-domaines-ajax/{id}
+  defaults: { _controller: MindSiteBundle:Domaine:getDomainesAjax }
+  methods: POST
+  
+
+        
+        
+

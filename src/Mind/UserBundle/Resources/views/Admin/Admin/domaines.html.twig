@@ -1,0 +1,23 @@
+{# empty Twig template #}
+
+{% extends "MindUserBundle:Admin:admin.html.twig" %}
+
+
+{% block admin_contenu %}
+
+{% if app.session.hasFlash('domaine-enregistre') %} 
+    <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        {{ app.session.flash('domaine-enregistre') }}
+        
+        {% if app.session.hasFlash('domaine-publie-ou-pas') %}
+        <div class="alert alert-message">{{ app.session.flash('domaine-publie-ou-pas') }}</div>
+        {% endif %}
+        
+    </div>
+{% endif %}
+
+{% include 'MindSiteBundle:Domaines:accordeon_domaine.html.twig' %}
+
+{% endblock admin_contenu %}
+

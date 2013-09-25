@@ -1,0 +1,12 @@
+/* 
+    Document   : mp
+    Created on : 18 août 2013, 01:45:39
+    Author     : root
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#nvMessage{
+    display: block;
+    margin-bottom: 10px;
+}

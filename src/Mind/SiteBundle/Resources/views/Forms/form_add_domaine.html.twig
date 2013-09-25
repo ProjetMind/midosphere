@@ -1,0 +1,28 @@
+{# empty Twig template #}
+
+<form class="" class="form-horizontal " action="{{path("mind_admin_domaine") }}" method="post">
+
+                {{ form_errors(form) }}
+
+                <div>
+                        {{ form_label(form.libelle) }}
+                        {{ form_widget(form.libelle) }}
+                        {{ form_errors(form.libelle) }}
+                </div>
+
+                <div>
+                        {{ form_label(form.etat) }}
+                        {{ form_widget(form.etat) }}
+                        {{ form_errors(form.etat) }}
+                </div>
+    
+                {{ form_widget(form.parent) }}
+    
+                
+                <div>
+                    <input class="btn btn-primary" type="submit" value="Ajoutez le domaine" />
+                </div>
+
+                {{ form_rest(form) }}
+            </form>
+

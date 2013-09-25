@@ -1,0 +1,27 @@
+## YAML Template.
+
+mind_site_domaine_afficher:
+    path:      /domaines
+    defaults:  { _controller: MindSiteBundle:Domaine:getListeDomainePage }
+ 
+mind_site_domaine_voir:
+    path:      /domaine/{slug}
+    defaults:  { _controller: MindSiteBundle:Domaine:voir }
+    requirements:
+        id:  \d+
+ 
+mind_site_domaine_ajouter:
+    path:      /domaine/ajouter
+    defaults:  { _controller: MindSiteBundle:Domaine:ajouter }
+ 
+mind_site_domaine_modifier:
+    path:      /domaine/modifier/{id}
+    defaults:  { _controller: MindSiteBundle:Domaine:modifier }
+    requirements:
+        id:  \d+
+ 
+mind_site_domaine_supprimer:
+    path:      /domaine/supprimer/{id}
+    defaults:  { _controller: MindSiteBundle:Domaine:supprimer }
+    requirements:
+        id:  \d+

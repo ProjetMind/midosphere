@@ -1,0 +1,104 @@
+{# empty Twig template #}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        {% if app.environment == "prod" %}
+           
+            <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" type="text/css" />
+            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"> </script>
+            <script type="text/javascript" src="http://malsup.github.com/jquery.form.js"></script>
+            <script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
+            
+        {% else %}
+            
+            {% stylesheets 
+                filter='lessphp, yui_css, cssrewrite'
+                '@MindSiteBundle/Resources/public/css/*'
+                '@MindMpBundle/Resources/public/css/*'
+                '../vendor/twitter/bootstrap/less/bootstrap.less'
+                '../vendor/twitter/bootstrap/less/responsive.less'
+                output='css/bootstrap.css'
+
+            %}    
+                <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+            {% endstylesheets %}
+                
+            {% javascripts 
+                filter='yui_js'
+                'http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js'
+                'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js'
+                'http://malsup.github.com/jquery.form.js'
+                '@MindUserBundle/Resources/public/js/*'
+                '@MindCommentaireBundle/Resources/public/js/*'
+                '@MindMpBundle/Resources/public/js/*'
+                '@MindMediaBundle/Resources/public/js/*'
+                '@MindSiteBundle/Resources/public/js/*'
+                'bundles/fosjsrouting/js/router.js'
+                '../vendor/twitter/bootstrap/js/*'
+                'js/fos_js_routes.js'
+            %}
+                <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+                
+         {% endif %}   
+ 
+        <title>{% block title %}Bienvenue sur le site Midosphere {% endblock %}</title>
+        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('bundles/mindsite/images/midosphere.ico') }}" />
+
+    </head>
+    
+    <body>
+        
+        <div class="container-fluid">
+
+            {% include '::header.html.twig' %}
+
+            <section id="corpsPrincipal" class="row-fluid">
+                
+                 {% include '::messageFlashBag.html.twig' %}
+                <section id="corps" class="span12 row-fluid">
+                    <section id="menuGauche" class="span3">
+                    {% block menuGauche %}
+                        {% include '::menu_profile.html.twig' %}
+                        {% include '::menuGauche.html.twig' %}
+                    {% endblock %}
+                    </section>
+                    
+                    <section id="corpsContenu" class="span9" >
+                    {% block body %}
+                        
+                        
+                            
+                            <div class="title">
+                                <h2>Bienvenue sur Midosphere</h2>
+                                <span class="byline">Où trouver et partager toutes sortes d'experiences</span> 
+                             </div>
+     
+                            {% include '::messageBienvenue.html.twig' %}
+                            {% render controller('MindSiteBundle:Avis:getAvis', {"page": 1, '_route': 'mind_site_avis_afficher_recent'}) %}
+                            
+                        
+                        
+                    {% endblock body %}
+                    </section>
+                    
+                </section>
+                <span class="span1" style="text-align: center"><a href="#" id="goUp"><i class="icon-arrow-up"></i></a></span>
+            </section>
+            
+            {% include '::footer.html.twig' %}
+
+        </div>
+        
+        <script type="text/javascript">
+        $('.carousel').carousel();
+        var bootstrapButton = $.fn.button.noConflict() // return $.fn.button to previously assigned value
+        $.fn.bootstrapBtn = bootstrapButton 
+    </script>
+    </body>
+       
+</html>

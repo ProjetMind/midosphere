@@ -1,0 +1,73 @@
+{# empty Twig template #}
+
+{% extends "MindSiteBundle::layout.html.twig" %}
+
+{% block sectionCorps %}
+
+        {% if lesAvis is defined %}
+
+            {% for unAvis in lesAvis %}
+                 <div class="media">
+
+                     {# HEADER AVIS #}
+                     <div class="media-heading">
+                         <h3>
+                             <a href="{{ path('mind_site_avis_voir', {"auteur": lesAuteurs[unAvis.id].slug, "slug": unAvis.slug }) }}"> {{ unAvis.avisTitre }} </a>
+                         </h3>
+                         <p class="">
+                             <span>Par {{ lesAuteurs[unAvis.id].profileLink|raw }} </span>
+                             <time datetime="{{ lesDates[unAvis.id].datePub }}">{{ lesDates[unAvis.id].message }}</time>    
+                          </p>
+                      </div>
+                     
+                     
+                         <section class="row-fluid infosElmt">
+                             
+                             {# Domaines #}
+                             <span class="span4">
+                                 <div class="media">
+                                     <a class="pull-left" href="#">
+                                        <img class="media-object" src="">
+                                    </a>
+
+                                     <div class="media-body">
+                                         <h5 class="media-heading">Domaines</h5>
+                                         <span class="">{{ lesDomaines[unAvis.id]|raw }}</span>
+                                     </div>
+                                 </div>
+                             </span>
+                             
+                            {# Vote #}     
+                            {% if is_granted('ROLE_USER') %}
+                                {% include 'MindMediaBundle:Vote:je_vote_avis.html.twig' %}
+                            {% endif %} 
+                        </section>
+                     
+                     
+                    <div class="media-body">
+                        
+                        {% include 'MindSiteBundle:Images:images_avis.html.twig' %}
+                           
+                        <p align="justify">
+                            {{ unAvis.avis }}
+                        </p>
+                         <p class="infosLigne2">
+                             <span><i class="icon-comment"></i>{{lesNbCom[unAvis.id]}} Comentaires</span>
+                         </p>
+                    </div>
+                    </div>
+                
+                {# Les commentaires #}
+                <div id="groupCommentaires">
+                    {% render controller('MindCommentaireBundle:CommentaireAvis:getCommentaireAvis', {'idAvis': unAvis.id}) %}
+                </div>
+            
+                <div class="formAddCommentaire">
+                    <input id="inputIdAvis" type="hidden" name="idAvis" value="{{ unAvis.id }}">
+                    {% render controller('MindCommentaireBundle:CommentaireAvis:addCommentaireAvis', {'idAvis': unAvis.id}) %}    
+                </div>
+        
+            {% endfor %}
+        {% endif%}
+        
+{% endblock %}

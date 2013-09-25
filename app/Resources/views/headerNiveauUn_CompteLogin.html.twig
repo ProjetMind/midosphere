@@ -1,0 +1,25 @@
+{# empty Twig template #}
+
+    {# FORM HEADER CONNEXION #}
+    <div id="headerConnexion" class="navbar-search pull-right" >
+        
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        
+            {# Connecté #}
+            {% include '::headerNiveauUnMenuRight.html.twig' %}
+            
+        
+        {% elseif app.request.get('_route') != "fos_user_security_login" %}
+        
+        {# Non conecté  #}
+        
+        <a href="#formHeaderConnexion" role="button" class="btn btn-success" data-toggle="modal">Connexion</a>
+        <a href="{{ path("fos_user_registration_register") }}" class="btn">Inscription</a>
+
+        <!-- Modal -->
+        {% render controller('FOSUserBundle:Security:login') %}
+                
+    {% endif %}
+        
+    </div>
+             

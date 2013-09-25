@@ -1,0 +1,24 @@
+{# empty Twig template #}
+
+{% if success is defined %}
+    <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        {{ success }}
+    </div>
+{% endif %}
+
+    
+    <div class="row-fluid">
+
+        <div class="row-fluid">
+            <span class="span2 offset1">Pays :</span>
+            <span class=" span3 offset2">{{ user.pays }}</span>
+        </div>
+
+        <div class="row-fluid">
+            <span class="span2 offset1">Ville :</span>
+            <span class="span3 offset2">{{ user.ville }}</span>
+        </div>   
+
+    </div>
+    

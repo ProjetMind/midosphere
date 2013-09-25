@@ -1,0 +1,19 @@
+{# empty Twig template #}
+        
+{# Menu #}
+{{ knp_menu_render('MindSiteBundle:Menu:getMenuMenu', {'currentClass': 'active'}) }}
+
+{% if is_granted('ROLE_USER') %}
+    {% set menuMesPublications = knp_menu_get('MindUserBundle:Menu:getMenuMesPublications', [], {'currentClass': 'active', 'slug': app.user.slug}) %}
+    {{ knp_menu_render(menuMesPublications) }}
+{% endif %}
+
+
+{# Listener/Historique #}
+{% if is_granted('ROLE_USER') %}
+  
+        {% set menuListener = knp_menu_get('MindUserBundle:Menu:getMenuListener', [], {'currentClass': 'active', 'slug': app.user.slug}) %}
+        {{ knp_menu_render(menuListener) }}
+    
+{% endif %}
+        

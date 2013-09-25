@@ -1,0 +1,30 @@
+{# empty Twig template #}
+
+<section class="row-fluid" id="headerNiveauUn">
+
+    
+    
+            {# NOM DU SITE #}
+<span class="span6" style= "margin-left: 15px;">
+    <a href="#">
+               <img src="{{ asset('bundles/mindsite/images/templatemo_logo.png') }}" alt=""/>
+    </a>
+             </span>
+			 <span class="span2"></span>
+
+            <span class="span3 " id="recherche" style="padding-top:10px">
+                {# Header FORM SEARCH #} 
+                <div id="headerSearch">
+                    <form id="formHeaderSearch" class="form-inline" method="POST" action="{{ path('mind_site_recherche') }}">
+                        <div class="input-append">
+                            <input id="appendedInput" class="input-xlarge" type="search" name="headerSearch" placeholder="Sujet, Domaine..." />
+                            <button class="btn btn-primary" type="submit" >Rechercher</button>
+                        </div>
+                    </form>
+                </div>
+            </span>
+
+    
+    
+            
+</section>

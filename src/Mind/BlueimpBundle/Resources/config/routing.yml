@@ -1,0 +1,5 @@
+mind_blueimp_index:
+    pattern:  /handler
+    defaults: { _controller: MindBlueimpBundle:Index:index }
+    options:
+      expose: true

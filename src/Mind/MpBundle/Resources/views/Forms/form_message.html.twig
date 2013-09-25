@@ -1,0 +1,19 @@
+{# empty Twig template #}
+
+<form id="formNouveauMessage" action="{{ path('mind_message_nouveau', {'idConversation': idConversationForForm}) }}" class="form-horizontal" method="POST" {{ form_enctype(form) }}>
+    
+    {{ form_errors(form) }}
+    
+    <div>
+            {{ form_label(form.contenuMessage) }}
+            {{ form_widget(form.contenuMessage) }}
+            {{ form_errors(form.contenuMessage) }}
+    </div>
+    
+    <div style="margin-top: 50px;">
+        <input id="btnSendMp" type="submit" class="btn btn-primary" value="Envoyer">
+    </div>
+
+    {{ form_rest(form) }}
+    
+</form>

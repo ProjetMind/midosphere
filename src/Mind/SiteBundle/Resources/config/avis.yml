@@ -1,0 +1,53 @@
+## YAML Template.
+
+mind_site_avis_ajouter:
+    path:      /avis/ajouter-un-avis
+    defaults:  { _controller: MindSiteBundle:Avis:ajouter }
+ 
+mind_site_avis_voir:
+    path:      /{auteur}/avis/{slug}
+    defaults:  { _controller: MindSiteBundle:Avis:voir }
+ 
+mind_site_avis_modifier:
+    path:      /avis/modifier-mon-avis/{idAvis}
+    defaults:  { _controller: MindSiteBundle:Avis:modifier }
+    requirements:
+        id:  \d+
+ 
+mind_site_avis_supprimer:
+    path:      /avis/supprimer-mon-avis/{idAvis}
+    defaults:  { _controller: MindSiteBundle:Avis:supprimer }
+    requirements:
+        id:  \d+
+        
+#Affichage
+
+#Tous les avis
+mind_site_avis_afficher:
+  path: /avis/tous-les-avis/{page}
+  defaults:  { _controller: MindSiteBundle:Avis:index, page: 1 }
+  
+#les avis les plus récent
+mind_site_avis_afficher_recent:
+    path:      /avis/les-avis-publies-recements/{page}
+    defaults:  { _controller: MindSiteBundle:Avis:index, page: 1 }
+    requirements:
+        page:  \d*
+        
+#Les avis les plus anciens
+mind_site_avis_afficher_anciens:
+  pattern: /avis/les-avis-les-plus-anciens/{page}
+  defaults:  { _controller: MindSiteBundle:Avis:index, page: 1 }
+  
+#Les avis les plus notés
+mind_site_avis_afficher_plus_note:
+  pattern: /avis/les-avis-les-plus-note/{page}
+  defaults:  { _controller: MindSiteBundle:Avis:index, page: 1 }
+
+#Les avis les plus commenté
+mind_site_avis_afficher_plus_commente:
+  pattern: /avis/les-avis-les-plus-commenté/{page}
+  defaults:  { _controller: MindSiteBundle:Avis:index, page: 1 }
+  
+  
+  

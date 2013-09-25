@@ -1,0 +1,11 @@
+{# empty Twig template #}
+
+{% extends "MindSiteBundle::layout.html.twig" %}
+
+{% block title %}Les domaines {% endblock %}
+
+{% block sectionCorps %}
+
+        {% render controller('MindSiteBundle:Domaine:getListeDomaineWithJustLink') %}
+                         
+{% endblock %}

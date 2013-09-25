@@ -1,0 +1,11 @@
+{# empty Twig template #}
+
+{% extends "MindSiteBundle::layout.html.twig" %}
+
+{% block sectionCorps %}
+
+    {% include 'MindSiteBundle:Avis:affichage_avis.html.twig' %}
+    {% render controller('MindSiteBundle:Avis:getAvis', {"page": 1, '_route': routeName }) %}
+
+{% endblock %}
+

@@ -1,0 +1,31 @@
+mind_media_opinion_vote_avis:
+  pattern: /vote/avis/je-vote/{idAvis}/{typeOpinion}
+  defaults: { _controller: MindMediaBundle:Vote:jeVoteAvis }
+  
+mind_media_opinion_supprime_vote_avis:
+  pattern: /vote/avis/supprime/{idAvis}
+  defaults: { _controller: MindMediaBundle:Vote:supprimerVote }
+  
+  
+mind_media_opinion_vote_question:
+  pattern: /vote/question/je-vote/{idQuestion}/{typeOpinion}
+  defaults: { _controller: MindMediaBundle:VoteQuestion:jeVoteQuestion }
+  
+mind_media_opinion_supprime_vote_question:
+  pattern: /vote/question/supprime/{idQuestion}
+  defaults: { _controller: MindMediaBundle:VoteQuestion:supprimerVote }
+  
+# Abonnement 
+mind_media_abonnement:
+  pattern: /abonnement/user/{idUser}
+  defaults: { _controller: MindMediaBundle:Abonnement:abonnement }
+  options:
+    expose: true
+    
+mind_media_abonnement_domaine:
+  pattern: /abonnement/domaine/{idUser}/{idDuDomaine}
+  defaults: { _controller: MindMediaBundle:Abonnement:abonnementDomaine }
+  options:
+    expose: true
+    
+#Suivis 

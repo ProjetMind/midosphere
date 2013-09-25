@@ -1,0 +1,44 @@
+
+{% set idAuteur = auteur[0].id %}
+
+{% if is_granted('ROLE_USER') %}
+
+    <form id="formAbonnement" action="{{ path('mind_media_abonnement', {'idUser': idAuteur }) }}" method="POST" class="form-horizontal">
+
+        {% render controller('MindMediaBundle:Abonnement:Abonnement', {'idUser': idAuteur }) %}
+
+    </form>
+
+{% endif %}
+
+
+{% for unAuteur in auteur %}
+        <div class="">
+            <h3 class="">Profile</h3>
+            <p>Pseudo : {{ unAuteur.username }}</p>
+            <p>Description : {{ unAuteur.descripUser }}</p>
+        </div>
+{% endfor %}
+
+{% if is_granted('ROLE_USER') %}
+
+    <div id="les-suivis">
+        {% render controller('MindUserBundle:Profile:getSuivisAvis', {'idUser': idAuteur }) %}
+    </div>
+
+
+    <div id="les-abonnements">
+        {% render controller('MindUserBundle:Profile:getSuivisQuestions', {'idUser': idAuteur }) %}
+    </div>
+
+{% endif %}
+
+<div class="">
+    {% set idAuteur = auteur[0].id %}
+    
+    {% render controller('MindSiteBundle:Avis:getAvis', { '_route': 'get_avis_by_auteur', 'idAuteur': idAuteur }) %}
+</div>
+
+<div class="">
+    {% render controller('MindSiteBundle:Question:getQuestions', { '_route': 'get_questions_by_auteur', 'idAuteur': idAuteur }) %}
+</div>

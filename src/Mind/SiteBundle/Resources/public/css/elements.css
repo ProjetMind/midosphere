@@ -1,0 +1,35 @@
+/* 
+    Document   : elements
+    Created on : 31 juil. 2013, 00:16:14
+    Author     : root
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/*******************************************************************************
+*Block infos sur les avis et question
+********************************************************************************/
+
+.infosElmt{
+    border: solid 1px #BBBBBB;
+    padding: 5px;
+}
+
+.infosElmt .media, .infosElmt h5.media-heading {
+   
+}
+
+.infosElmt .pull-left .media-object{
+    height: 46px;
+    width: 46px;
+    background-color: #BBBBBB;
+}
+
+.slideElmts{
+    height: 500px;
+}
+
+.slideElmts img{
+    margin: 0 auto 0 auto;
+    display: block;
+}

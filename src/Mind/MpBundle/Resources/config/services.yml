@@ -1,0 +1,7 @@
+parameters:
+    mind_mp.messagerie.class: Mind\MpBundle\Messagerie
+
+services:
+    mind_mp.messagerie:
+        class: %mind_mp.messagerie.class%
+        arguments: ["@doctrine", "@router", "@mind_site.date.formatage", "@security.context"]

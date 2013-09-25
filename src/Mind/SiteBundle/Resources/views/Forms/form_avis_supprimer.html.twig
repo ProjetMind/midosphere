@@ -1,0 +1,18 @@
+{# empty Twig template #}
+{% if is_granted('ROLE_USER') %}
+    {% set idUserCourant = app.user.id %}
+{% endif %}
+
+{% if is_granted('ROLE_USER') and idUserCourant == unAvis.avisAuteur %}
+    <form id="form{{unAvis.id}}" action="{{ path('mind_site_avis_supprimer', {'idAvis': unAvis.id}) }}" method="post" class="formSupprimer">
+        <a href="{{ path('mind_site_avis_modifier', {'idAvis': unAvis.id}) }}" style="padding: 0; margin: 0" class="btn">Modifier</a>    
+        <input type="hidden" name="idAvis" value="{{unAvis.id}}"/>
+        {% if pageType is defined and pageType == "supprimer_entity" %}
+        <input onclick="supprimer({{unAvis.id}})" style="padding: 0; margin: 0" type="submit" name="supprimerAvis" value="Supprimer"/>
+        {% endif %}
+
+        {% if pageType is defined and pageType == "supprimer_suivis" %}
+            <input onclick="supprimer({{unAvis.id}})" style="padding: 0; margin: 0" type="submit" name="supprimerSuivis" value="Supprimer le suivis"/>
+        {% endif %}
+    </form>
+{% endif %}

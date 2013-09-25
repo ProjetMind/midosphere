@@ -1,0 +1,19 @@
+{% extends "MindUserBundle::layout.html.twig" %}
+
+{% block menuUser %}
+    
+        {% include '::menuGauche.html.twig' %}
+    
+{% endblock %}
+
+{% if app.security.token.authenticated('IS_AUTHENTICATED_ANONYMOUSLY') %}
+
+{% block sectionCorps %}
+
+    {% block fos_user_content %}
+        {% include "FOSUserBundle:Registration:register_content.html.twig" %}
+    {% endblock fos_user_content %}
+
+{% endblock %}
+
+{% endif %}

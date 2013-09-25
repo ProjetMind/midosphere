@@ -1,0 +1,26 @@
+{# empty Twig template #}
+
+{# include 'MindSiteBundle:Domaines:listeDomaine.html.twig' #}
+
+<div class="accordion" id="accordion0">
+    
+{{ listeDomaines|raw }}
+
+    <div class="accordion-group">
+
+        <div class="accordion-heading">
+            <a href="#" style="display: inline-block">
+                Ajouter un domaine
+                <span class="accordion-toggles icon-plus" data-toggle="collapse" data-parent="#accordion0" href="#ajouter">                  
+                </span>
+            </a>
+        </div>
+        
+        <div id="ajouter" class="accordion-body collapse">
+            <div class="accordion-inner">
+                {% include 'MindSiteBundle:Forms:form_add_domaine.html.twig' %}
+            </div>
+        </div>
+        
+    </div>
+</div>

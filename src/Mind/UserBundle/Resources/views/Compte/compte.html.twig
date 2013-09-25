@@ -1,0 +1,17 @@
+{# empty Twig template #}
+
+{% extends "MindUserBundle::layout.html.twig" %}
+
+{% block menuUser %}
+
+        {% include '::menu_profile.html.twig'%}
+        {{ knp_menu_render('MindUserBundle:Menu:getMenuCompte', {'currentClass': 'active'}) }}
+
+{% endblock %}
+
+{% block sectionCorps %}
+
+        {% render controller('MindUserBundle:Compte:getCompte', {'_route': routeName }) %}
+
+{% endblock %}
+

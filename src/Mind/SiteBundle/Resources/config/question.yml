@@ -1,0 +1,52 @@
+## YAML Template.
+
+mind_site_question_voir:
+    path:      /{auteur}/question/{slug}
+    defaults:  { _controller: MindSiteBundle:Question:voir }
+ 
+mind_site_question_ajouter:
+    path:      /question/ajouter-une-question
+    defaults:  { _controller: MindSiteBundle:Question:ajouter }
+ 
+mind_site_question_modifier:
+    path:      /question/modifier/{id}
+    defaults:  { _controller: MindSiteBundle:Question:modifier }
+    requirements:
+        id:  \d+
+ 
+mind_site_question_supprimer:
+    path:      /question/supprimer/{idQuestion}
+    defaults:  { _controller: MindSiteBundle:Question:supprimer }
+    requirements:
+        id:  \d+
+        
+#Affichage 
+
+#Tous les avis
+mind_site_question_afficher:
+    path:      /questions/toutes-les-questions/{page}
+    defaults:  { _controller: MindSiteBundle:Question:index, page: 1 }
+    requirements:
+        page:  \d*
+     
+#Les plus récents
+mind_site_question_afficher_recent:
+    path:      /questions/les-questions-publiees-recements/{page}
+    defaults:  { _controller: MindSiteBundle:Question:index, page: 1 }
+    requirements:
+        page:  \d*
+
+#Les plus anciens
+mind_site_question_afficher_anciens:
+  pattern: /questions/les-question-les-plus-anciens/{page}
+  defaults:  { _controller: MindSiteBundle:Question:index, page: 1 }
+  
+#Les plus notés
+mind_site_question_afficher_plus_note:
+  pattern: /questions/les-question-les-plus-note/{page}
+  defaults:  { _controller: MindSiteBundle:Question:index, page: 1 }
+
+#Les question les plus commenté
+mind_site_question_afficher_plus_commente:
+  pattern: /questions/les-question-les-plus-commenté/{page}
+  defaults:  { _controller: MindSiteBundle:Question:index, page: 1 }

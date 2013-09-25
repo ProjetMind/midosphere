@@ -1,0 +1,129 @@
+/* 
+    Document   : header
+    Created on : 14 juin 2013, 13:00:17
+    Author     : FBI
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/*
+--------------------------------------------------------------------------------
+Header 
+--------------------------------------------------------------------------------
+*/
+#recherche{
+ padding-top: 10px;
+margin-left: 15px;
+margin-top: 12px;
+}
+#recherche{
+    margin-left: 0px
+}
+
+header div, header form{
+    padding: 0px;
+    margin: 0px;
+}
+
+#headerNomSite, #headerSearch
+{
+    color: #FFF;
+	
+}
+
+/*
+--------------------------------------------------------------------------------
+Header niveau 1
+--------------------------------------------------------------------------------
+*/
+#headerNiveauUn
+{
+    background-color:#3b5998;
+	border-radius: 5px 5px 5px 5px;
+        color: white;
+	padding: 10px 0px;
+	margin-bottom: 10px;
+}
+
+#headerMenuCompte{
+    text-align: right;
+}
+
+#headermenuCompte .dropdown-menu{
+    position: absolute;
+    right: 0px;
+}
+
+/*
+--------------------------------------------------------------------------------
+Header niveau 1 form login
+--------------------------------------------------------------------------------
+*/
+
+header #formHeaderConnexion{
+    float: right;
+}
+
+#formHeaderConnexion div input{
+}
+
+header form div
+{
+    display: inline-block;
+}
+
+/*
+--------------------------------------------------------------------------------
+Header niveau 1 form login
+--------------------------------------------------------------------------------
+*/
+
+/*
+--------------------------------------------------------------------------------
+Header niveau 1 notification
+--------------------------------------------------------------------------------
+*/
+
+#notification, #notification .dropdown, #notification .notificationTop ul li{
+    display: inline-block;
+}
+
+#notification .dropdown .dropdown-menu .media{
+    width: 400px;
+}
+
+#notification .media-heading{
+    font-weight: bold;
+}
+
+#notification .contenuNotification{
+    color: #BBBBBB;
+}
+
+#headerConnexion a {
+   margin-top: 0px
+}
+
+#headerConnexion #compte{
+    float: right;
+}
+
+#notification .notificationTop ul li a{
+    color: #FFF;
+}
+
+.dropdown-menu {
+    right:0 ;
+}
+/*
+--------------------------------------------------------------------------------
+Header niveau 2
+--------------------------------------------------------------------------------
+*/
+
+ #headerNiveauDeux{
+    background-color: white;
+}
+#HeaderNiveauDeux a{
+    cursor: pointer;
+}

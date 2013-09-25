@@ -1,0 +1,18 @@
+{# empty Twig template #}
+
+{% if is_granted('ROLE_USER') %}
+    {% set idUserCourant = app.user.id %}
+{% endif %}
+
+{% if is_granted('ROLE_USER') and idUserCourant == uneQuestion.questionAuteur %}
+    <form id="form{{uneQuestion.id}}" action="{{ path('mind_site_question_supprimer', {'idQuestion': uneQuestion.id}) }}" method="post" class="formSupprimer">
+        <input type="hidden" name="idQuestion" value="{{uneQuestion.id}}"/>
+        {% if pageType is defined and pageType == "supprimer_entity" %}
+        <input onclick="supprimer({{uneQuestion.id}})" style="padding: 0; margin: 0" type="submit" name="supprimerQuestion" value="Supprimer"/>
+        {% endif %}
+
+        {% if pageType is defined and pageType == "supprimer_suivis" %}
+            <input onclick="supprimer({{uneQuestion.id}})" style="padding: 0; margin: 0" type="submit" name="supprimerSuivis" value="Supprimer le suivis"/>
+        {% endif %}
+    </form>
+{% endif %}

@@ -1,0 +1,119 @@
+
+
+<section id="formInscription" class="row-fluid">
+    
+    <h1>Bienvenue chez Mind</h1>
+    <!--<span class="span6">
+    
+        <div class="media">
+                    <a class="pull-left" href="#">
+                        <img style="width:225px; height: 228px;" class="media-object" data-src="" />
+                    </a>
+                    <div class="media-body">
+                        <p class="media-heading">
+                            <h3>Mind, c'est une grande communauté</h3>
+                        </p>
+
+                        <p class="contenuNotification">
+                            bla bla dd df fjekrj erjf er rlkf e sfkl kjfkdj vdfk njdkfnvkdf nfkvnjdkfjvd
+                            dflkvldfkv dflk,dlfkv dlfklvmdflvm dfklm v dfmvldm flvm dfvmdmv dfvl,dmfvlmd
+                            zfezkf zehe pzepogrtjgijf  oioerifrupezfoi pjoergper joer
+                        </p>
+                    </div>
+         </div>
+        
+        <div class="media">
+                    <a class="pull-left" href="#">
+                        <img style="width:225px; height: 228px;" class="media-object" data-src="" />
+                    </a>
+                    <div class="media-body">
+                        <p class="media-heading">
+                            <h3>des milions d'avis en un clic</h3>
+                        </p>
+
+                        <p class="contenuNotification">
+                            bla bla dd df fjekrj erjf er rlkf e sfkl kjfkdj vdfk njdkfnvkdf nfkvnjdkfjvd
+                            dflkvldfkv dflk,dlfkv dlfklvmdflvm dfklm v dfmvldm flvm dfvmdmv dfvl,dmfvlmd
+                            zfezkf zehe pzepogrtjgijf  oioerifrupezfoi pjoergper joer
+                        </p>
+                    </div>
+         </div>
+        
+        <div class="media">
+                    <a class="pull-left" href="#">
+                        <img style="width:225px; height: 228px;" class="media-object" data-src="" />
+                    </a>
+                    <div class="media-body">
+                        <p class="media-heading">
+                            <h3>Dénichez les escros et ne vous fatites plus avoir</h3>
+                        </p>
+
+                        <p class="contenuNotification">
+                            bla bla dd df fjekrj erjf er rlkf e sfkl kjfkdj vdfk njdkfnvkdf nfkvnjdkfjvd
+                            dflkvldfkv dflk,dlfkv dlfklvmdflvm dfklm v dfmvldm flvm dfvmdmv dfvl,dmfvlmd
+                            zfezkf zehe pzepogrtjgijf  oioerifrupezfoi pjoergper joer
+                        </p>
+                    </div>
+         </div>
+                        
+    </span>-->
+    
+    <span class="formSpan" class="span6">
+        
+        <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal">
+            
+            <fieldset>
+                <legend class="btn-primary">Inscription</legend>
+                {{ form_errors(form) }}
+                <div>
+                    {{ form_label(form.username) }}
+                    {{ form_widget(form.username) }}
+                    {{ form_errors(form.username) }}
+                </div>
+                    
+                <div class="selectDateNaissance">
+                    {{ form_label(form.dateNaissance) }}
+                    {{ form_widget(form.dateNaissance) }}
+                    {{ form_errors(form.dateNaissance) }}
+                </div>
+                
+                <div>
+                    {{ form_widget(form.email) }}
+                    {{ form_errors(form.email) }}
+                </div>
+                
+                <div>
+                    {{ form_widget(form.plainPassword) }}
+                    {{ form_errors(form.plainPassword) }}
+                </div>
+                
+                <div class="selectPays">
+                    {{ form_label(form.pays) }}
+                    {{ form_widget(form.pays) }}
+                    {{ form_errors(form.pays) }}
+                </div>
+                
+                <div class="radioSexe">
+                    {{ form_label(form.sexe) }}
+                    {{ form_widget(form.sexe) }}
+                    {{ form_errors(form.sexe) }}
+                </div>
+                
+                <div>
+                    {{ form_label(form.cdtGenerales) }}
+                    {{ form_widget(form.cdtGenerales) }}
+                    {{ form_errors(form.cdtGenerales) }}
+                </div>
+                
+                <div>
+                    <input class="btn btn-primary" type="submit" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" />
+                </div>
+                
+            </fieldset> 
+            
+            {{ form_rest(form) }}
+        </form>
+ 
+ </span>
+
+        </section>

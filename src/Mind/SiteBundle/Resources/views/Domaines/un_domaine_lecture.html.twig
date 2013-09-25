@@ -1,0 +1,27 @@
+{# empty Twig template #}
+
+{% extends "MindSiteBundle::layout.html.twig" %}
+
+{% block sectionCorps %}
+
+{% if is_granted('ROLE_USER') %}
+{% set idUserCourant = app.user.id %}
+<form id="formAbonnement" action="{{ path('mind_media_abonnement_domaine', {'idUser': idUserCourant, 'idDuDomaine': leDomaine.id }) }}" method="POST" class="form-horizontal">
+   
+    {% render controller('MindMediaBundle:Abonnement:abonnementDomaine', {'idUser': idUserCourant, 'idDuDomaine': leDomaine.id }) %}
+       
+</form>
+{% endif %}
+
+<h3>
+    <a href="{{ path('mind_site_domaine_voir', {'slug': leDomaine.slug}) }}">{{ leDomaine.libelle }}</a>
+</h3>
+
+<div>
+    {% render controller('MindSiteBundle:Avis:getAvis', {'_route': 'mind_site_domaine_voir', 'idAuteur': leDomaine.id}) %}
+</div>
+
+<div>
+    {% render controller('MindSiteBundle:Question:getQuestions', { '_route': 'mind_site_domaine_voir', 'idAuteur': leDomaine.id }) %}
+</div>
+{% endblock %}

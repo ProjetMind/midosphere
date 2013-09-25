@@ -1,0 +1,21 @@
+
+{% extends "::layout.html.twig" %}
+
+{% if is_granted('ROLE_USER') %}
+
+{% block menuGauche %}
+        
+            <a id="nvMessage" href="{{ path('mind_message_nouveau_conversation') }}" class="btn btn-info">Nouveau message</a>
+            
+            {{ knp_menu_render('MindMpBundle:Menu:getMenuGaucheMp', {'currentClass': 'active'}) }}
+            
+{% endblock %}
+
+{% block body %}
+    
+        {% block sectionCorps %}
+            corps BDR
+        {% endblock %}
+{% endblock %}
+            
+ {% endif %}

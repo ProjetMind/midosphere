@@ -1,0 +1,27 @@
+{# empty Twig template #}
+
+
+{% set imagesEntity = images[unAvis.id] %}
+{% set activeItem = "active" %}
+
+{% if imagesEntity is empty %}
+{% else %}
+<div id="imagesCarousel" class="carousel slide slideElmts">
+
+    <div class="carousel-inner">
+        
+        <!-- Carousel items -->
+        {% for image in imagesEntity %}
+            <div class="item slideItem {{ activeItem }}"><img src="{{ asset(image.path) }}" /></div>
+            {% set activeItem = "" %}
+        {% endfor %}
+                
+    </div>   
+    
+    <!-- Carousel nav -->
+    <a class="carousel-control left" href="#imagesCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#imagesCarousel" data-slide="next">&rsaquo;</a>
+        
+</div>
+     
+{% endif %}

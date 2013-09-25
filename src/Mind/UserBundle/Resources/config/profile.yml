@@ -1,0 +1,17 @@
+## Profile
+
+mind_user_profile_voir:
+  pattern: /{slug}
+  defaults: { _controller: MindUserBundle:Profile:index }
+  
+mind_user_profile_voir_avis:
+  pattern: /{slug}/avis
+  defaults: { _controller: MindUserBundle:Profile:voirAvis }
+  
+mind_user_profile_voir_question:
+  pattern: /{slug}/questions
+  defaults: { _controller: MindUserBundle:Profile:voirQuestion }
+  
+mind_user_profile_voir_domaine:
+  pattern: /{slug}/domaines
+  defaults: { _controller: MindUserBundle:Profile:voir }

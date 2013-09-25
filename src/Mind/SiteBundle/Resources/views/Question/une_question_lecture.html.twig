@@ -1,0 +1,71 @@
+{# empty Twig template #}
+
+
+{% extends "MindSiteBundle::layout.html.twig" %}
+
+{% block sectionCorps %}
+
+        {% if lesQuestions is defined %}
+
+            {% for uneQuestion in lesQuestions %}
+                 <div class="media">
+
+                     {# HEADER Question #}
+                     <div class="media-heading">
+                         <h3>
+                             <a href="{{ path('mind_site_question_voir', {"auteur": lesAuteurs[uneQuestion.id].slug, "slug": uneQuestion.slug }) }}"> {{ uneQuestion.questionTitre }} </a>
+                         </h3>
+                         <p class="">
+                             <span>Par {{ lesAuteurs[uneQuestion.id].profileLink|raw }}  </span>
+                             <time datetime="{{ lesDates[uneQuestion.id].datePub }}">{{ lesDates[uneQuestion.id].message }}</time>    
+                          </p>
+                      </div>
+                     
+                         
+                         <section class="row-fluid infosElmt">
+                             
+                             {# Domaines #}
+                             <span class="span4">
+                                 <div class="media">
+                                     <a class="pull-left" href="#">
+                                        <img class="media-object" src="">
+                                    </a>
+
+                                     <div class="media-body">
+                                         <h5 class="media-heading">Domaines</h5>
+                                         <span class="">{{ lesDomaines[uneQuestion.id]|raw }}</span>
+                                     </div>
+                                 </div>
+                             </span>
+                             
+                            {# Vote #} 
+                            {% include 'MindMediaBundle:Vote:je_vote_question.html.twig' %}
+                             
+                        </section>
+                     </ul>
+                     
+                    <div class="media-body">
+                        <p align="justify">
+                            {{ uneQuestion.question }}
+                        </p>
+                         <p class="infosLigne2">
+                             <span><i class="icon-comment"></i>{{ lesNbCom[uneQuestion.id] }} Comentaires</span>
+                         </p>
+                    </div>
+                    </div>
+
+                {# Les commentaires #}
+                <div id="groupCommentaires">
+                    {% render controller('MindCommentaireBundle:CommentaireQuestion:getCommentaireQuestion', {'idQuestion': uneQuestion.id}) %}
+                </div>
+            
+                <div class="formAddCommentaire">
+                    <input type="hidden" name="idQuestion" value="{{ uneQuestion.id }}">
+                    {% render controller('MindCommentaireBundle:CommentaireQuestion:addCommentaireQuestion', {'idQuestion': uneQuestion.id}) %}    
+                </div>
+        
+            {% endfor %}
+        
+        {% endif%}
+
+{% endblock %}

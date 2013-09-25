@@ -1,0 +1,70 @@
+jms_security_extra:
+    secure_all_services: false
+    expressions: true
+
+security:
+    encoders:
+        #Symfony\Component\Security\Core\User\User: plaintext
+        Mind\UserBundle\Entity\User: sha512
+
+    role_hierarchy:
+        ROLE_ADMIN:       [ROLE_USER, ROLE_MODERATEUR]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+      main:
+        id: fos_user.user_provider.username_email
+#        in_memory:
+#            memory:
+#                users:
+#                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
+#                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main_login:
+        # Cette expression régulière permet de prendre /login (mais pas /login_check !)
+            pattern:   ^/connexion$
+            anonymous: true
+        main:
+            pattern: ^/
+            anonymous: true
+            provider: main
+            form_login:
+              login_path: fos_user_security_login
+              check_path: fos_user_security_check
+            logout:
+              path: /logout
+              target: /
+              invalidate_session: false
+            remember_me:
+              key: %secret%
+#        login:
+#            pattern:  ^/demo/secured/login$
+#            security: false
+#
+#        secured_area:
+#            pattern:    ^/demo/secured/
+#            form_login:
+#                check_path: _security_check
+#                login_path: _demo_login
+#            logout:
+#                path:   _demo_logout
+#                target: _demo
+            #anonymous: ~
+            #http_basic:
+            #    realm: "Secured Demo Area"
+
+    access_control:
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/connexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        #- { path: ^/inscription, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/avis/ajouter-un-avis, role: ROLE_USER }
+        - { path: ^/question/ajouter-une-question, role: ROLE_USER }
+        - { path: ^/messagerie, role: ROLE_USER }
+        - { path: ^/compte, role: ROLE_USER }
+        - { path: ^/avis/commentaire/ajouter-un-commentaire/*, role: ROLE_USER }
+        - { path: ^/question/commentaire/ajouter-un-commentaire/*, role: USER_ROLE }

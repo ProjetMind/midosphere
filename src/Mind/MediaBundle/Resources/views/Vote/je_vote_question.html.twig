@@ -1,0 +1,46 @@
+{# empty Twig template #}
+
+{# Moyenne #}
+<span class="span4">
+ <div class="media">
+     <a class="pull-left" href="#">
+        <img class="media-object" src="">
+    </a>
+
+     <div class="media-body">
+         <h5 class="media-heading">Les votes</h5>
+         <span class="btn-group">
+             <button class="btn btn-mini">{{ 'thumbs-up'|icon }}{{ lesVotes[uneQuestion.id].nbVotePositif }} </button>
+             <button class="btn btn-mini">{{ 'resize-horizontal'|icon }} {{ lesVotes[uneQuestion.id].nbVoteMitige }}</button>
+             <button class="btn btn-mini">{{ 'thumbs-down'|icon }} {{ lesVotes[uneQuestion.id].nbVoteNegatif }}</button>
+         </span>
+     </div>
+ </div>
+</span>
+
+{# Je vote #}
+<span class="span4">
+ <div class="media">
+     <a class="pull-left" href="#">
+        <img class="media-object" src="">
+    </a>
+
+     <div class="media-body">
+         <h5 class="media-heading">Je vote</h5>
+         <span id="groupVote" class="btn-group">
+             {% if aDejaVote == true %}
+                <span id="jeSupprime">
+                    <a class="btn btn-success" href="{{ path('mind_media_opinion_supprime_vote_question', {'idQuestion': uneQuestion.id }) }}">{{ 'remove'|icon }}</a>
+                </span>
+             {% else %}
+                 <span id="jeVote">
+                    <a class="btn btn-small" href="{{ path('mind_media_opinion_vote_question', {'idQuestion': uneQuestion.id, 'typeOpinion': 1}) }}">{{ 'thumbs-up'|icon }}</a>
+                    <a class="btn btn-small" href="{{ path('mind_media_opinion_vote_question', {'idQuestion': uneQuestion.id, 'typeOpinion': 2}) }}">{{ 'resize-horizontal'|icon }}</a>
+                    <a class="btn btn-small" href="{{ path('mind_media_opinion_vote_question', {'idQuestion': uneQuestion.id, 'typeOpinion': 3}) }}">{{ 'thumbs-down'|icon }}</a>
+                </span>
+             {% endif %}
+         </span>
+     </div>
+ </div>
+</span>
+

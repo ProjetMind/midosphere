@@ -1,0 +1,26 @@
+{# empty Twig template #}
+
+{% if is_granted('ROLE_USER') %}
+
+<form id="formAddCommentaireAvis" action="{{ path('mind_commentaire_add_com_pour_avis', {'idAvis': idAvis }) }}" class="form-horizontal" method="POST">
+
+    <div>
+        {{ form_label(form.commentaire) }}
+        {{ form_widget(form.commentaire) }}
+        {{ form_errors(form.commentaire) }}
+    </div>
+    
+    <div>
+        <input type="submit" class="btn btn-primary" value="Ajouter">
+    </div>
+    {{ form_rest(form) }}
+
+</form>
+
+{% else %}
+    
+    <div class="alert-warning">Vous devez être connecté pour poster des commentaires. </div>
+    <a href="{{ path('fos_user_security_login') }}" class="btn btn-success">Connexion</a>
+    <a href="{{ path("fos_user_registration_register") }}" class="btn">Inscription</a>
+    
+{% endif %}

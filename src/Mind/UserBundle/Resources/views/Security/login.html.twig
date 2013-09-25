@@ -1,0 +1,36 @@
+{% block fos_user_content %}
+
+<div id="formHeaderConnexion" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <div class="modal-body">
+        
+        {% if error %}
+            <div class="alert alert-error">{{ error|trans({}, 'FOSUserBundle') }}</div>
+        {% endif %}
+
+        <form class="form-horizontal" action="{{ path("fos_user_security_check") }}" method="post">
+
+            <div>
+                <input name="_username" required="required" placeholder="Email" class="input-medium" type="email" value="{{ last_username }}" />
+                <input name="_password" required="required" placeholder="Password" class="input-medium" type="password" />
+            </div>
+
+            <div>
+                <label style="width: 260px; display: inline-block;" for="_remember_me" class="checkbox required">
+                    <input  id="_remember_me" name="_remember_me" value="on" type="checkbox" />Se souvenir de moi
+                </label>
+                <a href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié</a>
+            </div>
+            
+            <div class="elmtsBtn">
+                <input type="submit" class="btn btn-primary" value="Connexion" />
+                <a href="{{ path("fos_user_registration_register") }}" class="btn">Inscription</a>
+            </div>
+
+        </form>
+    
+        {% endblock fos_user_content %}
+    
+    </div>
+
+</div>  

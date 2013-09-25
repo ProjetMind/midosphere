@@ -1,0 +1,22 @@
+{# empty Twig template #}
+
+{# empty Twig template #}
+
+{% extends "MindUserBundle::layout.html.twig" %}
+
+
+{% block menuUser %}
+
+        {{ knp_menu_render('MindUserBundle:Menu:getMenuAdmin', {'currentClass': 'active'}) }}
+    
+{% endblock %}
+
+{% block sectionCorps %}
+
+        
+        {% block admin_contenu %}
+        
+        {% endblock %}
+        
+{% endblock %}
+

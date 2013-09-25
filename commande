@@ -1,0 +1,147 @@
+
+Met à jour les dépendances :
+                                php ../composer.phar update
+
+Génération d'un nouveau bundle : 
+                                generate:bundle
+
+Génération d'une nouvelle entité :
+                                generate:doctrine:entity
+
+Création d'une base de données :
+                                doctrine:database:create
+
+Mets à jour les entités :
+                                doctrine:generate:entities LBcrewUserBundle:le nom de l'entité
+
+Création des tables de la base de données :
+                                doctrine:schema:update --dump-sql
+
+Mis à jour des tables de la base de données :
+                                doctrine:schema:update --force
+
+Génération d'un formulaire type
+                                doctrine:generate:form SdzBlogBundle:Categorie (exemple)
+
+Permet de tester une requete DQL avant de l'implémenter
+                                doctrine:query:dql "SELECT a FROM SdzBlogBundle:Article a"
+
+Permet de checker Assetic pour voir si il existe des éventuels bug
+                                php app/console assetic:dump
+
+Publlie les assetics
+                                php app/console assets:install --symlink web
+
+Check les routes
+                                php app/console router:debug
+
+FOS USER ROUTNG
+fos_user_security_login           ANY      ANY  /login
+fos_user_security_check           ANY      ANY  /login_check
+fos_user_security_logout          ANY      ANY  /logout
+fos_user_profile_show             GET      ANY  /profile/
+fos_user_profile_edit             ANY      ANY  /profile/edit
+fos_user_registration_register    ANY      ANY  /register/
+fos_user_registration_check_email GET      ANY  /register/check-email
+fos_user_registration_confirm     GET      ANY  /register/confirm/{token}
+fos_user_registration_confirmed   GET      ANY  /register/confirmed
+fos_user_resetting_request        GET      ANY  /resetting/request
+fos_user_resetting_send_email     POST     ANY  /resetting/send-email
+fos_user_resetting_check_email    GET      ANY  /resetting/check-email
+fos_user_resetting_reset          GET|POST ANY  /resetting/reset/{token}
+fos_user_change_password          GET|POST ANY  /profile/change-password
+
+
+Available commands:
+  help                                  Displays help for a command
+  list                                  Lists commands
+assetic
+  assetic:dump                          Dumps all assets to the filesystem
+assets
+  assets:install                        Installs bundles web assets under a publ
+ic web directory
+cache
+  cache:clear                           Clears the cache
+  cache:warmup                          Warms up an empty cache
+config
+  config:dump-reference                 Dumps default configuration for an exten
+sion
+container
+  container:debug                       Displays current services for an applica
+tion
+doctrine
+  doctrine:cache:clear-metadata         Clears all metadata cache for an entity
+manager
+  doctrine:cache:clear-query            Clears all query cache for an entity man
+ager
+  doctrine:cache:clear-result           Clears result cache for an entity manage
+r
+  doctrine:database:create              Creates the configured databases
+  doctrine:database:drop                Drops the configured databases
+  doctrine:ensure-production-settings   Verify that Doctrine is properly configu
+red for a production environment.
+  doctrine:generate:crud                Generates a CRUD based on a Doctrine ent
+ity
+  doctrine:generate:entities            Generates entity classes and method stub
+s from your mapping information
+  doctrine:generate:entity              Generates a new Doctrine entity inside a
+ bundle
+  doctrine:generate:form                Generates a form type class based on a D
+octrine entity
+  doctrine:mapping:convert              Convert mapping information between supp
+orted formats.
+  doctrine:mapping:import               Imports mapping information from an exis
+ting database
+  doctrine:mapping:info                 Shows basic information about all mapped
+ entities
+  doctrine:query:dql                    Executes arbitrary DQL directly from the
+ command line.
+  doctrine:query:sql                    Executes arbitrary SQL directly from the
+ command line.
+  doctrine:schema:create                Executes (or dumps) the SQL needed to ge
+nerate the database schema
+  doctrine:schema:drop                  Executes (or dumps) the SQL needed to dr
+op the current database schema
+  doctrine:schema:update                Executes (or dumps) the SQL needed to up
+date the database schema to match the current mapping metadata
+  doctrine:schema:validate              Validates the doctrine mapping files
+fos
+  fos:user:activate                     Activate a user
+  fos:user:change-password              Change the password of a user.
+  fos:user:create                       Create a user.
+  fos:user:deactivate                   Deactivate a user
+  fos:user:demote                       Demote a user by removing a role
+  fos:user:promote                      Promotes a user by adding a role
+generate
+  generate:bundle                       Generates a bundle
+  generate:controller                   Generates a controller
+  generate:doctrine:crud                Generates a CRUD based on a Doctrine ent
+ity
+  generate:doctrine:entities            Generates entity classes and method stub
+s from your mapping information
+  generate:doctrine:entity              Generates a new Doctrine entity inside a
+ bundle
+  generate:doctrine:form                Generates a form type class based on a D
+octrine entity
+init
+  init:acl                              Mounts ACL tables in the database
+  init:jms-secure-random
+orm
+  orm:convert:mapping                   Convert mapping information between supp
+orted formats.
+router
+  router:debug                          Displays current routes for an applicati
+on
+  router:dump-apache                    Dumps all routes as Apache rewrite rules
+
+  router:match                          Helps debug routes by simulating a path
+info match
+server
+  server:run                            Runs PHP built-in web server
+swiftmailer
+  swiftmailer:spool:send                Sends emails from the spool
+translation
+  translation:update                    Updates the translation file
+twig
+  twig:lint                             Lints a template and outputs encountered
+ errors

@@ -1,0 +1,142 @@
+/* 
+    Document   : inscriptionForm
+    Created on : 30 juin 2013, 21:45:50
+    Author     : FBI
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/*******************************************************************************
+/* Form 
+********************************************************************************/
+
+#corps form{
+    padding: 7px;
+}
+
+#corps form input{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    /*height: 35px;*/
+}
+
+#corps form legend{
+    text-align: center;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.formSpan{
+    /*background-color: #E6E6E6;*/
+}
+
+#corps form label{
+    font-weight: bold;
+}
+
+
+/*******************************************************************************
+/* Form inscription
+********************************************************************************/
+
+#formInscription form .selectDateNaissance select{
+    width: 92px;
+}
+
+#formInscription form .selectPays select{
+    width: 286px;
+}
+
+form .radio {
+    display: inline-block;
+}
+
+#formInscription div{
+    margin-top: 10px;
+}
+
+/*******************************************************************************
+/* Form nouvelle conversation
+********************************************************************************/
+
+#ulInputAutocomplete, #tabDestinataires, 
+#ulInputAutocomplete li{
+    display: inline-block;
+}
+
+#ulInputAutocomplete{
+  margin: 0px;
+  border: 1px solid #CCCCCC;
+  border-radius: 4px 4px 4px 4px;
+}
+
+#tabDestinataires{
+    border: none;
+}
+
+#ulInputAutocomplete li{
+    margin: 0px;
+}
+
+#formNouvelleConversation textarea, 
+containerConversation textarea{
+    
+    min-height: 150px;
+    width: 400px;
+}
+
+
+/*******************************************************************************
+/* Form connexion
+********************************************************************************/
+
+#formHeaderConnexion{
+    width: 600px;
+}
+
+#formHeaderConnexion input[type="password"], 
+#formHeaderConnexion input[type="email"]{
+    height: 28px;
+    width: 260px;
+}
+
+#formHeaderConnexion .elmtsBtn{
+    margin-top: 15px;
+}
+
+/*******************************************************************************
+/* Form MP
+********************************************************************************/
+
+.ui-menu-item{
+    width: 400px;
+    background-color: #DFF0D8;
+}
+
+/*******************************************************************************
+/* Form and interface compte
+********************************************************************************/
+#blockInfosPersos, #BlockInfosPersoslocalisation,
+#blockInfosParametresConnexion{
+    margin: 5px;
+    padding: 10px;
+}
+
+/*******************************************************************************
+/* Form supprimer
+********************************************************************************/
+.formSupprimer, .formSupprimer input{
+    display: inline-block;
+    float: right;
+}
+
+
+
+
+
+
+
+
+
+

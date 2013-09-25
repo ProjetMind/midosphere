@@ -1,0 +1,53 @@
+mind_user_compte:
+    pattern:  /
+    defaults: { _controller: MindUserBundle:Compte:index }
+
+mind_user_compte_infos_persos:
+  pattern: /informations-personnelles
+  defaults: { _controller: MindUserBundle:Compte:index }
+    
+mind_user_compte_parametres:
+  pattern: /parametres
+  defaults: { _controller: MindUserBundle:Compte:index }
+
+mind_user_compte_render_replace:
+  pattern: /modifier/render-replace/{idReplace}
+  defaults: { _controller: MindUserBundle:Compte:getRenderInfos }
+  options:
+        expose : true
+        
+#EDIT COMPTE
+
+#Avatar 
+mind_user_compte_edit_avatar:
+  pattern: /modifier/avatar
+  defaults: { _controller: MindUserBundle:Compte:modifierAvatar }
+  options:
+        expose: true
+    
+#Informations personnelles
+mind_user_compte_edit_infos_persos:
+  pattern: /modifier/informations-personelles
+  defaults: { _controller: MindUserBundle:Compte:modifierInfosPersos }
+  options:
+        expose: true
+        
+#localisation 
+mind_user_compte_edit_localisation:
+  pattern: /modifier/localisation
+  defaults: { _controller: MindUserBundle:Compte:modifierLocalisation }
+  options:
+        expose: true
+        
+#Parametres de connexion
+mind_user_compte_edit_parametres_connexion:
+  pattern: /modifier/parametre-de-connexion
+  defaults: { _controller: MindUserBundle:Compte:modifierParametresConnexion }
+  options:
+        expose: true
+        
+        
+        
+        
+
+   

@@ -1,0 +1,45 @@
+{# empty Twig template #}
+
+<form id="formInfosPersosCompteEdit" action="{{ path('mind_user_compte_edit_infos_persos') }}" {{ form_enctype(form) }} method="POST" class="form-inline">
+    
+    {{ form_errors(form) }}
+    
+    <div class="control-group">
+        {{ form_label(form.username) }}
+        <div class="controls">
+            {{ form_widget(form.username) }}
+            {{ form_errors(form.username) }}
+        </div>
+    </div>
+    
+    <div class="control-group">
+        {{ form_label(form.nom) }}
+        <div class="controls">
+            {{ form_widget(form.nom) }}
+            {{ form_errors(form.nom) }}
+        </div>
+    </div>
+    
+    <div class="control-group">
+        {{ form_label(form.prenom) }}
+        <div class="controls">
+            {{ form_widget(form.prenom) }}
+            {{ form_errors(form.prenom) }}
+        </div>
+    </div>
+    
+    <div class="control-group">
+        {{ form_label(form.dateNaissance) }}
+        <div class="controls">
+            {{ form_widget(form.dateNaissance) }}
+            {{ form_errors(form.dateNaissance) }}
+        </div>
+    </div>
+    
+    <div>
+        <input class="btn btn-primary" type="submit" value="Valider" />
+        <span onclick="annulerEditInfos('informationsPersonelles')" class="btn btn-warning">Annuler</span>
+    </div>
+    {{ form_rest(form) }}
+    
+</form>

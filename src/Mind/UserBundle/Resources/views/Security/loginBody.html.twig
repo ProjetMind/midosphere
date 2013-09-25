@@ -1,0 +1,73 @@
+{# empty Twig template #}
+
+{% extends "::layout.html.twig" %}
+
+{% block body %}
+
+{% block fos_user_content %}
+{% if error %}
+    <div class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        {{ error|trans({}, 'FOSUserBundle') }}
+        
+    </div>
+{% endif %}
+
+
+<span class="span2"></span>
+
+    <span class="span6 formSpan">
+        
+
+        
+        <form id="formBodyConnexion" class="form-horizontal" action="{{ path("fos_user_security_check") }}" method="post">
+            <fieldset>
+                <legend class="btn-primary">Connexion</legend>
+                
+                
+            <div class="control-group">
+                <label for="_username" class="required control-label">Email</label>
+                <div class="controls">
+                    <input id="_username" name="_username" required="required" placeholder="Email" class="input-large" type="email" value="{{ last_username }}" /> </br>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="_password" class="required control-label">Mot de passe</label>
+                <div class="controls">
+                    <input id="_password" name="_password" required="required" placeholder="Password" class="input-large" type="password" />
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="controls">
+                    <label for="_remember_me" class="checkbox required">
+                        <input id="_remember_me" name="_remember_me" value="on" type="checkbox" /> Se souvenir de moi
+                     </label>
+                 </div>
+            </div>
+
+            <div class="control-group">
+                <div class="controls">
+                    <input type="submit" class="btn btn-primary" value="Connexion" />
+                </div>
+            </div>
+
+            <div class="control-group">
+                    <div class="controls">
+                        <a href="{{ path("fos_user_registration_register") }}" class="btn">Inscription</a>
+                        <a href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié</a>
+                    </div>
+            </div>
+                    
+                </fieldset>
+
+        </form>
+
+    </span>
+    
+    {% endblock fos_user_content %}
+    
+{% endblock %}
+    
+        

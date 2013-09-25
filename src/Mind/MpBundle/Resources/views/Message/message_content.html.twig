@@ -1,0 +1,31 @@
+{# empty Twig template #}
+
+<section id="containerConversation">
+
+{% set idConversationForForm = conversations[0].id %}
+{% for conversation in conversations %}
+        
+        {% set idConversation = conversation.id %}
+        {% set participantConversation = participants[idConversation] %}
+        {% set messageConversation = messages[idConversation] %}
+    
+    {# Destinataires #}
+    <div>
+        {% for participant in participantConversation %}
+                {{ participant.profileLink|raw }}{{','}}
+        {% endfor %}
+    </div>
+    
+    {# les messages #}
+    <div id="containerMessage">
+        
+        {% include 'MindMpBundle:Message:un_message.html.twig' %}
+            
+    </div>
+    
+{% endfor %}    
+    
+    {# Form message #}
+    {% include 'MindMpBundle:Forms:form_message.html.twig' %}
+        
+</section>

@@ -1,0 +1,6 @@
+
+      
+#    mind_user.example:
+#        class: %mind_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+

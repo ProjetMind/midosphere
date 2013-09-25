@@ -1,0 +1,7 @@
+parameters:
+#    mind_commentaire.example.class: Mind\CommentaireBundle\Example
+
+services:
+#    mind_commentaire.example:
+#        class: %mind_commentaire.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

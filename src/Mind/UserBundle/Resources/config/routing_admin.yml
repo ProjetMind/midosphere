@@ -1,0 +1,24 @@
+## YAML Template.
+
+
+mind_admin_index:
+  pattern: /
+  defaults: { _controller: MindUserBundle:Admin:admin }
+  
+mind_admin_user:
+  pattern: /utilisateurs
+  defaults: { _controller: MindUserBundle:Admin:users }
+  
+mind_admin_domaine:
+  pattern: /domaines
+  defaults: { _controller: MindUserBundle:Domaine:domaines }
+  
+mind_admin_avis:
+  pattern: /avis
+  defaults: { _controller: MindUserBundle:Admin:avis }
+  
+mind_admin_question:
+  pattern: /questions
+  defaults: { _controller: MindUserBundle:Admin:questions }
+  
+  #domaine, avis, question

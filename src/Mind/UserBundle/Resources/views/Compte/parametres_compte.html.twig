@@ -1,0 +1,17 @@
+{# empty Twig template #}
+
+<div id="blockInfosParametresConnexion" class="row-fluid hoverBlock">
+    
+    <div class="row-fluid hoverHeaderTop">
+        <div class="span11 titleTop">Paramètres de connexion</div>
+        <div class="hide blockEdit span1 btn btn-primary" onclick="hoverBlockEditClick('parametresConnexion', 'blockInfosParametresConnexion')">
+            {{ 'edit'|icon('white') }}
+        </div>
+    </div>
+    
+    <div id="parametresConnexion" class="row-fluid">
+        {% include 'MindUserBundle:Compte:Infos/parametres_connexion.html.twig' %}
+    </div>
+</div>
+
+

@@ -1,0 +1,14 @@
+
+    
+mind_commentaire_add_com_pour_avis:
+  pattern: /avis/commentaire/ajouter-un-commentaire/{idAvis}
+  defaults: { _controller: MindCommentaireBundle:CommentaireAvis:addCommentaireAvis }
+  options:
+        expose: true
+  
+mind_commentaire_add_com_pour_question:
+  pattern: /question/commentaire/ajouter-un-commentaire/{idQuestion}
+  defaults: { _controller: MindCommentaireBundle:CommentaireQuestion:addCommentaireQuestion }
+  options:
+        expose: true
+  

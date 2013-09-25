@@ -1,0 +1,15 @@
+parameters:
+    mind_site.avis.class: Mind\SiteBundle\Avis
+    mind_site.questions.class: Mind\SiteBundle\Questions
+
+services:
+  mind_site.date.formatage:
+     class: Mind\SiteBundle\DateFormatage
+  mind_site.avis:
+     class: %mind_site.avis.class%
+     arguments: ["@doctrine", "@mind_site.date.formatage", "@router", "@security.context"]
+  mind_site.questions:
+     class: %mind_site.questions.class%
+     arguments: ["@doctrine", "@mind_site.date.formatage", "@router"]
+    
+        

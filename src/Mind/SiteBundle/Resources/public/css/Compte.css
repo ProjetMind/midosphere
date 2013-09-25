@@ -1,0 +1,23 @@
+/* 
+    Document   : Compte
+    Created on : 4 juil. 2013, 00:25:42
+    Author     : FBI
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+/*******************************************************************************
+* Compt
+*******************************************************************************/
+
+.hoverBlock, .hoverHeaderTop h3, hover .hoverHeaderTop div { 
+    display: inline-block;
+}
+
+
+.titleTop{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 24.5px;
+    font-weight: bold;
+}

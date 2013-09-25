@@ -1,0 +1,10 @@
+{# empty Twig template #}
+
+{% if form_label(form.avisDomaine) is not empty %}
+
+    <div class="formSousDomaine">
+    {{ form_widget(form.avisDomaine) }}
+    {{ form_errors(form.avisDomaine) }}
+</div>
+
+{% endif %}

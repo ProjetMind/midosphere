@@ -1,0 +1,69 @@
+/* 
+    Document   : styleBase
+    Created on : 4 janv. 2013, 03:31:29
+    Author     : Portable
+    Description:
+        Purpose of the stylesheet follows.
+*/
+/* Bleu ciel : #77B5FE
+/* Vertclair : #90EE90
+/* jaune clair : #FFFFE0
+
+/*
+--------------------------------------------------------------------------------
+commun
+--------------------------------------------------------------------------------
+*/
+
+
+.media-object{
+    height: 68px;
+    width: 68px;
+    background-color: #BBBBBB;
+}
+
+.dropdown{
+    cursor: pointer;
+}
+
+a
+{
+    text-decoration: none;
+}
+
+ul
+{
+    list-style: none;
+}
+
+/*
+--------------------------------------------------------------------------------
+Corps and other
+--------------------------------------------------------------------------------
+*/
+
+#corps{
+    height: auto;
+}
+
+
+#corpsContenu{
+padding-left: 33px;
+padding-right: 33px;
+margin-top: 10px;
+margin-left: 5px;
+border: 1px solid #e5e5e5;
+border-radius: 5px 5px 5px 5px;
+}
+
+#goUp{
+    position: fixed;
+}
+
+/*******************************************************************************
+/* Alerte
+********************************************************************************/
+
+.alert{
+    margin: 3px 10px 3px 10px;
+}

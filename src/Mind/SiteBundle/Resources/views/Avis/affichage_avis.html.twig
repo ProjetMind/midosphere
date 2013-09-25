@@ -1,0 +1,17 @@
+{# empty Twig template #}
+
+{% set lesRoutes = 
+    [
+        'mind_site_avis_afficher', 
+        'mind_site_avis_afficher_recent',
+        'mind_site_avis_afficher_anciens',
+        'mind_site_avis_afficher_plus_note',
+        'mind_site_avis_afficher_plus_commente'
+    ] 
+%}
+
+{% set routeName = app.request.attributes.get('_route') %}
+
+<div class="row-fluid">
+    {{ knp_menu_render('MindSiteBundle:Menu:getMenuAffichageAvis', {'currentClass': 'active'}) }}
+</div>

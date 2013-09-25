@@ -1,0 +1,23 @@
+{# empty Twig template #}
+
+
+{% if lesCommentaires is defined %}
+
+{% for unCommentaire in lesCommentaires %}
+    
+<div class="unCommentaire">
+    <div>
+        <a class="pull-left" href="#">
+            <img class="media-object" src="{{ asset(lesAuteursCom[unCommentaire.id].path) }}" />
+        </a>
+        <strong>{{ lesAuteursCom[unCommentaire.id].username }}</strong>
+    </div>
+    <time datetime="{{ lesDatesCom[unCommentaire.id].datePub }}">{{ lesDatesCom[unCommentaire.id].message }}</time>
+    
+    <p class="commentaire">{{ unCommentaire.commentaire }}</p>
+    
+</div>
+
+{% endfor %}
+
+{% endif %}

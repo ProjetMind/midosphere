@@ -1,0 +1,30 @@
+{# empty Twig template #}
+
+<form id="formParametresConnexionCompteEdit" action="{{ path('mind_user_compte_edit_parametres_connexion') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal">
+    
+    {{ form_errors(form) }}
+    
+    <div class="control-group">
+        {{ form_label(form.email) }}
+        <div class="controls">
+            {{ form_widget(form.email) }}
+            {{ form_errors(form.email) }}
+        </div>
+    </div>
+    
+    <div class="control-group">
+        {{ form_label(form.plainPassword) }}
+        <div class="controls">
+            {{ form_widget(form.plainPassword) }}
+            {{ form_errors(form.plainPassword) }}
+        </div>
+    </div>
+    
+    
+    <div>
+        <input class="btn btn-primary" type="submit" value="Valider" />
+        <span onclick="annulerEditInfos('parametresConnexion')" class="btn btn-warning">Annuler</span>
+    </div>
+    {{ form_rest(form) }}
+    
+</form>

@@ -1,0 +1,10 @@
+{# empty Twig template #}
+
+<form id="formArchiverConversation" action="{{ path('mind_conversation_archiver') }}" class="form-horizontal" method="POST">
+    {% include 'MindMpBundle:Conversation:liste_conversations.html.twig' %}
+    
+    {% if conversations is not empty %}
+            <input type="submit" class="btn btn-primary" value="Archiver"name="archiverConversation"/>
+    {% endif %}
+            
+</form>
