@@ -326,12 +326,13 @@ class AvisController extends Controller
   {
 
      $suivis = $this->container->get('mind_media.suivis');
-     $listener = $this->container->get('gedmo.listener.uploadable');
+     #$listener = $this->container->get('gedmo.listener.uploadable');
      $em = $this->getDoctrine()->getManager();
+     $domaineArray = $em->getRepository('MindSiteBundle:Domaine')->getAllDomainesInArray();
       
       //Création du formulaire à partir de l'entité et du type de formulaire
      $avis = new \Mind\SiteBundle\Entity\Avis;
-     $form = $this->createForm(new AvisType(), $avis);
+     $form = $this->createForm(new AvisType($domaineArray), $avis);
      
      //On récupère la classe requete
      $request = $this->getRequest();
@@ -343,47 +344,31 @@ class AvisController extends Controller
         $form->bind($request);
         
         $idAuteur = $this->get('security.context')->getToken()->getUser()->getId();
-        $idDomaine = $form->getData()->getAvisDomaine()->getId();
-        
         $avis->setAvisAuteur($idAuteur);
-        $avis->setAvisDomaine($idDomaine);
+        //$avis->setAvisDomaine($idDomaine);
         
         if($form->isValid()){
              
-            $em->persist($avis);
-            $em->flush();
-            
-            //Suivis 
-            $options = array(
-                                'idUser'        => $idAuteur,
-                                'idEntity'      => $avis->getId(),
-                                'typeEntity'    => 'avis'
-                            );
-            
-            $suivis->createSuivisForUser($options);
-            
-            //Images
-            $actionImage = $this->container->get('mind_media.upload_file');
-            $images = $actionImage->createFileInfos();
-            $listener->setDefaultPath('../web/uploads/images/avis/'.$avis->getId());
-            #echo $avis->getId();
-            if(is_array($images)){
-
-                foreach ($images as $uneImage){
-                    
-                    $imageAvis = new \Mind\MediaBundle\Entity\ImageAvis();
-                    $imageAvis->setAvis($avis->getId());
-                    $fileInfos = new \Gedmo\Uploadable\FileInfo\FileInfoArray($uneImage);
-                    $listener->addEntityFileInfo($imageAvis, $fileInfos);
-
-                    $em->persist($imageAvis);
-
-                }
-            }
-            $em->flush();
-            
-            
-            //message de confirmation 
+//            $em->persist($avis);
+//            $em->flush();
+//            
+//            //Suivis 
+//            $options = array(
+//                                'idUser'        => $idAuteur,
+//                                'idEntity'      => $avis->getId(),
+//                                'typeEntity'    => 'avis'
+//                            );
+//            
+//            $suivis->createSuivisForUser($options);
+//            
+//            //Images
+//            $actionImage = $this->container->get('mind_media.upload_file');
+//            $images = $actionImage->createFileInfos();
+//            $actionImage->persisteImagesForAvis($images, $avis);
+//            $em->flush();
+//            
+//            
+//            //message de confirmation 
             $messageDeConfirmation = "L'avis a été publié avec succès.";
             $this->get('session')->getFlashBag()->add('success', $messageDeConfirmation);
             return $this->redirect($this->generateUrl('mind_site_homepage'));
@@ -423,15 +408,24 @@ class AvisController extends Controller
        $serviceAvis = $this->container->get('mind_site.avis');
        $request = $this->getRequest();
        $em = $this->getDoctrine()->getManager();
+       $domaineArray = $em->getRepository('MindSiteBundle:Domaine')->getAllDomainesInArray();
+       $avis = $serviceAvis->getAvisToUpdate($idAvis);
        
        if($request->getMethod() == "POST"){
            
-           $avis = new \Mind\SiteBundle\Entity\Avis;
-           $form = $this->createForm(new AvisModifierType, $avis);
+           $form = $this->createForm(new AvisModifierType($domaineArray), $avis);
+           
+           $form->bind($request);
            
            if($form->isValid()){
                
                $em->persist($avis);
+               
+               //Images
+                $actionImage = $this->container->get('mind_media.upload_file');
+                $images = $actionImage->createFileInfos();
+                $actionImage->persisteImagesForAvis($images, $avis);
+            
                $em->flush();
                
                //message de confirmation 
@@ -440,8 +434,9 @@ class AvisController extends Controller
                return $this->redirect($this->generateUrl('mind_site_homepage'));
            }
        }else{
-            $avis = $serviceAvis->getAvisToUpdate($idAvis);
-            $form = $this->createForm(new AvisModifierType, $avis);
+            
+            $form = $this->createForm(new AvisModifierType($domaineArray), $avis);
+            
        }
        
        $template = sprintf('MindSiteBundle:Forms:form_modifier_avis.html.twig');

@@ -15,7 +15,6 @@
                 <legend class="btn-primary">Modifier mon avis</legend>
                 
                 {{ form_errors(form) }}
-                {{ form_widget(form.id) }}
                 
                 <div>
                     {{ form_label(form.avisTitre) }}
@@ -35,15 +34,26 @@
                     {{ form_errors(form.typeOpinion) }}
                 </div>
                 
-                <div class="hide">
+                <div>
                         {{ form_label(form.avisDomaine) }}
                         {{ form_widget(form.avisDomaine) }} 
                 </div>
                 
-                <div>
+                {#<div>
                     <div class="alert alert-info">Changez de domaine si vous le désirez.</div>
                     {{ form_label(form.avisDomaine) }}
                     {% render controller('MindSiteBundle:Domaine:getDomainesTree') %}
+                </div>#}
+                {{ form_widget(form.file) }}
+                
+                <div id="imagesForUpload">
+                    <input type="file" name="filesImages[]" multiple="multiple" /><br/>
+                    <input type="file" name="filesImages[]" multiple="multiple" /><br/>
+                    <input type="file" name="filesImages[]" multiple="multiple"/>
+                </div>
+                
+                <div class="existingFile">
+                    
                 </div>
                 
                 <div>

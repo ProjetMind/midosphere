@@ -13,6 +13,21 @@ use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 class DomaineRepository extends NestedTreeRepository
 {
     
+    public function getAllDomainesInArray(){
+        
+        $query = $this->_em->createQuery('SELECT d.id, d.libelle
+                                          FROM MindSiteBundle:Domaine d
+                                          ORDER BY d.libelle ASC
+                                         ');
+        
+        $tabDomaines = array();
+        
+        foreach($query->getArrayResult() as $value){
+            $tabDomaines[$value['id']] = $value['libelle'];
+        }
+        
+        return $tabDomaines;
+    }
     public function getDomainesTree(){
         
         $options = array(
@@ -20,8 +35,7 @@ class DomaineRepository extends NestedTreeRepository
             'rootOpen' => '<ul>',
             'rootClose' => '</ul>',
             'childOpen' => '<li>',
-            'childClose' => '</li>',
-            'required'  => false
+            'childClose' => '</li>'
         );
         
         $htmlTree = $this->childrenHierarchy(

@@ -9,10 +9,10 @@ set :shared_files,      ["app/config/parameters.yml"]
 #set :shared_children,     [app_path + "/logs", web_path + "/uploads", "vendor"]
 set :use_composer, true
 set :update_vendors, true
-set :dump_assetic_assets, true
+#set :dump_assetic_assets, true
  
-#set :repository,  "https://github.com/ProjetMind/mind.git"
-set :repository,  "/var/www/mind"
+#set :repository,  "https://github.com/ProjetMind/midosphere.git"
+set :repository,  "/var/www/midosphere"
 set :scm,         :git
 set :deploy_via, :rsync_with_remote_cache
 #set   :branch,        "prod"

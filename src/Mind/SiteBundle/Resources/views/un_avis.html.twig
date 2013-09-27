@@ -25,7 +25,11 @@
         
                 <div id="{{unAvis.id}}" class="media span6 elmtEntityOne">
                         <a class="pull-left" href="#">
+                         {% if images[unAvis.id] is not empty %}
                             <img class="media-object" src="{{ asset(images[unAvis.id][0].path) }}" />
+                         {% else %}
+                            <img class="media-object" data-src="#" />
+                         {% endif %}
                         </a>
 
                         <div class="media-body">

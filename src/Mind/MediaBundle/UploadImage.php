@@ -7,6 +7,9 @@
 
 namespace Mind\MediaBundle;
 
+use Gedmo\Uploadable\UploadableListener;
+use Doctrine\Bundle\DoctrineBundle\Registry;
+
 /**
  * Description of CustomFileInfo
  *
@@ -16,7 +19,18 @@ class UploadImage {
     
     protected $idEntity;
     protected $typeEntity;
+    protected $uploadableListener;
+    protected $doctrine;
+    protected $manager;
 
+
+    public function __construct(Registry $doctrine, UploadableListener $uploadable) {
+        
+        $this->doctrine         = $doctrine;
+        $this->manager          = $doctrine->getManager();
+        $this->uploadableListener = $uploadable;
+    }
+    
     public function createFileInfos(){
     
         $tabInfosImage = array();
@@ -57,8 +71,25 @@ class UploadImage {
         return $imageInfos;
     }
     
-    
-    
+    public function persisteImagesForAvis($images, $avis){
+        
+        if(is_array($images)){
+
+            foreach ($images as $uneImage){
+
+                $imageAvis = new \Mind\MediaBundle\Entity\ImageAvis();
+                $imageAvis->setAvis($avis->getId());
+                $fileInfos = new \Gedmo\Uploadable\FileInfo\FileInfoArray($uneImage);
+                $this->uploadableListener->addEntityFileInfo($imageAvis, $fileInfos);
+
+                $this->manager->persist($imageAvis);
+
+            }
+        }
+        
+    }
+
+
     public function getIdEntity(){
         
         return $this->idEntity;

@@ -29,9 +29,9 @@
                 
             {% javascripts 
                 filter='yui_js'
-                'http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js'
-                'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js'
-                'http://malsup.github.com/jquery.form.js'
+                '../web/resources-js/jquery.min.js'
+                '../web/resources-js/jquery-ui.min.js'
+                '../web/resources-js/jquery.form.js'
                 '@MindUserBundle/Resources/public/js/*'
                 '@MindCommentaireBundle/Resources/public/js/*'
                 '@MindMpBundle/Resources/public/js/*'
@@ -50,7 +50,9 @@
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('bundles/mindsite/images/midosphere.ico') }}" />
 
     </head>
-    
+    {# 'http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js'
+                'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js'
+                'http://malsup.github.com/jquery.form.js'#}
     <body>
         
         <div class="container-fluid">

@@ -117,11 +117,13 @@ class Avis
      * @var integer
      * 
      * @ORM\Column(name="avis_domaine", type="integer")
-     * @ORM\OneToOne(targetEntity="Mind\SiteBundle\Entity\Domaine")
-     * @ORM\JoinColumn(name="avis_domaine", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="Mind\SiteBundle\Entity\Domaine" )
+     * @ORM\JoinColumn(name="domaine_id", referencedColumnName="id")
      */
     private $avisDomaine;
     
+    private $file;
+
 
     /**
      * Get id
@@ -131,6 +133,29 @@ class Avis
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set deletedAt
+     *
+     * @param \DateTime $deletedAt
+     * @return Avis
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedAt
+     *
+     * @return \DateTime 
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
     }
 
     /**
@@ -154,6 +179,29 @@ class Avis
     public function getAvisTitre()
     {
         return $this->avisTitre;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Avis
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**
@@ -295,29 +343,6 @@ class Avis
     }
 
     /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return Avis
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string 
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
      * Set avisDomaine
      *
      * @param integer $avisDomaine
@@ -339,27 +364,12 @@ class Avis
     {
         return $this->avisDomaine;
     }
-
-    /**
-     * Set deletedAt
-     *
-     * @param \DateTime $deletedAt
-     * @return Avis
-     */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
+    
+    public function getFile(){
+        return $this->file;
     }
-
-    /**
-     * Get deletedAt
-     *
-     * @return \DateTime 
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
+    
+    public function setFile($file){
+        $this->file = $file;
     }
 }

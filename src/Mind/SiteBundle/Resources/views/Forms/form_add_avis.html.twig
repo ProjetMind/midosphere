@@ -37,11 +37,8 @@
                     {{ form_errors(form.typeOpinion) }}
                 </div>
                 
+                
                 <div>
-                    {{ form_label(form.avisDomaine) }}
-                    {% render controller('MindSiteBundle:Domaine:getDomainesTree') %}
-                </div>
-                <div class="hide">
                         {{ form_label(form.avisDomaine) }}
                         {{ form_widget(form.avisDomaine) }} 
                 </div>

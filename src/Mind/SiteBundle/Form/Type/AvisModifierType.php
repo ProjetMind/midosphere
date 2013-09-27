@@ -8,11 +8,16 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class AvisModifierType extends AbstractType
 {
+    
+    protected $choicesDomaineArray = array();
+    
+    public function __construct($choicesDomaineArray) {
+        $this->choicesDomaineArray = $choicesDomaineArray;
+    }
+    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('id', 'hidden')
-                
             ->add('avisTitre', 'text', 
                     array(
                         'label' => 'Titre :', 
@@ -45,20 +50,20 @@ class AvisModifierType extends AbstractType
                                                         )
                                 ))
                 
-            ->add('avisDomaine', 'entity', array(
-                                                'class'     => "MindSiteBundle:Domaine",
-                                                'property'  => 'libelle',
-                                                'required'  => false,
+                
+            ->add('avisDomaine', 'choice', array(
+                                                'choices'     => $this->choicesDomaineArray,
+                                                'required'  => true,
                                                 'expanded'  => true,
                                                 'multiple'  => false,
-                                                'label'     => "Domaine",
+                                                'label'     => "Domaines",
 //                                                'attr'      => array(
 //                                                                        'name'  => 'domaineParent',
 //                                                                        'class' => 'hide'
 //                                                                    ),
 //                                                'label_attr'    => array(
-//                                                                            'class' => 'hide'
-//                                                                        )                
+//                                                                          'class' => 'hide'      
+//                                                                       )
                                                 
                                             )
                     

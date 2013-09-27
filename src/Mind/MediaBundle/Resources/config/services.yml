@@ -27,6 +27,7 @@ services:
         
     mind_media.upload_file:
         class: %mind_media.upload_file.class%
+        arguments: ["@doctrine", "@gedmo.listener.uploadable"]
         
     extension.listener:
         class: Mind\MediaBundle\Listener\DoctrineExtensionListener
