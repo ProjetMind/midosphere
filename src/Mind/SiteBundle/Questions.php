@@ -5,6 +5,7 @@ namespace Mind\SiteBundle;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Mind\SiteBundle\DateFormatage;
 use Symfony\Component\Routing\Router;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class Questions {
     
@@ -13,14 +14,18 @@ class Questions {
     protected $repository;
     protected $dateFormatage;
     protected $router;
-    
-    public function __construct(Registry $doctrine, DateFormatage $dateFormatage, Router $router) {
+    protected $security;
+
+
+    public function __construct(Registry $doctrine, DateFormatage $dateFormatage, Router $router,
+                                SecurityContextInterface $security) {
         
         $this->doctrine         = $doctrine;
         $this->manager          = $doctrine->getManager();
         $this->repository       = $this->manager->getRepository('MindMediaBundle:Suivis');
         $this->dateFormatage    = $dateFormatage;
         $this->router           = $router;
+        $this->security         = $security;
     }
     
     public function getDatePublication($lesQuestions){
@@ -98,11 +103,22 @@ class Questions {
                          ->findOneBy($optionsSearch);
                  
             $this->manager->remove($question);
-            $this->supprimerCommentaireAvis($idQuestion);
+            $this->supprimerCommentaireQuestion($idQuestion);
             //supprimer suivis, abonnement
             $this->manager->flush();
         }
         
+    }
+    
+    public function supprimerCommentaireQuestion($idQuestion){
+        
+        $commentaires = $this->manager
+                            ->getRepository('MindCommentaireBundle:CommentaireQuestion')
+                            ->findBy(array('idQuestion' => $idQuestion));
+        
+        foreach ($commentaires as $unCommentaire){
+            $this->manager->remove($unCommentaire);
+        }
     }
     
     public function isOurQuestion($idQuestion){

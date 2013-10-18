@@ -416,6 +416,7 @@ class AvisController extends Controller
            $form = $this->createForm(new AvisModifierType($domaineArray), $avis);
            
            $form->bind($request);
+           $avis->setAvisDateEdition(new \DateTime());
            
            if($form->isValid()){
                

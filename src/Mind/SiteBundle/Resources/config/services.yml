@@ -10,6 +10,6 @@ services:
      arguments: ["@doctrine", "@mind_site.date.formatage", "@router", "@security.context"]
   mind_site.questions:
      class: %mind_site.questions.class%
-     arguments: ["@doctrine", "@mind_site.date.formatage", "@router"]
+     arguments: ["@doctrine", "@mind_site.date.formatage", "@router", "@security.context"]
     
         
