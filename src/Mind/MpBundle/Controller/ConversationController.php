@@ -21,7 +21,7 @@ class ConversationController extends Controller
             
             $conversation       = $messagerieService->getConversations('archive', $idConversation);
             $tabConversation    = $conversation[0]->getTabParticipants();
-            //$em->remove($conversation[0]);
+            $em->remove($conversation[0]);
             
             foreach ($tabConversation as $key => $idConversationValue) {
             

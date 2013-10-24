@@ -57,10 +57,10 @@ class MessageController extends Controller
     public function messageConversationAction($idConversation){
         
         $messagerieService = $this->get('mind_mp.messagerie');
-        
-        $conversations  = $messagerieService->getConversations($idConversation);
-        $participants   = $messagerieService->getParticipants($idConversation);
-        $dates          = $messagerieService->getDate('conversation');
+       
+        $conversations  = $messagerieService->getConversations("bal",$idConversation);
+        $participants   = $messagerieService->getParticipants("bal", $idConversation);
+        $dates          = $messagerieService->getDate('conversation', 'message');
         $messages       = $messagerieService->getMessage($conversations);
         
         $message = new \Mind\MpBundle\Entity\Message;

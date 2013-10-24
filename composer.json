@@ -34,7 +34,8 @@
         "sonata-project/media-bundle": "*",
         "jquery/jquery": "1.9.1",
         "jquery/jquery-1.10.2": "1.10.2",
-        "jquery/jquery-ui": "1.10.3"
+        "jquery/jquery-ui": "1.10.3",
+        "doctrine/doctrine-fixtures-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

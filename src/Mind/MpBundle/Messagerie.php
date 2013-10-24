@@ -30,6 +30,7 @@ class Messagerie {
     
     public function getConversations($dossier, $idConversation = null){
         
+        //dossier = archive ou bal 
         if($idConversation == null){
             
             $conversation = $this->manager->getRepository('MindMpBundle:Conversation')
@@ -95,7 +96,6 @@ class Messagerie {
                     $dateFormatage = $this->getDateConversation($dossier);
                 break;
             
-            //N'est pas utilisé pour le moment
             case 'message':
                 $dateFormatage = $this->getDateMessage($dossier);
                 break;
@@ -129,7 +129,7 @@ class Messagerie {
     public function getMessage($idConversation = null){
         
         $repositoryMessage      = $this->manager->getRepository('MindMpBundle:Message');
-        $conversations          = $this->getConversations($idConversation);
+        $conversations          = $this->getConversations('bal', $idConversation);
         $tabMessage             = array();
         
         foreach ($conversations as $conversation){

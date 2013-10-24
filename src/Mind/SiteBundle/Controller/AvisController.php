@@ -349,26 +349,26 @@ class AvisController extends Controller
         
         if($form->isValid()){
              
-//            $em->persist($avis);
-//            $em->flush();
-//            
-//            //Suivis 
-//            $options = array(
-//                                'idUser'        => $idAuteur,
-//                                'idEntity'      => $avis->getId(),
-//                                'typeEntity'    => 'avis'
-//                            );
-//            
-//            $suivis->createSuivisForUser($options);
-//            
-//            //Images
-//            $actionImage = $this->container->get('mind_media.upload_file');
-//            $images = $actionImage->createFileInfos();
-//            $actionImage->persisteImagesForAvis($images, $avis);
-//            $em->flush();
-//            
-//            
-//            //message de confirmation 
+            $em->persist($avis);
+            $em->flush();
+            
+            //Suivis 
+            $options = array(
+                                'idUser'        => $idAuteur,
+                                'idEntity'      => $avis->getId(),
+                                'typeEntity'    => 'avis'
+                            );
+            
+            $suivis->createSuivisForUser($options);
+            
+            //Images
+            $actionImage = $this->container->get('mind_media.upload_file');
+            $images = $actionImage->createFileInfos();
+            $actionImage->persisteImagesForAvis($images, $avis);
+            $em->flush();
+            
+            
+            //message de confirmation 
             $messageDeConfirmation = "L'avis a été publié avec succès.";
             $this->get('session')->getFlashBag()->add('success', $messageDeConfirmation);
             return $this->redirect($this->generateUrl('mind_site_homepage'));

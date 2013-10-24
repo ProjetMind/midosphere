@@ -14,7 +14,6 @@ namespace Mind\UserBundle\Form\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
 
-
 class RegistrationFormType extends BaseType
 {
    

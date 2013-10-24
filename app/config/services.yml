@@ -4,3 +4,4 @@ imports:
     - { resource: "@MindMpBundle/Resources/config/services.yml" }
     - { resource: "@MindSiteBundle/Resources/config/services.yml" }
     - { resource: "@MindMediaBundle/Resources/config/services.yml" }
+    - { resource: "@MindUserBundle/Resources/config/services.yml" }

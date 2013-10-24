@@ -72,7 +72,7 @@ class AvisType extends AbstractType
                                             )
                     )
                 
-                ->add('file', new \Mind\MediaBundle\Form\Type\ImageAvisType())
+                #->add('file', new \Mind\MediaBundle\Form\Type\ImageAvisType())
                 
                 
         ;

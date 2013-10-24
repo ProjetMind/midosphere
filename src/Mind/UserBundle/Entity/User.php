@@ -22,7 +22,8 @@ class User extends BaseUser
             $this->nom = null;
             $this->prenom = null;
             $this->ville = null;
-            $this->roles = array('ROLE_USER');
+            $this->roles = array('ROLE_ADMIN');
+           
         }
         
         
