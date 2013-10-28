@@ -26,6 +26,7 @@ class AppKernel extends Kernel
             new Mind\UserBundle\MindUserBundle(),
             new Bc\Bundle\BootstrapBundle\BcBootstrapBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Sonata\CacheBundle\SonataCacheBundle(),

@@ -256,3 +256,9 @@ sonata_media:
         local:
             directory:  %kernel.root_dir%/../web/uploads/media
             create:     false
+
+#KNP paginator            
+knp_paginator:
+    page_range: 2  # ensure distinct results, useful when ORM queries are using GROUP BY statements
+    template:
+        pagination: MindSiteBundle::pagination.html.twig     

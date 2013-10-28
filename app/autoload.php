@@ -5,7 +5,9 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
 $loader = require __DIR__.'/../vendor/autoload.php';
 $loader->add('CoreSphere', __DIR__.'/../vendor/bundles');
 $loader->add('Sonata', __DIR__);
-$loader->add("Application", __DIR__);
+$loader->add('Application', __DIR__);
+$loader->add('Knp\\Component',__DIR__.'/../vendor/knp-components/src');
+$loader->add('Knp\\Bundle',__DIR__.'/../vendor/bundles');
 
 // intl
 if (!function_exists('intl_get_error_code')) {

@@ -16,7 +16,6 @@ class Messagerie {
     protected $securityContext;
     protected $idUserCourant;
 
-
     public function __construct(Registry $doctrine, Router $router, DateFormatage $dateFormatage, SecurityContext $securityContext) {
         
         $this->doctrine         = $doctrine;

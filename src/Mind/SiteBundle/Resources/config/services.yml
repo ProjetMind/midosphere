@@ -1,6 +1,7 @@
 parameters:
     mind_site.avis.class: Mind\SiteBundle\Avis
     mind_site.questions.class: Mind\SiteBundle\Questions
+    mind_site.paginator_aware.class: Mind\SiteBundle\PaginatorAware
 
 services:
   mind_site.date.formatage:
@@ -11,5 +12,10 @@ services:
   mind_site.questions:
      class: %mind_site.questions.class%
      arguments: ["@doctrine", "@mind_site.date.formatage", "@router", "@security.context"]
+  mind_site.paginator_aware:
+     class: Mind\SiteBundle\PaginatorAware
+     arguments: ["@doctrine"]
+     tags:
+         - {name: knp_paginator.injectable, alias: knp_paginator}
     
         

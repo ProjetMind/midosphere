@@ -99,7 +99,7 @@ class AvisRepository extends EntityRepository
         return $query->getResult();
     }
     
-    public function getAvisOrderDateAsc(){
+    public function getAvisOrderDatePubAsc(){
         
         $query = $this->_em->createQuery('SELECT a
                                          FROM MindSiteBundle:Avis a
@@ -108,14 +108,14 @@ class AvisRepository extends EntityRepository
         return $query->getResult();
     }
     
-    public function getQuestionOrderDateAsc(){
-        
-        $query = $this->_em->createQuery('SELECT a
-                                         FROM MindSiteBundle:Question a
-                                         ORDER BY a.questionDatePublication ASC');
-       
-        return $query->getResult();
-    }
+//    public function getQuestionOrderDateAsc(){
+//        
+//        $query = $this->_em->createQuery('SELECT a
+//                                         FROM MindSiteBundle:Question a
+//                                         ORDER BY a.questionDatePublication ASC');
+//       
+//        return $query->getResult();
+//    }
     
     public function findAvisBySlug($slug){
         

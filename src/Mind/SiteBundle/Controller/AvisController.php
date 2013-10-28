@@ -17,13 +17,14 @@ class AvisController extends Controller
      * 
      * @return Template
      */
-    public function indexAction(){
+    public function indexAction($page){
         
         $routeName = $this->getRequest()->get('_route');
         $template = sprintf('MindSiteBundle:Avis:les_avis.html.twig');
 
         return $this->container->get('templating')->renderResponse($template, 
-              array('routeName'     => $routeName
+              array('routeName'     => $routeName, 
+                    'page'          => $page
                     ));
         
     }
@@ -36,32 +37,33 @@ class AvisController extends Controller
      * @param type $idAuteur
      * @return type
      */
-    public function getAvisAction($idAuteur = null){
+    public function getAvisAction($page, $idAuteur = null){
         
         $routeName      = $this->getRequest()->get('_route');
         $manager        = $this->getDoctrine()->getManager();
         $repositoryAvis = $manager->getRepository('MindSiteBundle:Avis');
         $template       = sprintf('MindSiteBundle::un_avis.html.twig');
+        $paginator      = $this->get('knp_paginator');
         
         switch ($routeName){
             
             case '':
-                $lesAvis = $repositoryAvis->getAvisOrderDatePubDesc();
+                $lesAvis = $repositoryAvis->getAvisOrderDatePubAsc();
                 $titreGroup = 'Les avis publiés récemment';
                 break;
             
             case 'mind_site_avis_afficher': // par défaut les avis les plus récents sont affichés
-                $lesAvis = $repositoryAvis->getAvisOrderDatePubDesc();
+                $lesAvis = $repositoryAvis->getAvisOrderDatePubAsc();
                 $titreGroup = 'Tous les avis';
                 break;
             
             case 'mind_site_avis_afficher_recent':
-                $lesAvis = $repositoryAvis->getAvisOrderDatePubDesc();
+                $lesAvis = $repositoryAvis->getAvisOrderDatePubAsc();
                 $titreGroup = 'Les avis publiés récemment';
                 break;
             
             case 'mind_site_avis_afficher_anciens':
-                $lesAvis = $repositoryAvis->getAvisOrderDateAsc();
+                $lesAvis = $repositoryAvis->getAvisOrderDatePubDesc();
                 $titreGroup = "Les avis par ancienneté";
                 break;
             
@@ -86,6 +88,12 @@ class AvisController extends Controller
                 break;
         }
         
+        $lesAvis = $paginator->paginate(
+            $lesAvis,
+            $page/*page number*/,
+            2/*limit per page*/
+        );
+        
         $lesDomaines              =   $this->getDomaineWithLink($lesAvis, $manager);
         $lesAuteurs               =   $this->getAuteursAvis($lesAvis, $manager);
         $lesDatesDePublication    =   $this->getDatePublication($lesAvis, $manager);
@@ -101,7 +109,7 @@ class AvisController extends Controller
                     'lesDates'          => $lesDatesDePublication,
                     'lesNbCom'          => $lesNbCom,
                     'images'            => $images,
-                    'pageType'              => 'supprimer_entity'
+                    'pageType'          => 'supprimer_entity'
                    ));
     }
     

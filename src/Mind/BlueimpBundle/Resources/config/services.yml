@@ -1,7 +1,0 @@
-parameters:
-#    mind_blueimp.example.class: Mind\BlueimpBundle\Example
-
-services:
-#    mind_blueimp.uploadhandler:
-#        class: Mind\BlueimpBundle\UploadHandler
-        #arguments: []
