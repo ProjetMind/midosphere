@@ -34,7 +34,7 @@ class Menu extends ContainerAware
     
         $menu = $factory->createItem('menu-affichage-question');
         $menu->setChildrenAttribute("class", 'nav nav-pills');
-        $currentItem = $this->container->get('request')->getRequestUri();
+        $currentItem = $this->checkCurrentUri();
         $menu->setCurrentUri($currentItem);
         
         //Children 
@@ -51,7 +51,7 @@ class Menu extends ContainerAware
     
         $menu = $factory->createItem('menu-affichage-avis');
         $menu->setChildrenAttribute("class", 'nav nav-pills');
-        $currentItem = $this->container->get('request')->getRequestUri();
+        $currentItem = $this->checkCurrentUri();
         $menu->setCurrentUri($currentItem);
         
         //Children 
@@ -62,6 +62,25 @@ class Menu extends ContainerAware
         $menu->addChild('Les plus commentés',   array('route'   => 'mind_site_avis_afficher_plus_commente'));
         
         return $menu;
+    }
+    
+    public function checkCurrentUri(){
+        
+        $currentItem = $this->container->get('request')->getRequestUri();
+        $currentArray = explode('/', $currentItem);
+        
+        end($currentArray);
+        $key = key($currentArray);
+        $value = $currentArray[$key];
+        
+        if(count($currentArray) > 6){
+            unset($currentArray[$key]);
+        }
+        
+        
+        $currentItem = implode('/', $currentArray);
+        
+        return $currentItem;
     }
     
     public function getMenuCompte(FactoryInterface $factory){

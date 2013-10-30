@@ -15,31 +15,33 @@ class QuestionController extends Controller
       $template = sprintf('MindSiteBundle:Question:les_questions.html.twig');
       
       return $this->container->get('templating')->renderResponse($template, 
-              array('routeName'     => $routeName
+              array('routeName'     => $routeName,
+                    'page'          => $page
                     ));
   }
 
-  public function getQuestionsAction($idAuteur = null){
+  public function getQuestionsAction($page, $idAuteur = null){
       
       $routeName            = $this->getRequest()->get('_route');
       $manager              = $this->getDoctrine()->getManager();
       $repositoryQuestion   = $manager->getRepository('MindSiteBundle:Question');
       $template             = sprintf('MindSiteBundle::une_question.html.twig');
+      $paginator      = $this->get('knp_paginator');
       
       switch ($routeName){
           
           case 'mind_site_question_afficher':
-              $lesQuestions = $repositoryQuestion->getQuestionsOrderDatePubDesc();
+              $lesQuestions = $repositoryQuestion->getQuestionsOrderDatePubAsc();
               $titreGroup = "Toutes les questions";
               break;
           
           case 'mind_site_question_afficher_recent':
-                $lesQuestions = $repositoryQuestion->getQuestionsOrderDatePubDesc();
+                $lesQuestions = $repositoryQuestion->getQuestionsOrderDatePubAsc();
                 $titreGroup = 'Les questions publiées récéments';
                 break;
             
          case 'mind_site_question_afficher_anciens':
-                $lesQuestions = $repositoryQuestion->getQuestionsOrderDatePubAsc();
+                $lesQuestions = $repositoryQuestion->getQuestionsOrderDatePubDesc();
                 $titreGroup = "Les questions par ancienneté"; 
                 break;
             
@@ -64,6 +66,13 @@ class QuestionController extends Controller
             break;
         
       }
+      
+      $lesQuestions = $paginator->paginate(
+            $lesQuestions,
+            $page/*page number*/,
+            2/*limit per page*/
+        );
+      
       
     $lesDomaines              =   $this->getDomaineWithLink($lesQuestions, $manager);
     $lesAuteurs               =   $this->getAuteursQuestion($lesQuestions, $manager);

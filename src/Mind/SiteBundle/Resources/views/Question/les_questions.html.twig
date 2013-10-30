@@ -7,7 +7,7 @@
 {% block sectionCorps %}
 
         {% include 'MindSiteBundle:Question:affichage_question.html.twig' %}
-        {% render controller('MindSiteBundle:Question:getQuestions', {"page": 1, '_route': routeName }) %}
+        {% render controller('MindSiteBundle:Question:getQuestions', {"page": page, '_route': routeName }) %}
     
 {% endblock %}
 
