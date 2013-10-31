@@ -83,7 +83,6 @@ class CompteController extends Controller
         if($request->getMethod() == 'POST'){
          
             $form->bind($request);
-            //print_r($form->getData()->getFile());
             $avatar->setIdUser($idUserCourant);
             
             if($form->isValid()){
