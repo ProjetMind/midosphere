@@ -34,7 +34,7 @@ class Avatar extends \Twig_Extension {
                        ->getRepository('MindMediaBundle:Avatar')
                        ->findOneBy(array('idUser'=>$idUser));
         if(!empty($avatar)){
-            if($avatar->getPath() == "../web/img/avatar-femme.jpeg " or $avatar->getPath() == "../web/img/avatar-homme.jpeg " ){
+            if($avatar->getPath() == "../web/img/avatar-femme.jpeg" or $avatar->getPath() == "../web/img/avatar-homme.jpeg" ){
                 
             }else{
                 $this->manager->remove($avatar);
