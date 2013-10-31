@@ -36,7 +36,9 @@ class RegistrationController extends BaseController
         $user->setConfirmationToken(null);
         $user->setEnabled(true);
         $user->setLastLogin(new \DateTime());
+        
         $user = $this->checkPathProfileAvatar($user);
+        $this->createAvatar($user->getId(), $user->getPath());
 
         $this->container->get('fos_user.user_manager')->updateUser($user);
         $response = new RedirectResponse($this->container->get('router')->generate('fos_user_registration_confirmed'));
@@ -64,6 +66,17 @@ class RegistrationController extends BaseController
         }
         
         return $user;
+    }
+    
+    public function createAvatar($idUser, $path){
+        
+        $avatar = new \Mind\MediaBundle\Entity\Avatar();
+        
+        $avatar->setIdUser($idUser);
+        $avatar->setPath($path);
+        $this->container->get('doctrine')->getManager()->persist($avatar);
+        $this->container->get('doctrine')->getManager()->flush();
+        
     }
 
 }

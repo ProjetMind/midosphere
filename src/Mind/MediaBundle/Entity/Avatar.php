@@ -31,13 +31,13 @@ class Avatar
     private $path;
     
     /**
-     * @ORM\Column(name="mime_type", type="string")
+     * @ORM\Column(name="mime_type", type="string", nullable=true)
      * @Gedmo\UploadableFileMimeType
      */
     private $mimeType;
     
     /**
-     * @ORM\Column(name="size", type="decimal")
+     * @ORM\Column(name="size", type="decimal", nullable=true)
      * @Gedmo\UploadableFileSize
      */
     private $size;
