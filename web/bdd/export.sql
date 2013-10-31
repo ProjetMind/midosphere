@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.32, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.5.34, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: mind
 -- ------------------------------------------------------
--- Server version	5.5.32-0ubuntu0.13.04.1
+-- Server version	5.5.34-0ubuntu0.13.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -170,11 +170,11 @@ DROP TABLE IF EXISTS `avatar`;
 CREATE TABLE `avatar` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `path` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `mime_type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `size` decimal(10,0) NOT NULL,
+  `mime_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `size` decimal(10,0) DEFAULT NULL,
   `id_user` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -183,6 +183,7 @@ CREATE TABLE `avatar` (
 
 LOCK TABLES `avatar` WRITE;
 /*!40000 ALTER TABLE `avatar` DISABLE KEYS */;
+INSERT INTO `avatar` VALUES (2,'../web/uploads/user/avatars/4092b9e90158c1d89e49df39aef3340a62760eaa.jpeg','image/jpeg',14737,58),(3,'../web/img/avatar-homme.jpeg','',0,52),(4,'../web/img/avatar-homme.jpeg','',0,53),(5,'../web/img/avatar-homme.jpeg','',0,54),(6,'../web/uploads/user/avatars/c0235bf9df5a0da524452885b104d38281fb5515.jpeg','image/jpeg',14737,52);
 /*!40000 ALTER TABLE `avatar` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -207,7 +208,7 @@ CREATE TABLE `avis` (
   `avis_domaine` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8F91ABF0989D9B62` (`slug`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -216,7 +217,7 @@ CREATE TABLE `avis` (
 
 LOCK TABLES `avis` WRITE;
 /*!40000 ALTER TABLE `avis` DISABLE KEYS */;
-INSERT INTO `avis` VALUES (1,NULL,'Premier avis','premier-avis','Contenu de l\'avis',3,'2013-10-24 22:46:34',NULL,52,NULL,2),(2,NULL,'Second avis','second-avis','Contenu du second avis',2,'2013-10-24 22:47:21',NULL,52,NULL,3);
+INSERT INTO `avis` VALUES (1,NULL,'Premier avis','premier-avis','Contenu de l\'avis',3,'2013-10-24 22:46:34',NULL,52,NULL,2),(2,NULL,'Second avis','second-avis','Contenu du second avis',2,'2013-10-24 22:47:21',NULL,52,NULL,3),(3,NULL,'Troisième avis','troisieme-avis','Contenu du troisième avis',1,'2013-10-28 23:42:37',NULL,52,NULL,4);
 /*!40000 ALTER TABLE `avis` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -567,7 +568,7 @@ CREATE TABLE `question` (
   `question_domaine` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '(DC2Type:object)',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_B6F7494E989D9B62` (`slug`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -576,7 +577,7 @@ CREATE TABLE `question` (
 
 LOCK TABLES `question` WRITE;
 /*!40000 ALTER TABLE `question` DISABLE KEYS */;
-INSERT INTO `question` VALUES (1,'Première question','premiere-question','Contenu de la première question','2013-10-24 22:49:09',NULL,52,'O:30:\"Mind\\SiteBundle\\Entity\\Domaine\":13:{s:34:\"\0Mind\\SiteBundle\\Entity\\Domaine\0id\";i:5;s:40:\"\0Mind\\SiteBundle\\Entity\\Domaine\0idAuteur\";i:52;s:39:\"\0Mind\\SiteBundle\\Entity\\Domaine\0libelle\";s:3:\"PHP\";s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0slug\";s:3:\"php\";s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0etat\";b:1;s:44:\"\0Mind\\SiteBundle\\Entity\\Domaine\0dateCreation\";O:8:\"DateTime\":3:{s:4:\"date\";s:19:\"2013-10-24 22:32:36\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:12:\"Europe/Paris\";}s:42:\"\0Mind\\SiteBundle\\Entity\\Domaine\0dateUpdate\";N;s:38:\"\0Mind\\SiteBundle\\Entity\\Domaine\0niveau\";i:2;s:43:\"\0Mind\\SiteBundle\\Entity\\Domaine\0borneGauche\";i:1;s:42:\"\0Mind\\SiteBundle\\Entity\\Domaine\0borneDroit\";i:2;s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0root\";i:2;s:38:\"\0Mind\\SiteBundle\\Entity\\Domaine\0parent\";O:30:\"Mind\\SiteBundle\\Entity\\Domaine\":13:{s:34:\"\0Mind\\SiteBundle\\Entity\\Domaine\0id\";i:3;s:40:\"\0Mind\\SiteBundle\\Entity\\Domaine\0idAuteur\";i:52;s:39:\"\0Mind\\SiteBundle\\Entity\\Domaine\0libelle\";s:12:\"Programation\";s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0slug\";s:12:\"programation\";s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0etat\";b:1;s:44:\"\0Mind\\SiteBundle\\Entity\\Domaine\0dateCreation\";O:8:\"DateTime\":3:{s:4:\"date\";s:19:\"2013-10-24 22:31:51\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:12:\"Europe/Paris\";}s:42:\"\0Mind\\SiteBundle\\Entity\\Domaine\0dateUpdate\";N;s:38:\"\0Mind\\SiteBundle\\Entity\\Domaine\0niveau\";i:1;s:43:\"\0Mind\\SiteBundle\\Entity\\Domaine\0borneGauche\";i:0;s:42:\"\0Mind\\SiteBundle\\Entity\\Domaine\0borneDroit\";i:3;s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0root\";i:2;s:38:\"\0Mind\\SiteBundle\\Entity\\Domaine\0parent\";O:30:\"Mind\\SiteBundle\\Entity\\Domaine\":13:{s:34:\"\0Mind\\SiteBundle\\Entity\\Domaine\0id\";i:2;s:40:\"\0Mind\\SiteBundle\\Entity\\Domaine\0idAuteur\";i:52;s:39:\"\0Mind\\SiteBundle\\Entity\\Domaine\0libelle\";s:12:\"Informatique\";s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0slug\";s:12:\"informatique\";s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0etat\";b:1;s:44:\"\0Mind\\SiteBundle\\Entity\\Domaine\0dateCreation\";O:8:\"DateTime\":3:{s:4:\"date\";s:19:\"2013-10-24 22:31:21\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:12:\"Europe/Paris\";}s:42:\"\0Mind\\SiteBundle\\Entity\\Domaine\0dateUpdate\";N;s:38:\"\0Mind\\SiteBundle\\Entity\\Domaine\0niveau\";i:0;s:43:\"\0Mind\\SiteBundle\\Entity\\Domaine\0borneGauche\";i:-1;s:42:\"\0Mind\\SiteBundle\\Entity\\Domaine\0borneDroit\";i:6;s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0root\";i:2;s:38:\"\0Mind\\SiteBundle\\Entity\\Domaine\0parent\";N;s:40:\"\0Mind\\SiteBundle\\Entity\\Domaine\0children\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:39:\"\0Doctrine\\ORM\\PersistentCollection\0coll\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:54:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0_elements\";a:0:{}}s:46:\"\0Doctrine\\ORM\\PersistentCollection\0initialized\";b:0;}}s:40:\"\0Mind\\SiteBundle\\Entity\\Domaine\0children\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:39:\"\0Doctrine\\ORM\\PersistentCollection\0coll\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:54:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0_elements\";a:0:{}}s:46:\"\0Doctrine\\ORM\\PersistentCollection\0initialized\";b:0;}}s:40:\"\0Mind\\SiteBundle\\Entity\\Domaine\0children\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:39:\"\0Doctrine\\ORM\\PersistentCollection\0coll\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:54:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0_elements\";a:0:{}}s:46:\"\0Doctrine\\ORM\\PersistentCollection\0initialized\";b:0;}}'),(2,'Seconde question','seconde-question','Contenu de la seconde question','2013-10-24 22:49:51',NULL,52,'O:30:\"Mind\\SiteBundle\\Entity\\Domaine\":13:{s:34:\"\0Mind\\SiteBundle\\Entity\\Domaine\0id\";i:1;s:40:\"\0Mind\\SiteBundle\\Entity\\Domaine\0idAuteur\";i:52;s:39:\"\0Mind\\SiteBundle\\Entity\\Domaine\0libelle\";s:6:\"Voyage\";s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0slug\";s:6:\"voyage\";s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0etat\";b:1;s:44:\"\0Mind\\SiteBundle\\Entity\\Domaine\0dateCreation\";O:8:\"DateTime\":3:{s:4:\"date\";s:19:\"2013-10-24 22:31:03\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:12:\"Europe/Paris\";}s:42:\"\0Mind\\SiteBundle\\Entity\\Domaine\0dateUpdate\";N;s:38:\"\0Mind\\SiteBundle\\Entity\\Domaine\0niveau\";i:0;s:43:\"\0Mind\\SiteBundle\\Entity\\Domaine\0borneGauche\";i:-1;s:42:\"\0Mind\\SiteBundle\\Entity\\Domaine\0borneDroit\";i:0;s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0root\";i:1;s:38:\"\0Mind\\SiteBundle\\Entity\\Domaine\0parent\";N;s:40:\"\0Mind\\SiteBundle\\Entity\\Domaine\0children\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:39:\"\0Doctrine\\ORM\\PersistentCollection\0coll\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:54:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0_elements\";a:0:{}}s:46:\"\0Doctrine\\ORM\\PersistentCollection\0initialized\";b:0;}}');
+INSERT INTO `question` VALUES (1,'Première question','premiere-question','Contenu de la première question','2013-10-24 22:49:09',NULL,52,'O:30:\"Mind\\SiteBundle\\Entity\\Domaine\":13:{s:34:\"\0Mind\\SiteBundle\\Entity\\Domaine\0id\";i:5;s:40:\"\0Mind\\SiteBundle\\Entity\\Domaine\0idAuteur\";i:52;s:39:\"\0Mind\\SiteBundle\\Entity\\Domaine\0libelle\";s:3:\"PHP\";s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0slug\";s:3:\"php\";s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0etat\";b:1;s:44:\"\0Mind\\SiteBundle\\Entity\\Domaine\0dateCreation\";O:8:\"DateTime\":3:{s:4:\"date\";s:19:\"2013-10-24 22:32:36\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:12:\"Europe/Paris\";}s:42:\"\0Mind\\SiteBundle\\Entity\\Domaine\0dateUpdate\";N;s:38:\"\0Mind\\SiteBundle\\Entity\\Domaine\0niveau\";i:2;s:43:\"\0Mind\\SiteBundle\\Entity\\Domaine\0borneGauche\";i:1;s:42:\"\0Mind\\SiteBundle\\Entity\\Domaine\0borneDroit\";i:2;s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0root\";i:2;s:38:\"\0Mind\\SiteBundle\\Entity\\Domaine\0parent\";O:30:\"Mind\\SiteBundle\\Entity\\Domaine\":13:{s:34:\"\0Mind\\SiteBundle\\Entity\\Domaine\0id\";i:3;s:40:\"\0Mind\\SiteBundle\\Entity\\Domaine\0idAuteur\";i:52;s:39:\"\0Mind\\SiteBundle\\Entity\\Domaine\0libelle\";s:12:\"Programation\";s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0slug\";s:12:\"programation\";s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0etat\";b:1;s:44:\"\0Mind\\SiteBundle\\Entity\\Domaine\0dateCreation\";O:8:\"DateTime\":3:{s:4:\"date\";s:19:\"2013-10-24 22:31:51\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:12:\"Europe/Paris\";}s:42:\"\0Mind\\SiteBundle\\Entity\\Domaine\0dateUpdate\";N;s:38:\"\0Mind\\SiteBundle\\Entity\\Domaine\0niveau\";i:1;s:43:\"\0Mind\\SiteBundle\\Entity\\Domaine\0borneGauche\";i:0;s:42:\"\0Mind\\SiteBundle\\Entity\\Domaine\0borneDroit\";i:3;s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0root\";i:2;s:38:\"\0Mind\\SiteBundle\\Entity\\Domaine\0parent\";O:30:\"Mind\\SiteBundle\\Entity\\Domaine\":13:{s:34:\"\0Mind\\SiteBundle\\Entity\\Domaine\0id\";i:2;s:40:\"\0Mind\\SiteBundle\\Entity\\Domaine\0idAuteur\";i:52;s:39:\"\0Mind\\SiteBundle\\Entity\\Domaine\0libelle\";s:12:\"Informatique\";s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0slug\";s:12:\"informatique\";s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0etat\";b:1;s:44:\"\0Mind\\SiteBundle\\Entity\\Domaine\0dateCreation\";O:8:\"DateTime\":3:{s:4:\"date\";s:19:\"2013-10-24 22:31:21\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:12:\"Europe/Paris\";}s:42:\"\0Mind\\SiteBundle\\Entity\\Domaine\0dateUpdate\";N;s:38:\"\0Mind\\SiteBundle\\Entity\\Domaine\0niveau\";i:0;s:43:\"\0Mind\\SiteBundle\\Entity\\Domaine\0borneGauche\";i:-1;s:42:\"\0Mind\\SiteBundle\\Entity\\Domaine\0borneDroit\";i:6;s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0root\";i:2;s:38:\"\0Mind\\SiteBundle\\Entity\\Domaine\0parent\";N;s:40:\"\0Mind\\SiteBundle\\Entity\\Domaine\0children\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:39:\"\0Doctrine\\ORM\\PersistentCollection\0coll\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:54:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0_elements\";a:0:{}}s:46:\"\0Doctrine\\ORM\\PersistentCollection\0initialized\";b:0;}}s:40:\"\0Mind\\SiteBundle\\Entity\\Domaine\0children\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:39:\"\0Doctrine\\ORM\\PersistentCollection\0coll\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:54:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0_elements\";a:0:{}}s:46:\"\0Doctrine\\ORM\\PersistentCollection\0initialized\";b:0;}}s:40:\"\0Mind\\SiteBundle\\Entity\\Domaine\0children\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:39:\"\0Doctrine\\ORM\\PersistentCollection\0coll\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:54:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0_elements\";a:0:{}}s:46:\"\0Doctrine\\ORM\\PersistentCollection\0initialized\";b:0;}}'),(2,'Seconde question','seconde-question','Contenu de la seconde question','2013-10-24 22:49:51',NULL,52,'O:30:\"Mind\\SiteBundle\\Entity\\Domaine\":13:{s:34:\"\0Mind\\SiteBundle\\Entity\\Domaine\0id\";i:1;s:40:\"\0Mind\\SiteBundle\\Entity\\Domaine\0idAuteur\";i:52;s:39:\"\0Mind\\SiteBundle\\Entity\\Domaine\0libelle\";s:6:\"Voyage\";s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0slug\";s:6:\"voyage\";s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0etat\";b:1;s:44:\"\0Mind\\SiteBundle\\Entity\\Domaine\0dateCreation\";O:8:\"DateTime\":3:{s:4:\"date\";s:19:\"2013-10-24 22:31:03\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:12:\"Europe/Paris\";}s:42:\"\0Mind\\SiteBundle\\Entity\\Domaine\0dateUpdate\";N;s:38:\"\0Mind\\SiteBundle\\Entity\\Domaine\0niveau\";i:0;s:43:\"\0Mind\\SiteBundle\\Entity\\Domaine\0borneGauche\";i:-1;s:42:\"\0Mind\\SiteBundle\\Entity\\Domaine\0borneDroit\";i:0;s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0root\";i:1;s:38:\"\0Mind\\SiteBundle\\Entity\\Domaine\0parent\";N;s:40:\"\0Mind\\SiteBundle\\Entity\\Domaine\0children\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:39:\"\0Doctrine\\ORM\\PersistentCollection\0coll\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:54:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0_elements\";a:0:{}}s:46:\"\0Doctrine\\ORM\\PersistentCollection\0initialized\";b:0;}}'),(3,'Une troisième question','une-troisieme-question','Contenu de la troisième question','2013-10-30 23:54:20',NULL,52,'O:30:\"Mind\\SiteBundle\\Entity\\Domaine\":13:{s:34:\"\0Mind\\SiteBundle\\Entity\\Domaine\0id\";i:5;s:40:\"\0Mind\\SiteBundle\\Entity\\Domaine\0idAuteur\";i:52;s:39:\"\0Mind\\SiteBundle\\Entity\\Domaine\0libelle\";s:3:\"PHP\";s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0slug\";s:3:\"php\";s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0etat\";b:1;s:44:\"\0Mind\\SiteBundle\\Entity\\Domaine\0dateCreation\";O:8:\"DateTime\":3:{s:4:\"date\";s:19:\"2013-10-24 22:32:36\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:12:\"Europe/Paris\";}s:42:\"\0Mind\\SiteBundle\\Entity\\Domaine\0dateUpdate\";N;s:38:\"\0Mind\\SiteBundle\\Entity\\Domaine\0niveau\";i:2;s:43:\"\0Mind\\SiteBundle\\Entity\\Domaine\0borneGauche\";i:1;s:42:\"\0Mind\\SiteBundle\\Entity\\Domaine\0borneDroit\";i:2;s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0root\";i:2;s:38:\"\0Mind\\SiteBundle\\Entity\\Domaine\0parent\";O:30:\"Mind\\SiteBundle\\Entity\\Domaine\":13:{s:34:\"\0Mind\\SiteBundle\\Entity\\Domaine\0id\";i:3;s:40:\"\0Mind\\SiteBundle\\Entity\\Domaine\0idAuteur\";i:52;s:39:\"\0Mind\\SiteBundle\\Entity\\Domaine\0libelle\";s:12:\"Programation\";s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0slug\";s:12:\"programation\";s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0etat\";b:1;s:44:\"\0Mind\\SiteBundle\\Entity\\Domaine\0dateCreation\";O:8:\"DateTime\":3:{s:4:\"date\";s:19:\"2013-10-24 22:31:51\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:12:\"Europe/Paris\";}s:42:\"\0Mind\\SiteBundle\\Entity\\Domaine\0dateUpdate\";N;s:38:\"\0Mind\\SiteBundle\\Entity\\Domaine\0niveau\";i:1;s:43:\"\0Mind\\SiteBundle\\Entity\\Domaine\0borneGauche\";i:0;s:42:\"\0Mind\\SiteBundle\\Entity\\Domaine\0borneDroit\";i:3;s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0root\";i:2;s:38:\"\0Mind\\SiteBundle\\Entity\\Domaine\0parent\";O:30:\"Mind\\SiteBundle\\Entity\\Domaine\":13:{s:34:\"\0Mind\\SiteBundle\\Entity\\Domaine\0id\";i:2;s:40:\"\0Mind\\SiteBundle\\Entity\\Domaine\0idAuteur\";i:52;s:39:\"\0Mind\\SiteBundle\\Entity\\Domaine\0libelle\";s:12:\"Informatique\";s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0slug\";s:12:\"informatique\";s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0etat\";b:1;s:44:\"\0Mind\\SiteBundle\\Entity\\Domaine\0dateCreation\";O:8:\"DateTime\":3:{s:4:\"date\";s:19:\"2013-10-24 22:31:21\";s:13:\"timezone_type\";i:3;s:8:\"timezone\";s:12:\"Europe/Paris\";}s:42:\"\0Mind\\SiteBundle\\Entity\\Domaine\0dateUpdate\";N;s:38:\"\0Mind\\SiteBundle\\Entity\\Domaine\0niveau\";i:0;s:43:\"\0Mind\\SiteBundle\\Entity\\Domaine\0borneGauche\";i:-1;s:42:\"\0Mind\\SiteBundle\\Entity\\Domaine\0borneDroit\";i:6;s:36:\"\0Mind\\SiteBundle\\Entity\\Domaine\0root\";i:2;s:38:\"\0Mind\\SiteBundle\\Entity\\Domaine\0parent\";N;s:40:\"\0Mind\\SiteBundle\\Entity\\Domaine\0children\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:39:\"\0Doctrine\\ORM\\PersistentCollection\0coll\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:54:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0_elements\";a:0:{}}s:46:\"\0Doctrine\\ORM\\PersistentCollection\0initialized\";b:0;}}s:40:\"\0Mind\\SiteBundle\\Entity\\Domaine\0children\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:39:\"\0Doctrine\\ORM\\PersistentCollection\0coll\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:54:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0_elements\";a:0:{}}s:46:\"\0Doctrine\\ORM\\PersistentCollection\0initialized\";b:0;}}s:40:\"\0Mind\\SiteBundle\\Entity\\Domaine\0children\";O:33:\"Doctrine\\ORM\\PersistentCollection\":2:{s:39:\"\0Doctrine\\ORM\\PersistentCollection\0coll\";O:43:\"Doctrine\\Common\\Collections\\ArrayCollection\":1:{s:54:\"\0Doctrine\\Common\\Collections\\ArrayCollection\0_elements\";a:0:{}}s:46:\"\0Doctrine\\ORM\\PersistentCollection\0initialized\";b:0;}}');
 /*!40000 ALTER TABLE `question` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -594,7 +595,7 @@ CREATE TABLE `suivis` (
   `type_entity` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `disabled` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -603,7 +604,7 @@ CREATE TABLE `suivis` (
 
 LOCK TABLES `suivis` WRITE;
 /*!40000 ALTER TABLE `suivis` DISABLE KEYS */;
-INSERT INTO `suivis` VALUES (1,52,1,'avis',0),(2,52,2,'avis',0),(3,52,1,'question',0),(4,52,2,'question',0);
+INSERT INTO `suivis` VALUES (1,52,1,'avis',0),(2,52,2,'avis',0),(3,52,1,'question',0),(4,52,2,'question',0),(5,52,3,'avis',0),(6,52,3,'question',0);
 /*!40000 ALTER TABLE `suivis` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -670,7 +671,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `UNIQ_8D93D64992FC23A8` (`username_canonical`),
   UNIQUE KEY `UNIQ_8D93D649A0D96FBF` (`email_canonical`),
   UNIQUE KEY `UNIQ_8D93D649989D9B62` (`slug`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -679,7 +680,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (52,'Hipopeur','hipopeur','shonen.shojo@midosphere.com','shonen.shojo@midosphere.com',1,'5r1ggi0ccb8c0g8oc4cwcgg0s4ko0c8','vd66sPvRsjKF3yFgApClhEcqW5RloHHQZxwH/vAe0VqrBGtuBY6LX5rR7bpnJbLfsG8Qk+Xu0HpCladNWMRVNw==','2013-10-24 22:27:24',0,0,NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}',0,NULL,NULL,NULL,'hipopeur',NULL,'2013-10-24','1','FR','2013-10-24 12:47:07',1,NULL),(53,'Diallo','diallo','diallo@midosphere.com','diallo@midosphere.com',1,'evcpdoq27io884488g4ss80cogww0og','4N0UNudDc+voI4xbvjfISuJ/jpPjkfZW9jsdIPX4PJ9lOA/ovVuIM07lzbMY8gyMWzRcCZ75OhVYQc6xO0+IVw==',NULL,0,0,NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}',0,NULL,NULL,NULL,'diallo',NULL,'2013-10-24','1','FR','2013-10-24 12:47:07',1,NULL),(54,'Jean','jean','Jean@midosphere.com','jean@midosphere.com',1,'alp59jtqdyosgsggo8oksck8c4wgcgs','gbMSaEXB+QeVnO8DqJhOndnIL3Wqzmtp4swWcpNFpt+54r/IcU1A3+8jt85fVjfyi8YmYBmsRubqNshfYzGEUg==',NULL,0,0,NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}',0,NULL,NULL,NULL,'jean',NULL,'2013-10-24','1','FR','2013-10-24 12:47:07',1,NULL);
+INSERT INTO `user` VALUES (52,'Hipopeur','hipopeur','shonen.shojo@midosphere.com','shonen.shojo@midosphere.com',1,'5r1ggi0ccb8c0g8oc4cwcgg0s4ko0c8','vd66sPvRsjKF3yFgApClhEcqW5RloHHQZxwH/vAe0VqrBGtuBY6LX5rR7bpnJbLfsG8Qk+Xu0HpCladNWMRVNw==','2013-10-31 03:02:53',0,0,NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}',0,NULL,NULL,'../web/uploads/user/avatars/c0235bf9df5a0da524452885b104d38281fb5515.jpeg','hipopeur',NULL,'2013-10-24','1','FR','2013-10-24 12:47:07',1,NULL),(53,'Diallo','diallo','diallo@midosphere.com','diallo@midosphere.com',1,'evcpdoq27io884488g4ss80cogww0og','4N0UNudDc+voI4xbvjfISuJ/jpPjkfZW9jsdIPX4PJ9lOA/ovVuIM07lzbMY8gyMWzRcCZ75OhVYQc6xO0+IVw==',NULL,0,0,NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}',0,NULL,NULL,NULL,'diallo',NULL,'2013-10-24','1','FR','2013-10-24 12:47:07',1,NULL),(54,'Jean','jean','Jean@midosphere.com','jean@midosphere.com',1,'alp59jtqdyosgsggo8oksck8c4wgcgs','gbMSaEXB+QeVnO8DqJhOndnIL3Wqzmtp4swWcpNFpt+54r/IcU1A3+8jt85fVjfyi8YmYBmsRubqNshfYzGEUg==',NULL,0,0,NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}',0,NULL,NULL,NULL,'jean',NULL,'2013-10-24','1','FR','2013-10-24 12:47:07',1,NULL),(58,'Breaking dev','breaking dev','diallo.mouhamadou.dev@gmail.com','diallo.mouhamadou.dev@gmail.com',1,'ehvsarjkijw404g84wkgwokk0c4w44','M9E6O9kzvNzuxjwFK1ua9faqKk9GqVg/Zi4Ca0MkiB5CV4Bi6OXc9kUqKSkl+CckHGsy58vfusnAEcKastRP5w==','2013-10-31 01:53:55',0,0,NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}',0,NULL,NULL,'../web/uploads/user/avatars/4092b9e90158c1d89e49df39aef3340a62760eaa.jpeg','breaking-dev',NULL,'1904-06-06','1','DZ','2013-10-31 01:53:09',1,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -770,4 +771,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-10-24 15:42:19
+-- Dump completed on 2013-10-31  3:12:49
