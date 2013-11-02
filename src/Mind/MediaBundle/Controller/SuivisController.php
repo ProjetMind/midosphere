@@ -17,9 +17,7 @@ class SuivisController extends Controller {
         $suivis->setTypeEntity($tabOptions['typeEntity']);
         
         $btnSubmit      = $this->getSubmitBtnAction($suivis);
-            
         $form           = $this->createForm(new SuivisType(), $suivis);
-        
         $request        = $this->getRequest();
         
         if($request->getMethod() == "POST"){
@@ -28,7 +26,7 @@ class SuivisController extends Controller {
             
             if($form->isValid() and $tabOptions['initTabIsOk'] == true){ 
                 $this->createSuivisForUserAction($suivis);
-                $route = $this->getUriAvisAction($suivis->getIdUser(), $suivis->getIdEntity());
+                $route = $this->getUriAction($suivis->getIdUser(), $suivis->getIdEntity(), $suivis->getTypeEntity());
                 
                 return $this->redirect($route);
             }
@@ -44,15 +42,16 @@ class SuivisController extends Controller {
                     ));
     }
     
-    public function getUriAvisAction($idUser, $idAvis){
+    public function getUriAction($idUser, $idEntity, $typeEntity){
     
-        $user = $this->getDoctrine()->getManager()->getRepository('MindUserBundle:User')->find($idUser);
-        $avis = $this->getDoctrine()->getManager()->getRepository('MindSiteBundle:Avis')->find($idAvis);
+        $entityName = ucfirst($typeEntity);
+        $user       = $this->getDoctrine()->getManager()->getRepository('MindUserBundle:User')->find($idUser);
+        $entity     = $this->getDoctrine()->getManager()->getRepository('MindSiteBundle:'.$entityName)->find($idEntity);
         
-        $route = $this->generateUrl('mind_site_avis_voir', array(
-                                                            'auteur'    => $user->getSlug(),
-                                                            'slug'      => $avis->getSlug()
-                                                        ));
+        $route = $this->generateUrl('mind_site_'.$typeEntity.'_voir', array(
+                                                                                'auteur'    => $user->getSlug(),
+                                                                                'slug'      => $entity->getSlug()
+                                                                            ));
         
         return $route;
     }

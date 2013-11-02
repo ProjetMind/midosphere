@@ -14,6 +14,9 @@
                      <div class="media-heading">
                          <h3>
                              <a href="{{ path('mind_site_question_voir', {"auteur": lesAuteurs[uneQuestion.id].slug, "slug": uneQuestion.slug }) }}"> {{ uneQuestion.questionTitre }} </a>
+                             <span id="spanFormSuivre"> 
+                                {% render controller('MindMediaBundle:Suivis:index', {'stringOptions': app.user.id~'-'~uneQuestion.id~'-'~'question' }) %}
+                            </span> 
                          </h3>
                          <p class="">
                              <span>Par {{ lesAuteurs[uneQuestion.id].profileLink|raw }}  </span>
