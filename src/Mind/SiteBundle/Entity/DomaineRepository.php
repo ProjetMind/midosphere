@@ -67,7 +67,11 @@ class DomaineRepository extends NestedTreeRepository
         
         $entityManager = $this->getEntityManager();
         $metaData = $this->_em->getClassMetadata('MindSiteBundle:Domaine');
+        
+      
         $nested = new NestedTreeRepository($entityManager, $metaData);
+        
+       
         
         $options = array(
             'decorate' => true,
@@ -81,11 +85,11 @@ class DomaineRepository extends NestedTreeRepository
             }
         );
         
+      
         $lesDomaines = $nested->childrenHierarchy(
                                         null, /* starting from root nodes */
                                         false, /* true: load all children, false: only direct */
                                         $options);
-        
         
         return $lesDomaines;
     }
@@ -207,7 +211,7 @@ class DomaineRepository extends NestedTreeRepository
         $query = $this->_em->createQuery('SELECT d 
                                           FROM MindSiteBundle:Domaine d 
                                           WHERE d.etat = :etat
-                                          ORDER DESC d.libelle');
+                                          ORDER BY d.libelle DESC');
         
        
         $query->setParameter('etat', 1);

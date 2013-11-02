@@ -1,0 +1,13 @@
+{# empty Twig template #}
+
+<form style="display: inline-block" action="{{ path("mind_media_suivis", {'stringOptions': stringOptions}) }}" class="form-inline" method="POST" enctype="multipart/form-data">
+    
+    {{ form_errors(form) }}
+    
+    {{ form_widget(form.idUser) }}
+    {{ form_widget(form.idEntity) }}
+    {{ form_widget(form.typeEntity) }}
+    
+    {{ btnSubmit|raw }}
+    {{ form_rest(form) }}
+</form>

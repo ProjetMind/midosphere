@@ -3,6 +3,7 @@
 namespace Mind\MediaBundle;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class Suivis {
 
@@ -12,17 +13,19 @@ class Suivis {
     protected $idEntity;
     protected $typeEntity;
     protected $repository;
+    protected $security;
     protected $optionsSearch = array(
                                         'idUser'        => "",
                                         'idEntity'      => "",
                                         'typeEntity'    => ""
                                     );
 
-    public function __construct(Registry $doctrine) {
+    public function __construct(Registry $doctrine, SecurityContextInterface $security) {
         
         $this->doctrine         = $doctrine;
         $this->manager          = $doctrine->getManager();
         $this->repository       = $this->manager->getRepository('MindMediaBundle:Suivis');
+        $this->security         = $security;
     }
 
     public function getSuivisAvis($idUser){
@@ -72,7 +75,7 @@ class Suivis {
         
     }
     
-    protected function init(array $options){
+    public function init(array $options){
         
         $this->idUser       = $options['idUser'];
         $this->idEntity     = $options['idEntity'];
@@ -84,7 +87,7 @@ class Suivis {
         
     }
     
-    protected function initSuivis($checkSuivis){
+    public function initSuivis($checkSuivis){
         
         if($checkSuivis == false){
             
@@ -93,10 +96,10 @@ class Suivis {
             $suivis->setIdUser($this->idUser);
             $suivis->setIdEntity($this->idEntity);
             $suivis->setTypeEntity($this->typeEntity);
-            $suivis->setDisabled(false);
+            $suivis->setDisabled(true);
             $this->manager->persist($suivis);
             
-        }else{
+        }else{ 
             $suivis = $this->repository->findOneBy($this->optionsSearch);
             $this->manager->remove($suivis);
         }
@@ -105,9 +108,15 @@ class Suivis {
     }
 
 
-    protected function checkSuivis(){
+    public function checkSuivis(array $optionsSearch = null){
         
-        $suivis = $this->repository->findBy($this->optionsSearch);
+        if($optionsSearch == NULL){
+            $suivis = $this->repository->findBy($this->optionsSearch);
+        }else{
+            $suivis = $this->repository->findBy($optionsSearch);
+            
+        }
+        
         
         if(empty($suivis)){
             $checkSuivis = false;
@@ -116,6 +125,54 @@ class Suivis {
         }
         
         return $checkSuivis;
+    }
+    
+    public function isValidUser($idUser){
+        
+        $user = $this->manager->getRepository('MindUserBundle:User')->find($idUser);
+        
+        if(!empty($user)){
+            $userExiste = true;
+        }else{
+            $userExiste = false;
+        }
+        
+        return $userExiste;
+    }
+    
+    public function isValidEntity($idEntity, $typeEntity){
+        
+        $typeEntity = ucfirst($typeEntity);
+        $entity = $this->manager->getRepository('MindSiteBundle:'.$typeEntity)->find($idEntity);
+        
+        if(!empty($entity)){
+            $entityExiste = true;
+        }else{
+            $entityExiste = false;
+        }
+        
+        return $entityExiste;
+    }
+    
+    public function isValidTypeEntity($typeEntity){
+        
+        $isValidTypeEntity = true;
+                
+        switch ($typeEntity){
+            
+            case 'avis':
+                break;
+            
+            case 'question':
+                break;
+            
+            default :
+                $isValidTypeEntity = false;
+                break;
+            
+        }
+        
+        return $isValidTypeEntity;
     }
 }
 

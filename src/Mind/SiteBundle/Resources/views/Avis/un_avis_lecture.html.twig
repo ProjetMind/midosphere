@@ -1,3 +1,4 @@
+
 {# empty Twig template #}
 
 {% extends "MindSiteBundle::layout.html.twig" %}
@@ -13,6 +14,9 @@
                      <div class="media-heading">
                          <h3>
                              <a href="{{ path('mind_site_avis_voir', {"auteur": lesAuteurs[unAvis.id].slug, "slug": unAvis.slug }) }}"> {{ unAvis.avisTitre }} </a>
+                            <span id="spanFormSuivre"> 
+                                {% render controller('MindMediaBundle:Suivis:index', {'stringOptions': app.user.id~'-'~unAvis.id~'-'~'avis' }) %}
+                            </span>    
                          </h3>
                          <p class="">
                              <span>Par {{ lesAuteurs[unAvis.id].profileLink|raw }} </span>

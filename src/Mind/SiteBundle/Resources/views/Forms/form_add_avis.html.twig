@@ -32,6 +32,7 @@
                 </div>
                 
                 <div>
+                    {% set label = form_label(form.typeOpinion) %}
                     {{ form_label(form.typeOpinion) }}
                     {{ form_widget(form.typeOpinion) }}
                     {{ form_errors(form.typeOpinion) }}

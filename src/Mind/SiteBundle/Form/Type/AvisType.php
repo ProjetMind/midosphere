@@ -49,7 +49,7 @@ class AvisType extends AbstractType
                                 'multiple' => false,
                                 'expanded' => true,
                                 'choices' => array(
-                                                      1 => 'Positive',
+                                                      1 => '<i class="icon-thumbs-up"></i>',
                                                       2 => 'Mitigée',
                                                       3 => 'Négative'
                                                         )

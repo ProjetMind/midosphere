@@ -29,3 +29,9 @@ mind_media_abonnement_domaine:
     expose: true
     
 #Suivis 
+mind_media_suivis:
+  pattern: /suivis/{stringOptions}
+  defaults: { _controller: MindMediaBundle:Suivis:index }
+  options:
+      expose: true
+    

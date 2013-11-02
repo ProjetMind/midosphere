@@ -19,7 +19,7 @@ services:
         
     mind_media.suivis:
         class: %mind_media.suivis.class%
-        arguments: ["@doctrine"]
+        arguments: ["@doctrine", "@security.context"]
         
     mind_media.images:
         class: %mind_media.images.class%
