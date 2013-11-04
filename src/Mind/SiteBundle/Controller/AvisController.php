@@ -57,11 +57,6 @@ class AvisController extends Controller
                 $titreGroup = 'Tous les avis';
                 break;
             
-            case 'avis_for_accueil':
-                $lesAvis = $repositoryAvis->getAvisOrderDatePubAsc();
-                $titreGroup = 'Les avis publiés récemment';
-                break;
-            
             case 'mind_site_avis_afficher_recent':
                 $lesAvis = $repositoryAvis->getAvisOrderDatePubAsc();
                 $titreGroup = 'Les avis publiés récemment';
@@ -98,8 +93,6 @@ class AvisController extends Controller
             $page/*page number*/,
             2/*limit per page*/
         );
-       
-        
         
         $lesDomaines              =   $this->getDomaineWithLink($lesAvis, $manager);
         $lesAuteurs               =   $this->getAuteursAvis($lesAvis, $manager);
@@ -116,8 +109,7 @@ class AvisController extends Controller
                     'lesDates'          => $lesDatesDePublication,
                     'lesNbCom'          => $lesNbCom,
                     'images'            => $images,
-                    'pageType'          => 'supprimer_entity',
-                    'routePaginator'    => $routeName
+                    'pageType'          => 'supprimer_entity'
                    ));
     }
     
