@@ -595,7 +595,7 @@ CREATE TABLE `suivis` (
   `type_entity` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `disabled` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -604,7 +604,7 @@ CREATE TABLE `suivis` (
 
 LOCK TABLES `suivis` WRITE;
 /*!40000 ALTER TABLE `suivis` DISABLE KEYS */;
-INSERT INTO `suivis` VALUES (1,52,1,'avis',0),(2,52,2,'avis',0),(3,52,1,'question',0),(4,52,2,'question',0),(5,52,3,'avis',0),(6,52,3,'question',0);
+INSERT INTO `suivis` VALUES (2,52,2,'avis',0),(4,52,2,'question',0),(5,52,3,'avis',0),(6,52,3,'question',0),(21,52,1,'avis',1),(23,52,1,'question',1);
 /*!40000 ALTER TABLE `suivis` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -680,7 +680,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (52,'Hipopeur','hipopeur','shonen.shojo@midosphere.com','shonen.shojo@midosphere.com',1,'5r1ggi0ccb8c0g8oc4cwcgg0s4ko0c8','vd66sPvRsjKF3yFgApClhEcqW5RloHHQZxwH/vAe0VqrBGtuBY6LX5rR7bpnJbLfsG8Qk+Xu0HpCladNWMRVNw==','2013-10-31 03:02:53',0,0,NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}',0,NULL,NULL,'../web/uploads/user/avatars/c0235bf9df5a0da524452885b104d38281fb5515.jpeg','hipopeur',NULL,'2013-10-24','1','FR','2013-10-24 12:47:07',1,NULL),(53,'Diallo','diallo','diallo@midosphere.com','diallo@midosphere.com',1,'evcpdoq27io884488g4ss80cogww0og','4N0UNudDc+voI4xbvjfISuJ/jpPjkfZW9jsdIPX4PJ9lOA/ovVuIM07lzbMY8gyMWzRcCZ75OhVYQc6xO0+IVw==',NULL,0,0,NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}',0,NULL,NULL,NULL,'diallo',NULL,'2013-10-24','1','FR','2013-10-24 12:47:07',1,NULL),(54,'Jean','jean','Jean@midosphere.com','jean@midosphere.com',1,'alp59jtqdyosgsggo8oksck8c4wgcgs','gbMSaEXB+QeVnO8DqJhOndnIL3Wqzmtp4swWcpNFpt+54r/IcU1A3+8jt85fVjfyi8YmYBmsRubqNshfYzGEUg==',NULL,0,0,NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}',0,NULL,NULL,NULL,'jean',NULL,'2013-10-24','1','FR','2013-10-24 12:47:07',1,NULL),(58,'Breaking dev','breaking dev','diallo.mouhamadou.dev@gmail.com','diallo.mouhamadou.dev@gmail.com',1,'ehvsarjkijw404g84wkgwokk0c4w44','M9E6O9kzvNzuxjwFK1ua9faqKk9GqVg/Zi4Ca0MkiB5CV4Bi6OXc9kUqKSkl+CckHGsy58vfusnAEcKastRP5w==','2013-10-31 01:53:55',0,0,NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}',0,NULL,NULL,'../web/uploads/user/avatars/4092b9e90158c1d89e49df39aef3340a62760eaa.jpeg','breaking-dev',NULL,'1904-06-06','1','DZ','2013-10-31 01:53:09',1,NULL);
+INSERT INTO `user` VALUES (52,'Hipopeur','hipopeur','shonen.shojo@midosphere.com','shonen.shojo@midosphere.com',1,'5r1ggi0ccb8c0g8oc4cwcgg0s4ko0c8','vd66sPvRsjKF3yFgApClhEcqW5RloHHQZxwH/vAe0VqrBGtuBY6LX5rR7bpnJbLfsG8Qk+Xu0HpCladNWMRVNw==','2013-11-04 20:13:25',0,0,NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}',0,NULL,NULL,'../web/uploads/user/avatars/c0235bf9df5a0da524452885b104d38281fb5515.jpeg','hipopeur',NULL,'2013-10-24','1','FR','2013-10-24 12:47:07',1,NULL),(53,'Diallo','diallo','diallo@midosphere.com','diallo@midosphere.com',1,'evcpdoq27io884488g4ss80cogww0og','4N0UNudDc+voI4xbvjfISuJ/jpPjkfZW9jsdIPX4PJ9lOA/ovVuIM07lzbMY8gyMWzRcCZ75OhVYQc6xO0+IVw==',NULL,0,0,NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}',0,NULL,NULL,NULL,'diallo',NULL,'2013-10-24','1','FR','2013-10-24 12:47:07',1,NULL),(54,'Jean','jean','Jean@midosphere.com','jean@midosphere.com',1,'alp59jtqdyosgsggo8oksck8c4wgcgs','gbMSaEXB+QeVnO8DqJhOndnIL3Wqzmtp4swWcpNFpt+54r/IcU1A3+8jt85fVjfyi8YmYBmsRubqNshfYzGEUg==',NULL,0,0,NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}',0,NULL,NULL,NULL,'jean',NULL,'2013-10-24','1','FR','2013-10-24 12:47:07',1,NULL),(58,'Breaking dev','breaking dev','diallo.mouhamadou.dev@gmail.com','diallo.mouhamadou.dev@gmail.com',1,'ehvsarjkijw404g84wkgwokk0c4w44','M9E6O9kzvNzuxjwFK1ua9faqKk9GqVg/Zi4Ca0MkiB5CV4Bi6OXc9kUqKSkl+CckHGsy58vfusnAEcKastRP5w==','2013-10-31 01:53:55',0,0,NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}',0,NULL,NULL,'../web/uploads/user/avatars/4092b9e90158c1d89e49df39aef3340a62760eaa.jpeg','breaking-dev',NULL,'1904-06-06','1','DZ','2013-10-31 01:53:09',1,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -771,4 +771,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-10-31  3:12:49
+-- Dump completed on 2013-11-05  2:06:35
