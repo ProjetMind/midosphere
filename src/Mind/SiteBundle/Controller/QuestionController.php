@@ -86,7 +86,8 @@ class QuestionController extends Controller
                   'lesAuteurs'          => $lesAuteurs,
                   'lesDates'            => $lesDatesDePublication,
                   'lesNbCom'            => $lesNbCom,
-                  'pageType'            => 'supprimer_entity'
+                  'pageType'            => 'supprimer_entity',
+                  'routePaginator'      => $routeName
                    ));
    
   }

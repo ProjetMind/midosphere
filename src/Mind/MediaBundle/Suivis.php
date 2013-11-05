@@ -33,7 +33,7 @@ class Suivis {
         $optionsSearch = array(
                                     'idUser'        => $idUser,
                                     'typeEntity'    => 'avis',
-                                    'disabled'      => false
+                                    'disabled'      => true
                               );
         
         $avisSuivis = $this->repository->findBy($optionsSearch);
@@ -52,7 +52,7 @@ class Suivis {
         $optionsSearch = array(
                                     'idUser'        => $idUser,
                                     'typeEntity'    => 'question',
-                                    'disabled'      => false
+                                    'disabled'      => true
                               );
         
         $questionsSuivis = $this->repository->findBy($optionsSearch);

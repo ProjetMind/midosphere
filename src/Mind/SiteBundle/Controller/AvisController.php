@@ -44,6 +44,7 @@ class AvisController extends Controller
         $repositoryAvis = $manager->getRepository('MindSiteBundle:Avis');
         $template       = sprintf('MindSiteBundle::un_avis.html.twig');
         $paginator      = $this->get('knp_paginator');
+        $limitParPage   = 2;
         
         switch ($routeName){
             
@@ -96,7 +97,7 @@ class AvisController extends Controller
         $lesAvis = $paginator->paginate(
             $lesAvis,
             $page/*page number*/,
-            2/*limit per page*/
+            $limitParPage/*limit per page*/
         );
         
         $lesDomaines              =   $this->getDomaineWithLink($lesAvis, $manager);

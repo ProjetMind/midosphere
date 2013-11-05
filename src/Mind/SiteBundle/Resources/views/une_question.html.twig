@@ -51,6 +51,22 @@
 </section>
 
 {# display navigation #}
+
+{% set lesRoutes = 
+    [
+        'avis_for_accueil', 
+        'get_avis_by_auteur',
+        'get_questions_by_auteur',
+        'mind_user_profile_voir', 
+        ''
+    ] 
+%}
+
+{# display navigation #}
+{% if routePaginator is defined and routePaginator in lesRoutes %}
+
+{% else %}
 <div class="navigation">
     {{ knp_pagination_render(lesQuestions) }}
 </div>
+{% endif %}

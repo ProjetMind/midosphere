@@ -46,7 +46,8 @@ class ProfileController extends BaseController
                         'lesAuteurs'    => $lesAuteurs,
                         'lesDates'      => $lesDates,
                         'lesNbCom'      => $lesNbCom,
-                        'pageType'      => 'supprimer_suivis'
+                        'pageType'      => 'supprimer_suivis', 
+                        'routePaginator'    => ""
                      ));
     }
     
@@ -73,7 +74,8 @@ class ProfileController extends BaseController
                         'lesAuteurs'    => $lesAuteurs,
                         'lesDates'      => $lesDates,
                         'lesNbCom'      => $lesNbCom,
-                        'pageType'      => 'supprimer_suivis'
+                        'pageType'      => 'supprimer_suivis',
+                        'routePaginator'    => ''
                      ));
         
     }

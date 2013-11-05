@@ -26,7 +26,6 @@
         {% render controller('MindUserBundle:Profile:getSuivisAvis', {'idUser': idAuteur }) %}
     </div>
 
-
     <div id="les-abonnements">
         {% render controller('MindUserBundle:Profile:getSuivisQuestions', {'idUser': idAuteur }) %}
     </div>
@@ -35,10 +34,10 @@
 
 <div class="">
     {% set idAuteur = auteur[0].id %}
-    
-    {% render controller('MindSiteBundle:Avis:getAvis', { '_route': 'get_avis_by_auteur', 'idAuteur': idAuteur }) %}
+   
+    {% render controller('MindSiteBundle:Avis:getAvis', {'page': 1, '_route': 'get_avis_by_auteur', 'idAuteur': idAuteur }) %}
 </div>
 
 <div class="">
-    {% render controller('MindSiteBundle:Question:getQuestions', { '_route': 'get_questions_by_auteur', 'idAuteur': idAuteur }) %}
+    {% render controller('MindSiteBundle:Question:getQuestions', {'page': 1, '_route': 'get_questions_by_auteur', 'idAuteur': idAuteur }) %}
 </div>
