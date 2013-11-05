@@ -55,22 +55,22 @@ class AvisType extends AbstractType
                                                         )
                                 ))
                 
-            ->add('avisDomaine', 'choice', array(
-                                                'choices'     => $this->choicesDomaineArray,
-                                                'required'  => true,
-                                                'expanded'  => true,
-                                                'multiple'  => false,
-                                                'label'     => "Domaines",
-//                                                'attr'      => array(
-//                                                                        'name'  => 'domaineParent',
-//                                                                        'class' => 'hide'
-//                                                                    ),
-//                                                'label_attr'    => array(
-//                                                                          'class' => 'hide'      
-//                                                                       )
-                                                
-                                            )
-                    )
+//            ->add('avisDomaine', 'choice', array(
+//                                                'choices'     => $this->choicesDomaineArray,
+//                                                'required'  => true,
+//                                                'expanded'  => true,
+//                                                'multiple'  => false,
+//                                                'label'     => "Domaines",
+////                                                'attr'      => array(
+////                                                                        'name'  => 'domaineParent',
+////                                                                        'class' => 'hide'
+////                                                                    ),
+////                                                'label_attr'    => array(
+////                                                                          'class' => 'hide'      
+////                                                                       )
+//                                                
+//                                            )
+//                    )
                 
                 #->add('file', new \Mind\MediaBundle\Form\Type\ImageAvisType())
                 
