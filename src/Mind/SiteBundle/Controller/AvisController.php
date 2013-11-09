@@ -341,6 +341,7 @@ class AvisController extends Controller
   {
 
      $suivis = $this->container->get('mind_media.suivis');
+     $domaineService = $this->container->get('mind_site.domaine');
      #$listener = $this->container->get('gedmo.listener.uploadable');
      $em = $this->getDoctrine()->getManager();
      $domaineArray = $em->getRepository('MindSiteBundle:Domaine')->getAllDomainesInArray();
@@ -391,7 +392,7 @@ class AvisController extends Controller
        
     }
     
-    $lesDomaines = $this->getDomainesAction();
+    $lesDomaines = $domaineService->getHtmlFormDomaineTree('avis'); 
     
     $template = sprintf('MindSiteBundle:Forms:form_add_avis.html.twig'); 
     return $this->container->get('templating')->renderResponse($template, array('lesDomaines'   => $lesDomaines,

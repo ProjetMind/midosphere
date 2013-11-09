@@ -14,9 +14,8 @@
             <script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
             
         {% else %}
-            
+           
             {% stylesheets 
-                filter='lessphp, yui_css, cssrewrite'
                 '@MindSiteBundle/Resources/public/css/*'
                 '@MindMpBundle/Resources/public/css/*'
                 '../vendor/twitter/bootstrap/less/bootstrap.less'
@@ -28,7 +27,7 @@
             {% endstylesheets %}
                 
             {% javascripts 
-                filter='yui_js'
+                
                 '../web/resources-js/jquery.min.js'
                 '../web/resources-js/jquery-ui.min.js'
                 '../web/resources-js/jquery.form.js'

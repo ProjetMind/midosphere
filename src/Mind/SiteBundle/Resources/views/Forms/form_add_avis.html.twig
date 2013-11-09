@@ -38,9 +38,12 @@
                 </div>
                 
                 
-                <div>{#
-                        {{ form_label(form.avisDomaine) }}
-                        {{ form_widget(form.avisDomaine) }} #}
+                <div>
+                    {{ lesDomaines|raw }}
+                    {#
+                    {{ form_label(form.avisDomaine) }}
+                    {{ form_widget(form.avisDomaine) }} 
+                    #}
                 </div>
                 
                 <div id="imagesForUpload">

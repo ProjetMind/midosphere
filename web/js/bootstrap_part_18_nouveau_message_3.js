@@ -1,0 +1,1 @@
+$(document).ready(function(){var a={success:showResponseMessage,clearForm:true,resetForm:true};$("#formNouveauMessage").ajaxForm(a)});function showResponseMessage(b,c,d,a){$("#containerMessage").append(b)};

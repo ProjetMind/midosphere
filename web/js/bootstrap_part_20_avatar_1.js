@@ -1,0 +1,1 @@
+$(document).ready(function(){var a={success:showResponseAvatar,delegation:true,clearForm:true,resetForm:true};$("#formAvatar").ajaxForm(a)});function showResponseAvatar(b,c,d,a){$("#divAvatar").html(b)};
