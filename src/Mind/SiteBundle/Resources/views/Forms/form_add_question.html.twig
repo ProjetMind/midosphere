@@ -23,33 +23,27 @@
                         {# form_widget(form.sujet) }}
                         {{ form_errors(form.sujet) #}
                     </div>
-
+                    
                     <div>
                         {{ form_label(form.question) }}
                         {{ form_widget(form.question) }}
                         {{ form_errors(form.question) }}
                     </div>
-
-
-                    <div>
-                        {{ lesDomaines|raw }}
-                    </div>
                     
-                    <div class="hide">
+                    <div class="divDomaineInForm">
+                        <label>Les domaines</label>
+                        {{ lesDomaines|raw }}
+                        {#
                         {{ form_label(form.questionDomaine) }}
-                        {{ form_widget(form.questionDomaine) }} 
+                        {{ form_widget(form.questionDomaine) }}     
+                        #}
                         
                     </div>
-
-                    <div>
-                        {# include "PunkAveFileUploaderBundle:Default:templates.html.twig" #}
-                    </div>
-
                     <div>
                         <input type="submit" class="btn btn-primary" value="Ajoutez ma question">
                     </div>
 
-                    {{ form_rest(form) }}
+                    {{ form_widget(form._token) }}
 
                     
                 </fieldset>

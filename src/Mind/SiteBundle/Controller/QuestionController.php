@@ -236,6 +236,7 @@ class QuestionController extends Controller
   {
 
       $suivis = $this->container->get('mind_media.suivis');
+      $domaineService = $this->container->get('mind_site.domaine');
       //Création du formulaire à partir de l'entité et du type de formulaire
      $question = new \Mind\SiteBundle\Entity\Question;
      $form = $this->createForm(new QuestionType(), $question);
@@ -251,6 +252,7 @@ class QuestionController extends Controller
         
         $idAuteur = $idAuteur = $this->get('security.context')->getToken()->getUser()->getId();
         $question->setQuestionAuteur($idAuteur);
+        $question->setQuestionDomaine($domaineService->getDomaineWhoIsSelected());
         
         
         if($form->isValid()){
@@ -277,7 +279,7 @@ class QuestionController extends Controller
        
     }
     
-    $lesDomaines = $this->getDomainesAction();
+    $lesDomaines = $domaineService->getHtmlFormDomaineTree('question'); 
     
     $template = sprintf('MindSiteBundle:Forms:form_add_question.html.twig'); 
     return $this->container->get('templating')->renderResponse($template, array('lesDomaines'   => $lesDomaines,

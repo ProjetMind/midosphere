@@ -138,7 +138,7 @@ containerConversation textarea{
 .divDomaineInForm{
     
     width: 400px;
-    height: 200px;
+    max-height: 200px;
     overflow: auto;
 }
 
