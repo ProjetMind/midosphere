@@ -15,7 +15,7 @@ services:
      arguments: ["@doctrine", "@mind_site.date.formatage", "@router", "@security.context"]
   mind_site.domaine:
      class: %mind_site.domaine.class%
-     arguments: ["@doctrine", "@router", "@security.context"]
+     arguments: ["@doctrine", "@router", "@security.context", "@service_container"]
   mind_site.paginator_aware:
      class: Mind\SiteBundle\PaginatorAware
      arguments: ["@doctrine"]

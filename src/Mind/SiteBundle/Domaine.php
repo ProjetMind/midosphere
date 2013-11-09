@@ -6,6 +6,7 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Routing\Router;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Domaine extends NestedTreeRepository{ 
     
@@ -13,24 +14,49 @@ class Domaine extends NestedTreeRepository{
     protected $manager;
     protected $security;
     protected $router;
-    public $htmlOpen        = '<table>';
-    public $htmlClose       = '</table>';
-    public $childOpen       = '<tr>';
-    public $childClose      = '</tr>';
+    protected $container;
+    
+    public $rootOpen        = '<ul>';
+    public $rootClose       = '</ul>';
+    public $childOpen       = '<li>';
+    public $childClose      = '</li>';
 
 
-    public function __construct(Registry $doctrine, Router $router, SecurityContextInterface $security) {
+    public function __construct(Registry $doctrine, Router $router, SecurityContextInterface $security,
+                                ContainerInterface $container) {
         
         $this->doctrine         = $doctrine;
         $this->manager          = $doctrine->getManager();
         $this->security         = $security;
         $this->router           = $router;
+        $this->container        = $container;
         
         parent::__construct($this->manager, $this->manager->getClassMetadata('MindSiteBundle:Domaine'));
       
     }
     
     /**
+     * 
+     * Permet de récupérer le domaine qui est séléctionné
+     * 
+     * @return int l'id du domaine selectionné
+     */
+    public function getDomaineWhoIsSelected(){
+    
+        $idDuDomaine = -1;
+        $request = $this->container->get('request');
+        if($request->getMethod() == "POST"){
+            
+            $dataForm       = $request->get('mind_sitebundle_avistype');
+            $idDuDomaine    = $dataForm['avisDomaine'];
+        }
+        
+        return $idDuDomaine;
+    }
+    
+    /**
+     * 
+     * ////Cette fonction n'est pas utilisée////
      * 
      * Permet de construire un élément de tableau td avec un décalage sur la gauche pour 
      * les sous domaines
@@ -68,41 +94,36 @@ class Domaine extends NestedTreeRepository{
         
         $childSort = array(
                             'field' => 'libelle',
-                            'dir'   => 'desc'
+                            'direction'   => 'asc'
         );
         $nbElmtDomaine = 0;
-        $nodes = $this->getNodesHierarchy();
-        $node = $this->buildTreeArray($nodes);
         
         $tree = $this->childrenHierarchy(
                                             null,
                                             false,
             array(
                     'decorate' => true,
-                    'rootOpen' => function($tree){ //echo $tree[$elmtCourant]['slug'];
-                                                                       // $elmtCourant++;
-                                                                        return '<tr>';
-                                                    },
-                    'rootClose' => function($child){ //echo $child[$elmtCourant]['slug'];
-                                                                        //$elmtCourant++;
-                                                                        return '</tr>'; 
+                    'childSort' => $childSort,
+                    'rootOpen' => function($tree){
+                                                    return $this->rootOpen;
+                                                 },
+                    'rootClose' => function($child){ 
+                                                    return $this->rootClose; 
                                                     },
                     'childOpen' => function($tree) {
-                                                        $nbParent = $tree['niveau'];
-                                                        return '<td class="_children vide">'.$this->getHtmlForm($nbParent, 'open');
-                                                        //return '<td>';
+                                                        return $this->childOpen;
                                                     },
-                    'childClose' => '</td>',
+                    'childClose' => $this->childClose,
                     'nodeDecorator' => function($node) use($typeEntity, &$nbElmtDomaine){
                                                             //return '<a href="'.$this->router->generate("mind_site_homepage",array("id"=>$node['id'])).'">'.$node['libelle'].'</a>&nbsp;';
-                                                            $htmlDomaine = $this->getHtmlFormImputAndLabel($typeEntity, $node['id'], false);
+                                                            $htmlDomaine = $this->getHtmlFormImputAndLabel($typeEntity, $node['id']);
                                                             $nbElmtDomaine++;
                                                             return $htmlDomaine['labelOpen'].$node['libelle'].$htmlDomaine['input'].$htmlDomaine['labelClose'];
-                    },
-                    'childSort' => $childSort
+                    }
+                    
         ));
         
-        return '<table>'.$tree.'</table>';
+        return $tree;
     }
     
     /**
@@ -116,10 +137,12 @@ class Domaine extends NestedTreeRepository{
      * @param boolean $isCourantElmt Indique si l'élément est actuellement l'élément courant
      * @return array les éléments formulaire en html d'un domaine
      */
-    public function getHtmlFormImputAndLabel($typeEntity, $idEntityDomaine, $isCourantElmt = false){
+    public function getHtmlFormImputAndLabel($typeEntity, $idEntityDomaine){
     
-        if($isCourantElmt == true){
-            $htmlIsCourantElmt = 'checked=""';
+        $idDuDomaine = $this->getDomaineWhoIsSelected();
+       
+        if($idDuDomaine == $idEntityDomaine){
+            $htmlIsCourantElmt = 'checked="checked"';
         }else{
             $htmlIsCourantElmt = null;
         }
@@ -127,7 +150,7 @@ class Domaine extends NestedTreeRepository{
         $htmlFormDomaine = 
                 array(
                         'labelOpen'    => '<label style="display:inline-block;" for="mind_sitebundle_'.$typeEntity.'type_'.$typeEntity.'Domaine_%d" class="radio required">',
-                        'input'         => '<input %d type="radio" id="mind_sitebundle_'.$typeEntity.'type_'.$typeEntity.'Domaine_%d" name="mind_sitebundle_'.$typeEntity.'type['.$typeEntity.'Domaine]" required="required" name="domaineParent" value="%d" /> ',
+                        'input'         => '<input %s type="radio" id="mind_sitebundle_'.$typeEntity.'type_'.$typeEntity.'Domaine_%d" name="mind_sitebundle_'.$typeEntity.'type['.$typeEntity.'Domaine]" required="required" name="domaineParent" value="%d" /> ',
                         'labelClose'    => '</label>'        
             );
         

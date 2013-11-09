@@ -23,7 +23,7 @@ class DomaineRepository extends NestedTreeRepository
         
         $query = $this->_em->createQuery('SELECT d.id, d.libelle
                                           FROM MindSiteBundle:Domaine d
-                                          ORDER BY d.libelle ASC
+                                          ORDER BY d.libelle DESC
                                          ');
         
         $tabDomaines = array();

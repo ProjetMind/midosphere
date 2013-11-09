@@ -353,7 +353,7 @@ class AvisController extends Controller
      //On récupère la classe requete
      $request = $this->getRequest();
      
-    if($request->getMethod() == 'POST' )
+    if($request->getMethod() == 'POST')
     {
       // Ici, on s'occupera de la création et de la gestion du formulaire
         
@@ -361,7 +361,7 @@ class AvisController extends Controller
         
         $idAuteur = $this->get('security.context')->getToken()->getUser()->getId();
         $avis->setAvisAuteur($idAuteur);
-        //$avis->setAvisDomaine($idDomaine);
+        $avis->setAvisDomaine($domaineService->getDomaineWhoIsSelected());
         
         if($form->isValid()){
              

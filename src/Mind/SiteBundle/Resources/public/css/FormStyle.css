@@ -131,6 +131,16 @@ containerConversation textarea{
     float: right;
 }
 
+/*******************************************************************************
+/* Form in domaine
+********************************************************************************/
+
+.divDomaineInForm{
+    
+    width: 400px;
+    height: 200px;
+    overflow: auto;
+}
 
 
 
