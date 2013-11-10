@@ -86,24 +86,17 @@ class DomaineController extends Controller
     
     public function getListeDomainePageAction(){
         
+        $domaineService = $this->container->get('mind_site.domaine');
+        $lesDomaines    = $domaineService->getHtmlListeDomaine();
+        
         $template = sprintf('MindSiteBundle:Domaines:page_domaines.html.twig');
-        return $this->container->get('templating')->renderResponse($template);
+        return $this->container->get('templating')->renderResponse($template,
+                    array(
+                            'lesDomaines'       => $lesDomaines
+                    ));
         
     }
     
-    public function getListeDomaineWithJustLinkAction(){
-        
-        $router = $this->container->get('router');
-        $lesDomaines = $this->getDoctrine()
-                            ->getManager()
-                            ->getRepository('MindSiteBundle:Domaine')
-                            ->getListeDomaineWithJustLink($router);
-        
-        $template = sprintf('MindSiteBundle:Domaines:liste_domaine.html.twig');
-        return $this->container->get('templating')->renderResponse($template, 
-                array('lesDomaines'     => $lesDomaines));
-                
-    }
 
     public function voirAction($slug){
         

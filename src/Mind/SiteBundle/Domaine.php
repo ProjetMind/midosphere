@@ -37,6 +37,41 @@ class Domaine extends NestedTreeRepository{
     
     /**
      * 
+     * Permet de récupérer la liste des domaines sous forme de liste
+     * 
+     * @return string
+     */
+    public function getHtmlListeDomaine(){
+    
+        $childSort = array(
+                            'fiferf' => 'libelle',
+                            'direction'   => 'asc'
+        );
+        
+        $tree = $this->childrenHierarchy(
+                                            null,
+                                            false,
+            array(
+                    'decorate' => true,
+                    'childSort' => $childSort,
+                    'rootOpen' => $this->rootOpen,
+                    'rootClose' => $this->rootClose,
+                    'childOpen' => $this->childOpen,
+                    'childClose' => $this->childClose,
+                    'nodeDecorator' => function($node){
+                          return '<span>'.$node['libelle'].'</span>&nbsp;';
+                    }
+                    
+        ));
+        
+        //return '<a href="'.$this->router->generate("mind_site_domaine_voir",
+        //array("slug"=>$node['slug'])).'">'.$node['libelle'].'</a>&nbsp;';
+        
+        return $tree;
+    }
+    
+    /**
+     * 
      * Permet de récupérer le domaine qui est séléctionné
      * 
      * @return int l'id du domaine selectionné
@@ -52,32 +87,6 @@ class Domaine extends NestedTreeRepository{
         }
         
         return $idDuDomaine;
-    }
-    
-    /**
-     * 
-     * ////Cette fonction n'est pas utilisée////
-     * 
-     * Permet de construire un élément de tableau td avec un décalage sur la gauche pour 
-     * les sous domaines
-     * 
-     * @param int $nbParent 
-     * @param string $typeHtml
-     * @return string
-     */
-    public function getHtmlForm($nbParent, $typeHtml){
-         
-
-        $htmlTd = '';
-        if($nbParent > 0){
-                            $nbParent = $nbParent + 1;
-                            
-                            for ($initStart = 1; $initStart <= $nbParent; $initStart++ ){
-                                $htmlTd = $htmlTd.'<td class="_children vide">';
-                            }
-                        }
-
-        return $htmlTd;
     }
         
     /**

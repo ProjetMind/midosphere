@@ -6,6 +6,10 @@
 
 {% block sectionCorps %}
 
-        {% render controller('MindSiteBundle:Domaine:getListeDomaineWithJustLink') %}
+    <div>
+        <h3>Les domaines publiées</h3>
+    </div>
+    
+    {{ lesDomaines|raw }}
                          
 {% endblock %}
