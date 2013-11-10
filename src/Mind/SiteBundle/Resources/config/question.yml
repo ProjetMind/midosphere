@@ -9,7 +9,7 @@ mind_site_question_ajouter:
     defaults:  { _controller: MindSiteBundle:Question:ajouter }
  
 mind_site_question_modifier:
-    path:      /question/modifier/{id}
+    path:      /question/modifier/{idQuestion}
     defaults:  { _controller: MindSiteBundle:Question:modifier }
     requirements:
         id:  \d+

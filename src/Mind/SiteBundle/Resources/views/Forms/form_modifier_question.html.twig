@@ -1,0 +1,50 @@
+{# empty Twig template #}
+
+{% extends "MindSiteBundle::layout.html.twig" %}
+
+{% block sectionCorps %}
+
+        <span class="formSpan">
+            
+            <form action="{{ path("mind_site_question_modifier", {'idQuestion': idQuestion}) }}" class="form-horizontal" method="POST" {{ form_enctype(form) }}>
+            
+                <fieldset>
+                    <legend class="btn-primary">Modifier ma question</legend>
+                        
+                        {{ form_errors(form) }}
+                        
+                    <div>
+                        {{ form_label(form.questionTitre) }}
+                        {{ form_widget(form.questionTitre) }}
+                        {{ form_errors(form.questionTitre) }}
+                    </div>
+
+                    <div>
+                        {{ form_label(form.question) }}
+                        {{ form_widget(form.question) }}
+                        {{ form_errors(form.question) }}
+                    </div>
+                    
+                    <div class="divDomaineInForm">
+                        <label>Les domaines</label>
+                        {{ lesDomaines|raw }}
+                        {#
+                        {{ form_label(form.questionDomaine) }}
+                        {{ form_widget(form.questionDomaine) }}     
+                        #}
+                        
+                    </div>
+                    <div>
+                        <input type="submit" class="btn btn-primary" value="Modifier ma question">
+                    </div>
+
+                    {{ form_widget(form._token) }}
+
+                    
+                </fieldset>
+                
+            </form>
+        
+        </span>
+        
+{% endblock %}

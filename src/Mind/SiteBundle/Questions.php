@@ -28,6 +28,15 @@ class Questions {
         $this->security         = $security;
     }
     
+    public function getQuestionToUpdate($idQuestion){
+        
+        $question = $this->manager
+                            ->getRepository('MindSiteBundle:Question')
+                            ->find($idQuestion);
+        
+        return $question;
+    }
+    
     public function getDatePublication($lesQuestions){
   
       $lesDates = array();

@@ -6,13 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Mind\MediaBundle\Controller\VoteQuestionController;
 use Mind\SiteBundle\Form\Type\QuestionType;
 use Symfony\Component\HttpFoundation\Response;
+use Mind\SiteBundle\Form\Type\QuestionModifierType;
 
 class QuestionController extends Controller
 {
   public function indexAction($page)
   {
-      $routeName = $this->getRequest()->get('_route');
-      $template = sprintf('MindSiteBundle:Question:les_questions.html.twig');
+      $routeName    = $this->getRequest()->get('_route');
+      $template     = sprintf('MindSiteBundle:Question:les_questions.html.twig');
       
       return $this->container->get('templating')->renderResponse($template, 
               array('routeName'     => $routeName,
@@ -26,7 +27,7 @@ class QuestionController extends Controller
       $manager              = $this->getDoctrine()->getManager();
       $repositoryQuestion   = $manager->getRepository('MindSiteBundle:Question');
       $template             = sprintf('MindSiteBundle::une_question.html.twig');
-      $paginator      = $this->get('knp_paginator');
+      $paginator            = $this->get('knp_paginator');
       
       switch ($routeName){
           
@@ -323,13 +324,55 @@ class QuestionController extends Controller
       return $lesVotes;
   }
    
-  public function modifierAction($id)
+  public function modifierAction($idQuestion)
   {
-    // Ici, on récupérera l'avis correspondant à $id
- 
-    // Ici, on s'occupera de la création et de la gestion du formulaire
- 
-    return $this->render('MindSiteBundle:Avis:modifier.html.twig');
+      $serviceQuestion = $this->container->get('mind_site.questions');
+       $domaineService = $this->container->get('mind_site.domaine');
+       
+       $request = $this->getRequest();
+       $em = $this->getDoctrine()->getManager();
+       $domaineArray = $em->getRepository('MindSiteBundle:Domaine')->getAllDomainesInArray();
+       $question = $serviceQuestion->getQuestionToUpdate($idQuestion);
+       
+       if($request->getMethod() == "POST"){
+           
+           $form = $this->createForm(new QuestionModifierType(), $question);
+           
+           $form->bind($request);
+           $question->setQuestionDateEdition(new \DateTime());
+           $question->setQuestionDomaine($domaineService->getDomaineWhoIsSelected('question'));
+           
+           if($form->isValid()){
+               
+               $em->persist($question);
+               
+               //Images
+//                $actionImage = $this->container->get('mind_media.upload_file');
+//                $images = $actionImage->createFileInfos();
+//                $actionImage->persisteImagesForQuestion($images, $avis);
+            
+               $em->flush();
+               
+               //message de confirmation 
+               $messageDeConfirmation = "La question a été modifié avec succès.";
+               $this->get('session')->getFlashBag()->add('success', $messageDeConfirmation);
+               return $this->redirect($this->generateUrl('mind_site_homepage'));
+           }
+       }else{
+            
+            $form = $this->createForm(new QuestionModifierType(), $question);
+            
+       }
+       
+       $lesDomaines = $domaineService->getHtmlFormDomaineTree('question', $question->getQuestionDomaine()); 
+       
+       $template = sprintf('MindSiteBundle:Forms:form_modifier_question.html.twig');
+       return $this->container->get('templating')->renderResponse($template, 
+               array(
+                        'form'          => $form->createView(),
+                        'idQuestion'        => $idQuestion,
+                        'lesDomaines'   => $lesDomaines
+               ));
   }
  
   public function supprimerAction($idQuestion)

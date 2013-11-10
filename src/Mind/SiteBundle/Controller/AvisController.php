@@ -435,7 +435,7 @@ class AvisController extends Controller
            
            $form->bind($request);
            $avis->setAvisDateEdition(new \DateTime());
-           $avis->setAvisDomaine($domaineService->getDomaineWhoIsSelected());
+           $avis->setAvisDomaine($domaineService->getDomaineWhoIsSelected('avis'));
            
            if($form->isValid()){
                

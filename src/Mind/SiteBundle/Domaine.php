@@ -41,14 +41,14 @@ class Domaine extends NestedTreeRepository{
      * 
      * @return int l'id du domaine selectionné
      */
-    public function getDomaineWhoIsSelected(){
+    public function getDomaineWhoIsSelected($typeEntity){
     
         $idDuDomaine = -1;
         $request = $this->container->get('request');
         if($request->getMethod() == "POST"){
             
-            $dataForm       = $request->get('mind_sitebundle_avistype');
-            $idDuDomaine    = $dataForm['avisDomaine'];
+            $dataForm       = $request->get('mind_sitebundle_'.$typeEntity.'type');
+            $idDuDomaine    = $dataForm[$typeEntity.'Domaine'];
         }
         
         return $idDuDomaine;
@@ -141,7 +141,7 @@ class Domaine extends NestedTreeRepository{
      */
     public function getHtmlFormImputAndLabel($typeEntity, $idEntityDomaine, $idEntityToUpdate = null){
     
-        $idDuDomaine = $this->getDomaineWhoIsSelected();
+        $idDuDomaine = $this->getDomaineWhoIsSelected($typeEntity);
        
         if($idDuDomaine == $idEntityDomaine or $idEntityDomaine == $idEntityToUpdate){
             $htmlIsCourantElmt = 'checked="checked"';

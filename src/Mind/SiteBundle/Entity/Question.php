@@ -82,7 +82,7 @@ class Question
      *
      * @var array
      * 
-     * @ORM\Column(name="question_domaine", type="object")
+     * @ORM\Column(name="question_domaine", type="integer")
      * @ORM\OneToOne(targetEntity="Mind\SiteBundle\Entity\Domaine")
      * @ORM\JoinColumn(name="question_domaine", referencedColumnName="id")
      */
@@ -217,10 +217,10 @@ class Question
     /**
      * Set questionDomaine
      *
-     * @param \Mind\SiteBundle\Entity\Domaine $questionDomaine
+     * @param integer $questionDomaine
      * @return Question
      */
-    public function setQuestionDomaine(\Mind\SiteBundle\Entity\Domaine $questionDomaine = null)
+    public function setQuestionDomaine($questionDomaine)
     {
         $this->questionDomaine = $questionDomaine;
 
@@ -230,7 +230,7 @@ class Question
     /**
      * Get questionDomaine
      *
-     * @return \Mind\SiteBundle\Entity\Domaine 
+     * @return integer
      */
     public function getQuestionDomaine()
     {
