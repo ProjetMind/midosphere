@@ -422,6 +422,8 @@ class AvisController extends Controller
    public function modifierAction($idAvis)
    {
        $serviceAvis = $this->container->get('mind_site.avis');
+       $domaineService = $this->container->get('mind_site.domaine');
+       
        $request = $this->getRequest();
        $em = $this->getDoctrine()->getManager();
        $domaineArray = $em->getRepository('MindSiteBundle:Domaine')->getAllDomainesInArray();
@@ -433,15 +435,16 @@ class AvisController extends Controller
            
            $form->bind($request);
            $avis->setAvisDateEdition(new \DateTime());
+           $avis->setAvisDomaine($domaineService->getDomaineWhoIsSelected());
            
            if($form->isValid()){
                
                $em->persist($avis);
                
                //Images
-                $actionImage = $this->container->get('mind_media.upload_file');
-                $images = $actionImage->createFileInfos();
-                $actionImage->persisteImagesForAvis($images, $avis);
+//                $actionImage = $this->container->get('mind_media.upload_file');
+//                $images = $actionImage->createFileInfos();
+//                $actionImage->persisteImagesForAvis($images, $avis);
             
                $em->flush();
                
@@ -456,11 +459,14 @@ class AvisController extends Controller
             
        }
        
+       $lesDomaines = $domaineService->getHtmlFormDomaineTree('avis', $avis->getAvisDomaine()); 
+       
        $template = sprintf('MindSiteBundle:Forms:form_modifier_avis.html.twig');
        return $this->container->get('templating')->renderResponse($template, 
                array(
-                        'form'      => $form->createView(),
-                        'idAvis'    => $idAvis
+                        'form'          => $form->createView(),
+                        'idAvis'        => $idAvis,
+                        'lesDomaines'   => $lesDomaines
                ));
    }
  

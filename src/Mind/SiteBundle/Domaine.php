@@ -87,10 +87,11 @@ class Domaine extends NestedTreeRepository{
      * - l'ajout et la modification de question
      * 
      * @param string $typeEntity il s'agit soit de question ou d'avis
+     * @param int $idEntityToUpdate l'id de l'avis qu'on va modifer
      * 
      * @return string
      */
-    public function getHtmlFormDomaineTree($typeEntity){
+    public function getHtmlFormDomaineTree($typeEntity, $idEntityToUpdate = null){
         
         $childSort = array(
                             'field' => 'libelle',
@@ -114,9 +115,9 @@ class Domaine extends NestedTreeRepository{
                                                         return $this->childOpen;
                                                     },
                     'childClose' => $this->childClose,
-                    'nodeDecorator' => function($node) use($typeEntity, &$nbElmtDomaine){
+                    'nodeDecorator' => function($node) use($typeEntity, &$nbElmtDomaine, $idEntityToUpdate){
                                                             //return '<a href="'.$this->router->generate("mind_site_homepage",array("id"=>$node['id'])).'">'.$node['libelle'].'</a>&nbsp;';
-                                                            $htmlDomaine = $this->getHtmlFormImputAndLabel($typeEntity, $node['id']);
+                                                            $htmlDomaine = $this->getHtmlFormImputAndLabel($typeEntity, $node['id'], $idEntityToUpdate);
                                                             $nbElmtDomaine++;
                                                             return $htmlDomaine['labelOpen'].$node['libelle'].$htmlDomaine['input'].$htmlDomaine['labelClose'];
                     }
@@ -135,13 +136,14 @@ class Domaine extends NestedTreeRepository{
      * @param string $typeEntity il s'agit soit de question ou d'avis
      * @param int $idEntityDomaine L'id du domaine
      * @param boolean $isCourantElmt Indique si l'élément est actuellement l'élément courant
+     * @param int $idEntityToUpdate l'id de l'avis qu'on va modifer
      * @return array les éléments formulaire en html d'un domaine
      */
-    public function getHtmlFormImputAndLabel($typeEntity, $idEntityDomaine){
+    public function getHtmlFormImputAndLabel($typeEntity, $idEntityDomaine, $idEntityToUpdate = null){
     
         $idDuDomaine = $this->getDomaineWhoIsSelected();
        
-        if($idDuDomaine == $idEntityDomaine){
+        if($idDuDomaine == $idEntityDomaine or $idEntityDomaine == $idEntityToUpdate){
             $htmlIsCourantElmt = 'checked="checked"';
         }else{
             $htmlIsCourantElmt = null;
