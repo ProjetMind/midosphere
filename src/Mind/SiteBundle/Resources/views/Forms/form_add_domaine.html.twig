@@ -1,28 +1,52 @@
 {# empty Twig template #}
 
-<form class="" class="form-horizontal " action="{{path("mind_admin_domaine") }}" method="post">
-
-                {{ form_errors(form) }}
-
-                <div>
-                        {{ form_label(form.libelle) }}
-                        {{ form_widget(form.libelle) }}
-                        {{ form_errors(form.libelle) }}
-                </div>
-
-                <div>
-                        {{ form_label(form.etat) }}
-                        {{ form_widget(form.etat) }}
-                        {{ form_errors(form.etat) }}
-                </div>
+<!-- Modal -->
+<div id="modalAddDomaine" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
-                {{ form_widget(form.parent) }}
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Ajouter un domaine</h3>
+    </div>
     
-                
-                <div>
-                    <input class="btn btn-primary" type="submit" value="Ajoutez le domaine" />
-                </div>
+    <form id="formAddDomaine" class="form-horizontal " action="{{path("mind_admin_domaine_add") }}" method="post">
+        <div class="modal-body">
 
-                {{ form_rest(form) }}
-            </form>
+
+                    {{ form_errors(form) }}
+
+                    <div>
+                            {{ form_label(form.libelle) }}
+                            {{ form_widget(form.libelle) }}
+                            {{ form_errors(form.libelle) }}
+                    </div>
+
+                    <div>
+                            {{ form_label(form.etat) }}
+                            {{ form_widget(form.etat) }}
+                            {{ form_errors(form.etat) }}
+                    </div>
+
+                    <div class="divDomaineInForm">
+                        <label>Séléctionnez le domaine parent :</label>
+                        {{ lesDomaines|raw }}
+                    </div>
+
+                    {#
+                        {{ form_widget(form.parent) }}
+                    #}
+
+                    {{ form_widget(form._token) }}
+        </div>
+
+        <div class="modal-footer">
+
+            <input class="btn btn-primary" type="submit" value="Ajoutez le domaine" />
+            <button class="btn" type="submit" data-dismiss="modal" aria-hidden="true">Close</button>
+
+        </div>
+    
+    </form>
+
+</div>
+
 

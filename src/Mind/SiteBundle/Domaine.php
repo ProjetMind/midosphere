@@ -37,14 +37,77 @@ class Domaine extends NestedTreeRepository{
     
     /**
      * 
+     * fournit les radios bouton du formulaire pour ajouter des domaines
+     * 
+     * @param int $idDomaineWhoIsSelected
+     * @param type $tree
+     * @param type $tree
+     * @return string
+     */
+    public function getHtmlFormForAdmin(){
+        
+        $childSort = array(
+                            'field'         => 'libelle',
+                            'direction'     => 'asc'
+        );
+        
+        $tree = $this->childrenHierarchy(
+                                            null,
+                                            false,
+            array(
+                    'decorate' => true,
+                    'childSort' => $childSort,
+                    'rootOpen' => $this->rootOpen,
+                    'rootClose' => $this->rootClose,
+                    'childOpen' => $this->childOpen,
+                    'childClose' => $this->childClose,
+                    'nodeDecorator' => function($node){
+                                        $htmlDomaine = $this->getHtmlFormInputAndLabelForAdmin($node['id'], $node['libelle']);
+                                        return $htmlDomaine['labelOpen'].$htmlDomaine['input'].$htmlDomaine['libelle'].$htmlDomaine['labelClose'];
+                    }
+                    
+        ));
+        
+        return $tree;
+        
+    }
+    
+    /**
+     * 
+     * Fournit la liste des domaines avec les différents boutons pour la partie admin
+     * 
+     * @return type
+     */
+    public function getHtmlDomaineForAdmin(){
+        
+        return $tree = $this->childrenHierarchy(
+                                            null,
+                                            false,
+            array(
+                    'decorate' => true,
+                    'rootOpen' => $this->rootOpen,
+                    'rootClose' => $this->rootClose,
+                    'childOpen' => $this->childOpen,
+                    'childClose' => $this->childClose,
+                    'nodeDecorator' => function($node){
+                          return '<a href="'.$this->router->generate("mind_site_domaine_voir",
+                            array("slug"=>$node['slug'])).'">'.$node['libelle'].'</a>&nbsp;';
+                    }
+                    
+        ));
+    }
+    
+    /**
+     * 
      * Permet de récupérer la liste des domaines sous forme de liste
+     * pour la page domaine
      * 
      * @return string
      */
     public function getHtmlListeDomaine(){
     
         $childSort = array(
-                            'fiferf' => 'libelle',
+                            'dir'   => 'asc',
                             'direction'   => 'asc'
         );
         
@@ -138,9 +201,10 @@ class Domaine extends NestedTreeRepository{
     
     /**
      * 
-     * Permet de récupérer dans un tableau le label d'un élément de formulaire de domaine :
+     * Permet de récupérer dans un tableau le label et le input d'un élément de formulaire de domaine :
      * - Le label open : "labelOpen" 
      * - Le label close : "labelClose"
+     * - Le input : "input"
      * 
      * @param string $typeEntity il s'agit soit de question ou d'avis
      * @param int $idEntityDomaine L'id du domaine
@@ -171,6 +235,36 @@ class Domaine extends NestedTreeRepository{
         return $htmlFormDomaine;
     }
     
+    /**
+     * 
+     * @param int $idDomaine 
+     * @param string $libelle
+     * @return array 
+     */
+    public function getHtmlFormInputAndLabelForAdmin($idDomaine, $libelle, $idDomaineWhoIsSelected = null){
+        
+//        if ($idDomaine == $idDomaineWhoIsSelected){
+//            
+//            $isSelected = 'checked = "checked"';
+//            
+//        }else{
+//            $isSelected = null;
+//        }
+        
+        $htmlFormDomaine = 
+                array(
+                        'labelOpen'     =>  '<label class="radio" for="mind_sitebundle_domainetype_parent_%d" style="display:inline-block;">',
+                        'input'         =>  '<input id="mind_sitebundle_domainetype_parent_%d" type="radio" value="%d" name="mind_sitebundle_domainetype[parent]">',
+                        'libelle'       =>  '%s',
+                        'labelClose'    =>  '</label>'
+                    );
+        
+        $htmlFormDomaine['labelOpen']   = sprintf($htmlFormDomaine['labelOpen'], $idDomaine);
+        $htmlFormDomaine['input']       = sprintf($htmlFormDomaine['input'], $idDomaine, $idDomaine);
+        $htmlFormDomaine['libelle']     = sprintf($htmlFormDomaine['libelle'], $libelle);
+        
+        return $htmlFormDomaine;
+    }
 }
 
 ?>

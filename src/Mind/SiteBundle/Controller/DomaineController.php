@@ -42,6 +42,7 @@ class DomaineController extends Controller
         
         $domaine = new \Mind\SiteBundle\Entity\Domaine;
         $form = $this->createForm(new DomaineType(), $domaine);
+        $domaineService = $this->container->get('mind_site.domaine');
         
         $request = $this->getRequest('request');
         
@@ -75,15 +76,21 @@ class DomaineController extends Controller
            
         }
         
-        $listeDomaines = $this->getDomainesPourAdministration();
+        $lesDomaines = $domaineService->getHtmlDomaineForAdmin();
         
         $template = sprintf('MindUserBundle:Admin/Admin:domaines.html.%s', $this->container->getParameter('fos_user.template.engine'));
         return $this->container->get('templating')->renderResponse($template, array ('form' => $form->createView(),
-                                                                                     'listeDomaines' => $listeDomaines
+                                                                                     'lesDomaines' => $lesDomaines
                 ));
         
     }
     
+    /**
+     * 
+     * Liste des domaines pour la page domaine
+     * 
+     * @return type
+     */
     public function getListeDomainePageAction(){
         
         $domaineService = $this->container->get('mind_site.domaine');

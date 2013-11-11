@@ -17,7 +17,17 @@
     </div>
 {% endif %}
 
-{% include 'MindSiteBundle:Domaines:accordeon_domaine.html.twig' %}
+<span class="row-fluid">
+    <!-- Button to trigger modal -->
+    <h3>Les domaines<a href="#modalAddDomaine" role="button" data-toggle="modal" class="btn btn-link">Ajouter un domaine</a></h3>
+    
+</span>
+
+<div>
+    {{ listeDomaines|raw }}
+</div>
+
+{% render controller('MindUserBundle:Domaine:domaines') %}
 
 {% endblock admin_contenu %}
 
