@@ -359,3 +359,27 @@
   }
 
 }(window.jQuery);
+
+$(document).ready(function() {
+$('.libelle').editable({
+        placement: 'right',
+        success: function(response, newValue) {
+            
+            $("#messageAlert").html(response['message']);
+            if(response.status == 'error') return response.msg; //msg will be shown in editable form
+        }
+ });
+});
+
+$(function(){
+$('.radioBtn').editable({
+    placement: 'right',
+    mode: 'inline',
+    emptytext: 'id du domaine parent'
+      });
+});
+
+
+
+
+

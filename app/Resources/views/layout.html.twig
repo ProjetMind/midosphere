@@ -37,15 +37,16 @@
                 '@MindMediaBundle/Resources/public/js/*'
                 '@MindSiteBundle/Resources/public/js/*'
                 'bundles/fosjsrouting/js/router.js'
-                '../vendor/twitter/bootstrap/js/tooltip.less'
                 '../vendor/twitter/bootstrap/js/*'
                 'js/fos_js_routes.js'
             %}
+                
                 <script type="text/javascript" src="{{ asset_url }}"></script>
+                
             {% endjavascripts %}
                 
          {% endif %}   
- 
+                <script src="http://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap-editable/js/bootstrap-editable.min.js" type="text/javascript"></script>
         <title>{% block title %}Bienvenue sur le site Midosphere {% endblock %}</title>
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('bundles/mindsite/images/midosphere.ico') }}" />
 
