@@ -23,8 +23,11 @@
 
 <span class="row-fluid">
     <!-- Button to trigger modal -->
-    <h3>Les domaines<a href="#modalAddDomaine" role="button" data-toggle="modal" class="btn btn-link">Ajouter un domaine</a></h3>
-    
+    <h3>Les domaines</h3>
+    <div>
+        <a href="#modalAddDomaine" role="button" data-toggle="modal" class="btn btn-link">Ajouter un domaine</a>
+        {#{ htmlToDeleteDomaine|raw }#}
+    </div>
 </span>
 
 <div>

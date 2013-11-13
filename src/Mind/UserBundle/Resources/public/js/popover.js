@@ -372,9 +372,14 @@ $('.libelle').editable({
 });
 
 $(function(){
-$('.radioBtn').editable({
+$('.parent').editable({
     placement: 'right',
     mode: 'inline',
+    success: function(response, newValue) {
+            
+            $("#messageAlert").html(response['message']);
+            if(response.status == 'error') return response.msg; //msg will be shown in editable form
+        },
     emptytext: 'id du domaine parent'
       });
 });
