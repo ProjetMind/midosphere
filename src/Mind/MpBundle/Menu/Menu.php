@@ -18,8 +18,8 @@ class Menu extends ContainerAware
         $menu->setCurrentUri($currentItem);
         
         //Childrens
-        $menu->addChild('Boite de récéption', array('route'         => 'mind_message_homepage'));
-        $menu->addChild('Archives',             array('route'       => 'mind_message_archive'));
+        $menu->addChild('Boite de récéption',   array('route'         => 'mind_mp_homepage'));
+        $menu->addChild('Archives',             array('route'       => 'mind_mp_archive'));
         
         
         //Childrens attributes

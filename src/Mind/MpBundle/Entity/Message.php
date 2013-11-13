@@ -16,8 +16,6 @@ class Message
     public function __construct() {
         
         $this->dateEnvoiMessage = new \DateTime();
-        $this->messageLu = false;
-        
     }
     
     /**
@@ -38,6 +36,13 @@ class Message
      * 
      */
     private $idExpediteur;
+    
+    /**
+     *
+     * 
+     * @var type 
+     */
+    private $destinataires;
 
     /**
      * @var string
@@ -52,13 +57,6 @@ class Message
      * @ORM\Column(name="date_envoi_message", type="datetime")
      */
     private $dateEnvoiMessage;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="message_lu", type="boolean")
-     */
-    private $messageLu;
 
     /**
      * @var integer
@@ -80,7 +78,7 @@ class Message
     {
         return $this->id;
     }
-
+    
     /**
      * Set idExpediteur
      *
@@ -151,29 +149,6 @@ class Message
     }
 
     /**
-     * Set messageLu
-     *
-     * @param boolean $messageLu
-     * @return Message
-     */
-    public function setMessageLu($messageLu)
-    {
-        $this->messageLu = $messageLu;
-
-        return $this;
-    }
-
-    /**
-     * Get messageLu
-     *
-     * @return boolean 
-     */
-    public function getMessageLu()
-    {
-        return $this->messageLu;
-    }
-
-    /**
      * Set idConversation
      *
      * @param integer $idConversation
@@ -195,4 +170,5 @@ class Message
     {
         return $this->idConversation;
     }
+
 }

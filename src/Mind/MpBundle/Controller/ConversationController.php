@@ -10,6 +10,10 @@ use Symfony\Component\HttpFoundation\Response;
 class ConversationController extends Controller
 {
     
+    public function messagerieAction(){
+        
+    }
+    
     public function supprimerConversationAction(){
     
         $tabIdConversation =  $this->getRequest()->get('toAction');

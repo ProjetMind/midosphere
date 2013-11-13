@@ -1,7 +1,12 @@
 parameters:
     mind_mp.messagerie.class: Mind\MpBundle\Messagerie
+    mind_mp.conversation.class: Mind\MpBundle\Doctrine\Manager\ConversationManager
 
 services:
+    mind_mp.conversation:
+        class: %mind_mp.conversation.class% 
+        arguments: ["@doctrine", "@mind_site.date.formatage", "@security.context"]
+        
     mind_mp.messagerie:
         class: %mind_mp.messagerie.class%
         arguments: ["@doctrine", "@router", "@mind_site.date.formatage", "@security.context"]

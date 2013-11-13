@@ -2,18 +2,18 @@
   
 mind_message_nouveau_conversation:
   pattern: /nouveau-message
-  defaults: { _controller: MindMpBundle:Conversation:nouvelleConversation }
+  defaults: { _controller: MindMpBundle:Messagerie:index }
   
-mind_message_nouveau_conversation_object:
-  pattern: /get-users-ajax/{terms}
-  defaults: { _controller: MindMpBundle:Conversation:getArrayObjectUser }
-  options:
-      expose: true
-
-mind_conversation_archiver:
-  pattern: /archiver-conversation
-  defaults: { _controller: MindMpBundle:Conversation:archiverConversation }
-  
-mind_conversation_supprimer:
-  pattern: /supprimer-conversation
-  defaults: { _controller: MindMpBundle:Conversation:supprimerConversation }
+#mind_message_nouveau_conversation_object:
+#  pattern: /get-users-ajax/{terms}
+#  defaults: { _controller: MindMpBundle:Conversation:getArrayObjectUser }
+#  options:
+#      expose: true
+#
+#mind_conversation_archiver:
+#  pattern: /archiver-conversation
+#  defaults: { _controller: MindMpBundle:Conversation:archiverConversation }
+#  
+#mind_conversation_supprimer:
+#  pattern: /supprimer-conversation
+#  defaults: { _controller: MindMpBundle:Conversation:supprimerConversation }

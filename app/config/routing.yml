@@ -1,10 +1,14 @@
 mind_mp_message:
-    resource: "@MindMpBundle/Resources/config/message.yml"
+    resource: "@MindMpBundle/Resources/config/messagerie.yml"
     prefix:   /messagerie
 
-mind_mp_conversation:
-    resource: "@MindMpBundle/Resources/config/conversation.yml"
-    prefix:   /messagerie
+#mind_mp_message:
+#    resource: "@MindMpBundle/Resources/config/message.yml"
+#    prefix:   /messagerie
+#
+#mind_mp_conversation:
+#    resource: "@MindMpBundle/Resources/config/conversation.yml"
+#    prefix:   /messagerie
     
 mind_commentaire:
     resource: "@MindCommentaireBundle/Resources/config/routing.yml"

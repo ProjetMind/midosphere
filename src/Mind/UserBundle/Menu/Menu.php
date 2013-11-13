@@ -111,8 +111,8 @@ class Menu extends ContainerAware
         
         //Childrens
         $menu->addChild('informationsPersonnelles',    array('route'       => 'mind_user_compte_infos_persos'));
-        $menu->addChild('parametresDuCompte',          array('route'      => 'mind_user_compte_parametres'));
-        $menu->addChild('messagerie',                  array('route'       => 'mind_message_homepage'));
+        $menu->addChild('parametresDuCompte',          array('route'       => 'mind_user_compte_parametres'));
+        $menu->addChild('messagerie',                  array('route'       => 'mind_mp_homepage'));
         
         if($this->container->get('security.context')->isGranted('ROLE_ADMIN')){
             

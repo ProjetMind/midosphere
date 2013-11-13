@@ -1,0 +1,13 @@
+## YAML Template.
+mind_mp_homepage:
+    pattern:  /
+    defaults: { _controller: MindMpBundle:Messagerie:index }
+    
+mind_mp_archive:
+  pattern: /mes-archives-de-messagerie
+  defaults: { _controller: MindMpBundle:Messagerie:archive }
+  
+#Conversation
+mind_mp_nouveau_conversation:
+  pattern: /nouvelle-conversation
+  defaults: { _controller: MindMpBundle:Messagerie:nouvelleConversation }

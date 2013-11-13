@@ -16,7 +16,6 @@ class Conversation
     public function __construct() {
         
         $this->dateDebutConversation = new \DateTime();
-        $this->etat = true;
         $this->dossier = "bal";
         
     }
@@ -47,17 +46,6 @@ class Conversation
      * @ORM\JoinColumn(name="auteur_conversation", referencedColumnName="id")
      */
     private $auteurConversation;
-    
-
-    /**
-     *
-     * @var type Array
-     * 
-     * @ORM\Column(name="tab_participants", type="array")
-     * @ORM\OneToMany(targetEntity="Mind\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="tab_participants", referencedColumnName="id")
-     */
-    private $tabParticipants;
 
     /**
      *
@@ -67,16 +55,6 @@ class Conversation
      */
     private $dateDebutConversation;
     
-    /**
-     *
-     * @var bool
-     * 
-     * @ORM\Column(name="etat", type="boolean")
-     */
-    private $etat;
-
-
-
     /**
      * Get id
      *
@@ -111,29 +89,6 @@ class Conversation
     }
 
     /**
-     * Set tabParticipants
-     *
-     * @param array $tabParticipants
-     * @return Conversation
-     */
-    public function setTabParticipants($tabParticipants)
-    {
-        $this->tabParticipants = $tabParticipants;
-
-        return $this;
-    }
-
-    /**
-     * Get tabParticipants
-     *
-     * @return array 
-     */
-    public function getTabParticipants()
-    {
-        return $this->tabParticipants;
-    }
-
-    /**
      * Set dateDebutConversation
      *
      * @param \DateTime $dateDebutConversation
@@ -155,30 +110,7 @@ class Conversation
     {
         return $this->dateDebutConversation;
     }
-
-    /**
-     * Set etat
-     *
-     * @param boolean $etat
-     * @return Conversation
-     */
-    public function setEtat($etat)
-    {
-        $this->etat = $etat;
-
-        return $this;
-    }
-
-    /**
-     * Get etat
-     *
-     * @return boolean 
-     */
-    public function getEtat()
-    {
-        return $this->etat;
-    }
-
+    
     /**
      * Set dossier
      *
