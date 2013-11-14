@@ -18,7 +18,14 @@ class BaseManager {
     protected $container;
     protected $form;
 
-
+    /**
+     * 
+     * @param \Doctrine\Bundle\DoctrineBundle\Registry $doctrine
+     * @param \Mind\SiteBundle\DateFormatage $dateFormatage
+     * @param \Symfony\Component\Security\Core\SecurityContext $securityContext
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     * @param \Symfony\Component\Form\FormFactory $form
+     */
     public function __construct(Registry $doctrine, DateFormatage $dateFormatage, SecurityContext $securityContext,
                                 ContainerInterface $container, FormFactory $form) {
         
@@ -31,6 +38,14 @@ class BaseManager {
         
     }
     
+    /**
+     * 
+     * Créer la liste des participants pour une conversation données
+     * 
+     * @param \Mind\MpBundle\Entity\Conversation $conversation
+     * @param array $tabIdParticipant
+     * @return array
+     */
     public function createParticipantsGet(\Mind\MpBundle\Entity\Conversation $conversation, array $tabIdParticipant){
         
         $tabParticipants    = array();
@@ -60,6 +75,15 @@ class BaseManager {
         return $tabParticipants;
     }
     
+    /**
+     * 
+     * Créer une liste d'entity Lu pour une conversation et message données
+     * 
+     * @param \Mind\MpBundle\Entity\Conversation $conversation
+     * @param \Mind\MpBundle\Entity\Message $message
+     * @param array $tabIdParticipant
+     * @return array
+     */
     public function createLuGet(\Mind\MpBundle\Entity\Conversation $conversation,
                                 \Mind\MpBundle\Entity\Message $message,
                                 array $tabIdParticipant ){

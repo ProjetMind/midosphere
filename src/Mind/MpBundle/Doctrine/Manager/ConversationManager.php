@@ -13,7 +13,10 @@ class ConversationManager extends BaseManager {
 
     /**
      * 
-     * @param \Mind\MpBundle\Entity\Conversation $conversation
+     * Créer une entity conversation si le parametre $conversation n'est pas nul
+     * et en modifie l'id auteur
+     * 
+     * @param \Mind\MpBundle\Entity\Conversation|null $conversation
      * @return \Mind\MpBundle\Entity\Conversation
      */
     public function createConversationGet(\Mind\MpBundle\Entity\Conversation $conversation = null){

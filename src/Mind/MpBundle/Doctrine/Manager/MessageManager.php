@@ -12,7 +12,10 @@ class MessageManager extends BaseManager {
 
     /**
      * 
-     * @param \Mind\MpBundle\Entity\Message $message
+     * Créer une entity message si le parametre $message n'est pas nul
+     * et en modifie l'id expéditeur
+     * 
+     * @param \Mind\MpBundle\Entity\Message|null $message
      * @return \Mind\MpBundle\Entity\Message
      */
     public function createMessageGet(\Mind\MpBundle\Entity\Message $message = null){
