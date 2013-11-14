@@ -1,8 +1,8 @@
 # YAML Template.
   
-mind_message_nouveau_conversation:
-  pattern: /nouveau-message
-  defaults: { _controller: MindMpBundle:Messagerie:index }
+#mind_message_nouveau_conversation:
+#  pattern: /nouveau-message
+#  defaults: { _controller: MindMpBundle:Messagerie:index }
   
 #mind_message_nouveau_conversation_object:
 #  pattern: /get-users-ajax/{terms}

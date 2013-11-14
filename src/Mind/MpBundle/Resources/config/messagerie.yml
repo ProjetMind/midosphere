@@ -3,11 +3,24 @@ mind_mp_homepage:
     pattern:  /
     defaults: { _controller: MindMpBundle:Messagerie:index }
     
-mind_mp_archive:
-  pattern: /mes-archives-de-messagerie
-  defaults: { _controller: MindMpBundle:Messagerie:archive }
-  
 #Conversation
 mind_mp_nouveau_conversation:
   pattern: /nouvelle-conversation
   defaults: { _controller: MindMpBundle:Messagerie:nouvelleConversation }
+  
+mind_mp_conversation:
+    pattern: /messagerie/conversation/{idConversation}
+    defaults: {_controller: MindMpBundle:Messagerie:conversation }
+      
+#Archive      
+mind_mp_archive:
+  pattern: /mes-archives-de-messagerie
+  defaults: { _controller: MindMpBundle:Messagerie:archive }
+
+#Json 
+#Fournit la data source (liste destinataires d'un message en ajax
+mind_mp_json_user:
+  pattern: /get-users-ajax
+  defaults: { _controller: MindMpBundle:Messagerie:getArrayObjectUser }
+  options:
+      expose: true

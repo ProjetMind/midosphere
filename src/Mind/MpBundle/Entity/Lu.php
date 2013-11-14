@@ -7,11 +7,16 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Lu
  *
- * @ORM\Table()
+ * @ORM\Table(name="lu")
  * @ORM\Entity(repositoryClass="Mind\MpBundle\Entity\LuRepository")
  */
 class Lu
 {
+    
+    public function __construct() {
+        
+        $this->lu       = FALSE;
+    }
     /**
      * @var integer
      *

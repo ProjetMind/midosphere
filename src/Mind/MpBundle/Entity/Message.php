@@ -42,7 +42,7 @@ class Message
      * 
      * @var type 
      */
-    private $destinataires;
+    public $destinataires;
 
     /**
      * @var string

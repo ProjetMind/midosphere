@@ -1,0 +1,24 @@
+{# empty Twig template #}
+
+
+
+<form id="formNouvelleConversation" action="{{ path("mind_mp_nouveau_conversation") }}" class="form-inline editableform" method="POST">
+    
+    {{ form_errors(form) }}
+    
+    
+    <input required="required" class="select2-input" id="destinataires" type="text" data-prototype="{{ form_widget(form.destinataires.vars.prototype) | e }}"/>
+    
+    <div>           
+                    {{ form_errors(form.contenuMessage) }}
+                    {{ form_widget(form.contenuMessage) }}
+
+    </div>
+    
+    <div style="margin-top: 50px;">
+        <input id="btnSendMp" type="submit" class="btn btn-primary" value="Envoyer">
+    </div>
+
+    {{ form_widget(form._token) }}
+    
+</form>
