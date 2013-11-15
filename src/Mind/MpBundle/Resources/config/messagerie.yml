@@ -3,19 +3,30 @@ mind_mp_homepage:
     pattern:  /
     defaults: { _controller: MindMpBundle:Messagerie:index }
     
+    
+    
 #Conversation
 mind_mp_nouveau_conversation:
   pattern: /nouvelle-conversation
   defaults: { _controller: MindMpBundle:Messagerie:nouvelleConversation }
-  
+
+#Conversation : Lecture d'une conversation et envoi de msg  
 mind_mp_conversation:
-    pattern: /messagerie/conversation/{idConversation}
+    pattern: /conversation/{idConversation}
     defaults: {_controller: MindMpBundle:Messagerie:conversation }
+      
+      
       
 #Archive      
 mind_mp_archive:
   pattern: /mes-archives-de-messagerie
   defaults: { _controller: MindMpBundle:Messagerie:archive }
+
+#Archive : permet d'archiver une ou un groupe de conversation   
+mind_mp_a_archiver:
+  pattern: /archiver
+  defaults: { _controller: MindMpBundle:Messagerie:archiver }
+
 
 #Json 
 #Fournit la data source (liste destinataires d'un message en ajax

@@ -118,4 +118,45 @@ class BaseManager {
         
         return $tabLu;
     }
+    
+    /**
+     * 
+     * Créer une liste d'entity Dossier pour une conversation 
+     * 
+     * @param \Mind\MpBundle\Entity\Conversation $conversation
+     * @param array $tadIdParticipant
+     * @return array
+     */
+    public function createDossierGet(\Mind\MpBundle\Entity\Conversation $conversation,
+                                     array $tadIdParticipant){
+        
+        $tabDossier = array();
+        $idConversation     = $conversation->getId();
+        $idUserCourant      = $this->security->getToken()->getUser()->getId();
+        
+        //Pour le user courant 
+        $dossier = new \Mind\MpBundle\Entity\Dossier;
+        $dossier->setIdUser($idUserCourant);
+        $dossier->setIdConversation($idConversation);
+        $dossier->setDossier('bal');
+        
+        $this->manager->persist($dossier);
+        
+        $tabDossier[] = $dossier;
+        
+        foreach ($tadIdParticipant as $unIdParticipant){
+            
+            if($idUserCourant != $unIdParticipant){
+                
+                $dossier = new \Mind\MpBundle\Entity\Dossier;
+                $dossier->setIdUser($unIdParticipant);
+                $dossier->setIdConversation($idConversation);
+                $dossier->setDossier('bal');
+                
+                $tabDossier[] = $this->manager->persist($dossier);
+            }
+        }
+        
+        return $tabDossier;
+    }
 }

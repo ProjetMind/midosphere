@@ -12,6 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class MessageRepository extends EntityRepository
 {
+    /**
+     * 
+     * fonction inutilisé
+     * 
+     * @param type $idConversation
+     * @return type
+     */
     public function getMessageByIdConversation($idConversation){
         
         $query = $this->_em->createQuery('SELECT m
@@ -23,4 +30,34 @@ class MessageRepository extends EntityRepository
         
         return $query->getResult();
     }
+    
+    /**
+     * 
+     * Recupère le dernier message d'une conversation
+     * 
+     * @param type $idConversation
+     * @return \Mind\MpBundle\Entity\Message
+     */
+    public function getLastMessageForConversation($idConversation){
+        
+        $dateMaxQuery = $this->_em->createQuery('SELECT MAX(m.dateEnvoiMessage)
+                                            FROM MindMpBundle:Message m
+                                            where m.idConversation = :idConversation
+                                            ');
+        $dateMaxQuery->setParameter('idConversation', $idConversation);
+        $resultDateMax = $dateMaxQuery->getResult();
+        
+        $query = $this->_em->createQuery('SELECT m
+                                          FROM MindMpBundle:Message m
+                                          where m.idConversation = :idConversation
+                                          and m.dateEnvoiMessage = :dateMax
+                                         ');
+        
+        $query->setParameter('idConversation', $idConversation);
+        $query->setParameter('dateMax', $resultDateMax[0][1]);
+        
+        return $query->getOneOrNullResult();
+    }
+    
+    
 }

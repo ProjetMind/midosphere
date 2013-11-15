@@ -16,7 +16,6 @@ class Conversation
     public function __construct() {
         
         $this->dateDebutConversation = new \DateTime();
-        $this->dossier = "bal";
         
     }
     
@@ -28,14 +27,6 @@ class Conversation
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     *
-     * @var string
-     * 
-     * @ORM\Column(name="dossier", type="text", length=10)
-     */
-    private $dossier;
     
     /**
      *
@@ -111,26 +102,4 @@ class Conversation
         return $this->dateDebutConversation;
     }
     
-    /**
-     * Set dossier
-     *
-     * @param string $dossier
-     * @return Conversation
-     */
-    public function setDossier($dossier)
-    {
-        $this->dossier = $dossier;
-
-        return $this;
-    }
-
-    /**
-     * Get dossier
-     *
-     * @return string 
-     */
-    public function getDossier()
-    {
-        return $this->dossier;
-    }
 }

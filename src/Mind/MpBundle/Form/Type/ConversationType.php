@@ -8,11 +8,24 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ConversationType extends AbstractType
 {
+    protected $tabConversation;
+    
+    public function __construct($tabConversation) {
+    
+        $this->tabConversation      = $tabConversation;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('tabParticipants', 'text',
-                    array())
+            ->add('id', 'choice',
+                    array(
+                            'multiple'      => true,
+                            'expanded'      => true,
+                            'required'      => true,
+                            'choices'       => $this->tabConversation
+                                                        
+                    ))
             
         ;
     }

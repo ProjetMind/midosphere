@@ -13,6 +13,48 @@ class ConversationManager extends BaseManager {
 
     /**
      * 
+     * Construit un tableau de participant pour l'entité conversation
+     * 
+     * @return array
+     */
+    public function getConversationForConversationType(){
+        
+        $idUserCourant      = $this->security->getToken()->getUser()->getId();
+        
+        $tabConversation    = array();
+        $repo               = $this->manager->getRepository('MindMpBundle:Conversation');
+        $conversations      = $repo->getConversationForConversationType($idUserCourant);
+        
+        foreach ($conversations as $conversation){
+            
+            $users = $this->getListeUserForConversation($conversation->getId());
+            $htmlParticipantsUsername = '';
+            
+            foreach ($users as $user){
+                $htmlParticipantsUsername .= $user->getUsername().'   ';
+            }
+            $tabConversation[$conversation->getId()] = $htmlParticipantsUsername;
+        }
+        
+        return $tabConversation;
+    }
+    
+    public function getListeUserForConversation($idConversation){
+        
+        $arraySearch = array('idConversation'   => $idConversation);
+        $repo = $this->manager->getRepository('MindMpBundle:Participants');
+        $participants = $repo->findBy($arraySearch);
+        $tabUser = array();
+        
+        foreach ($participants as $participant){
+            $tabUser[] = $this->manager->getRepository('MindUserBundle:User')->find($participant->getIdUser());
+        }
+        
+        return $tabUser;
+    }
+    
+    /**
+     * 
      * Créer une entity conversation si le parametre $conversation n'est pas nul
      * et en modifie l'id auteur
      * 

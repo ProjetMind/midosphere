@@ -29,5 +29,21 @@ class MessageManager extends BaseManager {
 
         return $message;
     }
+    
+    /**
+     * 
+     * Recupère le dernier message d'une conversation
+     * 
+     * @param type $idConversation
+     * @return \Mind\MpBundle\Entity\Message
+     */
+    public function getLastMessageForConversation($idConversation){
+        
+        $repo           = $this->manager->getRepository('MindMpBundle:Message');
+        $lastMessage    = $repo->getLastMessageForConversation($idConversation);
+        
+        return $lastMessage;
+        
+    }
         
 }

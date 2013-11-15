@@ -12,6 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class ConversationRepository extends EntityRepository
 {
+    /**
+     * 
+     * Fournit le user dont le username commence par le terme
+     * 
+     * @param type $terms
+     * @return array
+     */
     public function getAutocompleteResult($terms){
         
         $query = $this->_em->createQuery('SELECT u
@@ -24,50 +31,25 @@ class ConversationRepository extends EntityRepository
         return $query->getResult();
     }
     
-    public function getConversations($idParticipant, $dossier, $idConversation  = null ){
+    public function getConversationForConversationType($idUserAuteur){
         
-        $query = $this->_em->createQuery();
-        
-        if($idConversation == null){
-            $query->setDQL('SELECT p
-                            FROM MindMpBundle:Conversation p
-                            WHERE p.dossier = :dossier
-                           ');
-        }
-        else{
-            
-            $query->setDQL('SELECT p
-                            FROM MindMpBundle:Conversation p
-                            WHERE p.id = :id
-                            AND p.dossier = :dossier
-                           ');
-            
-            $query->setParameter('id', $idConversation);
-        }
+        $tabIdConversation = $this->_em
+                                  ->getRepository('MindMpBundle:Dossier')
+                                  ->getTabConversationByDossier('bal');
        
-        $query->setParameter('dossier', $dossier);
+        $query = $this->_em->createQuery('SELECT c
+                                          FROM MindMpBundle:Conversation c
+                                          where c.auteurConversation = :auteurConversation
+                                          AND c.id IN (:tabId)
+                                          ORDER BY c.dateDebutConversation DESC
+                                         ');
         
-        $conversations = $query->getResult();
-        $conversations = $this->isParticipant($conversations, $idParticipant);
-       
-       return $conversations;
+        $query->setParameter('auteurConversation', $idUserAuteur);
+        $query->setParameter('tabId', $tabIdConversation);
+        
+        return $query->getResult();
     }
     
-    public function isParticipant($conversations, $idParticipant){
-        
-        $tabParticipant         = array();
-        $tabConversationOfUser  = array();
-        
-        foreach ($conversations as $conversation){
-            
-            $tabParticipant = $conversation->getTabParticipants();
-           
-            if(in_array($idParticipant, $tabParticipant)){
-                
-                $tabConversationOfUser[]    = $conversation;
-            }
-        }
-        
-        return $tabConversationOfUser;
-    }
+    
+    
 }
