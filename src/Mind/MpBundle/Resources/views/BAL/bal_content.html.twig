@@ -1,10 +1,47 @@
 {# empty Twig template #}
 
-<form id="formArchiverConversation" action="{{ path('mind_conversation_archiver') }}" class="form-horizontal" method="POST">
-    {% include 'MindMpBundle:Conversation:liste_conversations.html.twig' %}
+{% block titre_messagerie %}
+    <h3>Boite de récéption</h3>
+{% endblock %}
+
+<form id="formArchiverConversation" action="{{ path('mind_mp_a_archiver') }}" class="form-horizontal" method="POST">
     
-    {% if conversations is not empty %}
-            <input type="submit" class="btn btn-primary" value="Archiver"name="archiverConversation"/>
+    
+    
+    <ul>
+    {% for conversation in form.id %}
+        
+            <li class="">
+                
+                {{ form_widget(conversation, { 'attr': 
+                                                        {'style': 'vertical-align:top;'}
+                                             }
+                              ) 
+                }}
+                
+                <a id="linkTo" class="" style="display: inline-block;  padding-left: 5px;" href="#">
+                {{ form_label(conversation) }}
+                {% render controller('MindMpBundle:Messagerie:getLastMessageForConversation', {'idConversation': conversation.vars.value }) %}
+                </a> 
+            </li>
+        
+    
+    {% endfor %}
+    </ul>
+    
+    {% if form.id is empty %}
+        <span class="alert alert-message">Vous n'avez actuellement aucun message.</span>
+    {% else %}
+    <input type="submit" class="btn btn-primary label-important" value="Archiver" name="archiver"/>
     {% endif %}
-            
+
 </form>
+
+<script type="text/javascript">
+    
+    $(function(){
+        //Corriger le bug de translation quand on passse un label°attr au label
+       $("#linkTo > label").attr('style', 'padding-left:0px;') ;
+    });
+
+</script>

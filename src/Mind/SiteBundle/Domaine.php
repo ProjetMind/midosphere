@@ -7,6 +7,8 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Routing\Router;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Mind\SiteBundle\Form\Type\DomaineType;
+use Symfony\Component\Form\FormFactory;
 
 class Domaine extends NestedTreeRepository{ 
     
@@ -15,7 +17,10 @@ class Domaine extends NestedTreeRepository{
     protected $security;
     protected $router;
     protected $container;
-    
+    protected $templating;
+    protected $form;
+
+
     public $rootOpen        = '<ul>';
     public $rootClose       = '</ul>';
     public $childOpen       = '<li>';
@@ -23,18 +28,103 @@ class Domaine extends NestedTreeRepository{
 
 
     public function __construct(Registry $doctrine, Router $router, SecurityContextInterface $security,
-                                ContainerInterface $container) {
+                                ContainerInterface $container, FormFactory $form) {
         
         $this->doctrine         = $doctrine;
         $this->manager          = $doctrine->getManager();
         $this->security         = $security;
         $this->router           = $router;
         $this->container        = $container;
+        $this->templating       = $container->get('templating');
+        $this->form             = $form;
         
         parent::__construct($this->manager, $this->manager->getClassMetadata('MindSiteBundle:Domaine'));
       
     }
     
+    /**
+     * 
+     * Retourne le message adéquat de confirmation
+     * 
+     * @param string $erreur
+     * @return string
+     */
+    public function getErreurMessage($erreur){
+    
+        $htmlBtnClose = '<button type="button" class="close" data-dismiss="alert">×</button>';
+        $htmlClose = '</div>';
+        
+        switch($erreur){
+                
+                case 'ok':
+                    $htmlOpen = '<div class="alert alert-success">';
+                    $message = "L'élément a été mis à jour avec succès.";
+                    break;
+                
+                case 'erreur':
+                    $htmlOpen = '<div class="alert alert-warni">';
+                    $message = 'Une erreure inconnue est survenue lors de la mise à jour.';
+                    break;
+                    
+            }
+            
+            return $htmlOpen.$htmlBtnClose.$message.$htmlClose;
+    }
+    
+    /**
+     * 
+     * Met à jour le domaine : parent et position
+     * 
+     * @param type $idDomaine
+     * @param type $idNewDomaineParent
+     */
+    public function updateDomaineParent($idDomaine, $idNewDomaineParent){
+        
+        $repo               = $this->manager->getRepository('MindSiteBundle:Domaine');
+        $domaine            = $repo->find($idDomaine);
+        $domaineParent      = $repo->find($idNewDomaineParent);
+        
+        if(!empty($domaine) and !empty($domaineParent)){
+            
+            $repo->persistAsLastChildOf($domaine, $domaineParent);
+            echo "lol";
+            
+        }else{
+            if($idNewDomaineParent == -1){
+                $domaine->setParent();
+                $this->manager->persist($domaine);
+            }
+        }
+        
+        $this->manager->flush();
+        $this->clear();
+    }
+
+    /**
+     * 
+     * Met à jour un domaine
+     * 
+     * @param \Mind\SiteBundle\Entity\Domaine $domaine
+     */
+    public function updateDomaine(\Mind\SiteBundle\Entity\Domaine $domaine){
+        
+        $this->manager->persist($domaine);
+        $this->manager->flush();
+    }
+
+    /**
+     * 
+     * Retourne un domaine
+     * 
+     * @param int $idDomaine
+     * @return \Mind\SiteBundle\Entity\Domaine
+     */
+    public function getDomaineById($idDomaine){
+        
+        $domaine = $this->manager->getRepository('MindSiteBundle:Domaine')->find($idDomaine);
+        
+        return $domaine;
+    }
     /**
      * 
      * fournit les radios bouton du formulaire pour ajouter des domaines
@@ -80,6 +170,8 @@ class Domaine extends NestedTreeRepository{
      */
     public function getHtmlDomaineForAdmin(){
         
+        //$this->reorder(null, 'libelle', 'desc');
+        $this->manager->getRepository('MindSiteBundle:Domaine')->reorder(null, 'libelle', 'asc');
         return $tree = $this->childrenHierarchy(
                                             null,
                                             false,
@@ -90,13 +182,63 @@ class Domaine extends NestedTreeRepository{
                     'childOpen' => $this->childOpen,
                     'childClose' => $this->childClose,
                     'nodeDecorator' => function($node){
-                          return '<a href="'.$this->router->generate("mind_site_domaine_voir",
-                            array("slug"=>$node['slug'])).'">'.$node['libelle'].'</a>&nbsp;';
+                            return $node['id'].' : '
+                                     . '<a '
+                                            . 'data-pk="'.$node['id'].'" '
+                                            . 'data-type="text"'
+                                            . 'data-name="libelle"'
+                                            . 'data-url="'.$this->router->generate("mind_admin_domaine_modifier").'"'
+                                            . 'data-id="'.$node['id'].'" '
+                                            . 'class="libelle" '
+                                            . 'href="#">'.$node['libelle'].
+                                    '</a>'.$this->getBtnToSetParentDomaine($node);
+                                    ;
+                            
+//                          return '<a data-toggle="popover" href="'.$this->router->generate("mind_site_domaine_voir",
+//                            array("slug"=>$node['slug'])).'">'.$node['libelle'].'</a>&nbsp;';
                     }
                     
         ));
     }
     
+    /**
+     * 
+     * Construit et retourne le bouton popov pour modifier le parent d'un domaine
+     * 
+     * @param type $node
+     * @return string
+     */
+    public function getBtnToSetParentDomaine($node){
+       
+    
+    $htmlBtn = '<a '
+                        . 'data-pk="'.$node['id'].'" '
+                        . 'data-type="number"'
+                        . 'data-name="parent"'
+                        . 'data-url="'.$this->router->generate("mind_admin_domaine_modifier").'"'
+                        . 'data-id="'.$node['id'].'" '
+                        . 'class="parent" '
+                        . 'href="#"><i class="icon-move"></i>'.
+                '</a>';
+    
+    
+    return $htmlBtn;
+    
+    }
+    
+    public function getBtnToEtat(){
+        
+        $htmlBtn = '<span>Supprimer un domaine : </span><a '
+                        . 'data-type="number"'
+                        . 'data-name="etat"'
+                        . 'data-url="'.$this->router->generate("mind_admin_domaine_modifier").'"'
+                        . 'class="etat" '
+                        . 'href="#"><i class="icon-remove-sign"></i>'.
+                '</a>';
+        
+    return $htmlBtn;
+    }
+
     /**
      * 
      * Permet de récupérer la liste des domaines sous forme de liste
@@ -106,17 +248,12 @@ class Domaine extends NestedTreeRepository{
      */
     public function getHtmlListeDomaine(){
     
-        $childSort = array(
-                            'dir'   => 'asc',
-                            'direction'   => 'asc'
-        );
         
         $tree = $this->childrenHierarchy(
                                             null,
                                             false,
             array(
                     'decorate' => true,
-                    'childSort' => $childSort,
                     'rootOpen' => $this->rootOpen,
                     'rootClose' => $this->rootClose,
                     'childOpen' => $this->childOpen,

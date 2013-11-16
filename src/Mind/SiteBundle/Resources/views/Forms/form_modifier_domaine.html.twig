@@ -1,0 +1,46 @@
+{# empty Twig template #}
+
+<div id="modalAddDomaine" class="popover fade right in">
+    
+    <h3 class="popover-title">Modifier le domaine</h3>
+    <form id="formModifierDomaine" class="form-horizontal popover-content" action="{{path('mind_admin_domaine_modifier', {'idDomaine': idDomaine}) }}" method="post">
+        
+
+                    {{ form_errors(form) }}
+
+                    <div>
+                            {{ form_label(form.libelle) }}
+                            {{ form_widget(form.libelle) }}
+                            {{ form_errors(form.libelle) }}
+                    </div>
+
+                    <div>
+                            {{ form_label(form.etat) }}
+                            {{ form_widget(form.etat) }}
+                            {{ form_errors(form.etat) }}
+                    </div>
+
+                    <div class="divDomaineInForm">
+                        <label>Séléctionnez le domaine parent :</label>
+                        {{ lesDomaines|raw }}
+                    </div>
+
+                    {#
+                        {{ form_widget(form.parent) }}
+                    #}
+
+                    {{ form_widget(form._token) }}
+        </div>
+
+        <div class="modal-footer">
+
+            <input class="btn btn-primary" type="submit" value="Ajoutez le domaine" />
+            <button class="btn" type="submit" data-dismiss="modal" aria-hidden="true">Close</button>
+
+        </div>
+    
+    </form>
+
+</div>
+
+

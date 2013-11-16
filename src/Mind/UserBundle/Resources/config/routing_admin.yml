@@ -5,10 +5,12 @@ mind_admin_index:
   pattern: /
   defaults: { _controller: MindUserBundle:Admin:admin }
   
+##utilisateurs  
 mind_admin_user:
   pattern: /utilisateurs
   defaults: { _controller: MindUserBundle:Admin:users }
   
+## Domaine  
 mind_admin_domaine:
   pattern: /domaines
   defaults: { _controller: MindUserBundle:Domaine:getListeDomaine }
@@ -18,13 +20,24 @@ mind_admin_domaine_add:
     defaults: { _controller: MindUserBundle:Domaine:domaines }
     options:
         expose: true
-  
+
+mind_admin_domaine_modifier:
+    pattern: /domaines/modifier
+    defaults: { _controller: MindUserBundle:Domaine:modifier }
+ 
+mind_admin_domaine_json:
+    pattern: /domaines/get-json-data
+    defaults: { _controller: MindUserBundle:Domaine:getDataSourceForParent }
+    options:
+        expose: true
+
+##Avis  
 mind_admin_avis:
   pattern: /avis
   defaults: { _controller: MindUserBundle:Admin:avis }
   
+##Question  
 mind_admin_question:
   pattern: /questions
   defaults: { _controller: MindUserBundle:Admin:questions }
   
-  #domaine, avis, question

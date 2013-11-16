@@ -5,14 +5,104 @@ namespace Mind\MpBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Mind\MpBundle\Form\Type\MessageType;
+use Mind\MpBundle\Form\Type\ConversationType;
 
 class MessagerieController extends Controller {
     
+    /**
+     * 
+     * Fonction pour la page d'accueil de la messagerie et la boite au lettre
+     * 
+     * @return Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction(){
         
-        $template = 'MindMpBundle::layout.html.twig';
-        return $this->container->get('templating')->renderResponse($template,
-                array());
+        $conversationservice                = $this->container->get('mind_mp.conversation');
+        $tabForConversationType             = $conversationservice->getConversationForConversationType('bal');
+        $template                           = 'MindMpBundle:BAL:bal.html.twig';
+        $conversation                       = new \Mind\MpBundle\Entity\Conversation();
+        $form                               = $this->createForm(new ConversationType($tabForConversationType), $conversation);
+        
+        return $this->container->get('templating')->renderResponse($template, 
+                array(
+                        'form' => $form->createView()
+                ));
+    }
+    
+    /**
+     * 
+     * Page d'accueil des archives de la messagerie
+     * 
+     * @return type
+     */
+    public function indexArchiveAction(){
+        
+        $conversationservice                = $this->container->get('mind_mp.conversation');
+        $tabForConversationType             = $conversationservice->getConversationForConversationType('archive');
+        $template                           = 'MindMpBundle:Archives:archives.html.twig';
+        $conversation                       = new \Mind\MpBundle\Entity\Conversation();
+        $form                               = $this->createForm(new ConversationType($tabForConversationType), $conversation);
+        
+        return $this->container->get('templating')->renderResponse($template, 
+                array(
+                        'form' => $form->createView()
+                ));
+    }
+
+    public function supprimerAction(){
+        
+        $serviceConversation    = $this->container->get('mind_mp.conversation');
+        $tabConversation        = $this->getRequest()->get('mind_mpbundle_conversationtype')['id'];
+        
+        if(!empty($tabConversation)){
+            
+            $serviceConversation->supprimerConversation($tabConversation);
+            
+            //message de confirmation 
+            $messageDeConfirmation = "Conversation(s) supprimer avec succès.";
+            $this->get('session')->getFlashBag()->add('success', $messageDeConfirmation);
+            
+        }else{
+            
+            //message d'e confirmation'erreur 
+            $messageDeConfirmation = "Vous devez séléctionner au moins une conversation.";
+            $this->get('session')->getFlashBag()->add('erreurs', $messageDeConfirmation);
+            
+        }
+        
+        $url = $this->generateUrl('mind_mp_archive');
+        return $this->redirect($url);
+        
+    }
+    
+    /**
+     * 
+     * Archive les conversations et redirige vers la page d'accueil de la messagerie
+     * 
+     * @return type
+     */
+    public function archiverAction(){
+        
+        $serviceConversation    = $this->container->get('mind_mp.conversation');
+        $tabConversation        = $this->getRequest()->get('mind_mpbundle_conversationtype')['id'];
+        
+        if(!empty($tabConversation)){
+            
+            $serviceConversation->archiverConversation($tabConversation);
+
+            //message de confirmation 
+            $messageDeConfirmation = "Conversation(s) archiver avec succès.";
+            $this->get('session')->getFlashBag()->add('success', $messageDeConfirmation);
+            
+        }else{
+            
+            //message d'e confirmation'erreur 
+            $messageDeConfirmation = "Vous devez séléctionner au moins une conversation.";
+            $this->get('session')->getFlashBag()->add('erreurs', $messageDeConfirmation);
+        }
+        
+        $url = $this->generateUrl('mind_mp_homepage');
+        return $this->redirect($url);
         
     }
     
@@ -20,6 +110,15 @@ class MessagerieController extends Controller {
         
     }
     
+    /**
+     * 
+     * Créer une nouvelle conversation avec :
+     *  - Entité participants
+     *  - Entité Lu
+     *  - Entité Dossier 
+     * 
+     * @return Symfony\Component\HttpFoundation\Response
+     */
     public function nouvelleConversationAction(){
         
         $messageManager         = $this->container->get('mind_mp.message');
@@ -51,6 +150,7 @@ class MessagerieController extends Controller {
                 
                 $tabPart        = $messageManager->createParticipantsGet($conversation, $tabDest);
                 $tabLu          = $messageManager->createLuGet($conversation, $message, $tabDest);
+                $tabDossier     = $messageManager->createDossierGet($conversation, $tabDest);
                 
                 $em->flush();
                 
@@ -69,6 +169,13 @@ class MessagerieController extends Controller {
                 ));
     }
     
+    /**
+     * 
+     * Construit la liste des utilisateurs username et id pour l'envoi de msg
+     * C'est la liste des destinataires
+     * 
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function getArrayObjectUserAction(){
         
         $terms = $this->getRequest()->get('searchTerms');
@@ -92,5 +199,21 @@ class MessagerieController extends Controller {
         $response ->headers->set('Content-Type', 'application/json');
         
         return $response;
+    }
+    
+    /**
+     * 
+     * Recupère le dernier message d'une conversation
+     * 
+     * @param type $idConversation
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function  getLastMessageForConversationAction($idConversation){
+        
+        $serviceMessage = $this->container->get('mind_mp.message');
+        $lastMessage    = $serviceMessage->getLastMessageForConversation($idConversation);
+        $message        = $lastMessage->getContenuMessage();
+        
+        return new Response(substr($message, 0, 40).'...');
     }
 }
