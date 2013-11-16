@@ -1,5 +1,5 @@
 parameters:
-#    mind_recherche.example.class: MindRecherche\Bundle\Example
+#    mind_recherche.example.class: Mind\RechercheBundle\Example
 
 services:
 #    mind_recherche.example:

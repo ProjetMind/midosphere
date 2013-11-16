@@ -1,6 +1,6 @@
 <?php
 
-namespace MindRecherche\Bundle\DependencyInjection;
+namespace Mind\RechercheBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

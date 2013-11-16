@@ -1,6 +1,6 @@
 <?php
 
-namespace MindRecherche\Bundle\Tests\Controller;
+namespace Mind\RechercheBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

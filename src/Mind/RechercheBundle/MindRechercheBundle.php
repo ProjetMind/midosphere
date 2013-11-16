@@ -1,6 +1,6 @@
 <?php
 
-namespace MindRecherche\Bundle;
+namespace Mind\RechercheBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

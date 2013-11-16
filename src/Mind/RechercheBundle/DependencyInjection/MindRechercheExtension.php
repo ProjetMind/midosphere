@@ -1,6 +1,6 @@
 <?php
 
-namespace MindRecherche\Bundle\DependencyInjection;
+namespace Mind\RechercheBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

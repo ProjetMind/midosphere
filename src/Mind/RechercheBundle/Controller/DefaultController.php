@@ -1,6 +1,6 @@
 <?php
 
-namespace MindRecherche\Bundle\Controller;
+namespace Mind\RechercheBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
