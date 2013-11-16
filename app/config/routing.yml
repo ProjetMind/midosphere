@@ -1,3 +1,7 @@
+mind_recherche:
+    resource: "@MindRechercheBundle/Resources/config/routing.yml"
+    prefix:   /
+
 mind_mp_message:
     resource: "@MindMpBundle/Resources/config/messagerie.yml"
     prefix:   /messagerie

@@ -1,0 +1,7 @@
+parameters:
+#    mind_recherche.example.class: MindRecherche\Bundle\Example
+
+services:
+#    mind_recherche.example:
+#        class: %mind_recherche.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
