@@ -17,13 +17,13 @@ class ConversationManager extends BaseManager {
      * 
      * @return array
      */
-    public function getConversationForConversationType(){
+    public function getConversationForConversationType($dossier){
         
         $idUserCourant      = $this->security->getToken()->getUser()->getId();
         
         $tabConversation    = array();
         $repo               = $this->manager->getRepository('MindMpBundle:Conversation');
-        $conversations      = $repo->getConversationForConversationType($idUserCourant);
+        $conversations      = $repo->getConversationForConversationType($idUserCourant, $dossier);
         
         foreach ($conversations as $conversation){
             
@@ -72,6 +72,54 @@ class ConversationManager extends BaseManager {
             
         return $conversation;
             
+    }
+    
+    public function supprimerConversation($tabIdConversation){
+        
+        $repo               = $this->manager->getRepository('MindMpBundle:Dossier');
+        $idUserCourant      = $this->security->getToken()->getUser()->getId(); 
+        
+        foreach ($tabIdConversation as $unIdConversation){
+            
+            $optionsSearch = array(
+                                    'idConversation'    => $unIdConversation,
+                                    'idUser'            => $idUserCourant
+                                );
+                                
+            $dossier = $repo->findOneBy($optionsSearch);
+            
+            if(!empty($dossier)){
+                $dossier->setDossier('supprimer');
+                $this->manager->persist($dossier);
+                
+            }
+        }
+        
+        $this->manager->flush();
+    }
+    
+    public function archiverConversation(array $tabIdConversation){
+        
+        $repo               = $this->manager->getRepository('MindMpBundle:Dossier');
+        $idUserCourant      = $this->security->getToken()->getUser()->getId(); 
+        
+        foreach ($tabIdConversation as $unIdConversation){
+            
+            $optionsSearch = array(
+                                    'idConversation'    => $unIdConversation,
+                                    'idUser'            => $idUserCourant
+                                );
+                                
+            $dossier = $repo->findOneBy($optionsSearch);
+            
+            if(!empty($dossier)){
+                $dossier->setDossier('archive');
+                $this->manager->persist($dossier);
+                
+            }
+        }
+        
+        $this->manager->flush();
     }
     
 }

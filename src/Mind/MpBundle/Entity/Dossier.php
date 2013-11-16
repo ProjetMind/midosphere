@@ -24,14 +24,14 @@ class Dossier
     /**
      * @var integer
      *
-     * @ORM\Column(name="idUser", type="integer")
+     * @ORM\Column(name="id_user", type="integer")
      */
     private $idUser;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="idConversation", type="integer")
+     * @ORM\Column(name="id_conversation", type="integer")
      */
     private $idConversation;
 

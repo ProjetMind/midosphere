@@ -20,14 +20,16 @@ mind_mp_conversation:
 #Archive      
 mind_mp_archive:
   pattern: /mes-archives-de-messagerie
-  defaults: { _controller: MindMpBundle:Messagerie:archive }
+  defaults: { _controller: MindMpBundle:Messagerie:indexArchive }
 
 #Archive : permet d'archiver une ou un groupe de conversation   
 mind_mp_a_archiver:
   pattern: /archiver
   defaults: { _controller: MindMpBundle:Messagerie:archiver }
 
-
+mind_mp_supprimer:
+  pattern: /supprimer
+  defaults: { _controller: MindMpBundle:Messagerie:supprimer }
 #Json 
 #Fournit la data source (liste destinataires d'un message en ajax
 mind_mp_json_user:

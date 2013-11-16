@@ -19,13 +19,17 @@ class DossierRepository extends EntityRepository
      * @param type $dossierString
      * @return array
      */
-    public function getTabConversationByDossier($dossierString){
+    public function getTabConversationByDossier($idUserCourant, $dossierString){
+        
         
         $query = $this->_em->createQuery('SELECT d 
                                           FROM MindMpBundle:Dossier d
                                           WHERE d.dossier = :dossier
+                                          AND d.idUser = :idUser
                                          ');
+        
         $query->setParameter('dossier', $dossierString);
+        $query->setParameter('idUser', $idUserCourant);
         
         $result = $query->getResult();
         $tabConversation = array();

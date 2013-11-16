@@ -29,13 +29,23 @@ class ConversationRepository extends EntityRepository
         $query->setParameter('terms', $terms.'%');
         
         return $query->getResult();
+                
     }
     
-    public function getConversationForConversationType($idUserAuteur){
+    /**
+     * 
+     * Fournit la liste des conversation par dossier bal|archive
+     * 
+     * @param type $idUserAuteur
+     * @param type $dossier
+     * @return type
+     */
+    public function getConversationForConversationType($idUserAuteur, $dossier){
         
+        $idUserCourant     = $idUserAuteur;
         $tabIdConversation = $this->_em
                                   ->getRepository('MindMpBundle:Dossier')
-                                  ->getTabConversationByDossier('bal');
+                                  ->getTabConversationByDossier($idUserCourant, $dossier);
        
         $query = $this->_em->createQuery('SELECT c
                                           FROM MindMpBundle:Conversation c
