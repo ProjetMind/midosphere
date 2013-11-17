@@ -1,0 +1,41 @@
+{# empty Twig template #}
+
+{# empty Twig template #}
+
+<form id="formHeaderSearch" class="form-inline" method="POST" action="{{ path('mind_recherche_homepage') }}">
+    <div class="input-append">
+        <input id="appendedInput" class="input-xlarge" type="search" name="headerSearch" placeholder="Avis, Questions, Domaine ou membres" />
+        <button style="padding-bottom:10px;padding-top:10px;" class="btn btn-primary" type="submit" >Rechercher</button>
+    </div>
+    <div>
+        <span id="btnOptions" class="btn disabled">Que recherchez-vous ?</span> </a>
+        <label>
+            <input checked="checked" id="inputOptions" type="checkbox" name="optionsDeRecherche" value="1"/>
+            Avis
+        </label>
+        <label for="inputOptions">
+            <input id="inputOptions" type="checkbox" name="optionsDeRecherche" value="2"/>
+            Questions
+        </label>
+        <label for="inputOptions">
+            <input id="inputOptions" type="checkbox" name="optionsDeRecherche" value="3"/>
+            Domaines
+        </label>
+        <label for="inputOptions">
+            <input id="inputOptions" type="checkbox" name="optionsDeRecherche" value="4"/>
+            Membres
+        </label>
+    </div>
+
+</form>
+
+<style type="text/css">
+    
+    #formHeaderSearch label span{
+        color: black;
+    }
+    #formHeaderSearch input{
+        vertical-align: top;
+    }
+</style>
+    

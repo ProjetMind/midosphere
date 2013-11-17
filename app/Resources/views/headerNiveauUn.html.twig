@@ -12,69 +12,10 @@
     </span>
 			 
             <span class="span3" id="recherche">
-                {# Header FORM SEARCH #} 
-                    <form id="formHeaderSearch" class="form-inline" method="POST" action="{{ path('mind_site_recherche') }}">
-                        <div class="input-append">
-                            <input id="appendedInput" class="input-xlarge" type="search" name="headerSearch" placeholder="Sujet, Domaine..." />
-                            <button class="btn btn-primary" type="submit" >Rechercher</button>
-                        </div>
-                        <div>
-                            <span id="btnOptions" class="btn disabled">Que recherchez-vous ?</span>
-                            <a id="optionsDeRecherche" date-url="#" href="#" title="Que recherchez-vous" data-type="checklist" data-pk="1"> </a>
-                            
-                        </div>
-                        
-                        <input id="inputOptions" type="hidden" name="optionsDeRecherche" value="1,2"/>
-                    </form>
+                
+                {% include 'MindRechercheBundle:Forms:form_recherche.html.twig' %}
                 
             </span>
 
 </section>
-
-<style type="text/css">
-    
-    #formHeaderSearch label span{
-        color: black;
-    }
-</style>
-    
-<script type="text/javascript">
-$(function(){
-    
-    var optionsEditable = {
-        value: [1, 2], 
-        send: 'never',
-        source: [
-                    {value: 1, text: 'Avis'},
-                    {value: 2, text: 'Questions'},
-                    {value: 3, text: 'Domaines'},
-                    {value: 4, text: 'Membres'}
-                ],
-        display: function(value, sourceData) {
-            //display checklist as comma-separated values
-            var html = [],
-                checked = $.fn.editableutils.itemsByValue(value, sourceData);
-            
-            if(checked.length) {
-                                    $.each(checked, function(i, v) { html.push($.fn.editableutils.escape(v.text)); });
-                                    $(this).html(html.join(', '));
-            } else {
-                $(this).empty();
-            }
-        }
-    };
-    
-    $('#btnOptions').click(function(optionsEditable){
-        $('#optionsDeRecherche').editable(optionsEditable);
-    });
-    
-    $('#optionsDeRecherche').editable(optionsEditable);
-    
-    $('#optionsDeRecherche').on('save', function(e, params) {
-        $('#inputOptions').attr('value', params.newValue);
-    });
-    
-    
-});
-</script>
 

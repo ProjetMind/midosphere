@@ -1,7 +1,7 @@
 parameters:
-#    mind_recherche.example.class: Mind\RechercheBundle\Example
+    mind_recherche.recherche.class: Mind\RechercheBundle\Recherche
 
 services:
-#    mind_recherche.example:
-#        class: %mind_recherche.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    mind_recherche.recherche:
+        class: %mind_recherche.recherche.class%
+        arguments: ["@doctrine", "@security.context"]

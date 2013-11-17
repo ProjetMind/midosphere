@@ -1,0 +1,47 @@
+{# empty Twig template #}
+
+<h3>Résultat de recherche</h3>
+
+{% include 'MindRechercheBundle:Forms:form_recherche_page.html.twig' %}
+
+    <ul class="nav nav-tabs" id="tabResultats">
+        <li class="active">
+            <a href="#avis">Avis</a>
+        </li>
+        <li>
+            <a href="#questions">Questions</a>
+        </li>
+        <li>
+            <a href="#domaines">Domaines</a>
+        </li>
+        <li>
+            <a href="#membres">Membres</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="avis">
+            {% include 'MindRechercheBundle:Resultats:avis.html.twig' %}
+        </div>
+        <div class="tab-pane" id="questions">
+            {% include 'MindRechercheBundle:Resultats:questions.html.twig' %}
+        </div>
+        <div class="tab-pane" id="domaines">
+            {% include 'MindRechercheBundle:Resultats:domaines.html.twig' %}
+        </div>
+        <div class="tab-pane" id="membres">
+            {% include 'MindRechercheBundle:Resultats:questions.html.twig' %}
+        </div>
+    </div>
+
+<script>
+$(function () {
+    
+    $('#tabResultats a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+    })
+    
+    $('#tabResultats a:first').tab('show');
+})
+</script>
