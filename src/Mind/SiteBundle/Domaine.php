@@ -259,13 +259,11 @@ class Domaine extends NestedTreeRepository{
                     'childOpen' => $this->childOpen,
                     'childClose' => $this->childClose,
                     'nodeDecorator' => function($node){
-                          return '<span>'.$node['libelle'].'</span>&nbsp;';
+                          return '<a href="'.$this->router->generate("mind_site_domaine_voir",
+                                    array("slug"=>$node['slug'])).'">'.$node['libelle'].'</a>';
                     }
                     
         ));
-        
-        //return '<a href="'.$this->router->generate("mind_site_domaine_voir",
-        //array("slug"=>$node['slug'])).'">'.$node['libelle'].'</a>&nbsp;';
         
         return $tree;
     }

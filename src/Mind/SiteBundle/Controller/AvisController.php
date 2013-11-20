@@ -91,6 +91,7 @@ class AvisController extends Controller
             case 'mind_site_domaine_voir':
                 $lesAvis = $repositoryAvis->getAvisByDomaine($idAuteur);
                 $titreGroup = "Avis du domaine";
+                $limitParPage = 2000000000000;
                 break;
         }
         

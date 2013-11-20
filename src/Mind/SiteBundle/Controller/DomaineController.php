@@ -107,6 +107,9 @@ class DomaineController extends Controller
 
     public function voirAction($slug){
         
+        $servicePaginator = $this->container->get('knp_paginator');
+        $limitParPage   = 200000000000;
+        
         $leDomaine = $this->getDoctrine()
                           ->getManager()
                           ->getRepository('MindSiteBundle:Domaine')

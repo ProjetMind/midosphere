@@ -18,10 +18,10 @@
 </h3>
 
 <div>
-    {% render controller('MindSiteBundle:Avis:getAvis', {'_route': 'mind_site_domaine_voir', 'idAuteur': leDomaine.id}) %}
+    {% render controller('MindSiteBundle:Avis:getAvis', {'page': 1, '_route': 'mind_site_domaine_voir', 'idAuteur': leDomaine.id}) %}
 </div>
 
 <div>
-    {% render controller('MindSiteBundle:Question:getQuestions', { '_route': 'mind_site_domaine_voir', 'idAuteur': leDomaine.id }) %}
+    {% render controller('MindSiteBundle:Question:getQuestions', {'page': 1, '_route': 'mind_site_domaine_voir', 'idAuteur': leDomaine.id }) %}
 </div>
 {% endblock %}
