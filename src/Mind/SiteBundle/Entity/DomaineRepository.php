@@ -38,7 +38,7 @@ class DomaineRepository extends NestedTreeRepository
                 break;
             
             case 3: 
-                $sql .= "d.libelle LIKE '%".$string."%'";
+                $sql .= "d.libelle LIKE '%".$termsDeRecherche."%'";
                 break;
         }
         return $sql."  ORDER BY d.niveau, d.borneGauche ASC";
@@ -63,8 +63,11 @@ class DomaineRepository extends NestedTreeRepository
                                             array("slug"=>$node['slug'])).'">'.$node['libelle'].'</a>';
                             }
             );
-        $tree = $this->buildTree($arrayResult, $options);
-        
+            if(empty($arrayResult)){
+                $tree = null;
+            }else{
+                $tree = $this->buildTree($arrayResult, $options);
+            }
         return $tree;
     }
     
