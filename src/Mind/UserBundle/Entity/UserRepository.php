@@ -12,5 +12,47 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+    
+    public function getSql($optionsFiltres, $termsDeRecherche){
+        
+        $sql            = "SELECT u
+                           FROM MindUserBundle:User u
+                           WHERE ";  
+        
+        $explodeString  = explode(" ", $termsDeRecherche);
+        
+        switch ($optionsFiltres){
+            
+            case 1: 
+                foreach ($explodeString as $string){
+                    $sql .= "u.username LIKE '%".$string."%' OR";
+                }
+                $sql = substr($sql, 0, -2);
+                break;
+            
+            case 2: 
+                foreach ($explodeString as $string){
+                    $sql .= "u.username LIKE '%".$string."%' AND ";
+                }
+                $sql = substr($sql, 0, -4);
+                break;
+            
+            case 3: 
+                $sql .= "u.username LIKE '%".$termsDeRecherche."%'";
+                break;
+        }
+        return $sql;
+        
+    }
+    
+    public function getUsersByTermsRecherche($optionsFiltres, $termsDeRecherche){
+        
+        $sql = $this->getSql($optionsFiltres, $termsDeRecherche);
+       
+        $query = $this->_em->createQuery($sql);
+        
+        
+        return $query->getResult();
+    }
    
 }

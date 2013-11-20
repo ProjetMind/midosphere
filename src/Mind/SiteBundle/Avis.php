@@ -6,6 +6,7 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
 use Mind\SiteBundle\DateFormatage;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Security\Core\SecurityContextInterface;
+use Mind\MediaBundle\Images;
 
 class Avis {
     
@@ -15,9 +16,10 @@ class Avis {
     protected $dateFormatage;
     protected $router;
     protected $security;
+    protected $images;
 
     public function __construct(Registry $doctrine, DateFormatage $dateFormatage, Router $router,
-                                SecurityContextInterface $security) {
+                                SecurityContextInterface $security, Images $images) {
         
         $this->doctrine         = $doctrine;
         $this->manager          = $doctrine->getManager();
@@ -25,6 +27,7 @@ class Avis {
         $this->dateFormatage    = $dateFormatage;
         $this->router           = $router;
         $this->security         = $security;
+        $this->images           = $images;
     }
     
     public function getAvisToUpdate($idAvis){
@@ -164,6 +167,66 @@ class Avis {
       
       return $lesNbCommentaires;
   }
+  
+  /**
+   * 
+   * Retourne les domaines dans un node avec des liens link
+   * @param \Mind\SiteBundle\Entity\Avis $lesAvis
+   * @return array 
+   */
+  public function getDomaineWithLink($lesAvis){
+      
+      $lesDomainesLink = array();
+      $linkDomaine = array();
+      $repositoryDomaine = $this->manager->getRepository('MindSiteBundle:Domaine');
+      
+      foreach ($lesAvis as $unAvis){
+          
+          $lesDomainesLink[$unAvis->getId()] = "";
+          $idDuDomaineAvis = $unAvis->getAvisDomaine();
+          $leDomaineAvis = $repositoryDomaine->find($idDuDomaineAvis);
+          $leParent = $leDomaineAvis->getParent();
+          $nbParent = count($leParent);
+          
+          $pathDomaine = $this->router->generate('mind_site_domaine_voir', 
+                                            array('slug'  => $leDomaineAvis->getSlug()));
+          $linkDomaine[] = '<a href="'.$pathDomaine.'">'.$leDomaineAvis->getLibelle().'</a>';
+          
+          while($nbParent > 0){
+              $pathParentDomaine = $this->router->generate('mind_site_domaine_voir', 
+                                                       array('slug' => $leParent->getSlug()));
+              $linkDomaine[] = '<a href="'.$pathParentDomaine.'">' .$leParent->getLibelle().'</a>';
+              $leParent = $leParent->getParent();
+              $nbParent = count($leParent);
+          }
+          
+          $linkDomaine = array_reverse($linkDomaine, true); 
+          $nbElements = count($linkDomaine);
+          $countNbElements = 1;
+          foreach ($linkDomaine as $unLinkDomaine ){
+              if($countNbElements == $nbElements){
+                    $lesDomainesLink[$unAvis->getId()] .= $unLinkDomaine;
+              }
+              else{
+                    $lesDomainesLink[$unAvis->getId()] .= $unLinkDomaine.' > ';
+              }
+              $countNbElements++;
+          }
+          
+          $linkDomaine = array();
+      }
+      
+      return $lesDomainesLink;
+  }
+  
+  public function getImages($lesAvis){
+    
+        $this->images->setTypeEntity("avis");
+        
+        $images = $this->images->getImages($lesAvis);
+        
+        return $images;
+    }
 }
 
 ?>

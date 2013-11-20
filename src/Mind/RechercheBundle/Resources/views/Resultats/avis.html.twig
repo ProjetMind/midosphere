@@ -1,3 +1,8 @@
 {# empty Twig template #}
 
-Résultat avis
+{% include 'MindRechercheBundle:Resultats:ras.html.twig' %}
+
+{% if 1 in optionsDeRecherche %}
+    {% render controller('MindRechercheBundle:Recherche:getResultatsForAvis') %}
+{% endif %}
+

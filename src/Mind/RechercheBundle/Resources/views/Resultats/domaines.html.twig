@@ -1,3 +1,8 @@
 {# empty Twig template #}
 
-résultats questions
+{% include 'MindRechercheBundle:Resultats:ras.html.twig' %}
+
+{% if 3 in optionsDeRecherche %}
+    {% render controller('MindRechercheBundle:Recherche:getResultatsForDomaines') %}
+{% endif %}
+

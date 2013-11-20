@@ -9,7 +9,7 @@ services:
      class: Mind\SiteBundle\DateFormatage
   mind_site.avis:
      class: %mind_site.avis.class%
-     arguments: ["@doctrine", "@mind_site.date.formatage", "@router", "@security.context"]
+     arguments: ["@doctrine", "@mind_site.date.formatage", "@router", "@security.context", "@mind_media.images"]
   mind_site.questions:
      class: %mind_site.questions.class%
      arguments: ["@doctrine", "@mind_site.date.formatage", "@router", "@security.context"]

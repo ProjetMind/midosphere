@@ -142,8 +142,19 @@ containerConversation textarea{
     overflow: auto;
 }
 
+/*******************************************************************************
+/* Form search body
+********************************************************************************/
 
+.divOptionsSearch{
+    border: 1px #bbbbbb solid;
+    /*background-color: #E5E5E5;*/
+}
 
+.btnBodySearch{
+    margin-top: 5px;
+    margin-left: 5px;
+}
 
 
 

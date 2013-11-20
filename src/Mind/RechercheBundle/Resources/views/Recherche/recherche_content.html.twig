@@ -1,36 +1,44 @@
 {# empty Twig template #}
 
-<h3>Résultat de recherche</h3>
+<h3>Résultat de votre recherche</h3>
 
 {% include 'MindRechercheBundle:Forms:form_recherche_page.html.twig' %}
 
     <ul class="nav nav-tabs" id="tabResultats">
         <li class="active">
-            <a href="#avis">Avis</a>
+            <a href="#avis">Avis ({% include 'MindRechercheBundle:Resultats:ras.html.twig' %})</a>
         </li>
         <li>
-            <a href="#questions">Questions</a>
+            <a href="#questions">Questions ({% include 'MindRechercheBundle:Resultats:ras.html.twig' %})</a>
         </li>
         <li>
-            <a href="#domaines">Domaines</a>
+            <a href="#domaines">Domaines ({% include 'MindRechercheBundle:Resultats:ras.html.twig' %})</a>
         </li>
         <li>
-            <a href="#membres">Membres</a>
+            <a href="#membres">Membres ({% include 'MindRechercheBundle:Resultats:ras.html.twig' %})</a>
         </li>
     </ul>
 
     <div class="tab-content">
         <div class="tab-pane active" id="avis">
-            {% include 'MindRechercheBundle:Resultats:avis.html.twig' %}
+            {% if msg is empty %}
+                {% include 'MindRechercheBundle:Resultats:avis.html.twig' %}
+            {% endif %}
         </div>
         <div class="tab-pane" id="questions">
-            {% include 'MindRechercheBundle:Resultats:questions.html.twig' %}
+            {% if msg is empty %}
+                {% include 'MindRechercheBundle:Resultats:questions.html.twig' %}
+            {% endif %}
         </div>
         <div class="tab-pane" id="domaines">
-            {% include 'MindRechercheBundle:Resultats:domaines.html.twig' %}
+            {% if msg is empty %}
+                {% include 'MindRechercheBundle:Resultats:domaines.html.twig' %}
+            {% endif %}
         </div>
         <div class="tab-pane" id="membres">
-            {% include 'MindRechercheBundle:Resultats:questions.html.twig' %}
+            {% if msg is empty %}
+                {% include 'MindRechercheBundle:Resultats:membres.html.twig' %}
+            {% endif %}
         </div>
     </div>
 

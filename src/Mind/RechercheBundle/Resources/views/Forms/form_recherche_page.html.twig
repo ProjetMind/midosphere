@@ -2,30 +2,74 @@
 
 {# empty Twig template #}
 
+{% if msg is not empty %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <ul>
+            {% for message in msg %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
 <form id="formHeaderSearch" class="form-inline" method="POST" action="{{ path('mind_recherche_homepage') }}">
-    <div class="input-append">
-        <input id="appendedInput" class="input-xlarge" type="search" name="headerSearch" placeholder="Avis, Questions, Domaine ou membres" />
-        <button style="padding-bottom:10px;padding-top:10px;" class="btn btn-primary" type="submit" >Rechercher</button>
+    
+        <input 
+            {% if termsDeRecherche is defined %}value="{{termsDeRecherche}}"{% endif %}
+            id="appendedInput" class="input-xlarge" type="search" name="inputHeaderSearch" placeholder="Avis, Questions, Domaine ou membres" />
+        
+        <br/>
+        
+    <div class="divOptionsSearch row-fluid">
+        
+        <span class="span6">
+            <div class="btnOptions btn disabled">Recherchez dans :</div> 
+            <br/>
+            <label for="inputOptionsAvis">
+                <input type="checkbox" id="inputOptionsAvis" name="optionsDeRecherche[]" value="1"
+                       {% if 1 in optionsDeRecherche %}checked="{{'checked'}}"{% endif %}/>
+                Avis
+            </label>
+            <label for="inputOptionsQuestions">
+                <input id="inputOptionsQuestions" type="checkbox" name="optionsDeRecherche[]" value="2"
+                       {% if 2 in optionsDeRecherche %}checked="{{'checked'}}"{% endif %}/>
+                Questions
+            </label>
+            <label for="inputOptionsDomaines">
+                <input id="inputOptionsDomaines" type="checkbox" name="optionsDeRecherche[]" value="3"
+                       {% if 3 in optionsDeRecherche %}checked="{{'checked'}}"{% endif %}/>
+                Domaines
+            </label>
+            <label for="inputOptionsMembres">
+                <input id="inputOptionsMembres" type="checkbox" name="optionsDeRecherche[]" value="4"
+                       {% if 4 in optionsDeRecherche %}checked="{{'checked'}}"{% endif %}/>
+                Membres
+            </label>
+        </span>
+        
+        <span class="span6">
+            <div class="btnOptions btn disabled">Recherchez :</div> 
+            <br/>
+            <label for="optionsFiltres1">
+                <input id="optionsFiltres1" type="radio" name="optionsFiltres" value="1"
+                       {% if optionsFiltres == 1 %}checked="{{'checked'}}"{% endif %}/>
+                Contenant au moins un des termes
+            </label>
+            <label for="optionsFiltres2">
+                <input id="optionsFiltres2" type="radio" name="optionsFiltres" value="2"
+                       {% if optionsFiltres == 2 %}checked="{{'checked'}}"{% endif %}/>
+                Contenant tous les mots
+            </label>
+            <label for="optionsFiltres3">
+                <input id="optionsFiltres3" type="radio" name="optionsFiltres" value="3"
+                       {% if optionsFiltres == 3 %}checked="{{'checked'}}"{% endif %}/>
+                Contenant le terme exacte
+            </label>
+        </span>
     </div>
-    <div>
-        <span id="btnOptions" class="btn disabled">Que recherchez-vous ?</span> </a>
-        <label>
-            <input checked="checked" id="inputOptions" type="checkbox" name="optionsDeRecherche" value="1"/>
-            Avis
-        </label>
-        <label for="inputOptions">
-            <input id="inputOptions" type="checkbox" name="optionsDeRecherche" value="2"/>
-            Questions
-        </label>
-        <label for="inputOptions">
-            <input id="inputOptions" type="checkbox" name="optionsDeRecherche" value="3"/>
-            Domaines
-        </label>
-        <label for="inputOptions">
-            <input id="inputOptions" type="checkbox" name="optionsDeRecherche" value="4"/>
-            Membres
-        </label>
-    </div>
+        
+    <button style="padding-bottom:10px;padding-top:10px;" class="btn btn-primary" type="submit" >Rechercher</button>
 
 </form>
 

@@ -4,4 +4,4 @@ parameters:
 services:
     mind_recherche.recherche:
         class: %mind_recherche.recherche.class%
-        arguments: ["@doctrine", "@security.context"]
+        arguments: ["@doctrine", "@security.context", "@service_container"]

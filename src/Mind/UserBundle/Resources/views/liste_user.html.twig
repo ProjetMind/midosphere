@@ -1,0 +1,44 @@
+{# empty Twig template #}
+
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Date d'inscription</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        {% set countElmt = 1 %}
+        {% for user in users %}
+        <tr>
+            <td>{{ countElmt }} <img src="{{ user.path }}"></td>
+            <td><a href="{{ path('mind_user_profile_voir', {'slug': user.slug}) }}">{{ user.username }}</a></td>
+            <td>{{ user.dateInscription|date('d/m/Y') }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+{% if nbResult is defined %}
+
+    {% if nbResult == 0 %}
+        <script type="text/javascript">
+            $(function(){
+                var msg = '{{ nbResult ~ ' résultas trouvés.'}}';
+                $('#tabResultats a[href="#membres"] span').html(msg);
+            });
+        </script>
+    {% else %}
+        <script type="text/javascript">
+            $(function(){
+                var msg = '{{ nbResult ~ ' résultas trouvés.'}}';
+                $('#tabResultats a[href="#membres"] span').html(msg);
+            });
+        </script>
+    {% endif %}
+
+{% endif %}

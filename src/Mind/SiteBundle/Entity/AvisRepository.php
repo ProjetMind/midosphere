@@ -12,7 +12,62 @@ use Doctrine\ORM\EntityRepository;
  */
 class AvisRepository extends EntityRepository
 {
-   
+ 
+    /**
+     * 
+     * @param type $optionsFiltres
+     * @param type $termsDeRecherche
+     * @return string
+     */
+    public function getRequeteSql($optionsFiltres, $termsDeRecherche){
+        
+        $sql            = "SELECT a
+                           FROM MindSiteBundle:Avis a
+                           WHERE ";  
+        
+        $explodeString  = explode(" ", $termsDeRecherche);
+        
+        switch ($optionsFiltres){
+            
+            case 1: 
+                foreach ($explodeString as $string){
+                    $sql .= "a.avisTitre LIKE '%".$string."%' OR ";
+                }
+                foreach ($explodeString as $string){
+                    $sql .= " a.avis LIKE '%".$string."%' OR";
+                }
+                $sql = substr($sql, 0, -2);
+                break;
+            
+            case 2: 
+                foreach ($explodeString as $string){
+                    $sql .= "a.avisTitre LIKE '%".$string."%' AND ";
+                }
+                $sql = substr($sql, 0, -4);
+                $sql .= 'OR ';
+                foreach ($explodeString as $string){
+                    $sql .= " a.avis LIKE '%".$string."%' AND";
+                }
+                $sql = substr($sql, 0, -3);
+                break;
+            
+            case 3: 
+                $sql .= " a.avis LIKE '%".$termsDeRecherche."%'";
+                break;
+        }
+        return $sql;
+    }
+    
+    public function findAvisByTermsRecherche($optionsFiltres, $termsDeRecherche){
+        
+        $sql = $this->getRequeteSql($optionsFiltres, $termsDeRecherche);
+       
+        $query = $this->_em->createQuery($sql);
+        
+        
+        return $query->getResult();
+    }
+    
     public function getAvisByAuteur($idAuteur){
         
         $query = $this->_em->createQuery('SELECT a

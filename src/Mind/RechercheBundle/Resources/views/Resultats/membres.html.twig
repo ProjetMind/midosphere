@@ -1,3 +1,8 @@
 {# empty Twig template #}
 
-Résultats membres
+{% include 'MindRechercheBundle:Resultats:ras.html.twig' %}
+
+{% if 4 in optionsDeRecherche %}
+    {% render controller('MindRechercheBundle:Recherche:getResultatsForMembres') %}
+{% endif %}
+

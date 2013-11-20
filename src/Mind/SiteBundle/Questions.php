@@ -150,6 +150,53 @@ class Questions {
         
         return $isAuteur;
     }
+    
+    public function getDomaineWithLink($lesQuestions){
+      
+      $lesDomainesLink = array();
+      $linkDomaine = array();
+      $repositoryDomaine = $this->manager->getRepository('MindSiteBundle:Domaine');
+     
+      foreach ($lesQuestions as $uneQuestion){
+          
+          $lesDomainesLink[$uneQuestion->getId()] = "";
+          $idDuDomaineQuestion = $uneQuestion->getQuestionDomaine();
+          $leDomaineQuestion = $repositoryDomaine->find($idDuDomaineQuestion);
+          $leParent = $leDomaineQuestion->getParent();
+          $nbParent = count($leParent);
+          
+          $pathDomaine = $this->router->generate('mind_site_domaine_voir', 
+                                            array('slug'  => $leDomaineQuestion->getSlug()));
+          $linkDomaine[] = '<a href="'.$pathDomaine.'">'.$leDomaineQuestion->getLibelle().'</a>';
+         
+          
+          while($nbParent > 0){
+              $pathParentDomaine = $this->router->generate('mind_site_domaine_voir', 
+                                                       array('slug' => $leParent->getSlug()));
+              $linkDomaine[] = '<a href="'.$pathParentDomaine.'">' .$leParent->getLibelle().'</a>';
+              $leParent = $leParent->getParent();
+              $nbParent = count($leParent);
+          }
+          
+          $linkDomaine = array_reverse($linkDomaine, true); 
+          $nbElements = count($linkDomaine);
+          $countNbElements = 1;
+          
+          foreach ($linkDomaine as $unLinkDomaine ){
+              if($countNbElements == $nbElements){
+                    $lesDomainesLink[$uneQuestion->getId()] .= $unLinkDomaine;
+              }
+              else{
+                    $lesDomainesLink[$uneQuestion->getId()] .= $unLinkDomaine.' > ';
+              }
+              $countNbElements++;
+          }
+          
+          $linkDomaine = array();
+      }
+      
+      return $lesDomainesLink;
+  }
 }
 
 ?>

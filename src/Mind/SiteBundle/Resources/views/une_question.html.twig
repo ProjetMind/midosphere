@@ -70,3 +70,23 @@
     {{ knp_pagination_render(lesQuestions) }}
 </div>
 {% endif %}
+
+{% if nbResult is defined %}
+
+    {% if nbResult == 0 %}
+        <script type="text/javascript">
+            $(function(){
+                var msg = '{{ nbResult ~ ' résultas trouvés.'}}';
+                $('#tabResultats a[href="#questions"] span').html(msg);
+            });
+        </script>
+    {% else %}
+        <script type="text/javascript">
+            $(function(){
+                var msg = '{{ nbResult ~ ' résultas trouvés.'}}';
+                $('#tabResultats a[href="#questions"] span').html(msg);
+            });
+        </script>
+    {% endif %}
+
+{% endif %}

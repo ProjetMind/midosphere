@@ -12,7 +12,76 @@ use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
  */
 class DomaineRepository extends NestedTreeRepository
 {
-    protected $childrenIndex = '__children';
+    
+    public function getSql($optionsFiltres, $termsDeRecherche){
+        
+        $sql            = "SELECT d
+                           FROM MindSiteBundle:Domaine d
+                           WHERE ";  
+        
+        $explodeString  = explode(" ", $termsDeRecherche);
+        
+        switch ($optionsFiltres){
+            
+            case 1: 
+                foreach ($explodeString as $string){
+                    $sql .= "d.libelle LIKE '%".$string."%' OR";
+                }
+                $sql = substr($sql, 0, -2);
+                break;
+            
+            case 2: 
+                foreach ($explodeString as $string){
+                    $sql .= "d.libelle LIKE '%".$string."%' And ";
+                }
+                $sql = substr($sql, 0, -4);
+                break;
+            
+            case 3: 
+                $sql .= "d.libelle LIKE '%".$string."%'";
+                break;
+        }
+        return $sql."  ORDER BY d.niveau, d.borneGauche ASC";
+        
+    }
+
+    public function getDomainesByTermsRecherche($optionsFiltres, $termsDeRecherche, $router){
+    
+        $sql = $this->getSql($optionsFiltres, $termsDeRecherche);
+        
+        $query = $this->_em->createQuery($sql);
+        $arrayResult = $query->getArrayResult();
+        
+        $options = array(
+                            'decorate' => true,
+                            'rootOpen' => '<ul>',
+                            'rootClose' => '</ul>',
+                            'childOpen' => '<li>',
+                            'childClose' => '</li>',
+                            'nodeDecorator' => function($node)use($router){
+                                return '<a href="'.$router->generate("mind_site_domaine_voir",
+                                            array("slug"=>$node['slug'])).'">'.$node['libelle'].'</a>';
+                            }
+            );
+        $tree = $this->buildTree($arrayResult, $options);
+        
+        return $tree;
+    }
+    
+    public function getDomainesPourAdministration(){
+        
+        
+        $query = $this->_em
+            ->createQueryBuilder()
+            ->select('node')
+            ->from('MindSiteBundle:Domaine', 'node')
+            ->orderBy('node.root, node.borneGauche', 'ASC')
+            ->where('node.etat = 1')
+            ->getQuery()
+        ;
+        $options = array('decorate' => false);
+        return $tree = $this->buildTree($query->getArrayResult(), $options); 
+    }
     
     /**
      * returne la liste des domaines dans un tableau pour les formulaires 
@@ -34,31 +103,7 @@ class DomaineRepository extends NestedTreeRepository
         
         return $tabDomaines;
     }
-    
-//    public function getDomainesTree(){
-//        
-//        $options = array(
-//            'decorate' => true,
-//            'rootOpen' => '<ul>',
-//            'rootClose' => '</ul>',
-//            'childOpen' => '<li>',
-//            'childClose' => '</li>'
-//        );
-//        
-//        $htmlTree = $this->childrenHierarchy(
-//            null, /* starting from root nodes */
-//            false, /* true: load all children, false: only direct */
-//            $options
-//        );
-//        
-//        return $htmlTree;
-//    }
-    
-//    public function getMetaDataDomaine(){
-//        
-//        return $this->getClassMetadata();
-//    }
-    
+ 
     public function getDomaineBySlug($slug){
         
         $query = $this->_em->createQuery('SELECT d
@@ -70,273 +115,13 @@ class DomaineRepository extends NestedTreeRepository
         return $query->getSingleResult();
     }
 
-    /**
-     * 
-     * Récupèrer la liste des domaine sous forme de liste pour la page "Les domaines"
-     * 
-     * @param type $router
-     * @return liste domaine 
-     */
-    public function getListeDomaineWithJustLink($router){
-        
-        $entityManager = $this->getEntityManager();
-        $metaData = $this->_em->getClassMetadata('MindSiteBundle:Domaine');
-        
-      
-        $nested = new NestedTreeRepository($entityManager, $metaData);
-        
-       
-        
-        $options = array(
-            'decorate' => true,
-            'rootOpen' => '<ul>',
-            'rootClose' => '</ul>',
-            'childOpen' => '<li>',
-            'childClose' => '</li>',
-            'nodeDecorator' => function($node) use($router){ 
-                return '<a href="'.$router->generate("mind_site_domaine_voir", array('slug'=>$node['slug'])).'">'
-                        .$node['libelle'].'</a>';
-            }
-        );
-        
-      
-        $lesDomaines = $nested->childrenHierarchy(
-                                        null, /* starting from root nodes */
-                                        false, /* true: load all children, false: only direct */
-                                        $options);
-        
-        return $lesDomaines;
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-//    public function childrenHierarchy($node = null, $direct = false, array $options = array(), $includeNode = false, $entite = null)
-//    {
-//        if($entite == null){
-//            
-//        }
-//        
-//        $meta = $this->getClassMetadata();
-//        
-//        if ($node !== null) {
-//            if ($node instanceof $meta->name) {
-//                $wrapperClass = $this->om instanceof \Doctrine\ORM\EntityManager ?
-//                    '\Gedmo\Tool\Wrapper\EntityWrapper' :
-//                    '\Gedmo\Tool\Wrapper\MongoDocumentWrapper';
-//                $wrapped = new $wrapperClass($node, $this->om);
-//                if (!$wrapped->hasValidIdentifier()) {
-//                    throw new InvalidArgumentException("Node is not managed by UnitOfWork");
-//                }
-//            }
-//        } else {
-//            $includeNode = true;
-//        }
-//
-//        // Gets the array of $node results. It must be ordered by depth
-//        $nodes = $this->getNodesHierarchy($node, $direct, $options, $includeNode);
-//
-//        return $this->buildTree($nodes, $options, $entite);
-//    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    public function buildTree(array $nodes, array $options = array())
-    {
-        $meta = $this->getClassMetadata();
-        $nestedTree = $this->buildTreeArray($nodes);
-      
-        $default = array(
-            'decorate' => false,
-            'rootOpen' => '<ul>',
-            'rootClose' => '</ul>',
-            'childOpen' => '<li>',
-            'childClose' => '</li>',
-            'nodeDecorator' => function ($node) use ($meta) {
-                // override and change it, guessing which field to use
-                if ($meta->hasField('title')) {
-                    $field = 'title';
-                } elseif ($meta->hasField('name')) {
-                    $field = 'name';
-                } 
-                elseif($meta->hasField('libelle')){
-                    $field = 'libelle';
-                }else {
-                    throw new InvalidArgumentException("Cannot find any representation field");
-                }
-                return $node[$field];
-            }
-        );
-        $options = array_merge($default, $options);
-        // If you don't want any html output it will return the nested array
-        if (!$options['decorate']) {
-            return $nestedTree;
-        }
-
-        if (!count($nestedTree)) {
-            return '';
-        }
-
-        $childrenIndex = $this->childrenIndex;
-
-        $build = function($tree) use (&$build, &$options, $childrenIndex) {
-            $output = is_string($options['rootOpen']) ? $options['rootOpen'] : $options['rootOpen']($tree);
-            foreach ($tree as $node) {
-                $output .= is_string($options['childOpen']) ? $options['childOpen'] : $options['childOpen']($node);
-                $output .= $options['nodeDecorator']($node);
-                if (count($node[$childrenIndex]) > 0) {
-                    $output .= $build($node[$childrenIndex]);
-                }
-                $output .= is_string($options['childClose']) ? $options['childClose'] : $options['childClose']($node);
-            }
-            return $output . (is_string($options['rootClose']) ? $options['rootClose'] : $options['rootClose']($tree));
-        };
-
-        return $build($nestedTree);
-    }
-    
-//    /**
-//     * {@inheritDoc}
-//     */
-//    public function buildTree(array $nodes, array $options = array(), $entite = null)
-//    {
-//        $htmlDomaine = $this->getHtmlDomaine($entite);
-//        
-//        $meta = $this->getClassMetadata();
-//        
-//        $nestedTree = $this->buildTreeArray($nodes);
-//
-//        $default = array(
-//            'decorate' => false,
-//            'rootOpen' => '<ul>',
-//            'rootClose' => '</ul>',
-//            'childOpen' => '<li>',
-//            'childClose' => '</li>',
-//            'nodeDecorator' => function ($node) use ($meta) {
-//                // override and change it, guessing which field to use
-//                if ($meta->hasField('title')) {
-//                    $field = 'title';
-//                } elseif ($meta->hasField('name')) {
-//                    $field = 'name';
-//                }
-//                elseif($meta->hasField('libelle')){
-//                    $field = 'libelle';
-//                }
-//                else {
-//                    throw new InvalidArgumentException("Cannot find any representation field");
-//                }
-//                return $node[$field];
-//            }
-//        );
-//        $options = array_merge($default, $options);
-//        
-//        // If you don't want any html output it will return the nested array
-//        if (!$options['decorate']) {
-//            return $nestedTree;
-//        }
-//
-//        if (!count($nestedTree)) {
-//            return '';
-//        }
-//
-//        //$childrenIndex = $this->childrenIndex;
-//        $childrenIndex = '__children';
-//        //<label for="mind_sitebundle_avistype_avisDomaine_'.$node['id'].'" class="radio required">
-//        //<input type="radio" id="mind_sitebundle_avistype_avisDomaine_'.$node['id'].'" name="mind_sitebundle_avistype[avisDomaine]" required="required" name="domaineParent" value="'.$node['id'].'"> 
-//        $build = function($tree) use (&$build, &$options, $childrenIndex, $htmlDomaine) {
-//            $output = is_string($options['rootOpen']) ? $options['rootOpen'] : $options['rootOpen']($tree);
-//            
-//            foreach ($tree as $node) {
-//                $output .= is_string($options['childOpen']) ? $options['childOpen'].
-//                        sprintf($htmlDomaine['labelOpen'], $node['id']).  
-//                        sprintf($htmlDomaine['inputOpen'], $node['id'], $node['id'])
-//                        : $options['childOpen']($node);
-//                $output .= $options['nodeDecorator']($node);
-//                if (count($node[$childrenIndex]) > 0) {
-//                    $output .= $build($node[$childrenIndex]);
-//                }
-//                $output .= is_string($options['childClose']) ? $htmlDomaine['labelClose'].$options['childClose'] : $options['childClose']($node);
-//            }
-//            return $output . (is_string($options['rootClose']) ? $options['rootClose'] : $options['rootClose']($tree));
-//        };
-//        return $build($nestedTree);
-//    }
-    
+   
     public function getDomaineById($idDomaine){
         
-//        $query = $this->_em->createQuery('SELECT d 
-//                                          FROM MindSiteBundle:Domaine d 
-//                                          WHERE d.etat = :etat
-//                                          AND d.parent = :parent
-//                                          ORDER DESC d.libelle');
         $query = $this->_em->find('MindSiteBundle:Domaine', $idDomaine);
         
         //$query->setParameter('etat', 1);
         return $query;
         
     }
-    
-    public function getDomaineNiveauUn(){
-        
-        $query = $this->_em->createQuery('SELECT d 
-                                          FROM MindSiteBundle:Domaine d 
-                                          WHERE d.etat = :etat
-                                          ORDER BY d.libelle DESC');
-        
-       
-        $query->setParameter('etat', 1);
-        return $query->getResult();
-        
-    }
-    
-    public function getDomainesPourAdministration(){
-        
-//        $query = $this->_em->createQuery('SELECT node
-//                                          FROM MindSiteBundle:Domaine node
-//                                          WHERE node.etat = :etat
-//                                          ORDER BY node.root, node.borneGauche ASC'
-//                );
-//        
-//        $query->setParameter('etat', 1);
-//        
-//        return $query->getResult();
-        
-        $query = $this->_em
-            ->createQueryBuilder()
-            ->select('node')
-            ->from('MindSiteBundle:Domaine', 'node')
-            ->orderBy('node.root, node.borneGauche', 'ASC')
-            ->where('node.etat = 1')
-            ->getQuery()
-        ;
-        $options = array('decorate' => false);
-        return $tree = $this->buildTree($query->getArrayResult(), $options); 
-    }
-//    
-//    public function getDomainesByParent($idDuParent){
-//        
-//        $query = $this->_em->createQuery('SELECT d
-//                                         FROM MindSiteBundle:Domaine d
-//                                         WHERE d.parent = :idDuParent
-//                                         AND d.etat = :etat
-//                                         ORDER DESC d.libelle
-//                                            ');
-//        
-//        $query->setParameter('idDuParent', $idDuParent);
-//        $query->setParameter('etat', true);
-//        
-//        return $query->getResult();
-//    }
-    
-//    public function getHtmlDomaine($entite){
-//        
-//        $htmlDomaine = array(
-//            'labelOpen'     => '<label for="mind_sitebundle_'.$entite.'type_'.$entite.'Domaine_%d" class="radio required">',
-//            'inputOpen'     => '<input type="radio" id="mind_sitebundle_'.$entite.'type_'.$entite.'Domaine_%d" name="mind_sitebundle_'.$entite.'type['.$entite.'Domaine]" required="required" name="domaineParent" value="%d" /> ',
-//            'labelClose'    => '</label>'
-//        );
-//        
-//        return $htmlDomaine;
-//    }
 }

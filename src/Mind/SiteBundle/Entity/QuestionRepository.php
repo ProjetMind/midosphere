@@ -13,6 +13,61 @@ use Doctrine\ORM\EntityRepository;
 class QuestionRepository extends EntityRepository
 {
     
+    /**
+     * 
+     * @param type $optionsFiltres
+     * @param type $termsDeRecherche
+     * @return string
+     */
+    public function getRequeteSql($optionsFiltres, $termsDeRecherche){
+        
+        $sql            = "SELECT q
+                           FROM MindSiteBundle:Question q
+                           WHERE ";  
+        
+        $explodeString  = explode(" ", $termsDeRecherche);
+        
+        switch ($optionsFiltres){
+            
+            case 1: 
+                foreach ($explodeString as $string){
+                    $sql .= "q.questionTitre LIKE '%".$string."%' OR ";
+                }
+                foreach ($explodeString as $string){
+                    $sql .= " q.question LIKE '%".$string."%' OR";
+                }
+                $sql = substr($sql, 0, -2);
+                break;
+            
+            case 2: 
+                foreach ($explodeString as $string){
+                    $sql .= "q.questionTitre LIKE '%".$string."%' AND ";
+                }
+                $sql = substr($sql, 0, -4);
+                $sql .= 'OR ';
+                foreach ($explodeString as $string){
+                    $sql .= " q.question LIKE '%".$string."%' AND";
+                }
+                $sql = substr($sql, 0, -3);
+                break;
+            
+            case 3: 
+                $sql .= " q.question LIKE '%".$termsDeRecherche."%'";
+                break;
+        }
+        return $sql;
+    }
+    
+    public function findQuestionsByTermsRecherche($optionsFiltres, $termsDeRecherche){
+        
+        $sql = $this->getRequeteSql($optionsFiltres, $termsDeRecherche);
+       
+        $query = $this->_em->createQuery($sql);
+        
+        
+        return $query->getResult();
+    }
+    
     public function getQuestionsByAuteur($idAuteur){
         
         $query = $this->_em->createQuery('SELECT q

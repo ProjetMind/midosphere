@@ -1,0 +1,23 @@
+{# empty Twig template #}
+
+{{ lesDomaines|raw }}
+
+{% if nbResult is defined %}
+
+    {% if nbResult == 0 %}
+        <script type="text/javascript">
+            $(function(){
+                var msg = '{{ nbResult ~ ' résultas trouvés.'}}';
+                $('#tabResultats a[href="#domaines"] span').html(msg);
+            });
+        </script>
+    {% else %}
+        <script type="text/javascript">
+            $(function(){
+                var msg = '{{ nbResult ~ ' résultas trouvés.'}}';
+                $('#tabResultats a[href="#domaines"] span').html(msg);
+            });
+        </script>
+    {% endif %}
+
+{% endif %}

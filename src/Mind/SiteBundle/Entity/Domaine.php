@@ -20,6 +20,7 @@ class Domaine implements \Gedmo\Tree\Node
         
         $this->dateCreation = new \DateTime();
     }
+    
     /**
      * @var integer
      *
