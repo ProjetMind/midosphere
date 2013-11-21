@@ -50,6 +50,13 @@ class MessagerieController extends Controller {
                 ));
     }
     
+    /**
+     * 
+     * Permet de supprimer une conversation.
+     * A vrai dire, la conversation n'est pas supprimer, elle est juste désactivé pour le user
+     * 
+     * @return Response
+     */
     public function supprimerAction(){
         
         $serviceConversation    = $this->container->get('mind_mp.conversation');
@@ -107,6 +114,13 @@ class MessagerieController extends Controller {
         
     }
     
+    /**
+     * 
+     * Index de la page de lecture d'une conversation. 
+     * 
+     * @param integer $idConversation
+     * @return Response
+     */
     public function conversationAction($idConversation){
         
         $serviceConversation    = $this->container->get('mind_mp.conversation');
@@ -122,6 +136,13 @@ class MessagerieController extends Controller {
                 ));
     }
     
+    /**
+     * 
+     * Permet de faire un nouveau message pour une conversation 
+     * 
+     * @param integer $idConversation
+     * @return Response
+     */
     public function nouveauMessageAction($idConversation){
         
         $message                = new \Mind\MpBundle\Entity\Message;
@@ -159,6 +180,13 @@ class MessagerieController extends Controller {
         
     }
     
+    /**
+     * 
+     * Retourne le formulaire de message pour la page de lecture d'une conversation
+     * 
+     * @param integer $idConversation
+     * @return Response
+     */
     public function getFormMessageAction($idConversation){
      
         $serviceConversation    = $this->container->get('mind_mp.conversation');
