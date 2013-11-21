@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Mind\MpBundle\Form\Type\MessageType;
 use Mind\MpBundle\Form\Type\ConversationType;
+use Mind\MpBundle\Form\Type\LectureType;
 
 class MessagerieController extends Controller {
     
@@ -48,7 +49,7 @@ class MessagerieController extends Controller {
                         'form' => $form->createView()
                 ));
     }
-
+    
     public function supprimerAction(){
         
         $serviceConversation    = $this->container->get('mind_mp.conversation');
@@ -108,6 +109,89 @@ class MessagerieController extends Controller {
     
     public function conversationAction($idConversation){
         
+        $serviceConversation    = $this->container->get('mind_mp.conversation');
+        
+        
+        $arrayParticipants      = $serviceConversation->getArrayParticipantsForConversation($idConversation);
+        
+        $template = 'MindMpBundle:Conversation:conversation.html.twig';
+        return $this->container->get('templating')->renderResponse($template,
+                array(
+                        'idConversation'    => $idConversation,
+                        'tabDestinataires'  => $arrayParticipants
+                ));
+    }
+    
+    public function nouveauMessageAction($idConversation){
+        
+        $message                = new \Mind\MpBundle\Entity\Message;
+        $form                   = $this->createForm(new LectureType(), $message);
+        $request                = $this->container->get('request');
+        $tabMessage             = array();
+        
+        if($request->getMethod() === "POST"){
+            
+            $form->bind($request);
+            $message->setIdConversation($idConversation);
+            $message->setIdExpediteur($this->getUser()->getId());
+            
+            if($form->isValid()){
+                
+                $em = $this->container->get('doctrine')->getManager();
+                $em->persist($message);
+                $em->flush();
+                
+                
+                $tabMessage[] = array(
+                    'message'       => $message,
+                    'auteur'        => $this->getUser()
+                );
+            }else{
+                $tabMessage[] = array('message' => null, 'auteur' => null );
+            }
+        }
+        
+        $template = 'MindMpBundle:message:un_message.html.twig';
+        return $this->container->get('templating')->renderResponse($template,
+                array(
+                        'messages'  => $tabMessage
+                ));
+        
+    }
+    
+    public function getFormMessageAction($idConversation){
+     
+        $serviceConversation    = $this->container->get('mind_mp.conversation');
+        $message                = new \Mind\MpBundle\Entity\Message;
+        $form                   = $this->createForm(new LectureType(), $message);
+        
+        $template = 'MindMpBundle:Forms/Message:form_message.html.twig';
+        return $this->container->get('templating')->renderResponse($template,
+                array(
+                        'form'              => $form->createView(),
+                        'idConversation'    => $idConversation
+                ));
+        
+    }
+    
+    /**
+     * 
+     * Fournit la liste des messages d'une conversation et l'auteur du messages
+     * 
+     * @param integer $idConversation
+     * @return Response
+     */
+    public function getMessagesAction($idConversation){
+        
+        $serviceMessage         = $this->container->get('mind_mp.message');
+        $messages               = $serviceMessage->getMessagesByIdConversation($idConversation);
+        
+        $template = 'MindMpBundle:Message:un_message.html.twig';
+        
+        return $this->container->get('templating')->renderResponse($template,
+                array(
+                        'messages'      => $messages
+                ));
     }
     
     /**

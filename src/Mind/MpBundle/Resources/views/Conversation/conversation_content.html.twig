@@ -1,3 +1,33 @@
 {# empty Twig template #}
 
-{% include 'MindMpBundle:Forms:form_nouvelle_conversation.html.twig' %}
+{% set idConversation = app.request.attributes.get('idConversation') %}
+
+<h3>Conversation </h3>
+
+<div id="conversationContent">
+    
+    {# Dest #}
+    <div>
+        <h5 class="text-info">Participants : </h5>
+        <div>
+            <ul class="inline">
+                {% for unDest in tabDestinataires %}
+                    <li class="btn disabled">{{ unDest }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    
+    {# Content #}
+    <div id="msgContent">
+        <h5 class="text-info">Messages : </h5>
+        {% render controller('MindMpBundle:Messagerie:getMessages', {'idConversation': idConversation} ) %}
+    </div>
+    
+    {# Form message #}
+    <div>
+        <h5 class="text-info">Nouveau message :</h5>
+        {% render controller('MindMpBundle:Messagerie:getFormMessage', {'idConversation': idConversation}) %}
+    </div>
+    
+</div>

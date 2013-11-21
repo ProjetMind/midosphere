@@ -15,7 +15,10 @@ mind_mp_conversation:
     pattern: /conversation/{idConversation}
     defaults: {_controller: MindMpBundle:Messagerie:conversation }
       
-      
+#Nouveau message pour une cponversation
+mind_mp_message_nouveau:
+    pattern: /nouveau_message/{idConversation}
+    defaults: { _controller: MindMpBundle:Messagerie:nouveauMessage }
       
 #Archive      
 mind_mp_archive:

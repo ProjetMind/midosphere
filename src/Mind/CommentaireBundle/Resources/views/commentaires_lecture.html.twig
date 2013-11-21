@@ -5,17 +5,19 @@
 
 {% for unCommentaire in lesCommentaires %}
     
-<div class="unCommentaire">
+<div class="unCommentaire media">
     <div>
         <a class="pull-left" href="#">
             <img class="media-object" src="{{ asset(lesAuteursCom[unCommentaire.id].path) }}" />
         </a>
-        <strong>{{ lesAuteursCom[unCommentaire.id].username }}</strong>
     </div>
-    <time datetime="{{ lesDatesCom[unCommentaire.id].datePub }}">{{ lesDatesCom[unCommentaire.id].message }}</time>
-    
-    <p class="commentaire">{{ unCommentaire.commentaire }}</p>
-    
+    <div class="media-body">
+        <div class="media-heading">
+            <strong>{{ lesAuteursCom[unCommentaire.id].username }}</strong>
+            <time datetime="{{ lesDatesCom[unCommentaire.id].datePub }}">{{ lesDatesCom[unCommentaire.id].message }}</time>
+        </div>
+        <p class="commentaire">{{ unCommentaire.commentaire }}</p>
+    </div>
 </div>
 
 {% endfor %}

@@ -46,4 +46,34 @@ class MessageManager extends BaseManager {
         
     }
         
+    /**
+     * 
+     * Rècupère et retourne la liste des messages, l'auteur et la date pour une conversation 
+     * 
+     * @param integer $idConversation
+     * @return collectionMessage
+     */
+    public function getMessagesByIdConversation($idConversation){
+        
+        $repo           = $this->manager->getRepository('MindMpBundle:Message');
+        $repoUser       = $this->manager->getRepository('MindUserBundle:User');
+        $optionsSearch  = array(
+            'idConversation'    => $idConversation
+        );
+        $tabMessage = array();
+        
+        $messages = $repo->findBy($optionsSearch);
+        
+        foreach ($messages as $message){
+            
+            $user = $repoUser->findOneBy(array('id' => $message->getIdExpediteur()));
+            $tabMessage[] = array(
+                'message'      => $message,
+                'auteur'        => $user
+            );
+        }
+        
+        return $tabMessage;
+        
+    }
 }

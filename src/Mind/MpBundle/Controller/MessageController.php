@@ -5,6 +5,9 @@ namespace Mind\MpBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Mind\MpBundle\Form\Type\MessageType;
 
+/**
+ * class unitilisé
+ */
 class MessageController extends Controller
 {
     

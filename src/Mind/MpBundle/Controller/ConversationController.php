@@ -7,6 +7,9 @@ use Mind\MpBundle\Form\Type\ConversationType;
 use Mind\MpBundle\Entity\Conversation;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * class unitilisé
+ */
 class ConversationController extends Controller
 {
     

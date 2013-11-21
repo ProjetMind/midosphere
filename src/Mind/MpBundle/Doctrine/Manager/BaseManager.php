@@ -159,4 +159,27 @@ class BaseManager {
         
         return $tabDossier;
     }
+    
+    public function getArrayParticipantsForConversation($idConversation){
+        
+        
+        $conversation = $this->manager->getRepository('MindMpBundle:Conversation')->find($idConversation);
+        $tabDest = array();
+        
+        if(!empty($conversation)){
+            
+            $optionSearch = array(
+                'idConversation'    => $idConversation
+            );
+            $participants = $this->manager->getRepository('MindMpBundle:Participants')->findBy($optionSearch);
+            
+            foreach ($participants as $participant){
+                
+                $user = $this->manager->getRepository('MindUserBundle:User')->find($participant->getIdUser());
+                $tabDest[$participant->getId()] = $user->getUsername();
+            }
+        }
+        
+        return $tabDest;
+    }
 }

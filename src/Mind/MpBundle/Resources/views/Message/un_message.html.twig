@@ -1,35 +1,24 @@
 {# empty Twig template #}
 
-{% if messageAdd is defined %}
 
-    <div class="un">
+
+{% for message in messages %}
+
+    <div class="unMessage media">
         <div>
-            <a class="pull-left" href="#">
-                <img class="media-object" data-src="" />
+            <a class="pull-left" href="#" style="width:70px;height:70px;">
+                <img class="media-object" data-src="" src="{{ message['auteur'].path }}"/>
             </a>
-            <strong>{{ messageAdd.auteur.pseudo }}</strong>
-            <time>{{ messageAdd.dateEnvoi.message }}</time>
         </div>
-        <p class="commentaire">{{ messageAdd.message }}</p>
+        
+        <div class="media-body">
+            <h6 class="media-heading">
+                <strong>{{ message['auteur'].username }}</strong>
+                <time>{{ message['message'].dateEnvoiMessage|date('d/m/y h:m') }}</time>
+            </h6>
+            <p>{{ message['message'].contenuMessage }}</p>
+        </div>
 
     </div>
 
-{% else %}
-
-    {% for message in messageConversation %}
-
-        <div class="un">
-            <div>
-                <a class="pull-left" href="#">
-                    <img class="media-object" data-src="" />
-                </a>
-                <strong>{{ message.auteur.pseudo }}</strong>
-                <time>{{ message.dateEnvoi.message }}</time>
-            </div>
-            <p class="commentaire">{{ message.message }}</p>
-
-        </div>
-
-    {% endfor %}
-
-{% endif %}
+{% endfor %}

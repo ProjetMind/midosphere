@@ -33,3 +33,29 @@
     margin: 0 auto 0 auto;
     display: block;
 }
+
+/*******************************************************************************
+* Pour toute la partie conversation 
+********************************************************************************/
+
+#conversationContent{
+    width: 700px;
+}
+
+#conversationContent, #conversationContent > div > div {
+    padding-left: 20px;
+}
+
+#conversationContent > div{
+    border-left: 1px solid #BBBBBB;
+    border-right: 1px solid #BBBBBB;
+}
+
+#msgContent{
+    margin-bottom: 40px;
+    
+}
+
+#conversationContent h5{
+    padding-left: 5px;
+}
