@@ -182,4 +182,29 @@ class BaseManager {
         
         return $tabDest;
     }
+    
+    /**
+     * 
+     * Vérifie si au moins un message n'a pas été lu par le user
+     * @param integer $idConversation
+     * @param integer $idUser
+     * @return boolean 
+     */
+    public function findByLu($idConversation, $idUser){
+        
+        $repo = $this->manager->getRepository('MindMpBundle:Lu');
+        $optionsSearch =    array(
+            'idUser'            => $idUser,
+            'idConversation'    => $idConversation,
+            'lu'                => false
+        );
+        
+        $lu = $repo->findBy($optionsSearch);
+        
+        if(empty($lu)){
+            return true;
+        }else{ 
+            return false;
+        }
+    }
 }

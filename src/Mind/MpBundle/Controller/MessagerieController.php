@@ -328,4 +328,30 @@ class MessagerieController extends Controller {
         
         return new Response(substr($message, 0, 40).'...');
     }
+    
+    /**
+     * 
+     * Permet de savoir si un message est lu ou non par un user
+     * 
+     * @param integer $idConversation
+     * @param integer $idUser|null
+     * 
+     * @return Response 
+     */
+    public function isLuAction($idConversation, $idUser = null){
+        
+        if($idUser == NULL){
+            $idUser = $this->getUser()->getId();
+        }
+        
+        $serviceMessagerie = $this->container->get('mind_mp.message');
+        $lu = $serviceMessagerie->findByLu($idConversation, $idUser);
+        
+        $template = 'MindMpBundle:Others:lu.html.twig';
+        
+        return $this->container->get('templating')->renderResponse($template,
+                array(
+                        'lu'    => $lu
+                ));
+    }
 }
