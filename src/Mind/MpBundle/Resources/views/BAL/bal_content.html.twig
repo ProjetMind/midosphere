@@ -19,13 +19,12 @@
                               ) 
                 }}
                 
-                <a id="linkTo" class="" style="display: inline-block;  padding-left: 5px;" href="#">
+                <a id="linkTo" class="" style="display: inline-block;  padding-left: 5px;" href="{{ path('mind_mp_conversation', {'idConversation': conversation.vars.value}) }}">
                 {{ form_label(conversation) }}
                 {% render controller('MindMpBundle:Messagerie:getLastMessageForConversation', {'idConversation': conversation.vars.value }) %}
                 </a> 
             </li>
         
-    
     {% endfor %}
     </ul>
     

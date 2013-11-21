@@ -68,6 +68,13 @@ class RegistrationController extends BaseController
         return $user;
     }
     
+    /**
+     * 
+     * Créer une entité avatar pour le user
+     * 
+     * @param integer $idUser
+     * @param string $path
+     */
     public function createAvatar($idUser, $path){
         
         $avatar = new \Mind\MediaBundle\Entity\Avatar();
