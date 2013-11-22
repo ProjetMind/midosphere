@@ -122,4 +122,37 @@ class ConversationManager extends BaseManager {
         $this->manager->flush();
     }
     
+    public function getConversationsUserCourant(){
+        
+        $idUserCourant = $this->security->getToken()->getUser()->getId();
+        $tabConversation = array();
+        $serviceMessagerie = $this->container->get('mind_mp.message');
+        
+        // get - conversation ; last message ; participant
+        $conversations = $this->findByIdUser($idUserCourant);
+        
+        foreach ($conversations as $conversation){
+            
+            $idConversation = $conversation->getId();
+            $tabConversation[$idConversation] = array(
+                'conversation'  => $conversation,
+                'lastMessage'   => $serviceMessagerie->getLastMessageForConversation($idConversation),
+                'participants'  => $this->getParticipantsConversation($idConversation)
+            );
+        }
+        
+        return $tabConversation;
+    }
+    
+    public function findByIdUser($idUser){
+        
+        $repo = $this->manager->getRepository('MindMpBundle:Conversation');
+        $optionsSearch = array(
+            'auteurConversation'    => $idUser
+        );
+        
+        $conversations = $repo->findBy($optionsSearch);
+        
+        return $conversations;
+    }
 }

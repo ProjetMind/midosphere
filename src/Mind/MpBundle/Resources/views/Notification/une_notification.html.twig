@@ -1,0 +1,29 @@
+{# empty Twig template #}
+
+{% for conversation in conversations %}
+
+    <div class="media mediaConversation">
+
+        <a class="pull-left">
+            <img src="#" data-src="" title="">
+        </a>
+
+        <a class="media-body" href="{{ path('mind_mp_conversation', {'idConversation': conversation.conversation.id}) }}" style="display: block; text-decoration: none;">
+            
+            <h6 class="media-heading">
+                <ul class="inline">
+                    <li>{% render controller('MindMpBundle:Messagerie:isLu', {'idConversation': conversation.conversation.id} ) %}</li>
+                    {% for participant in conversation.participants %}
+                        <li class="btn disabled">{{ participant.username }}</li>
+                    {% endfor %}
+                </ul>
+            </h6>
+            
+            <p>{% render controller('MindMpBundle:Messagerie:getLastMessageForConversation', {'idConversation': conversation.conversation.id}) %}</p>
+            
+        </a>
+    </div>
+
+<ul><li class="divider"></li></ul>
+
+{% endfor %}

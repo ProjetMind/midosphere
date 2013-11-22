@@ -354,4 +354,17 @@ class MessagerieController extends Controller {
                         'lu'    => $lu
                 ));
     }
+    
+    public function indexNotificationAction(){
+        
+        $serviceConversation = $this->container->get('mind_mp.conversation');
+        $conversations = $serviceConversation->getConversationsUserCourant();
+        
+        $template = 'MindMpBundle:Notification:notification.html.twig';
+        
+        return $this->container->get('templating')->renderResponse($template,
+                array(
+                        'conversations'         => $conversations
+                ));
+    }
 }

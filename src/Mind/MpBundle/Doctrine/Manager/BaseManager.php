@@ -207,4 +207,21 @@ class BaseManager {
             return false;
         }
     }
+    
+    public function getParticipantsConversation($idConversation){
+        
+        $repo = $this->manager->getRepository('MindMpBundle:Participants');
+        $repoUser = $this->manager->getRepository('MindUserBundle:User');
+        $tabUser = array();
+        $optionsSearch = array(
+            'idConversation'    => $idConversation
+        );
+        
+        $participants = $repo->findBy($optionsSearch);
+        
+        foreach ($participants as $participant){
+            $tabUser[] = $repoUser->find($participant->getIdUser());
+        }
+        return $tabUser;
+    }
 }
