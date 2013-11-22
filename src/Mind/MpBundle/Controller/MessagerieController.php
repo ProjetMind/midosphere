@@ -329,6 +329,14 @@ class MessagerieController extends Controller {
         return new Response(substr($message, 0, 40).'...');
     }
     
+    public function setLuAction($idConversation){
+    
+        $serviceConversation = $this->container->get('mind_mp.conversation');
+        $serviceConversation->setLu($idConversation);
+        
+        return new Response();
+    }
+    
     /**
      * 
      * Permet de savoir si un message est lu ou non par un user

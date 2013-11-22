@@ -121,6 +121,30 @@ class BaseManager {
     
     /**
      * 
+     * Met à jour une entité lu à true
+     * 
+     * @param integer $idConversation
+     */
+    public function setLu($idConversation){
+        
+        $repo = $this->manager->getRepository('MindMpBundle:Lu');
+        $idUserCourant = $this->security->getToken()->getUser()->getId();
+        $optionsSearch = array(
+            'idConversation'    => $idConversation,
+            'idUser'            => $idUserCourant
+        );
+        
+        $lu = $repo->findOneBy($optionsSearch);
+        if(!empty($lu)){
+            $lu->setLu(true);
+            $this->manager->persist($lu);
+            $this->manager->flush();
+        }
+    }
+
+
+    /**
+     * 
      * Créer une liste d'entity Dossier pour une conversation 
      * 
      * @param \Mind\MpBundle\Entity\Conversation $conversation
@@ -208,6 +232,13 @@ class BaseManager {
         }
     }
     
+    /**
+     * 
+     * Fournit la liste des participants en entité user pour une conversation
+     * 
+     * @param integer $idConversation
+     * @return array
+     */
     public function getParticipantsConversation($idConversation){
         
         $repo = $this->manager->getRepository('MindMpBundle:Participants');
