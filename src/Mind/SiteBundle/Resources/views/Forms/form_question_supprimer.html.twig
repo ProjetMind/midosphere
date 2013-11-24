@@ -6,10 +6,14 @@
 
 {% if is_granted('ROLE_USER') and idUserCourant == uneQuestion.questionAuteur %}
     <form id="form{{uneQuestion.id}}" action="{{ path('mind_site_question_supprimer', {'idQuestion': uneQuestion.id}) }}" method="post" class="formSupprimer">
-        <a href="{{ path('mind_site_question_modifier', {'idQuestion': uneQuestion.id}) }}" style="padding: 0; margin: 0" class="btn">Modifier</a>
+        <a href="{{ path('mind_site_question_modifier', {'idQuestion': uneQuestion.id}) }}" class="btn btn-mini">
+            {{ 'edit'|icon }}
+        </a>
         <input type="hidden" name="idQuestion" value="{{uneQuestion.id}}"/>
         {% if pageType is defined and pageType == "supprimer_entity" %}
-        <input onclick="supprimer({{uneQuestion.id}})" style="padding: 0; margin: 0" type="submit" name="supprimerQuestion" value="Supprimer"/>
+        <button onclick="supprimer({{uneQuestion.id}})" style="padding: 0; margin: 0" type="submit" name="supprimerQuestion">
+            {{ 'remove'|icon }}
+        </button>
         {% endif %}
 
         {% if pageType is defined and pageType == "supprimer_suivis" %}
