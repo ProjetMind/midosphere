@@ -50,27 +50,27 @@ class AvisController extends Controller
         switch ($routeName){
             
             case '':
-                $lesAvis = $repositoryAvis->getAvisOrderDatePubAsc();
+                $lesAvis = $repositoryAvis->getAvisOrderDatePubDesc();
                 $titreGroup = 'Les avis publiés récemment';
                 break;
             
             case 'mind_site_avis_afficher': // par défaut les avis les plus récents sont affichés
-                $lesAvis = $repositoryAvis->getAvisOrderDatePubAsc();
+                $lesAvis = $repositoryAvis->getAvisOrderDatePubDesc();
                 $titreGroup = 'Tous les avis';
                 break;
             
             case 'avis_for_accueil':
-                $lesAvis = $repositoryAvis->getAvisOrderDatePubAsc();
+                $lesAvis = $repositoryAvis->getAvisOrderDatePubDesc();
                 $titreGroup = 'Les avis publiés récemment';
                 break;
             
             case 'mind_site_avis_afficher_recent':
-                $lesAvis = $repositoryAvis->getAvisOrderDatePubAsc();
+                $lesAvis = $repositoryAvis->getAvisOrderDatePubDesc();
                 $titreGroup = 'Les avis publiés récemment';
                 break;
             
             case 'mind_site_avis_afficher_anciens':
-                $lesAvis = $repositoryAvis->getAvisOrderDatePubDesc();
+                $lesAvis = $repositoryAvis->getAvisOrderDatePubAsc();
                 $titreGroup = "Les avis par ancienneté";
                 break;
             

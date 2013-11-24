@@ -32,17 +32,17 @@ class QuestionController extends Controller
       switch ($routeName){
           
           case 'mind_site_question_afficher':
-              $lesQuestions = $repositoryQuestion->getQuestionsOrderDatePubAsc();
+              $lesQuestions = $repositoryQuestion->getQuestionsOrderDatePubDesc();
               $titreGroup = "Toutes les questions";
               break;
           
           case 'mind_site_question_afficher_recent':
-                $lesQuestions = $repositoryQuestion->getQuestionsOrderDatePubAsc();
+                $lesQuestions = $repositoryQuestion->getQuestionsOrderDatePubDesc();
                 $titreGroup = 'Les questions publiées récéments';
                 break;
             
          case 'mind_site_question_afficher_anciens':
-                $lesQuestions = $repositoryQuestion->getQuestionsOrderDatePubDesc();
+                $lesQuestions = $repositoryQuestion->getQuestionsOrderDatePubAsc();
                 $titreGroup = "Les questions par ancienneté"; 
                 break;
             
