@@ -33,7 +33,7 @@ class Menu extends ContainerAware
     public function getMenuAffichageQuestion(FactoryInterface $factory){
     
         $menu = $factory->createItem('menu-affichage-question');
-        $menu->setChildrenAttribute("class", 'nav nav-pills');
+        $menu->setChildrenAttribute("class", 'nav nav-pills well');
         $currentItem = $this->checkCurrentUri();
         $menu->setCurrentUri($currentItem);
         
@@ -50,7 +50,7 @@ class Menu extends ContainerAware
     public function getMenuAffichageAvis(FactoryInterface $factory){
     
         $menu = $factory->createItem('menu-affichage-avis');
-        $menu->setChildrenAttribute("class", 'nav nav-pills');
+        $menu->setChildrenAttribute("class", 'nav nav-pills well');
         $currentItem = $this->checkCurrentUri();
         $menu->setCurrentUri($currentItem);
         
