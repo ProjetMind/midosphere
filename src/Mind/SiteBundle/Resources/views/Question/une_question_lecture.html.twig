@@ -17,11 +17,12 @@
                              <span id="spanFormSuivre"> 
                                 {% render controller('MindMediaBundle:Suivis:index', {'stringOptions': app.user.id~'-'~uneQuestion.id~'-'~'question' }) %}
                             </span> 
-                         </h3>
-                         <p class="">
+                          <small class="muted dateElmt">
                              <span>Par {{ lesAuteurs[uneQuestion.id].profileLink|raw }}  </span>
                              <time datetime="{{ lesDates[uneQuestion.id].datePub }}">{{ lesDates[uneQuestion.id].message }}</time>    
-                          </p>
+                          </small>
+                         </h3>
+                         
                       </div>
                      
                          
@@ -35,7 +36,7 @@
                                     </a>
 
                                      <div class="media-body">
-                                         <h5 class="media-heading">Domaines</h5>
+                                         <h5 class="media-heading" style="margin: 0px;">Domaines</h5>
                                          <span class="">{{ lesDomaines[uneQuestion.id]|raw }}</span>
                                      </div>
                                  </div>

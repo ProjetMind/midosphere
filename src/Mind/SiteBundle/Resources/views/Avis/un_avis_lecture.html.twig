@@ -16,12 +16,14 @@
                              <a href="{{ path('mind_site_avis_voir', {"auteur": lesAuteurs[unAvis.id].slug, "slug": unAvis.slug }) }}"> {{ unAvis.avisTitre }} </a>
                             <span id="spanFormSuivre"> 
                                 {% render controller('MindMediaBundle:Suivis:index', {'stringOptions': app.user.id~'-'~unAvis.id~'-'~'avis' }) %}
-                            </span>    
-                         </h3>
-                         <p class="">
+                            </span> 
+                             
+                          <small class="muted dateElmt">
                              <span>Par {{ lesAuteurs[unAvis.id].profileLink|raw }} </span>
                              <time datetime="{{ lesDates[unAvis.id].datePub }}">{{ lesDates[unAvis.id].message }}</time>    
-                          </p>
+                          </small>
+                         </h3>
+                         
                       </div>
                      
                      
@@ -35,7 +37,7 @@
                                     </a>
 
                                      <div class="media-body">
-                                         <h5 class="media-heading">Domaines</h5>
+                                         <h5 class="media-heading" style="margin: 0px;">Domaines</h5>
                                          <span class="">{{ lesDomaines[unAvis.id]|raw }}</span>
                                      </div>
                                  </div>
