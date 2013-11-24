@@ -232,6 +232,18 @@ class BaseManager {
         }
     }
     
+    public function findNbConversationNonLu($idUser){
+        
+        $repo = $this->manager->getRepository('MindMpBundle:Lu');
+        $optionsSearch =    array(
+            'idUser'            => $idUser,
+            'lu'                => false
+        );
+        $nb = $repo->findNbConversationNonLu($optionsSearch);
+        
+        return $nb;
+    }
+    
     /**
      * 
      * Fournit la liste des participants en entité user pour une conversation

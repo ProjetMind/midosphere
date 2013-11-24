@@ -376,9 +376,9 @@ DROP TABLE IF EXISTS `lu`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `idUser` int(11) NOT NULL,
-  `idMessage` int(11) NOT NULL,
-  `idConversation` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_message` int(11) NOT NULL,
+  `id_conversation` int(11) NOT NULL,
   `lu` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

@@ -174,8 +174,10 @@ class Menu extends ContainerAware
         
             //Attributes
             $menu['Publier']->setAttribute('class', 'dropdown');
+            $menu['Publier']->setAttribute('style', 'background-color:#759E1A;');
             $menu['Publier']->setLinkAttribute('class', 'dropdown-toggle pull-right');
             $menu['Publier']->setLinkAttribute('data-toggle', "dropdown");
+            $menu['Publier']->setLinkAttribute('style', 'color: #FFFFFF;');
 
             //Sous menu pour "Publier"
             $menu['Publier']->addChild('Un avis',            array('route'      => 'mind_site_avis_ajouter'));
@@ -183,7 +185,7 @@ class Menu extends ContainerAware
             //$menu['Publier']->addChild('Un nouveau domaine', array('route'      => 'mind_site_domaine_ajouter'));
 
             //Attributes pour les sous menu publier
-            $menu['Publier']->setChildrenAttribute('style', 'left:0 ');
+            $menu['Publier']->setChildrenAttribute('style', 'left:0;');
             $menu['Publier']->setChildrenAttribute('class', 'dropdown-menu');
             $menu['Publier']->setName('Publier <span class="caret"></span>');
             

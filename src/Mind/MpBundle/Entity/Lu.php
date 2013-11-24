@@ -29,21 +29,21 @@ class Lu
     /**
      * @var integer
      *
-     * @ORM\Column(name="idUser", type="integer")
+     * @ORM\Column(name="id_user", type="integer")
      */
     private $idUser;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="idMessage", type="integer")
+     * @ORM\Column(name="id_message", type="integer")
      */
     private $idMessage;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="idConversation", type="integer")
+     * @ORM\Column(name="id_conversation", type="integer")
      */
     private $idConversation;
 

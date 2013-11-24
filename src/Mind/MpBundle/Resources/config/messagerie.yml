@@ -40,3 +40,10 @@ mind_mp_json_user:
   defaults: { _controller: MindMpBundle:Messagerie:getArrayObjectUser }
   options:
       expose: true
+      
+#get nb conversation non lu 
+mind_mp_conversation_non_lu:
+  pattern: /get-conversation-non-lu
+  defaults: { _controller: MindMpBundle:Messagerie:getNbConversationNonLu }
+  options:
+      expose: true

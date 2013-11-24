@@ -363,6 +363,28 @@ class MessagerieController extends Controller {
                 ));
     }
     
+    public function getNbConversationNonLuAction(){
+        
+        $idUser = $this->getUser()->getId();
+        $serviceConversation    = $this->container->get('mind_mp.conversation');
+        $nbConversation         = $serviceConversation->findNbConversationNonLu($idUser);
+        
+        $nb = array(
+            'nb'    => $nbConversation[0][1]
+        );
+        
+        $response = new Response(json_encode($nb));
+        $response ->headers->set('Content-Type', 'application/json');
+        
+        return $response;
+    }
+
+
+    /**
+     * 
+     * 
+     * @return Response 
+     */
     public function indexNotificationAction(){
         
         $serviceConversation = $this->container->get('mind_mp.conversation');

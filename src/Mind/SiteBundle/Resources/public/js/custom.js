@@ -16,6 +16,7 @@ if (window.attachEvent) window.attachEvent("onload", sfHover);
 function headerNotificationMenuOnBlur(li){
     alert("etst");
 }
+
 function headerNotificationMenuOnClick(){
     
     $(function(){

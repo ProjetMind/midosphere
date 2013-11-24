@@ -12,4 +12,18 @@ use Doctrine\ORM\EntityRepository;
  */
 class LuRepository extends EntityRepository
 {
+    public function findNbConversationNonLu(array $optionsSearch){
+    
+        $query = $this->_em->createQuery('SELECT COUNT(l)
+                                          FROM MindMpBundle:Lu l
+                                          WHERE l.idUser = :idUser
+                                          AND l.lu = :lu
+                                         ');
+        
+        $query->setParameter('idUser', $optionsSearch['idUser']);
+        $query->setParameter('lu', $optionsSearch['lu']);
+        
+        return $query->getResult();
+    }
+    
 }

@@ -6,3 +6,28 @@
     Design By 
     </div>    
 </footer>
+
+<script type="text/javascript">
+
+    $(function(){
+        setTimeout('getIsLu()', 5000);
+        
+    });
+    
+    
+    function getIsLu(){
+        
+       var url = Routing.generate('mind_mp_conversation_non_lu');
+        
+        //Envoi de la requete ajax
+        $.ajax({
+            type: "POST",
+            url: url,
+            cache: false,
+            success: function(data){
+                $('sup').html(data['nb']);
+            }
+        });  
+    }
+    
+</script>

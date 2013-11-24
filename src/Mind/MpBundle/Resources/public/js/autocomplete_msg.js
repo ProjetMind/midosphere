@@ -1,7 +1,7 @@
 
 
 function newDestinataire(emailCount, ui){
-    
+   
             var emailList = jQuery('#participants-fields-list');
 
             // parcourt le template prototype
