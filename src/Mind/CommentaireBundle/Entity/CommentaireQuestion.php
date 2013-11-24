@@ -46,9 +46,9 @@ class CommentaireQuestion
     private $commentaireIdAuteur;
 
     /**
-     * @var integer
+     * @var text
      *
-     * @ORM\Column(name="commentaire", type="integer")
+     * @ORM\Column(name="commentaire", type="text")
      */
     private $commentaire;
     
@@ -148,7 +148,7 @@ class CommentaireQuestion
      */
     public function setCommentaire($commentaire)
     {
-        $this->commentaire = $commentaire;
+        $this->commentaire = nl2br($commentaire);
 
         return $this;
     }

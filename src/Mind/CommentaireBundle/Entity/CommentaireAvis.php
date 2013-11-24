@@ -36,7 +36,7 @@ class CommentaireAvis
     /**
      * @var string
      *
-     * @ORM\Column(name="commentaire", type="string", length=255)
+     * @ORM\Column(name="commentaire", type="text")
      */
     private $commentaire;
 
@@ -132,7 +132,7 @@ class CommentaireAvis
      */
     public function setCommentaire($commentaire)
     {
-        $this->commentaire = $commentaire;
+        $this->commentaire = nl2br($commentaire);
 
         return $this;
     }
