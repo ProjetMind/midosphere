@@ -111,7 +111,7 @@ class QuestionRepository extends EntityRepository
                                           FROM MindSiteBundle:Question a, MindCommentaireBundle:CommentaireQuestion c
                                           WHERE a.id = c.idQuestion
                                           GROUP BY a.id
-                                          ORDER BY nbCom ASC
+                                          ORDER BY nbCom DESC
                                           ');
         
         $result = $query->getResult();
