@@ -45,7 +45,8 @@ class AvisController extends Controller
         $template       = sprintf('MindSiteBundle::un_avis.html.twig');
         $paginator      = $this->get('knp_paginator');
         $limitParPage   = 2;
-        
+        $serviceAvis    = $this->container->get('mind_site.avis');
+                
         switch ($routeName){
             
             case '':
@@ -101,11 +102,11 @@ class AvisController extends Controller
             $limitParPage/*limit per page*/
         );
         
-        $lesDomaines              =   $this->getDomaineWithLink($lesAvis, $manager);
-        $lesAuteurs               =   $this->getAuteursAvis($lesAvis, $manager);
-        $lesDatesDePublication    =   $this->getDatePublication($lesAvis, $manager);
-        $lesNbCom                 =   $this->getNbCommentaireAvis($lesAvis, $manager);
-        $images                   =   $this->getImages($lesAvis);
+        $lesDomaines              =   $serviceAvis->getDomaineWithLink($lesAvis);
+        $lesAuteurs               =   $serviceAvis->getAuteursAvis($lesAvis);
+        $lesDatesDePublication    =   $serviceAvis->getDatePublication($lesAvis);
+        $lesNbCom                 =   $serviceAvis->getNbCommentaireAvis($lesAvis);
+        $images                   =   $serviceAvis->getImages($lesAvis);
         
         return $this->container->get('templating')->renderResponse($template, 
               array(
@@ -176,12 +177,12 @@ class AvisController extends Controller
                                ->getRepository('MindSiteBundle:Avis')
                                ->findAvisBySlug($slug);
     
-      $lesDomaines              =   $this->getDomaineWithLink($avis, $manager);
+      $lesDomaines              =   $serviceAvis->getDomaineWithLink($avis);
       $lesAuteurs               =   $serviceAvis->getAuteursAvis($avis);
-      $lesDatesDePublication    =   $this->getDatePublication($avis, $manager);
-      $lesNbCom                 =   $this->getNbCommentaireAvis($avis, $manager);
-      $lesVotes                 =   $this->getLesVotes($avis, $manager);
-      $images                   =   $this->getImages($avis);
+      $lesDatesDePublication    =   $serviceAvis->getDatePublication($avis);
+      $lesNbCom                 =   $serviceAvis->getNbCommentaireAvis($avis);
+      $lesVotes                 =   $serviceAvis->getLesVotes($avis, $manager);
+      $images                   =   $serviceAvis->getImages($avis);
       
       $idAvis = $avis[0]->getId();
       $idAuteur = $lesAuteurs[$idAvis]['id'];

@@ -227,6 +227,23 @@ class Avis {
         
         return $images;
     }
+    
+    public function getLesVotes($lesAvis){
+      
+      $lesVotes = array();
+      $repositoryOpinionAvis = $this->manager->getRepository('MindMediaBundle:OpinionAvis');
+      
+      foreach ($lesAvis as $unAvis){
+          $idAvis = $unAvis->getId();
+          $lesVotes[$idAvis] = array(
+                                        'nbVotePositif' => $repositoryOpinionAvis->getOpinionAvisByIdAvis($idAvis, 1),
+                                        'nbVoteMitige'  => $repositoryOpinionAvis->getOpinionAvisByIdAvis($idAvis, 2),
+                                        'nbVoteNegatif' => $repositoryOpinionAvis->getOpinionAvisByIdAvis($idAvis, 3)    
+                                    );
+      }
+      
+      return $lesVotes;
+  }
 }
 
 ?>
