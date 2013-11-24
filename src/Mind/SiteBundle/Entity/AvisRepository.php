@@ -113,7 +113,7 @@ class AvisRepository extends EntityRepository
                                           FROM MindSiteBundle:Avis a, MindCommentaireBundle:CommentaireAvis c
                                           WHERE a.id = c.idAvis
                                           GROUP BY a.id
-                                          ORDER BY nbCom ASC
+                                          ORDER BY nbCom DESC
                                           ');
         
         $result = $query->getResult();
