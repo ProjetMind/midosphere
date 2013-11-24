@@ -49,27 +49,58 @@
                      </ul>
                      
                     <div class="media-body">
-                        <p align="justify">
-                            {{ uneQuestion.question }}
-                        </p>
-                         <p class="infosLigne2">
-                             <span><i class="icon-comment"></i>{{ lesNbCom[uneQuestion.id] }} Comentaires</span>
-                         </p>
-                    </div>
-                    </div>
+                        
+                        <ul class="nav nav-tabs" id="dataLecture">
+                            <li class="active"><a href="#contenuLecture">Question</a></li>
+                            <li><a href="#commentairesLecture">Commentaires
+                                    <span>
+                                        <i class="icon-comment"></i>
+                                            {{ lesNbCom[uneQuestion.id] }}
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                        
+                        <div class="tab-content">
+                            
+                            <div class="tab-pane active" id="contenuLecture">
+                                <p align="justify">
+                                    {{ uneQuestion.question }}
+                                </p>
+                            </div>
+                            
+                            <div class="tab-pane active" id="commentairesLecture">
+                                
+                                {# Les commentaires #}
+                                <div id="groupCommentaires">
+                                    {% render controller('MindCommentaireBundle:CommentaireQuestion:getCommentaireQuestion', {'idQuestion': uneQuestion.id}) %}
+                                </div>
 
-                {# Les commentaires #}
-                <div id="groupCommentaires">
-                    {% render controller('MindCommentaireBundle:CommentaireQuestion:getCommentaireQuestion', {'idQuestion': uneQuestion.id}) %}
-                </div>
-            
-                <div class="formAddCommentaire">
-                    <input type="hidden" name="idQuestion" value="{{ uneQuestion.id }}">
-                    {% render controller('MindCommentaireBundle:CommentaireQuestion:addCommentaireQuestion', {'idQuestion': uneQuestion.id}) %}    
-                </div>
+                                <div class="formAddCommentaire">
+                                    <input type="hidden" name="idQuestion" value="{{ uneQuestion.id }}">
+                                    {% render controller('MindCommentaireBundle:CommentaireQuestion:addCommentaireQuestion', {'idQuestion': uneQuestion.id}) %}    
+                                </div>
+                                
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    </div>
+                    
+
         
             {% endfor %}
         
         {% endif%}
-
+<script>
+$(function () {
+    $('#dataLecture a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+    });
+    $('#dataLecture a:first').tab('show');
+});
+</script>
 {% endblock %}
+

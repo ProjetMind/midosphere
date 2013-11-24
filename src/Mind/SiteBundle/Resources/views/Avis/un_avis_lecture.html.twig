@@ -52,28 +52,58 @@
                      
                     <div class="media-body">
                         
-                        {% include 'MindSiteBundle:Images:images_avis.html.twig' %}
-                           
-                        <p align="justify">
-                            {{ unAvis.avis }}
-                        </p>
-                         <p class="infosLigne2">
-                             <span><i class="icon-comment"></i>{{lesNbCom[unAvis.id]}} Comentaires</span>
-                         </p>
+                        <ul class="nav nav-tabs" id="dataLecture">
+                            <li class="active"><a href="#contenuLecture">Avis</a></li>
+                            <li><a href="#enImageLecture">En image</a></li>
+                            <li><a href="#commentairesLecture">Commentaires
+                                    <span>
+                                        <i class="icon-comment"></i>
+                                        {{lesNbCom[unAvis.id]}} 
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            
+                            <div class="tab-pane active" id="contenuLecture">
+                                <p align="justify">
+                                    {{ unAvis.avis }}
+                                </p>
+                            </div>
+                            
+                            <div class="tab-pane" id="enImageLecture">
+                                {% include 'MindSiteBundle:Images:images_avis.html.twig' %}
+                            </div>
+                            
+                            {# Les commentaires #}
+                            <div class="tab-pane" id="commentairesLecture">
+                                
+                                <div id="groupCommentaires">
+                                    {% render controller('MindCommentaireBundle:CommentaireAvis:getCommentaireAvis', {'idAvis': unAvis.id}) %}
+                                </div>
+                                
+                                <div class="formAddCommentaire">
+                                    <input id="inputIdAvis" type="hidden" name="idAvis" value="{{ unAvis.id }}">
+                                    {% render controller('MindCommentaireBundle:CommentaireAvis:addCommentaireAvis', {'idAvis': unAvis.id}) %}    
+                                </div>
+                            </div>
+                        </div>
+     
                     </div>
                     </div>
                 
-                {# Les commentaires #}
-                <div id="groupCommentaires">
-                    {% render controller('MindCommentaireBundle:CommentaireAvis:getCommentaireAvis', {'idAvis': unAvis.id}) %}
-                </div>
-            
-                <div class="formAddCommentaire">
-                    <input id="inputIdAvis" type="hidden" name="idAvis" value="{{ unAvis.id }}">
-                    {% render controller('MindCommentaireBundle:CommentaireAvis:addCommentaireAvis', {'idAvis': unAvis.id}) %}    
-                </div>
         
             {% endfor %}
         {% endif%}
-        
+<script>
+$(function () {
+    $('#dataLecture a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+    });
+    $('#dataLecture a:first').tab('show');
+});
+</script>        
 {% endblock %}
+

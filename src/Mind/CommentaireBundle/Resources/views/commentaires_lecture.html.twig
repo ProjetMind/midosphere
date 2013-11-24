@@ -14,7 +14,9 @@
     <div class="media-body">
         <div class="media-heading">
             <strong>{{ lesAuteursCom[unCommentaire.id].username }}</strong>
-            <time datetime="{{ lesDatesCom[unCommentaire.id].datePub }}">{{ lesDatesCom[unCommentaire.id].message }}</time>
+            <small class="muted dateElmt">
+                <time datetime="{{ lesDatesCom[unCommentaire.id].datePub }}">{{ lesDatesCom[unCommentaire.id].message }}</time>
+            </small>
         </div>
         <p class="commentaire">{{ unCommentaire.commentaire }}</p>
     </div>
