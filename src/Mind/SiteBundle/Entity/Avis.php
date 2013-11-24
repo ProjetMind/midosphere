@@ -60,9 +60,9 @@ class Avis
     private $slug;
     
     /**
-     * @var \string
+     * @var \text
      *
-     * @ORM\Column(name="avis", type="string")
+     * @ORM\Column(name="avis", type="text")
      * 
      */
     private $avis;

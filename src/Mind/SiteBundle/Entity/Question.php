@@ -44,9 +44,9 @@ class Question
     private $slug;
 
     /**
-     * @var string
+     * @var text
      *
-     * @ORM\Column(name="question", type="string", length=255)
+     * @ORM\Column(name="question", type="text")
      * 
      */
     private $question;
