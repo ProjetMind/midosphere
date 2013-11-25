@@ -28,6 +28,10 @@ class RegistrationFormType extends BaseType
                         'attr' => array(
                                             'class' => 'input-xlarge'
                                         ),
+                        'label_attr'    => array(
+                                            'class' => 'control-label',
+                                            'style' => 'text-align:left;'
+                            )
                         )
                   )
             
@@ -44,9 +48,14 @@ class RegistrationFormType extends BaseType
                                                                                     'month' => "Mois :", 
                                                                                     'day'   => "Jour :"
                                                                                 ),
+                                                        'label_attr'    => array(
+                                                                'class' => 'control-label',
+                                                                'style' => 'text-align:left;'
+                                                                )
             ))
                 
             ->add('email', 'repeated', array(
+                                                'label' => 'Email :',
                                                 'type' => 'email',
                                                 'required'  => true,
                                                 'options' => array(
@@ -57,11 +66,16 @@ class RegistrationFormType extends BaseType
                                                                   ),
                                                 'first_options' => array('label' => 'Email :'),
                                                 'second_options' => array('label' => 'Confirmation email :'),
-                                                'invalid_message' => 'fos_user.email.mismatch'
+                                                'invalid_message' => 'fos_user.email.mismatch',
+                                                'label_attr'    => array(
+                                                                            'class' => 'control-label',
+                                                                            'style' => 'text-align:left;'
+                                                            )
                                             )
                     )    
                 
             ->add('plainPassword', 'repeated', array(
+                                                        'label' => 'Mot de passe :',
                                                         'type' => 'password',
                                                         'required'  => true,
                                                         'options' => array(
@@ -73,6 +87,10 @@ class RegistrationFormType extends BaseType
                                                         'first_options' => array('label' => 'form.password'),
                                                         'second_options' => array('label' => 'Confirmation mot de passe :'),
                                                         'invalid_message' => 'fos_user.password.mismatch',
+                                                        'label_attr'    => array(
+                                                                                    'class' => 'control-label',
+                                                                                    'style' => 'text-align:left;'
+                                                                    )
                                                         
                                                     )
             )
@@ -82,24 +100,36 @@ class RegistrationFormType extends BaseType
                                                 'required' => true,
                                                 'translation_domain' => 'FOSUserBundle',
                                                 'empty_value'   => "Pays",
-                                                
+                                                'label_attr'    => array(
+                                                                'class' => 'control-label',
+                                                                'style' => 'text-align:left;'
+                                                )
                                             )
                  )
                 
             ->add('sexe',   'choice', array(
+                                                'label' => 'Vous êtes :',
                                                 'choices' => array(
-                                                                      false => 'Masculin',
-                                                                      true => 'Féminin'
+                                                                      false => 'Un homme',
+                                                                      true => 'Une femme'
                                                                         ),
                                                 'multiple' => false,
                                                 'expanded' => true,
                                                 'required' => true,
+                                                'label_attr'    => array(
+                                                                    'class' => 'control-label',
+                                                                    'style' => 'text-align:left;'
+                                                    )
             ))    
                 
             ->add('cdtGenerales', 'checkbox', array(
                                             'required'  => true,
-                                            'label'     => 'Condtions',
+                                            'label'     => 'Condtions :',
                                             'value'     => true,
+                                            'label_attr'    => array(
+                                                                'class' => 'control-label',
+                                                                'style' => 'text-align:left;'
+                                                )
                                           )
                   )
             ;
