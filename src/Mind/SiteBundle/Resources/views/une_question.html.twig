@@ -29,8 +29,10 @@
                                 <a href="{{ path('mind_site_question_voir', {"auteur": lesAuteurs[uneQuestion.id].slug, "slug": uneQuestion.slug }) }}">
                                     {{ uneQuestion.questionTitre }} 
                                 </a>
-                                <p>Par {{ lesAuteurs[uneQuestion.id].profileLink|raw }}</p> 
-                                 <p>{{ lesDates[uneQuestion.id].message }}</p>
+                                <small class="muted dateElmt">
+                                    <span>Par {{ lesAuteurs[uneQuestion.id].profileLink|raw }}</span> 
+                                    <span>{{ lesDates[uneQuestion.id].message }}</span>
+                                </small>
 
                             </div>
                             <p class="infosLigne2">

@@ -39,8 +39,11 @@
                                 <a href="{{ path('mind_site_avis_voir', {"auteur": lesAuteurs[unAvis.id].slug, "slug": unAvis.slug }) }}">
                                     {{ unAvis.avisTitre }} 
                                 </a>
-                                <p>Par {{ lesAuteurs[unAvis.id].profileLink|raw }}</p> 
-                                 <p>{{ lesDates[unAvis.id].message }}</p>
+                                
+                                <smal class="muted dateElmt">
+                                    <span>Par {{ lesAuteurs[unAvis.id].profileLink|raw }}</span> 
+                                    <span>{{ lesDates[unAvis.id].message }}</span>
+                                </smal>
                                  
                             </div>
                             
