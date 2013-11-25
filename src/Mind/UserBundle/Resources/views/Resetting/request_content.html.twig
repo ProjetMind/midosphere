@@ -8,7 +8,7 @@
 
 <section class="row-fluid">
     
-    <span class="span6 offset3 formSpan">
+    <span class="span6 offset3 formSpan well">
         
 <form class="form-horizontal" action="{{ path('fos_user_resetting_send_email') }}" method="POST">
     
@@ -16,7 +16,7 @@
         <legend class="btn-primary">Mot de passe oublié</legend>
         
         <div class="control-group">
-            <label class="required control-label" for="username">{{ 'resetting.request.username'|trans({}, 'FOSUserBundle') }}</label>
+            <label class="required control-label" style="text-align: left;" for="username">{{ 'resetting.request.username'|trans({}, 'FOSUserBundle') }}</label>
             <div class="controls">
                 <input type="text" id="username" class="input-large" name="username" required="required" />
             </div>
