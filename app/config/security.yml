@@ -64,11 +64,11 @@ security:
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
         - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/connexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        #- { path: ^/inscription, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/connexion, roles: IS_AUTHENTICATED_ANONYMOUS }
+        - { path: ^/inscription, roles: ANONYMOUS }
         - { path: ^/avis/ajouter-un-avis, role: ROLE_USER }
-#        - { path: ^/question/ajouter-une-question, role: ROLE_USER }
-#        - { path: ^/messagerie, role: ROLE_USER }
-#        - { path: ^/compte, role: ROLE_USER }
+        - { path: ^/question/ajouter-une-question, role: ROLE_USER }
+        - { path: ^/messagerie, role: ROLE_USER }
+        - { path: ^/compte, role: ROLE_USER }
 #        - { path: ^/avis/commentaire/ajouter-un-commentaire/*, role: ROLE_ADMIN}
 #        - { path: ^/question/commentaire/ajouter-un-commentaire/*, role: USER_ROLE }
