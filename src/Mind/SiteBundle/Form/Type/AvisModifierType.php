@@ -23,8 +23,12 @@ class AvisModifierType extends AbstractType
                         'label' => 'Titre :', 
                         'required'  => true,
                         'attr' => array(
-                                            'class' => 'input-xlarge'
+                                            'class' => 'input-xxlarge'
                                         ),
+                        'label_attr'    => array(
+                                            'class' => 'control-label',
+                                            'style' => 'text-align:left;'
+                            )
                         ))
                 
                 
@@ -33,7 +37,8 @@ class AvisModifierType extends AbstractType
                             'label' => 'Votre avis :', 
                             'required'  => true,
                             'attr' => array(
-                                                'class' => 'input-xlarge'
+                                                'class' => 'input-xxlarge',
+                                                'style' => 'height:250px;'
                                             ),
                             ))
                 
@@ -47,7 +52,11 @@ class AvisModifierType extends AbstractType
                                                       1 => 'Positive',
                                                       2 => 'Mitigé',
                                                       3 => 'Négative'
-                                                        )
+                                                        ),
+                                'label_attr'    => array(
+                                                            'class' => 'control-label',
+                                                            'style' => 'text-align:left;'
+                                            )
                                 ))
                 
                 
@@ -57,6 +66,10 @@ class AvisModifierType extends AbstractType
                                                 'expanded'  => true,
                                                 'multiple'  => false,
                                                 'label'     => "Domaines",
+                                                'label_attr'    => array(
+                                                                            'class' => 'control-label',
+                                                                            'style' => 'text-align:left;'
+                                                            )
 //                                                'attr'      => array(
 //                                                                        'name'  => 'domaineParent',
 //                                                                        'class' => 'hide'

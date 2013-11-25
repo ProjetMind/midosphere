@@ -13,29 +13,38 @@
                         
                         {{ form_errors(form) }}
                         
-                    <div>
+                    <div class="control-group">
                         {{ form_label(form.questionTitre) }}
-                        {{ form_widget(form.questionTitre) }}
-                        {{ form_errors(form.questionTitre) }}
+                        <div class="controls">
+                            {{ form_widget(form.questionTitre) }}
+                            {{ form_errors(form.questionTitre) }}
+                        </div>
                     </div>
 
-                    <div>
+                    <div class="control-group">
                         {{ form_label(form.question) }}
-                        {{ form_widget(form.question) }}
-                        {{ form_errors(form.question) }}
+                        <div class="controls">
+                            {{ form_widget(form.question) }}
+                            {{ form_errors(form.question) }}
+                        </div>
                     </div>
                     
-                    <div class="divDomaineInForm">
-                        <label>Les domaines</label>
-                        {{ lesDomaines|raw }}
+                    <div class="divDomaineInForm control-group">
+                        <label class="control-label" style="text-align: left;">Les domaines</label>
+                        <div class="controls">
+                            {{ lesDomaines|raw }}
+                        </div>
                         {#
                         {{ form_label(form.questionDomaine) }}
                         {{ form_widget(form.questionDomaine) }}     
                         #}
                         
                     </div>
-                    <div>
-                        <input type="submit" class="btn btn-primary" value="Modifier ma question">
+                    
+                    <div class="control-group">
+                        <div class="controls">
+                            <input type="submit" class="btn btn-primary btn-large" value="Modifier ma question">
+                        </div>
                     </div>
 
                     {{ form_widget(form._token) }}
