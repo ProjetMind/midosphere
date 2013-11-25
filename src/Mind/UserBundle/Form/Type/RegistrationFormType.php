@@ -59,7 +59,7 @@ class RegistrationFormType extends BaseType
                                                 'type' => 'email',
                                                 'required'  => true,
                                                 'options' => array(
-                                                                    'translation_domain' => 'FOSUserBundle',
+                                                                    'translation_domain' => 'MindUserBundle',
                                                                     'attr'  => array(
                                                                                         'class' => 'input-xlarge'
                                                                                     )
@@ -79,12 +79,12 @@ class RegistrationFormType extends BaseType
                                                         'type' => 'password',
                                                         'required'  => true,
                                                         'options' => array(
-                                                                            'translation_domain' => 'FOSUserBundle',
+                                                                            'translation_domain' => 'MindUserBundle',
                                                                             'attr'  => array(
                                                                                                 'class' => 'input-xlarge'
                                                                                             )
                                                                             ),
-                                                        'first_options' => array('label' => 'form.password'),
+                                                        'first_options' => array('label' => 'Mot de passe :'),
                                                         'second_options' => array('label' => 'Confirmation mot de passe :'),
                                                         'invalid_message' => 'fos_user.password.mismatch',
                                                         'label_attr'    => array(

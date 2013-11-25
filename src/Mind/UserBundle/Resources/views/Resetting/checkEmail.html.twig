@@ -1,8 +1,6 @@
 {% extends "::layout.html.twig" %}
 
 {% block body %}
-    {% render controller('MindSiteBundle:Menu:getMenuGAccueil') %}
-    <section id="corpsContenu" class="span6">
 
         {% block fos_user_content %}
             <p class="alert alert-success">
@@ -11,8 +9,6 @@
             </p>
         {% endblock %}
 
-     </section>
-    {% render controller('MindSiteBundle:Menu:getMenuDAccueil') %}
 {% endblock %}
     
     
