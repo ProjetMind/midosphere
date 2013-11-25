@@ -24,8 +24,12 @@ class AvisType extends AbstractType
                         'label' => 'Titre :', 
                         'required'  => true,
                         'attr' => array(
-                                            'class' => 'input-xlarge'
+                                            'class' => 'input-xxlarge',
                                         ),
+                        'label_attr'    => array(
+                                            'class' => 'control-label',
+                                            'style' => 'text-align:left;'
+                            )
                         ))
                 
 //            ->add('sujet', new \Mind\SiteBundle\Form\Type\SujetAvisType(),
@@ -38,8 +42,13 @@ class AvisType extends AbstractType
                             'label' => 'Votre avis :', 
                             'required'  => true,
                             'attr' => array(
-                                                'class' => 'input-xlarge'
+                                                'class' => 'input-xxlarge',
+                                                'style' => 'height:250px;'
                                             ),
+                            'label_attr'    => array(
+                                            'class' => 'control-label',
+                                            'style' => 'text-align:left;'
+                            )
                             ))
                 
             ->add('typeOpinion', 'choice',
@@ -52,7 +61,11 @@ class AvisType extends AbstractType
                                                       1 => 'Positif',
                                                       2 => 'Mitigée',
                                                       3 => 'Négative'
-                                                        )
+                                                        ),
+                                'label_attr'    => array(
+                                            'class' => 'control-label',
+                                            'style' => 'text-align:left;'
+                                    )
                                 ))
                 
             ->add('avisDomaine', 'choice', array(
@@ -61,6 +74,10 @@ class AvisType extends AbstractType
                                                 'expanded'  => true,
                                                 'multiple'  => false,
                                                 'label'     => "Domaines",
+                                                'label_attr'    => array(
+                                                                            'class' => 'control-label',
+                                                                            'style' => 'text-align:left;'
+                                                            )
 //                                                'attr'      => array(
 //                                                                        'name'  => 'domaineParent',
 //                                                                        'class' => 'hide'

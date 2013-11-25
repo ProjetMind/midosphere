@@ -4,7 +4,11 @@
 
 {% block sectionCorps %}
 
-        <span class="formSpan">
+<section class="row-fluid"> 
+    
+    <span class="span1"></span>
+    
+    <span class="formSpan span10 well" >
             
             <form action="{{ path("mind_site_question_ajouter") }}" class="form-horizontal" method="POST" {{ form_enctype(form) }}>
             
@@ -13,10 +17,12 @@
                         
                         {{ form_errors(form) }}
                         
-                    <div>
+                    <div class="control-group">
                         {{ form_label(form.questionTitre) }}
-                        {{ form_widget(form.questionTitre) }}
-                        {{ form_errors(form.questionTitre) }}
+                        <div class="controls">
+                            {{ form_widget(form.questionTitre) }}
+                            {{ form_errors(form.questionTitre) }}
+                        </div>
                     </div>
 
                     <div>
@@ -24,23 +30,30 @@
                         {{ form_errors(form.sujet) #}
                     </div>
                     
-                    <div>
+                    <div class="control-group">
                         {{ form_label(form.question) }}
-                        {{ form_widget(form.question) }}
-                        {{ form_errors(form.question) }}
+                        <div class="controls">
+                            {{ form_widget(form.question) }}
+                            {{ form_errors(form.question) }}
+                        </div>
                     </div>
                     
-                    <div class="divDomaineInForm">
-                        <label>Les domaines</label>
-                        {{ lesDomaines|raw }}
+                    <div class="divDomaineInForm control-group">
+                        <label class="control-label" style="text-align: left">Les domaines :</label>
+                        <div class="controls">
+                            {{ lesDomaines|raw }}
+                        </div>
                         {#
                         {{ form_label(form.questionDomaine) }}
                         {{ form_widget(form.questionDomaine) }}     
                         #}
                         
                     </div>
-                    <div>
-                        <input type="submit" class="btn btn-primary" value="Ajoutez ma question">
+                    
+                    <div class="control-group">
+                        <div class="controls">
+                            <input type="submit" class="btn btn-primary btn-large" value="Ajoutez ma question">
+                        </div>
                     </div>
 
                     {{ form_widget(form._token) }}
@@ -51,5 +64,6 @@
             </form>
         
         </span>
+</section>
         
 {% endblock %}

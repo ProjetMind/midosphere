@@ -16,8 +16,12 @@ class QuestionType extends AbstractType
                         'label' => 'Titre :', 
                         'required'  => true,
                         'attr' => array(
-                                            'class' => 'input-xlarge'
+                                            'class' => 'input-xxlarge'
                                         ),
+                        'label_attr'    => array(
+                                            'class' => 'control-label',
+                                            'style' => 'text-align:left;'
+                            )
                         ))
                 
 //            ->add('sujet', new \Mind\SiteBundle\Form\Type\SujetAvisType(),
@@ -30,8 +34,13 @@ class QuestionType extends AbstractType
                             'label' => 'Votre question :', 
                             'required'  => true,
                             'attr' => array(
-                                                'class' => 'input-xlarge'
+                                                'class' => 'input-xxlarge',
+                                                'style' => 'height: 250px;'
                                             ),
+                            'label_attr'    => array(
+                                            'class' => 'control-label',
+                                            'style' => 'text-align:left;'
+                            )
                             ))
                 
             ->add('questionDomaine', 'entity', array(
@@ -43,7 +52,12 @@ class QuestionType extends AbstractType
                                                 'label' => "Domaine",
                                                 'attr'      => array(
                                                                         'name'  => 'domaineParent'
-                                                                    )
+                                                                    ),
+                                                'label_attr'    => array(
+                                                                        'class' => 'control-label',
+                                                                        'style' => 'text-align:left;'
+                                                        )
+                                                                    
                                                 
                                             ))
         ;

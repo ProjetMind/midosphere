@@ -4,8 +4,11 @@
 
 {% block sectionCorps %}
     
+<section class="row-fluid"> 
     
-    <span class="formSpan" >
+    <span class="span1"></span>
+    
+    <span class="formSpan span10 well" >
         
         <form action="{{ path("mind_site_avis_ajouter") }}" class="form-horizontal" method="POST" enctype="multipart/form-data">
             
@@ -14,43 +17,50 @@
                 
                 {{ form_errors(form) }}
 
-                <div>
+                <div class="control-group">
                     {{ form_label(form.avisTitre) }}
-                    {{ form_widget(form.avisTitre) }}
-                    {{ form_errors(form.avisTitre) }}
+                    <div class="controls">
+                        {{ form_widget(form.avisTitre) }}
+                        {{ form_errors(form.avisTitre) }}
+                    </div>
                 </div>
                 
-                <div>
-                    {# form_widget(form.sujet) }}
-                    {{ form_errors(form.sujet) #}
-                </div>
-                
-                <div>
+                <div class="control-group">
                     {{ form_label(form.avis) }}
-                    {{ form_widget(form.avis) }}
-                    {{ form_errors(form.avis) }}
+                    <div class="controls">
+                        {{ form_widget(form.avis) }}
+                        {{ form_errors(form.avis) }}
+                    </div>
                 </div>
                 
                 <div>
                     {{ form_label(form.typeOpinion) }}
-                    {{ form_widget(form.typeOpinion) }}
-                    {{ form_errors(form.typeOpinion) }}
+                    <div class="controls">
+                        {{ form_widget(form.typeOpinion) }}
+                        {{ form_errors(form.typeOpinion) }}
+                    </div>
                 </div>
                 
                 
-                <div class="divDomaineInForm">
-                    <label>Les domaines</label>
-                    {{ lesDomaines|raw }}
+                <div class="divDomaineInForm control-group">
+                    <label class="control-label">Les domaines :</label>
+                    <div class="controls" style="text-align: left">
+                        {{ lesDomaines|raw }}
+                    </div>
                 </div>
                 
-                <div id="imagesForUpload">
-                    <input type="file" name="filesImages[]" multiple="multiple" /><br/>
-                    <input type="file" name="filesImages[]" multiple="multiple" /><br/>
-                    <input type="file" name="filesImages[]" multiple="multiple"/>
+                <div id="imagesForUpload" class="control-group">
+                    <div class="controls">
+                        <input type="file" name="filesImages[]" multiple="multiple" /><br/>
+                        <input type="file" name="filesImages[]" multiple="multiple" /><br/>
+                        <input type="file" name="filesImages[]" multiple="multiple"/>
+                    </div>
                 </div>
 
-                <div>
-                    <input type="submit" class="btn btn-primary" value="Ajouter mon avis">
+                <div class="control-group">
+                    <div class="controls">
+                        <input type="submit" class="btn btn-primary btn-large" value="Ajouter mon avis">
+                    </div>
                 </div>
                 
                 {{ form_widget(form._token) }}
@@ -61,4 +71,5 @@
             
     </span>
 
+</section>
 {% endblock %}
