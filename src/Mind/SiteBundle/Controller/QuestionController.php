@@ -137,6 +137,7 @@ class QuestionController extends Controller
   {
 
       $suivis = $this->container->get('mind_media.suivis');
+      $serviceAcl = $this->container->get('mind_site.acl_security');
       $domaineService = $this->container->get('mind_site.domaine');
       //Création du formulaire à partir de l'entité et du type de formulaire
      $question = new \Mind\SiteBundle\Entity\Question;
@@ -153,11 +154,9 @@ class QuestionController extends Controller
         
         $idAuteur = $idAuteur = $this->get('security.context')->getToken()->getUser()->getId();
         $question->setQuestionAuteur($idAuteur);
-        $question->setQuestionDomaine($domaineService->getDomaineWhoIsSelected());
         
         if($form->isValid()){
-             
-       
+            
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($question);
             $em->flush();
@@ -170,6 +169,11 @@ class QuestionController extends Controller
                             );
             
             $suivis->createSuivisForUser($options);
+            
+            //ACL
+            $tabAcl     = array();
+            $tabAcl[]   = $question;
+            $serviceAcl->updateAcl($tabAcl);
             
             //message de confirmation 
             $messageDeConfirmation = "La question a été publié avec succès.";

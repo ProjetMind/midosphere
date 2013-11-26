@@ -42,14 +42,17 @@
                 </div>
                 
                 
-                <div class="divDomaineInForm control-group">
-                    <label class="control-label">Les domaines :</label>
-                    <div class="controls" style="text-align: left">
-                        {{ lesDomaines|raw }}
+                <div class="control-group">
+                    {{ form_label(form.avisDomaine) }}
+                    <div class="controls">
+                        <div id="addDomaine" data-type="select2" data-title="Séléctionnez le domaine"></div>
+                        {{ form_errors(form.avisDomaine) }}
+                        {{ form_widget(form.avisDomaine) }}
                     </div>
                 </div>
                 
                 <div id="imagesForUpload" class="control-group">
+                    <label class="control-label" style="text-align: left">Images :</label>
                     <div class="controls">
                         <input type="file" name="filesImages[]" multiple="multiple" /><br/>
                         <input type="file" name="filesImages[]" multiple="multiple" /><br/>
@@ -72,4 +75,31 @@
     </span>
 
 </section>
+
+<script type="text/javascript">
+    
+    var data = {% render controller('MindSiteBundle:Domaine:getDomaineForForm') %};
+    
+    $(function(){
+        //local source
+        $('#addDomaine').select2({
+                                width: 530,
+                                placeholder: 'Selectionnez un domaine',
+                                send: 'never',
+                                data: data,
+                                dropdownCssClass: 'bigdrop',
+                                select2: {
+                                        placeholder: 'Selectionnez le domaine',
+                                        minimumInputLength: 1
+                                }
+                       } );
+                       
+       //Event
+       $('#addDomaine').on('select2-selecting', function(e){
+           $('#mind_sitebundle_questiontype_questionDomaine').attr('value', e.val);
+       });
+    });
+        
+    
+</script>
 {% endblock %}

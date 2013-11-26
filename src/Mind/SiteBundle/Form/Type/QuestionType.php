@@ -43,13 +43,9 @@ class QuestionType extends AbstractType
                             )
                             ))
                 
-            ->add('questionDomaine', 'entity', array(
-                                                'class' => "MindSiteBundle:Domaine",
-                                                'property'  => 'libelle',
+            ->add('questionDomaine', 'hidden', array(
                                                 'required'      => true,
-                                                'expanded'  => true,
-                                                'multiple'  => false,
-                                                'label' => "Domaine",
+                                                'label' => "Domaine :",
                                                 'attr'      => array(
                                                                         'name'  => 'domaineParent'
                                                                     ),

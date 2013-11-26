@@ -281,6 +281,7 @@ class Domaine extends NestedTreeRepository{
         if($request->getMethod() == "POST"){
             
             $dataForm       = $request->get('mind_sitebundle_'.$typeEntity.'type');
+            
             $idDuDomaine    = $dataForm[$typeEntity.'Domaine'];
         }
         
@@ -399,6 +400,28 @@ class Domaine extends NestedTreeRepository{
         $htmlFormDomaine['libelle']     = sprintf($htmlFormDomaine['libelle'], $libelle);
         
         return $htmlFormDomaine;
+    }
+    
+    /**
+     * 
+     * La liste des domaines pour les formulaire add avis et question
+     * 
+     * @return array
+     */
+    public function getDomaineForForm(){
+        
+        $tabDomaine = array();
+        $domaines = $this->manager->getRepository('MindSiteBundle:Domaine')->findAll();
+        
+        foreach ($domaines as $domaine){
+            
+            $tabDomaine[] = array(
+                                    'id'    => $domaine->getId(),
+                                    'text'  => $domaine->getLibelle()
+                    );
+        }
+        
+        return $tabDomaine;
     }
 }
 

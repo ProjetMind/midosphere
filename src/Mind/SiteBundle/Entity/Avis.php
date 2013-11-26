@@ -119,6 +119,8 @@ class Avis
      * @ORM\Column(name="avis_domaine", type="integer")
      * @ORM\OneToOne(targetEntity="Mind\SiteBundle\Entity\Domaine" )
      * @ORM\JoinColumn(name="domaine_id", referencedColumnName="id")
+     * 
+     * @Assert\NotBlank(message="Vous devez indiquez un domaine.")
      */
     private $avisDomaine;
     

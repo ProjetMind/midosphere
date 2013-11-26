@@ -71,6 +71,16 @@ class DomaineRepository extends NestedTreeRepository
         return $tree;
     }
     
+    public function getDomaineforForm($terms){
+        
+        $query = $this->_em->createQuery('SELECT d
+                                          FROM MindSiteBundle:Domaine d
+                                          WHERE d.libelle LIKE :terms
+                                         ');
+        $query->setParameter('terms', "'%".$terms."%'");
+        return $query->getResult();
+    }
+    
     public function getDomainesPourAdministration(){
         
         

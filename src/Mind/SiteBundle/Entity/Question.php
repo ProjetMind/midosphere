@@ -85,6 +85,8 @@ class Question
      * @ORM\Column(name="question_domaine", type="integer")
      * @ORM\OneToOne(targetEntity="Mind\SiteBundle\Entity\Domaine")
      * @ORM\JoinColumn(name="question_domaine", referencedColumnName="id")
+     * 
+     * @Assert\NotBlank(message="Vous devez indiquez un domaine.")
      */
     private $questionDomaine;
     

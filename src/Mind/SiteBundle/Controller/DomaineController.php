@@ -177,5 +177,15 @@ class DomaineController extends Controller
                    ->getMetaDataDomaine();
    }
    
-   
+ 
+   public function getDomaineForFormAction(){
+       
+       $serviceDomaine = $this->container->get('mind_site.domaine');
+       $arrayDomaine = $serviceDomaine->getDomaineForForm();
+       
+       $response = new \Symfony\Component\HttpFoundation\Response(json_encode($arrayDomaine));
+       $response->headers->set('Content-Type', 'application/json');
+       
+       return $response;
+   }
 }

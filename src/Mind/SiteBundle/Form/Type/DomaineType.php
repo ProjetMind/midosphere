@@ -49,7 +49,7 @@ class DomaineType extends AbstractType
                                                                                                     ->WHERE('d.etat = true')
                                                                                                     ->orderBy('d.libelle', 'DESC');
                                                                                             },
-                                                'expanded'  => true,
+                                                'expanded'  => false,
                                                 'multiple'  => false,
                                                 'label' => "Domaine",
                                                 'attr'      => array(

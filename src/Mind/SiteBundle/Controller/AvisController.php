@@ -225,7 +225,6 @@ class AvisController extends Controller
         
         $idAuteur = $this->get('security.context')->getToken()->getUser()->getId();
         $avis->setAvisAuteur($idAuteur);
-        $avis->setAvisDomaine($domaineService->getDomaineWhoIsSelected('avis'));
         
         if($form->isValid()){
              

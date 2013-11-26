@@ -68,23 +68,16 @@ class AvisType extends AbstractType
                                     )
                                 ))
                 
-            ->add('avisDomaine', 'choice', array(
-                                                'choices'     => $this->choicesDomaineArray,
+            ->add('avisDomaine', 'hidden', array(
                                                 'required'  => true,
-                                                'expanded'  => true,
-                                                'multiple'  => false,
-                                                'label'     => "Domaines",
+                                                'label'     => "Domaines :",
+                                                'attr'      => array(
+                                                                        'name'  => 'domaineParent'
+                                                                    ),
                                                 'label_attr'    => array(
                                                                             'class' => 'control-label',
                                                                             'style' => 'text-align:left;'
                                                             )
-//                                                'attr'      => array(
-//                                                                        'name'  => 'domaineParent',
-//                                                                        'class' => 'hide'
-//                                                                    ),
-//                                                'label_attr'    => array(
-//                                                                          'class' => 'hide'      
-//                                                                       )
                                                 
                                             )
                     )
