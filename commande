@@ -5,6 +5,9 @@ Met à jour les dépendances :
 Génération d'un nouveau bundle : 
                                 generate:bundle
 
+Importe la structure de la base de données pour acl :
+                                php app/console init:acl
+
 Génération d'une nouvelle entité :
                                 generate:doctrine:entity
 

@@ -155,7 +155,6 @@ class QuestionController extends Controller
         $question->setQuestionAuteur($idAuteur);
         $question->setQuestionDomaine($domaineService->getDomaineWhoIsSelected());
         
-        
         if($form->isValid()){
              
        

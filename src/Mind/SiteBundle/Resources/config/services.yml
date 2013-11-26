@@ -3,6 +3,7 @@ parameters:
     mind_site.questions.class: Mind\SiteBundle\Questions
     mind_site.paginator_aware.class: Mind\SiteBundle\PaginatorAware
     mind_site.domaine.class: Mind\SiteBundle\Domaine
+    mind_site.acl_security.class: Mind\SiteBundle\Acl\AclSecurity
 
 services:
   mind_site.date.formatage:
@@ -21,5 +22,7 @@ services:
      arguments: ["@doctrine"]
      tags:
          - {name: knp_paginator.injectable, alias: knp_paginator}
-    
+  mind_site.acl_security:
+      class: %mind_site.acl_security.class%
+      arguments: ["@service_container"]
         

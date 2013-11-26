@@ -9,6 +9,7 @@ namespace Mind\MediaBundle;
 
 use Gedmo\Uploadable\UploadableListener;
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use Mind\SiteBundle\Acl\AclSecurity;
 
 /**
  * Description of CustomFileInfo
@@ -17,6 +18,7 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
  */
 class UploadImage {
     
+    protected $aclSecurity;
     protected $idEntity;
     protected $typeEntity;
     protected $uploadableListener;
@@ -24,11 +26,13 @@ class UploadImage {
     protected $manager;
 
 
-    public function __construct(Registry $doctrine, UploadableListener $uploadable) {
+    public function __construct(Registry $doctrine, UploadableListener $uploadable, AclSecurity $aclSecurity) {
         
-        $this->doctrine         = $doctrine;
-        $this->manager          = $doctrine->getManager();
-        $this->uploadableListener = $uploadable;
+        $this->doctrine             = $doctrine;
+        $this->manager              = $doctrine->getManager();
+        $this->uploadableListener   = $uploadable;
+        $this->aclSecurity          = $aclSecurity;
+        
     }
     
     public function createFileInfos(){
@@ -73,6 +77,7 @@ class UploadImage {
     
     public function persisteImagesForAvis($images, $avis){
         
+        $tabAcl = array();
         if(is_array($images)){
 
             foreach ($images as $uneImage){
@@ -83,10 +88,11 @@ class UploadImage {
                 $this->uploadableListener->addEntityFileInfo($imageAvis, $fileInfos);
 
                 $this->manager->persist($imageAvis);
-
+                $this->manager->flush();
+                $tabAcl[] = $imageAvis;
             }
         }
-        
+        $this->aclSecurity->updateAcl($tabAcl);
     }
 
 

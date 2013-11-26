@@ -4,9 +4,11 @@ namespace Mind\MediaBundle;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\Security\Core\SecurityContextInterface;
+use Mind\SiteBundle\Acl\AclSecurity;
 
 class Suivis {
 
+    protected $aclSecurity;
     protected $doctrine;
     protected $manager;
     protected $idUser;
@@ -20,12 +22,14 @@ class Suivis {
                                         'typeEntity'    => ""
                                     );
 
-    public function __construct(Registry $doctrine, SecurityContextInterface $security) {
+    public function __construct(Registry $doctrine, SecurityContextInterface $security, AclSecurity $aclSecurity) {
         
         $this->doctrine         = $doctrine;
         $this->manager          = $doctrine->getManager();
         $this->repository       = $this->manager->getRepository('MindMediaBundle:Suivis');
         $this->security         = $security;
+        $this->aclSecurity      = $aclSecurity;
+        
     }
 
     public function getSuivisAvis($idUser){
@@ -98,13 +102,19 @@ class Suivis {
             $suivis->setTypeEntity($this->typeEntity);
             $suivis->setDisabled(true);
             $this->manager->persist($suivis);
+            $this->manager->flush();
+            $tabAcl = array();
+            $tabAcl[] = $suivis;
+            $this->aclSecurity->updateAcl($tabAcl);
             
         }else{ 
             $suivis = $this->repository->findOneBy($this->optionsSearch);
             $this->manager->remove($suivis);
+            $this->manager->flush();
         }
         
-        $this->manager->flush();
+        
+       
     }
 
 

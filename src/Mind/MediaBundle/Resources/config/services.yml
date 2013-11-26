@@ -19,7 +19,7 @@ services:
         
     mind_media.suivis:
         class: %mind_media.suivis.class%
-        arguments: ["@doctrine", "@security.context"]
+        arguments: ["@doctrine", "@security.context", "@mind_site.acl_security"]
         
     mind_media.images:
         class: %mind_media.images.class%
@@ -27,7 +27,7 @@ services:
         
     mind_media.upload_file:
         class: %mind_media.upload_file.class%
-        arguments: ["@doctrine", "@gedmo.listener.uploadable"]
+        arguments: ["@doctrine", "@gedmo.listener.uploadable", "@mind_site.acl_security"]
         
     extension.listener:
         class: Mind\MediaBundle\Listener\DoctrineExtensionListener

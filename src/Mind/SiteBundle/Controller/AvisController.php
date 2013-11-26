@@ -9,11 +9,6 @@ use Mind\MediaBundle\Controller\VoteAvisController;
 use Symfony\Component\HttpFoundation\Response;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
-use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
-use Symfony\Component\Security\Acl\Permission\MaskBuilder;
-
 class AvisController extends Controller
 {
    
@@ -128,15 +123,6 @@ class AvisController extends Controller
                    ));
     }
     
-    public function getImages($lesAvis){
-    
-        $serviceImage = $this->container->get('mind_media.images');
-        $serviceImage->setTypeEntity("avis");
-        
-        $images = $serviceImage->getImages($lesAvis);
-        
-        return $images;
-    }
     
     /**
      * 
@@ -217,7 +203,7 @@ class AvisController extends Controller
    */
   public function ajouterAction()
   {
-
+     $serviceAcl = $this->container->get('mind_site.acl_security'); 
      $suivis = $this->container->get('mind_media.suivis');
      $domaineService = $this->container->get('mind_site.domaine');
      #$listener = $this->container->get('gedmo.listener.uploadable');
@@ -261,6 +247,10 @@ class AvisController extends Controller
             $actionImage->persisteImagesForAvis($images, $avis);
             $em->flush();
             
+            //ACL
+            $tabAcl     = array();
+            $tabAcl[]   = $avis;
+            $serviceAcl->updateAcl($tabAcl);
             
             //message de confirmation 
             $messageDeConfirmation = "L'avis a été publié avec succès.";
@@ -287,6 +277,8 @@ class AvisController extends Controller
     */
    public function modifierAction($idAvis)
    {
+       
+       $serviceAcl = $this->container->get('mind_site.acl_security');
        $serviceAvis = $this->container->get('mind_site.avis');
        $domaineService = $this->container->get('mind_site.domaine');
        
@@ -294,6 +286,8 @@ class AvisController extends Controller
        $em = $this->getDoctrine()->getManager();
        $domaineArray = $em->getRepository('MindSiteBundle:Domaine')->getAllDomainesInArray();
        $avis = $serviceAvis->getAvisToUpdate($idAvis);
+       
+       $serviceAcl->checkPermission('EDIT', $avis);
        
        if($request->getMethod() == "POST"){
            
@@ -345,6 +339,7 @@ class AvisController extends Controller
   public function supprimerAction($idAvis)
   {   
       $request = $this->getRequest();
+      $serviceAcl = $this->container->get('mind_site.acl_security');
       $serviceAvis = $this->container->get('mind_site.avis');
       $serviceSuivis = $this->container->get('mind_media.suivis');
       $serviceAbonnement = $this->container->get('mind_media.abonnement');
@@ -353,6 +348,8 @@ class AvisController extends Controller
       if($request->getMethod() == 'POST'){
           
           $idAvis = $_POST['idAvis'];
+          $avis = $serviceAvis->getAvisToUpdate($idAvis);
+          $serviceAcl->checkPermission('DELETE', $avis);
           
           if(!empty($idAvis)){
               
