@@ -7,6 +7,7 @@ use Mind\SiteBundle\Form\Type\AvisType;
 use Mind\SiteBundle\Form\Type\AvisModifierType;
 use Mind\MediaBundle\Controller\VoteAvisController;
 use Symfony\Component\HttpFoundation\Response;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 class AvisController extends Controller
 {
@@ -339,6 +340,12 @@ class AvisController extends Controller
       return $lesDates;
   }
   
+  /**
+   * 
+   * @Secure(roles="ROLE_USER")
+   * 
+   * @return type
+   */
   public function ajouterAction()
   {
 
@@ -421,6 +428,13 @@ class AvisController extends Controller
    }
    
    
+   /**
+    * 
+    * @Secure(roles="ROLE_USER")
+    * 
+    * @param type $idAvis
+    * @return type
+    */
    public function modifierAction($idAvis)
    {
        $serviceAvis = $this->container->get('mind_site.avis');
@@ -472,6 +486,12 @@ class AvisController extends Controller
                ));
    }
  
+   /**
+    * 
+    * @Secure(roles="ROLE_USER")
+    * @param type $idAvis
+    * @return \Symfony\Component\HttpFoundation\Response
+    */
   public function supprimerAction($idAvis)
   {   
       $request = $this->getRequest();

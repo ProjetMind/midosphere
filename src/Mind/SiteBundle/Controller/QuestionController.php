@@ -7,6 +7,7 @@ use Mind\MediaBundle\Controller\VoteQuestionController;
 use Mind\SiteBundle\Form\Type\QuestionType;
 use Symfony\Component\HttpFoundation\Response;
 use Mind\SiteBundle\Form\Type\QuestionModifierType;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 class QuestionController extends Controller
 {
@@ -233,6 +234,10 @@ class QuestionController extends Controller
       return $lesDates;
   }
    
+  /**
+   * @Secure(roles="ROLE_USER")
+   * @return type
+   */
   public function ajouterAction()
   {
 
@@ -324,6 +329,11 @@ class QuestionController extends Controller
       return $lesVotes;
   }
    
+  /**
+   * @Secure(roles="ROLE_USER")
+   * @param type $idQuestion
+   * @return type
+   */
   public function modifierAction($idQuestion)
   {
       $serviceQuestion = $this->container->get('mind_site.questions');
@@ -375,6 +385,12 @@ class QuestionController extends Controller
                ));
   }
  
+  /**
+   * 
+   * @Secure(roles="ROLE_USER")
+   * @param type $idQuestion
+   * @return \Symfony\Component\HttpFoundation\Response
+   */
   public function supprimerAction($idQuestion)
   {   
       $request = $this->getRequest();
