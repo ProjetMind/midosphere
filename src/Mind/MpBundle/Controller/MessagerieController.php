@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Mind\MpBundle\Form\Type\MessageType;
 use Mind\MpBundle\Form\Type\ConversationType;
 use Mind\MpBundle\Form\Type\LectureType;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 class MessagerieController extends Controller {
     
@@ -229,6 +230,7 @@ class MessagerieController extends Controller {
      *  - Entité Lu
      *  - Entité Dossier 
      * 
+     * @Secure(roles="ROLE_USER")
      * @return Symfony\Component\HttpFoundation\Response
      */
     public function nouvelleConversationAction(){
@@ -238,9 +240,7 @@ class MessagerieController extends Controller {
         $message                = new \Mind\MpBundle\Entity\Message;
         $form                   = $this->createForm(new MessageType(), $message);
         $em                     = $this->getDoctrine()->getManager();
-        $em->clear();
-       
-        
+
         $request = $this->getRequest();
        
         if($request->getMethod() === "POST"){
@@ -265,6 +265,13 @@ class MessagerieController extends Controller {
                 $tabDossier     = $messageManager->createDossierGet($conversation, $tabDest);
                 
                 $em->flush();
+                
+                //Acl 
+                $serviceAcl = $this->container->get('mind_site.acl_security');
+                $tabAcl     = array();
+                $tabAcl[]   = $conversation;
+                $tabAcl[]   = $message;
+                $serviceAcl->updateAcl($tabAcl);
                 
                 //Redirection vers la conversation
                 return $this->redirect($this->generateUrl('mind_mp_conversation', array(

@@ -17,6 +17,7 @@ class BaseManager {
     protected $security;
     protected $container;
     protected $form;
+    protected $aclSecurity;
 
     /**
      * 
@@ -35,6 +36,7 @@ class BaseManager {
         $this->security         = $securityContext;
         $this->container        = $container;
         $this->form             = $form;
+        $this->aclSecurity      = $this->container->get('mind_site.acl_security');
         
     }
     
@@ -56,7 +58,13 @@ class BaseManager {
         $participant = new \Mind\MpBundle\Entity\Participants;
         $participant->setIdConversation($idConversation);
         $participant->setIdUser($idUserCourant);
-        $tabParticipants[] = $this->manager->persist($participant);
+        $this->manager->persist($participant);
+        $this->manager->flush();
+        $tabParticipants[] = $participant;
+        
+        $tabAcl     = array();
+        $tabAcl[]   = $participant;
+        $this->aclSecurity->updateAcl($tabAcl);
         
         
         foreach ($tabIdParticipant as $unIdParticipant){
@@ -66,8 +74,17 @@ class BaseManager {
                 $participant = new \Mind\MpBundle\Entity\Participants;
                 $participant->setIdConversation($idConversation);
                 $participant->setIdUser($unIdParticipant);
-
-                $tabParticipants[] = $this->manager->persist($participant);
+                $this->manager->persist($participant);
+                $this->manager->flush();
+                
+                $user = $this->manager->getRepository('MindUserBundle:User')->find($participant->getIdUser());
+                if(!empty($user)){
+                    $tabAcl     = array();
+                    $tabAcl[]   = $participant;
+                    $this->aclSecurity->updateAcl($tabAcl, $user);
+                }
+                
+                $tabParticipants[] = $participant;
                 
             }
         }
@@ -99,8 +116,14 @@ class BaseManager {
         $lu->setIdMessage($idMessage);
         $lu->setIdUser($idUserCourant);
         $lu->setLu(true);
+        $this->manager->persist($lu);
+        $this->manager->flush();
+        $tabLu[] = $lu;
         
-        $tabLu[] = $this->manager->persist($lu);
+        //Acl
+        $tabAcl = array();
+        $tabAcl[] = $lu;
+        $this->aclSecurity->updateAcl($tabAcl);
         
         foreach ($tabIdParticipant as $unIdParticipant){
             
@@ -110,9 +133,18 @@ class BaseManager {
                 $lu->setIdConversation($idConversation);
                 $lu->setIdMessage($idMessage);
                 $lu->setIdUser($unIdParticipant);
-
-                $tabLu[] = $this->manager->persist($lu);
+                $this->manager->persist($lu);
+                $this->manager->flush();
                 
+                $user = $this->manager->getRepository('MindUserBundle:User')->find($lu->getIdUser());
+                
+                if(!empty($user)){
+                    //Acl
+                    $tabAcl     = array();
+                    $tabAcl[]   = $lu;
+                    $this->aclSecurity->updateAcl($tabAcl);
+                }
+                $tabLu[] = $lu;
             }
         }
         
@@ -163,8 +195,13 @@ class BaseManager {
         $dossier->setIdUser($idUserCourant);
         $dossier->setIdConversation($idConversation);
         $dossier->setDossier('bal');
-        
         $this->manager->persist($dossier);
+        $this->manager->flush();
+        
+        //Acl
+        $tabAcl =array();
+        $tabAcl[] = $dossier;
+        $this->aclSecurity->updateAcl($tabAcl);
         
         $tabDossier[] = $dossier;
         
@@ -176,8 +213,16 @@ class BaseManager {
                 $dossier->setIdUser($unIdParticipant);
                 $dossier->setIdConversation($idConversation);
                 $dossier->setDossier('bal');
+                $this->manager->persist($dossier);
+                $this->manager->flush();
                 
-                $tabDossier[] = $this->manager->persist($dossier);
+                $user = $this->manager->getRepository('MindUserBundle:User')->find($dossier->getIdUser());
+                if(!empty($user)){
+                    $tabAcl     = array();
+                    $tabAcl[]   = $dossier;
+                    $this->aclSecurity->updateAcl($tabAcl, $user);
+                }
+                $tabDossier[] = $dossier;
             }
         }
         

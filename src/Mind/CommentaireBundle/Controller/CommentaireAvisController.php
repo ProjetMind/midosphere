@@ -49,7 +49,7 @@ class CommentaireAvisController extends Controller
                 $serviceAcl = $this->container->get('mind_site.acl_security');
                 $tabAcl     = array();
                 $tabAcl[]   = $commentaireAvis;
-                $serviceAcl->updateAcl($commentaireAvis);
+                $serviceAcl->updateAcl($tabAcl);
                            
                 $idCommentaire = $commentaireAvis->getId();
             }

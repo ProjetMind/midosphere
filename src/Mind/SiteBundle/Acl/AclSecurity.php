@@ -31,7 +31,7 @@ class AclSecurity {
      * 
      * @return array Array objet identity ACL
      */
-    public function createAcl(array $objets){
+    protected function createAcl(array $objets){
         
         $tabObjetsAcl       = array();
         
@@ -48,10 +48,10 @@ class AclSecurity {
      * 
      * donne accès au propriétaire
      */
-    public function updateAcl(array $objets){
+    public function updateAcl(array $objets, $user = null){
         
         $tabObjetsAcl       = $this->createAcl($objets);
-        $securityIdentity   = $this->getUserSecurityIdentity();
+        $securityIdentity   = $this->getUserSecurityIdentity($user);
         
         foreach ($tabObjetsAcl as $objetAcl){
             
@@ -67,9 +67,12 @@ class AclSecurity {
      * 
      * @return type Description
      */
-    public function getUserSecurityIdentity(){
+    protected function getUserSecurityIdentity($user){
         
-        $user = $this->securityContext->getToken()->getUser();
+        if($user === null){
+            $user = $this->securityContext->getToken()->getUser();
+        }
+        
         $securityIdentity = UserSecurityIdentity::fromAccount($user);
         
         return $securityIdentity;

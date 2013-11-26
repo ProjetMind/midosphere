@@ -91,7 +91,6 @@ class ConversationManager extends BaseManager {
             if(!empty($dossier)){
                 $dossier->setDossier('supprimer');
                 $this->manager->persist($dossier);
-                
             }
         }
         
