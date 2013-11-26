@@ -9,6 +9,11 @@ use Mind\MediaBundle\Controller\VoteAvisController;
 use Symfony\Component\HttpFoundation\Response;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+
 class AvisController extends Controller
 {
    
@@ -204,142 +209,6 @@ class AvisController extends Controller
      
   }
 
-
-  /**
-   * 
-   * Retourne les domaines dans un node avec des liens link
-   * @param \Mind\SiteBundle\Entity\Avis $lesAvis
-   * @return array 
-   */
-  public function getDomaineWithLink($lesAvis, $manager = null){
-      
-      $lesDomainesLink = array();
-      $linkDomaine = array();
-      $repositoryDomaine = $manager->getRepository('MindSiteBundle:Domaine');
-      
-      foreach ($lesAvis as $unAvis){
-          
-          $lesDomainesLink[$unAvis->getId()] = "";
-          $idDuDomaineAvis = $unAvis->getAvisDomaine();
-          $leDomaineAvis = $repositoryDomaine->find($idDuDomaineAvis);
-          $leParent = $leDomaineAvis->getParent();
-          $nbParent = count($leParent);
-          
-          $pathDomaine = $this->generateUrl('mind_site_domaine_voir', 
-                                            array('slug'  => $leDomaineAvis->getSlug()));
-          $linkDomaine[] = '<a href="'.$pathDomaine.'">'.$leDomaineAvis->getLibelle().'</a>';
-          
-          while($nbParent > 0){
-              $pathParentDomaine = $this->generateUrl('mind_site_domaine_voir', 
-                                                       array('slug' => $leParent->getSlug()));
-              $linkDomaine[] = '<a href="'.$pathParentDomaine.'">' .$leParent->getLibelle().'</a>';
-              $leParent = $leParent->getParent();
-              $nbParent = count($leParent);
-          }
-          
-          $linkDomaine = array_reverse($linkDomaine, true); 
-          $nbElements = count($linkDomaine);
-          $countNbElements = 1;
-          foreach ($linkDomaine as $unLinkDomaine ){
-              if($countNbElements == $nbElements){
-                    $lesDomainesLink[$unAvis->getId()] .= $unLinkDomaine;
-              }
-              else{
-                    $lesDomainesLink[$unAvis->getId()] .= $unLinkDomaine.' > ';
-              }
-              $countNbElements++;
-          }
-          
-          $linkDomaine = array();
-      }
-      
-      return $lesDomainesLink;
-  }
-  
-  public function getLesVotes($lesAvis, $manager = null){
-      
-      $lesVotes = array();
-      $repositoryOpinionAvis = $manager->getRepository('MindMediaBundle:OpinionAvis');
-      
-      foreach ($lesAvis as $unAvis){
-          $idAvis = $unAvis->getId();
-          $lesVotes[$idAvis] = array(
-                                        'nbVotePositif' => $repositoryOpinionAvis->getOpinionAvisByIdAvis($idAvis, 1),
-                                        'nbVoteMitige'  => $repositoryOpinionAvis->getOpinionAvisByIdAvis($idAvis, 2),
-                                        'nbVoteNegatif' => $repositoryOpinionAvis->getOpinionAvisByIdAvis($idAvis, 3)    
-                                    );
-      }
-      
-      return $lesVotes;
-  }
-  
-  public function getAuteursAvis($lesAvis, $manager = null){
-      
-      //On récupère l'id de l'auteur pour cahque avis
-      //Pour chaque avis on récupère son le usergrace à l'id
-      //On met l'auteur dans un tableau associatif
-      
-      $lesAuteurs = array();
-      $infosAuteur = array();
-      $repositoryUser = $manager->getRepository('MindUserBundle:User');
-      
-      foreach ($lesAvis as $unAvis){
-          
-        $idAuteur = $unAvis->getAvisAuteur();
-        $auteurAvis = $repositoryUser->find($idAuteur);
-        $slugAuteur = $auteurAvis->getSlug();
-        $pathProfileAuteur = $this->generateUrl('mind_user_profile_voir', array('slug'  => $slugAuteur));
-        $linkProfileAuteur = '<a href="'.$pathProfileAuteur.'"  title="'.$slugAuteur.'">%s</a>';
-          
-        $infosAuteur['pseudo'] = $auteurAvis->getUsername();
-        $infosAuteur['id']  = $auteurAvis->getId();
-        $infosAuteur['profileLink'] = sprintf($linkProfileAuteur, $infosAuteur['pseudo']);
-        $infosAuteur['slug'] = $slugAuteur;
-        
-        $lesAuteurs[$unAvis->getId()] = $infosAuteur;
-        
-      }
-      
-      return $lesAuteurs;
-  }
-
-  public function getNbCommentaireAvis($lesAvis, $manager = null){
-  
-      $repositoryCommentaireAvis = $manager->getRepository('MindCommentaireBundle:CommentaireAvis');
-      $lesNbCommentaires = array();
-      
-      foreach ($lesAvis as $unAvis){
-          
-          $idAvis = $unAvis->getId();
-          $nbCommentaire = $repositoryCommentaireAvis->getNbCommentaireForAvis($idAvis);
-          $lesNbCommentaires[$idAvis] = $nbCommentaire;
-      }
-      
-      return $lesNbCommentaires;
-  }
-  
-  
-  /**
-   * Retournes sous la date de publication 
-   * @param type $lesAvis
-   * @return Array
-   */
-  public function getDatePublication($lesAvis = null){
-  
-      $lesDates = array();
-      $dateFormatage = new \Mind\SiteBundle\DateFormatage();
-      
-      foreach ($lesAvis as $unAvis){
-          
-          $datePublication = $unAvis->getAvisDatePublication();
-          $laDateFormater = $dateFormatage->getDate($datePublication);
-          $lesDates[$unAvis->getId()] = $laDateFormater;
-          
-      }
-      
-      return $lesDates;
-  }
-  
   /**
    * 
    * @Secure(roles="ROLE_USER")
@@ -409,25 +278,6 @@ class AvisController extends Controller
                                                                                 ));
   }
   
-  public function getDomainesAction(){
-       
-      
-       $lesDomaines = $this->getDoctrine()
-                    ->getManager()
-                    ->getRepository('MindSiteBundle:Domaine')
-                    ->childrenHierarchy(
-                                        null, /* starting from root nodes */
-                                        false, /* true: load all children, false: only direct */
-                                        array(
-                                            'decorate' => true),
-                                        false,
-                                        'avis'
-                                    );     
-       
-       return $lesDomaines;
-   }
-   
-   
    /**
     * 
     * @Secure(roles="ROLE_USER")
@@ -536,4 +386,3 @@ class AvisController extends Controller
   }
 }
 
-?>

@@ -29,6 +29,7 @@ class QuestionController extends Controller
       $repositoryQuestion   = $manager->getRepository('MindSiteBundle:Question');
       $template             = sprintf('MindSiteBundle::une_question.html.twig');
       $paginator            = $this->get('knp_paginator');
+      $serviceQuestion      = $this->container->get('mind_site.questions');
       
       switch ($routeName){
           
@@ -76,10 +77,10 @@ class QuestionController extends Controller
         );
       
       
-    $lesDomaines              =   $this->getDomaineWithLink($lesQuestions, $manager);
-    $lesAuteurs               =   $this->getAuteursQuestion($lesQuestions, $manager);
-    $lesDatesDePublication    =   $this->getDatePublication($lesQuestions, $manager);
-    $lesNbCom                 =   $this->getNbCommentaireQuestion($lesQuestions, $manager);
+    $lesDomaines              =   $serviceQuestion->getDomaineWithLink($lesQuestions);
+    $lesAuteurs               =   $serviceQuestion->getAuteursQuestion($lesQuestions);
+    $lesDatesDePublication    =   $serviceQuestion->getDatePublication($lesQuestions);
+    $lesNbCom                 =   $serviceQuestion->getNbCommentaireQuestion($lesQuestions);
       
    return $this->container->get('templating')->renderResponse($template, 
            array( 'lesQuestions'        => $lesQuestions, 
@@ -96,6 +97,7 @@ class QuestionController extends Controller
   
   public function voirAction($auteur, $slug)
   {
+      $serviceQuestion = $this->container->get('mind_site.questions');
       $manager = $this->getDoctrine()->getManager();
       $voteController = new VoteQuestionController();
       $question = $this->getDoctrine()
@@ -103,11 +105,11 @@ class QuestionController extends Controller
                        ->getRepository('MindSiteBundle:Question')
                        ->findQuestionsBySlug($slug);
       
-      $lesDomaines              =   $this->getDomaineWithLink($question, $manager);
-      $lesAuteurs               =   $this->getAuteursQuestion($question, $manager);
-      $lesDatesDePublication    =   $this->getDatePublication($question, $manager);
-      $lesNbCom                 =   $this->getNbCommentaireQuestion($question, $manager);
-      $lesVotes                 =   $this->getLesVotes($question, $manager);
+      $lesDomaines              =   $serviceQuestion->getDomaineWithLink($question, $manager);
+      $lesAuteurs               =   $serviceQuestion->getAuteursQuestion($question, $manager);
+      $lesDatesDePublication    =   $serviceQuestion->getDatePublication($question, $manager);
+      $lesNbCom                 =   $serviceQuestion->getNbCommentaireQuestion($question, $manager);
+      $lesVotes                 =   $serviceQuestion->getLesVotes($question, $manager);
       
       $idQuestion = $question[0]->getId();
       $idAuteur = $lesAuteurs[$idQuestion]['id'];
@@ -125,114 +127,7 @@ class QuestionController extends Controller
                     ));
      
   }
-  
-  public function getNbCommentaireQuestion($lesQuestions, $manager = null){
-  
-      $repositoryCommentaireQuestion = $manager->getRepository('MindCommentaireBundle:CommentaireQuestion');
-      $lesNbCommentaires = array();
-      
-      foreach ($lesQuestions as $uneQuestion){
-          
-          $idQuestion = $uneQuestion->getId();
-          $nbCommentaire = $repositoryCommentaireQuestion->getNbCommentaireForQuestion($idQuestion);
-          $lesNbCommentaires[$idQuestion] = $nbCommentaire;
-      }
-      
-      return $lesNbCommentaires;
-  }
-  
-  public function getDomaineWithLink($lesQuestions, $manager = null){
-      
-      $lesDomainesLink = array();
-      $linkDomaine = array();
-      $repositoryDomaine = $manager->getRepository('MindSiteBundle:Domaine');
-     
-      foreach ($lesQuestions as $uneQuestion){
-          
-          $lesDomainesLink[$uneQuestion->getId()] = "";
-          $idDuDomaineQuestion = $uneQuestion->getQuestionDomaine();
-          $leDomaineQuestion = $repositoryDomaine->find($idDuDomaineQuestion);
-          $leParent = $leDomaineQuestion->getParent();
-          $nbParent = count($leParent);
-          
-          $pathDomaine = $this->generateUrl('mind_site_domaine_voir', 
-                                            array('slug'  => $leDomaineQuestion->getSlug()));
-          $linkDomaine[] = '<a href="'.$pathDomaine.'">'.$leDomaineQuestion->getLibelle().'</a>';
-         
-          
-          while($nbParent > 0){
-              $pathParentDomaine = $this->generateUrl('mind_site_domaine_voir', 
-                                                       array('slug' => $leParent->getSlug()));
-              $linkDomaine[] = '<a href="'.$pathParentDomaine.'">' .$leParent->getLibelle().'</a>';
-              $leParent = $leParent->getParent();
-              $nbParent = count($leParent);
-          }
-          
-          $linkDomaine = array_reverse($linkDomaine, true); 
-          $nbElements = count($linkDomaine);
-          $countNbElements = 1;
-          
-          foreach ($linkDomaine as $unLinkDomaine ){
-              if($countNbElements == $nbElements){
-                    $lesDomainesLink[$uneQuestion->getId()] .= $unLinkDomaine;
-              }
-              else{
-                    $lesDomainesLink[$uneQuestion->getId()] .= $unLinkDomaine.' > ';
-              }
-              $countNbElements++;
-          }
-          
-          $linkDomaine = array();
-      }
-      
-      return $lesDomainesLink;
-  }
-  
-  public function getAuteursQuestion($lesQuestions, $manager){
-      
-      //On récupère l'id de l'auteur pour cahque avis
-      //Pour chaque avis on récupère son le usergrace à l'id
-      //On met l'auteur dans un tableau associatif
-      
-      $lesAuteurs = array();
-      $infosAuteur = array();
-      $repositoryUser = $manager->getRepository('MindUserBundle:User');
-      
-      foreach ($lesQuestions as $uneQuestion){
-          
-        $idAuteur = $uneQuestion->getQuestionAuteur();
-        $auteurQuestion = $repositoryUser->find($idAuteur);
-        $slugAuteur = $auteurQuestion->getSlug();
-        $pathProfileAuteur = $this->generateUrl('mind_user_profile_voir', array('slug'  => $slugAuteur));
-        $linkProfileAuteur = '<a href="'.$pathProfileAuteur.'"  title="'.$slugAuteur.'">%s</a>';
-          
-        $infosAuteur['pseudo'] = $auteurQuestion->getUsername();
-        $infosAuteur['id']  = $auteurQuestion->getId();
-        $infosAuteur['profileLink'] = sprintf($linkProfileAuteur, $infosAuteur['pseudo']);
-        $infosAuteur['slug'] = $slugAuteur;
-        
-        $lesAuteurs[$uneQuestion->getId()] = $infosAuteur;
-        
-      }
-      
-      return $lesAuteurs;
-  }
-   
-  public function getDatePublication($lesQuestions, $manager = null){
-  
-      $lesDates = array();
-      $dateFormatage = new \Mind\SiteBundle\DateFormatage();
-      
-      foreach ($lesQuestions as $uneQuestion){
-          
-          $datePublication = $uneQuestion->getQuestionDatePublication();
-          $laDateFormater = $dateFormatage->getDate($datePublication);
-          $lesDates[$uneQuestion->getId()] = $laDateFormater;
-          
-      }
-      
-      return $lesDates;
-  }
+ 
    
   /**
    * @Secure(roles="ROLE_USER")
@@ -293,42 +188,6 @@ class QuestionController extends Controller
                                                                                 ));
   }
   
-  public function getDomainesAction(){
-       
-      
-       $lesDomaines = $this->getDoctrine()
-                    ->getManager()
-                    ->getRepository('MindSiteBundle:Domaine')
-                    ->childrenHierarchy(
-                                        null, /* starting from root nodes */
-                                        false, /* true: load all children, false: only direct */
-                                        array(
-                                            'decorate' => true),
-                                        false, 
-                                        'question'
-                                            );     
-       
-       return $lesDomaines;
-   }
-   
- 
-  public function getLesVotes($lesQuestions, $manager = null){
-      
-      $lesVotes = array();
-      $repositoryOpinionQuestion = $manager->getRepository('MindMediaBundle:OpinionQuestion');
-      
-      foreach ($lesQuestions as $uneQuestion){
-          $idQuestion = $uneQuestion->getId();
-          $lesVotes[$idQuestion] = array(
-                                        'nbVotePositif' => $repositoryOpinionQuestion->getOpinionQuestionByIdQuestion($idQuestion, 1),
-                                        'nbVoteMitige'  => $repositoryOpinionQuestion->getOpinionQuestionByIdQuestion($idQuestion, 2),
-                                        'nbVoteNegatif' => $repositoryOpinionQuestion->getOpinionQuestionByIdQuestion($idQuestion, 3)    
-                                    );
-      }
-      
-      return $lesVotes;
-  }
-   
   /**
    * @Secure(roles="ROLE_USER")
    * @param type $idQuestion

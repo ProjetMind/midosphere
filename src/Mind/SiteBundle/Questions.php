@@ -197,6 +197,23 @@ class Questions {
       
       return $lesDomainesLink;
   }
+  
+  public function getLesVotes($lesQuestions){
+      
+      $lesVotes = array();
+      $repositoryOpinionQuestion = $this->manager->getRepository('MindMediaBundle:OpinionQuestion');
+      
+      foreach ($lesQuestions as $uneQuestion){
+          $idQuestion = $uneQuestion->getId();
+          $lesVotes[$idQuestion] = array(
+                                        'nbVotePositif' => $repositoryOpinionQuestion->getOpinionQuestionByIdQuestion($idQuestion, 1),
+                                        'nbVoteMitige'  => $repositoryOpinionQuestion->getOpinionQuestionByIdQuestion($idQuestion, 2),
+                                        'nbVoteNegatif' => $repositoryOpinionQuestion->getOpinionQuestionByIdQuestion($idQuestion, 3)    
+                                    );
+      }
+      
+      return $lesVotes;
+  }
 }
 
 ?>
