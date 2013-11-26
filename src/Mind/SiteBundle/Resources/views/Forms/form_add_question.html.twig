@@ -40,7 +40,6 @@
                     <div class="control-group">
                         {{ form_label(form.questionDomaine) }}
                         <div class="controls">
-                            <a href="#" id="addDomaine" data-type="select2" data-title="Séléctionnez le domaine"></a>
                             {{ form_errors(form.questionDomaine) }}
                             {{ form_widget(form.questionDomaine) }}  
                             
@@ -74,15 +73,11 @@
                                 placeholder: 'Selectionnez un domaine',
                                 send: 'never',
                                 data: data,
-                                dropdownCssClass: 'bigdrop',
-                                select2: {
-                                        placeholder: 'Selectionnez le domaine',
-                                        minimumInputLength: 1
-                                }
+                                dropdownCssClass: 'bigdrop'
                        } );
                        
        //Event
-       $('#addDomaine').on('select2-selecting', function(e){
+       $('#mind_sitebundle_questiontype_questionDomaine').on('select2-selecting', function(e){
            $('#mind_sitebundle_questiontype_questionDomaine').attr('value', e.val);
        });
     });

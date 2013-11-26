@@ -43,16 +43,9 @@ class QuestionModifierType extends AbstractType
                                             )
                             ))
                 
-            ->add('questionDomaine', 'entity', array(
-                                                'class' => "MindSiteBundle:Domaine",
-                                                'property'  => 'libelle',
+            ->add('questionDomaine', 'text', array(
                                                 'required'      => true,
-                                                'expanded'  => true,
-                                                'multiple'  => false,
                                                 'label' => "Domaine :",
-                                                'attr'      => array(
-                                                                        'name'  => 'domaineParent'
-                                                                    ),
                                                 'label_attr'    => array(
                                                                             'class' => 'control-label',
                                                                             'style' => 'text-align:left;'

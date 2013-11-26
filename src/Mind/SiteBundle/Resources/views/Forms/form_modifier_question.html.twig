@@ -29,16 +29,12 @@
                         </div>
                     </div>
                     
-                    <div class="divDomaineInForm control-group">
-                        <label class="control-label" style="text-align: left;">Les domaines</label>
-                        <div class="controls">
-                            {{ lesDomaines|raw }}
-                        </div>
-                        {#
+                    <div class="control-group">
                         {{ form_label(form.questionDomaine) }}
-                        {{ form_widget(form.questionDomaine) }}     
-                        #}
-                        
+                        <div class="controls">
+                            {{ form_errors(form.questionDomaine) }}
+                            {{ form_widget(form.questionDomaine) }}
+                        </div>
                     </div>
                     
                     <div class="control-group">
@@ -55,5 +51,28 @@
             </form>
         
         </span>
+
+<script type="text/javascript">
+    
+    $(function(){
+        //local source
+        var data = {% render controller('MindSiteBundle:Domaine:getDomaineForForm') %};
+        $('#mind_sitebundle_questionmodifiertype_questionDomaine').select2({
+                                width: 530,
+                                placeholder: 'Selectionnez un domaine',
+                                send: 'never',
+                                data: data,
+                                dropdownCssClass: 'bigdrop'
+                       } );
+                       
+       //Event
+       $('#mind_sitebundle_questionmodifiertype_questionDomaine').on('select2-selecting', function(e){
+           
+           $('#mind_sitebundle_questionmodifiertype_questionDomaine').attr('value', e.val);
+       });
+    });
+        
+    
+</script>
         
 {% endblock %}

@@ -60,23 +60,13 @@ class AvisModifierType extends AbstractType
                                 ))
                 
                 
-            ->add('avisDomaine', 'choice', array(
-                                                'choices'     => $this->choicesDomaineArray,
+            ->add('avisDomaine', 'text', array(
                                                 'required'  => true,
-                                                'expanded'  => true,
-                                                'multiple'  => false,
                                                 'label'     => "Domaines",
                                                 'label_attr'    => array(
                                                                             'class' => 'control-label',
                                                                             'style' => 'text-align:left;'
-                                                            )
-//                                                'attr'      => array(
-//                                                                        'name'  => 'domaineParent',
-//                                                                        'class' => 'hide'
-//                                                                    ),
-//                                                'label_attr'    => array(
-//                                                                          'class' => 'hide'      
-//                                                                       )
+                                                            )       
                                                 
                                             )
                     

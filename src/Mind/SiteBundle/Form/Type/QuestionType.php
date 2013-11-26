@@ -43,12 +43,9 @@ class QuestionType extends AbstractType
                             )
                             ))
                 
-            ->add('questionDomaine', 'hidden', array(
+            ->add('questionDomaine', 'text', array(
                                                 'required'      => true,
                                                 'label' => "Domaine :",
-                                                'attr'      => array(
-                                                                        'name'  => 'domaineParent'
-                                                                    ),
                                                 'label_attr'    => array(
                                                                         'class' => 'control-label',
                                                                         'style' => 'text-align:left;'

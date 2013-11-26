@@ -212,7 +212,6 @@ class QuestionController extends Controller
            
            $form->bind($request);
            $question->setQuestionDateEdition(new \DateTime());
-           $question->setQuestionDomaine($domaineService->getDomaineWhoIsSelected('question'));
            
            if($form->isValid()){
                

@@ -1,13 +1,14 @@
 {# empty Twig template #}
 
-{# empty Twig template #}
-
 {% extends "MindSiteBundle::layout.html.twig" %}
 
 {% block sectionCorps %}
     
+<section class="row-fluid"> 
     
-    <span class="formSpan" >
+    <span class="span1"></span>
+    
+    <span class="formSpan span10 well" >
         
         <form action="{{ path('mind_site_avis_modifier', {'idAvis': idAvis}) }}" class="form-horizontal" method="POST" enctype="multipart/form-data">
             
@@ -40,10 +41,11 @@
                     </div>
                 </div>
                 
-                <div class="divDomaineInForm control-group">
-                    <label class="control-label" style="text-align: left">Les domaines</label>
+                <div class="control-group">
+                    {{ form_label(form.avisDomaine) }}
                     <div class="controls">
-                        {{ lesDomaines|raw }}
+                        {{ form_errors(form.avisDomaine) }}
+                        {{ form_widget(form.avisDomaine) }}
                     </div>
                 </div>
                 {#<div>
@@ -76,5 +78,28 @@
         </form>
             
     </span>
+</section>
 
+<script type="text/javascript">
+    
+    $(function(){
+        //local source
+        var data = {% render controller('MindSiteBundle:Domaine:getDomaineForForm') %};
+        $('#mind_sitebundle_avismodifiertype_avisDomaine').select2({
+                                width: 530,
+                                placeholder: 'Selectionnez un domaine',
+                                send: 'never',
+                                data: data,
+                                dropdownCssClass: 'bigdrop'
+                       } );
+                       
+       //Event
+       $('#mind_sitebundle_avismodifiertype_avisDomaine').on('select2-selecting', function(e){
+           
+           $('#mind_sitebundle_avismodifiertype_avisDomaine').attr('value', e.val);
+       });
+    });
+        
+    
+</script>
 {% endblock %}
