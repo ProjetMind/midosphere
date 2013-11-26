@@ -13,7 +13,7 @@ namespace Mind\SiteBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Mind\SiteBundle\Form\Type\DomaineType;
-use Symfony\Component\Routing\Router;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 /**
  * 
@@ -35,7 +35,11 @@ class DomaineController extends Controller
     }
     
     /**
+     * 
      * Gestion de l'ajout de domaine
+     * 
+     * @Secure(roles="ROLE_ADMIN")
+     * 
      * @return type
      */
     public function domainesAction(){
@@ -60,7 +64,13 @@ class DomaineController extends Controller
                 $em->persist($domaine);
                 $em->flush();
                 
-                if($this->container->get('request')->get('mind_sitebundle_domainetype[etat]') == 1){
+                //Acl
+                $serviceAcl = $this->container->get('mind_site.acl_security');
+                $tabAcl     = array();
+                $tabAcl[]   = $domaine;
+                $serviceAcl->updateAcl($tabAcl);
+                
+                if($this->container->get('request')->get('mind_sitebundle_domainetype') == 1){
                     $messageDomaine = "Le domaine a été publié.";
                     $this->get('session')->getFlashBag()->add('success', $messageDomaine);
                 }
