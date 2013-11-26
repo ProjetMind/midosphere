@@ -28,7 +28,7 @@ class RegistrationController extends BaseController
     public function confirmAction($token)
     {
         $user = $this->container->get('fos_user.user_manager')->findUserByConfirmationToken($token);
-
+        $serviceAcl = $this->container->get('mind_site.acl_security');
         if (null === $user) {
             throw new NotFoundHttpException(sprintf('The user with confirmation token "%s" does not exist', $token));
         }
@@ -41,6 +41,12 @@ class RegistrationController extends BaseController
         $this->createAvatar($user->getId(), $user->getPath());
 
         $this->container->get('fos_user.user_manager')->updateUser($user);
+        
+        //Acl
+        $tabAcl = array();
+        $tabAcl[] = $user;
+        $serviceAcl->updateAcl($tabAcl);
+        
         $response = new RedirectResponse($this->container->get('router')->generate('fos_user_registration_confirmed'));
         $this->authenticateUser($user, $response);
 
@@ -77,12 +83,18 @@ class RegistrationController extends BaseController
      */
     public function createAvatar($idUser, $path){
         
+        $serviceAcl = $this->container->get('mind_site.acl_security');
         $avatar = new \Mind\MediaBundle\Entity\Avatar();
         
         $avatar->setIdUser($idUser);
         $avatar->setPath($path);
         $this->container->get('doctrine')->getManager()->persist($avatar);
         $this->container->get('doctrine')->getManager()->flush();
+        
+        //Acl
+        $tabAcl = array();
+        $tabAcl[] = $avatar;
+        $serviceAcl->updateAcl($tabAcl);
         
     }
 
