@@ -10,6 +10,8 @@ class CommentaireQuestionController extends Controller
 {
     /**
      * 
+     * @Secure(roles="ROLE_USER")
+     * 
      * @param type $idQuestion
      * @return type
      * 
@@ -43,6 +45,12 @@ class CommentaireQuestionController extends Controller
                 $em->persist($commentaireQuestion);
                 $em->flush();
                            
+                //Acl 
+                $serviceAcl = $this->container->get('mind_site.acl_security');
+                $tabAcl     = array();
+                $tabAcl[]   = $commentaireQuestion;
+                $serviceAcl->updateAcl($tabAcl);
+                
                 $idCommentaire = $commentaireQuestion->getId();
             }
             

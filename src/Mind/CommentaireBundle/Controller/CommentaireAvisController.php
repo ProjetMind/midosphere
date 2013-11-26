@@ -10,9 +10,10 @@ class CommentaireAvisController extends Controller
 {
     /**
      * 
+     * @Secure(roles="ROLE_USER")
+     * 
      * @param type $idAvis
      * @return type
-     * 
      * 
      */
     public function addCommentaireAvisAction($idAvis){
@@ -43,6 +44,12 @@ class CommentaireAvisController extends Controller
                 $em = $this->getDoctrine()->getEntityManager();
                 $em->persist($commentaireAvis);
                 $em->flush();
+                
+                //Acl 
+                $serviceAcl = $this->container->get('mind_site.acl_security');
+                $tabAcl     = array();
+                $tabAcl[]   = $commentaireAvis;
+                $serviceAcl->updateAcl($commentaireAvis);
                            
                 $idCommentaire = $commentaireAvis->getId();
             }
