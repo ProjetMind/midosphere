@@ -198,13 +198,16 @@ class QuestionController extends Controller
    */
   public function modifierAction($idQuestion)
   {
-      $serviceQuestion = $this->container->get('mind_site.questions');
+       $serviceQuestion = $this->container->get('mind_site.questions');
        $domaineService = $this->container->get('mind_site.domaine');
+       $serviceAcl      = $this->container->get('mind_site.acl_security');
        
        $request = $this->getRequest();
        $em = $this->getDoctrine()->getManager();
        $domaineArray = $em->getRepository('MindSiteBundle:Domaine')->getAllDomainesInArray();
        $question = $serviceQuestion->getQuestionToUpdate($idQuestion);
+       
+       $serviceAcl->checkPermission('EDIT', $question);
        
        if($request->getMethod() == "POST"){
            
@@ -258,11 +261,14 @@ class QuestionController extends Controller
       $serviceQuestion = $this->container->get('mind_site.questions');
       $serviceSuivis = $this->container->get('mind_media.suivis');
       $serviceAbonnement = $this->container->get('mind_media.abonnement');
+      $serviceAcl = $this->container->get('mind_site.acl_security');
       $idUserCourant = $this->container->get('security.context')->getToken()->getUser()->getId();
       
       if($request->getMethod() == 'POST'){
           
           $idQuestion = $_POST['idQuestion'];
+          $question = $serviceQuestion->getQuestionToUpdate($idQuestion);
+          $serviceAcl->checkPermission('DELETE', $question);
           
           if(!empty($idQuestion)){
               
