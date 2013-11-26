@@ -1,10 +1,10 @@
 mind_media_opinion_vote_avis:
   pattern: /vote/avis/je-vote/{idAvis}/{typeOpinion}
-  defaults: { _controller: MindMediaBundle:Vote:jeVoteAvis }
+  defaults: { _controller: MindMediaBundle:VoteAvis:jeVoteAvis }
   
 mind_media_opinion_supprime_vote_avis:
   pattern: /vote/avis/supprime/{idAvis}
-  defaults: { _controller: MindMediaBundle:Vote:supprimerVote }
+  defaults: { _controller: MindMediaBundle:VoteAvis:supprimerVote }
   
   
 mind_media_opinion_vote_question:

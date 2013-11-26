@@ -4,9 +4,17 @@ namespace Mind\MediaBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Mind\MediaBundle\Form\Type\SuivisType;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 class SuivisController extends Controller {
 
+    /**
+     * 
+     * @param type $stringOptions
+     * @return type
+     * 
+     * @Secure(roles="ROLE_USER")
+     */
     public function indexAction($stringOptions){
         
         $suivis         = new \Mind\MediaBundle\Entity\Suivis;

@@ -26,6 +26,18 @@ class OpinionQuestionRepository extends EntityRepository
         return $query->getResult();
     }
     
+    public function getVoteQuestion($idQuestion, $questionAuteur){
+        
+        $query = $this->_em->createQuery('SELECT o
+                                        FROM MindMediaBundle:OpinionQuestion o
+                                         WHERE o.idQuestion = :idQuestion
+                                         AND o.idAuteur = :idAuteur ');
+        
+        $query->setParameter('idQuestion', $idQuestion);
+        $query->setParameter('idAuteur', $questionAuteur);
+        return $query->getOneOrNullResult();
+    }
+    
     public function deleteVoteQuestion($idQuestion, $questionAuteur){
         
         $query = $this->_em->createQuery('DELETE MindMediaBundle:OpinionQuestion o

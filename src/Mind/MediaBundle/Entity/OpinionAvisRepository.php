@@ -27,6 +27,18 @@ class OpinionAvisRepository extends EntityRepository
         return $query->getResult();
     }
     
+    public function getVoteAvis($idAvis, $avisAuteur){
+        
+        $query = $this->_em->createQuery('SELECT o
+                                         FROM MindMediaBundle:OpinionAvis o
+                                         WHERE o.idAvis = :idAvis
+                                         AND o.idAuteur = :idAuteur ');
+        
+        $query->setParameter('idAvis', $idAvis);
+        $query->setParameter('idAuteur', $avisAuteur);
+        return $query->getOneOrNullResult();
+    }
+    
     public function deleteVoteAvis($idAvis, $avisAuteur){
         
         $query = $this->_em->createQuery('DELETE MindMediaBundle:OpinionAvis o

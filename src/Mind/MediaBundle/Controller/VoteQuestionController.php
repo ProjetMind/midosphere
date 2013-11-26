@@ -6,6 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class VoteQuestionController extends Controller
 {
+    /**
+     * 
+     * @param type $idQuestion
+     * @param type $typeOpinion
+     * @return type
+     * 
+     * @Secure(roles="ROLE_USER")
+     */
     public function jeVoteQuestionAction($idQuestion, $typeOpinion)
     {
         $erreurs = "";
@@ -41,6 +49,13 @@ class VoteQuestionController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($opinionQuestion);
                 $em->flush();
+                
+                //Acl 
+                $serviceAcl = $this->container->get('mind_site.acl_security');
+                $tabAcl     = array();
+                $tabAcl[]   = $opinionQuestion;
+                $serviceAcl->updateAcl($tabAcl);
+                
                 $voteEnregistre = true;
             }
         }
@@ -80,6 +95,13 @@ class VoteQuestionController extends Controller
         return $aDejaVote;
     }
     
+    /**
+     * 
+     * @param type $idQuestion
+     * @return type
+     * 
+     * @Secure(roles="ROLE_USER")
+     */
     public function SupprimerVoteAction($idQuestion){
         
         $message = "<ul>";
@@ -90,7 +112,14 @@ class VoteQuestionController extends Controller
         
         if(!empty($questionExiste)){
             
-            $manager->getRepository('MindMediaBundle:OpinionQuestion')->deleteVoteQuestion($idQuestion, $idAuteur);
+            $opinionQuestion = $manager->getRepository('MindMediaBundle:OpinionQuestion')->getVoteQuestion($idQuestion, $idAuteur);
+            
+            //Acl 
+            $serviceAcl = $this->container->get('mind_site.acl_security');
+            $serviceAcl->checkPermission('DELETE', $opinionQuestion);
+            
+            $manager->remove($opinionQuestion);
+            $manager->flush();
             
             $message .= "<li>Vote supprimé avec succès.</li>";
             

@@ -13,6 +13,7 @@ class AbonnementController extends Controller
     
     /**
      * 
+     * 
      * @param type $idUser
      * @param type $idDuDomaine
      * @return type
@@ -45,6 +46,12 @@ class AbonnementController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($abonnementDomaine);
                 $em->flush();
+                
+                //Acl 
+                $serviceAcl = $this->container->get('mind_site.acl_security');
+                $tabAcl     = array();
+                $tabAcl[]   = $abonnementDomaine;
+                $serviceAcl->updateAcl($tabAcl);
             }
         }else{
             
@@ -82,7 +89,15 @@ class AbonnementController extends Controller
         
     }
 
+    /**
+     * 
+     * @Secure(roles="ROLE_USER")
+     * 
+     * @param type $options
+     */
     public function deleteAbonnementDomaineAction($options){
+        
+        $serviceAcl = $this->container->get('midn_site.acl_security');
         
         $manager = $this->getDoctrine()
                         ->getManager();
@@ -91,11 +106,20 @@ class AbonnementController extends Controller
                            ->getRepository('MindMediaBundle:AbonnementDomaine')
                            ->findOneBy($options);
         
+        $serviceAcl->checkPermission('DELETE', $abonnement);
+        
         $manager->remove($abonnement);
         $manager->flush();
         
     }
 
+    /**
+     * 
+     * @param type $idUser
+     * @return type
+     * 
+     * @Secure(roles="ROLE_USER")
+     */
     public function abonnementAction($idUser){
         
         $idUserCourant = $this->get('security.context')->getToken()->getUser()->getId();
@@ -124,6 +148,12 @@ class AbonnementController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($abonnement);
                 $em->flush();
+                
+                 //Acl 
+                $serviceAcl = $this->container->get('mind_site.acl_security');
+                $tabAcl     = array();
+                $tabAcl[]   = $abonnement;
+                $serviceAcl->updateAcl($tabAcl);
             }
         }else{
             
@@ -160,8 +190,14 @@ class AbonnementController extends Controller
         return $estAbonner;
     }
     
+    /**
+     * 
+     * @param type $options
+     * @Secure(roles="ROLE_USER")
+     */
     public function deleteAbonnementAction($options){
         
+        $serviceAcl = $this->container->get('acl_security');
         $manager = $this->getDoctrine()
                         ->getManager();
         
@@ -169,10 +205,11 @@ class AbonnementController extends Controller
                            ->getRepository('MindMediaBundle:Abonnement')
                            ->findOneBy($options);
         
+        $serviceAcl->checkPermission('DELETE', $abonnement);
+        
         $manager->remove($abonnement);
         $manager->flush();
         
     }
 }
 
-?>

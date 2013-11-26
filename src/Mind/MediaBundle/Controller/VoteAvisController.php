@@ -16,7 +16,7 @@ class VoteAvisController extends Controller
      * @Secure(roles="ROLE_USER")
      */
     public function jeVoteAvisAction($idAvis, $typeOpinion)
-    {
+    { 
         $erreurs = "";
         $message = "<ul>";
         $voteEnregistre = false;
@@ -50,6 +50,13 @@ class VoteAvisController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($opinionAvis);
                 $em->flush();
+                
+                //Acl 
+                $serviceAcl = $this->container->get('mind_site.acl_security');
+                $tabAcl     = array();
+                $tabAcl[]   = $opinionAvis;
+                $serviceAcl->updateAcl($tabAcl);
+                
                 $voteEnregistre = true;
             }
         }
@@ -95,6 +102,13 @@ class VoteAvisController extends Controller
         return $aDejaVote;
     }
     
+    /**
+     * 
+     * @param type $idAvis
+     * @return type
+     * 
+     * @Secure(roles="ROLE_USER")
+     */
     public function SupprimerVoteAction($idAvis){
         
         $message = "<ul>";
@@ -105,7 +119,14 @@ class VoteAvisController extends Controller
         
         if(!empty($avisExiste)){
             
-            $manager->getRepository('MindMediaBundle:OpinionAvis')->deleteVoteAvis($idAvis, $idAuteur);
+            $opinionAvis = $manager->getRepository('MindMediaBundle:OpinionAvis')->getVoteAvis($idAvis, $idAuteur);
+            
+            //Acl 
+            $serviceAcl = $this->container->get('mind_site.acl_security');
+            $serviceAcl->checkPermission('DELETE', $opinionAvis);
+            
+            $manager->remove($opinionAvis);
+            $manager->flush();
             
             $message .= "<li>Vote supprimé avec succès.</li>";
             
