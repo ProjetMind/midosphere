@@ -14,9 +14,11 @@
                      <div class="media-heading">
                          <h3>
                              <a href="{{ path('mind_site_question_voir', {"auteur": lesAuteurs[uneQuestion.id].slug, "slug": uneQuestion.slug }) }}"> {{ uneQuestion.questionTitre }} </a>
+                             {% if is_granted('ROLE_USER') %}
                              <span id="spanFormSuivre"> 
                                 {% render controller('MindMediaBundle:Suivis:index', {'stringOptions': app.user.id~'-'~uneQuestion.id~'-'~'question' }) %}
-                            </span> 
+                            </span>
+                             {% endif %}
                           <small class="muted dateElmt">
                              <span>Par {{ lesAuteurs[uneQuestion.id].profileLink|raw }}  </span>
                              <time datetime="{{ lesDates[uneQuestion.id].datePub }}">{{ lesDates[uneQuestion.id].message }}</time>    
@@ -69,16 +71,20 @@
                                 </p>
                             </div>
                             
-                            <div class="tab-pane active" id="commentairesLecture">
+                            <div class="tab-pane" id="commentairesLecture">
+                                
+                                <div class="formAddCommentaire">
+                                    <input type="hidden" name="idQuestion" value="{{ uneQuestion.id }}">
+                                    {% if is_granted('ROLE_USER') %}
+                                        {% render controller('MindCommentaireBundle:CommentaireQuestion:addCommentaireQuestion', {'idQuestion': uneQuestion.id}) %}    
+                                    {% else %}
+                                        {% include 'MindCommentaireBundle::message.html.twig' %}
+                                    {% endif %}
+                                </div>
                                 
                                 {# Les commentaires #}
                                 <div id="groupCommentaires">
                                     {% render controller('MindCommentaireBundle:CommentaireQuestion:getCommentaireQuestion', {'idQuestion': uneQuestion.id}) %}
-                                </div>
-
-                                <div class="formAddCommentaire">
-                                    <input type="hidden" name="idQuestion" value="{{ uneQuestion.id }}">
-                                    {% render controller('MindCommentaireBundle:CommentaireQuestion:addCommentaireQuestion', {'idQuestion': uneQuestion.id}) %}    
                                 </div>
                                 
                             </div>

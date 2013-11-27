@@ -18,10 +18,5 @@
 
 </form>
 
-{% else %}
-    
-    <div class="alert-warning">Vous devez être connecté pour poster des commentaires. </div>
-    <a href="{{ path('fos_user_security_login') }}" class="btn btn-success">Connexion</a>
-    <a href="{{ path("fos_user_registration_register") }}" class="btn">Inscription</a>
-    
 {% endif %}
+    

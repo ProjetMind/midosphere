@@ -19,12 +19,14 @@
 </span>
 
 {# Je vote #}
+{% if is_granted('ROLE_USER') %}
 <span class="span4">
  <div class="media">
      <a class="pull-left" href="#">
         <img class="media-object" src="">
     </a>
 
+     
      <div class="media-body">
          <h5 class="media-heading">Je vote</h5>
          <span id="groupVote" class="btn-group">
@@ -43,4 +45,4 @@
      </div>
  </div>
 </span>
-
+{% endif %}

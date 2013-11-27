@@ -73,5 +73,5 @@ security:
         - { path: ^/question/ajouter-une-question, role: ROLE_USER }
         - { path: ^/messagerie, role: ROLE_USER }
         - { path: ^/compte, role: ROLE_USER }
-#        - { path: ^/avis/commentaire/ajouter-un-commentaire/*, role: ROLE_ADMIN}
-#        - { path: ^/question/commentaire/ajouter-un-commentaire/*, role: USER_ROLE }
+        - { path: ^/avis/commentaire/ajouter-un-commentaire/*, role: ROLE_USER}
+        - { path: ^/question/commentaire/ajouter-un-commentaire/*, role: ROLE_USER }

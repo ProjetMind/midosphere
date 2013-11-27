@@ -3,6 +3,7 @@
 namespace Mind\MediaBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 class VoteQuestionController extends Controller
 {

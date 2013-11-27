@@ -1,0 +1,10 @@
+{# empty Twig template #}
+
+ <div class="alert alert-warning">
+     <p>
+         Vous devez être connecté pour ajouter un commentaire. Si vous n'avez pas de compte, vous avez la possibilité de 
+         vous inscrire.
+     </p>
+    <a href="{{ path('fos_user_security_login') }}" class="btn btn-success btn-large">Connexion</a> ou 
+    <a href="{{ path("fos_user_registration_register") }}" class="btn btn-large">Inscription</a>
+ </div>
