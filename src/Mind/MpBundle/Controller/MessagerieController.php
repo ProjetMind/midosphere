@@ -9,6 +9,9 @@ use Mind\MpBundle\Form\Type\ConversationType;
 use Mind\MpBundle\Form\Type\LectureType;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
+/**
+ * 
+ */
 class MessagerieController extends Controller {
     
     /**
@@ -57,12 +60,13 @@ class MessagerieController extends Controller {
      * A vrai dire, la conversation n'est pas supprimer, elle est juste désactivé pour le user
      * 
      * @return Response
+     * @Secure(roles="ROLE_USER")
      */
     public function supprimerAction(){
         
         $serviceConversation    = $this->container->get('mind_mp.conversation');
         $tabConversation        = $this->getRequest()->get('mind_mpbundle_conversationtype')['id'];
-        
+       
         if(!empty($tabConversation)){
             
             $serviceConversation->supprimerConversation($tabConversation);
@@ -89,6 +93,8 @@ class MessagerieController extends Controller {
      * Archive les conversations et redirige vers la page d'accueil de la messagerie
      * 
      * @return type
+     * @Secure(roles="ROLE_USER")
+     * 
      */
     public function archiverAction(){
         
@@ -185,6 +191,7 @@ class MessagerieController extends Controller {
      * 
      * Retourne le formulaire de message pour la page de lecture d'une conversation
      * 
+     * @Secure(roles="ROLE_USER")
      * @param integer $idConversation
      * @return Response
      */
@@ -293,6 +300,7 @@ class MessagerieController extends Controller {
      * Construit la liste des utilisateurs username et id pour l'envoi de msg
      * C'est la liste des destinataires
      * 
+     * @Secure(roles="ROLE_USER")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function getArrayObjectUserAction(){
