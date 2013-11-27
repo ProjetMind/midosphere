@@ -89,6 +89,7 @@ class ConversationManager extends BaseManager {
             $dossier = $repo->findOneBy($optionsSearch);
             
             if(!empty($dossier)){
+                $this->aclSecurity->checkPermission('EDIT', $dossier);
                 $dossier->setDossier('supprimer');
                 $this->manager->persist($dossier);
             }
