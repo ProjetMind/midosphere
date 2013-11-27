@@ -42,20 +42,20 @@ class ConversationRepository extends EntityRepository
      */
     public function getConversationForConversationType($idUserAuteur, $dossier){
         
-        $idUserCourant     = $idUserAuteur;
-        $tabIdConversation = $this->_em
-                                  ->getRepository('MindMpBundle:Dossier')
-                                  ->getTabConversationByDossier($idUserCourant, $dossier);
-       
+      
         $query = $this->_em->createQuery('SELECT c
-                                          FROM MindMpBundle:Conversation c
-                                          where c.auteurConversation = :auteurConversation
-                                          AND c.id IN (:tabId)
+                                          FROM MindMpBundle:Conversation c, MindMpBundle:Participants p,
+                                               MindMpBundle:Dossier d
+                                          where c.id = p.idConversation
+                                          AND c.id = d.idConversation
+                                          AND d.dossier = :dossier
+                                          AND d.idUser = :idUser
+                                          AND p.idUser = :idUser
                                           ORDER BY c.dateDebutConversation DESC
                                          ');
         
-        $query->setParameter('auteurConversation', $idUserAuteur);
-        $query->setParameter('tabId', $tabIdConversation);
+        $query->setParameter('idUser', $idUserAuteur);
+        $query->setParameter('dossier', $dossier);
         
         return $query->getResult();
     }
