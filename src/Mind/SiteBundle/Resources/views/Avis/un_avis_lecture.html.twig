@@ -14,10 +14,11 @@
                      <div class="media-heading">
                          <h3>
                              <a href="{{ path('mind_site_avis_voir', {"auteur": lesAuteurs[unAvis.id].slug, "slug": unAvis.slug }) }}"> {{ unAvis.avisTitre }} </a>
-                            <span id="spanFormSuivre"> 
+                            {% if is_granted('ROLE_USER') %}
+                             <span id="spanFormSuivre"> 
                                 {% render controller('MindMediaBundle:Suivis:index', {'stringOptions': app.user.id~'-'~unAvis.id~'-'~'avis' }) %}
                             </span> 
-                             
+                             {% endif %}
                           <small class="muted dateElmt">
                              <span>Par {{ lesAuteurs[unAvis.id].profileLink|raw }} </span>
                              <time datetime="{{ lesDates[unAvis.id].datePub }}">{{ lesDates[unAvis.id].message }}</time>    
@@ -44,9 +45,8 @@
                              </span>
                              
                             {# Vote #}     
-                            {% if is_granted('ROLE_USER') %}
                                 {% include 'MindMediaBundle:Vote:je_vote_avis.html.twig' %}
-                            {% endif %} 
+                            
                         </section>
                      
                      
@@ -79,13 +79,17 @@
                             {# Les commentaires #}
                             <div class="tab-pane" id="commentairesLecture">
                                 
-                                <div id="groupCommentaires">
-                                    {% render controller('MindCommentaireBundle:CommentaireAvis:getCommentaireAvis', {'idAvis': unAvis.id}) %}
-                                </div>
-                                
                                 <div class="formAddCommentaire">
                                     <input id="inputIdAvis" type="hidden" name="idAvis" value="{{ unAvis.id }}">
-                                    {% render controller('MindCommentaireBundle:CommentaireAvis:addCommentaireAvis', {'idAvis': unAvis.id}) %}    
+                                    {% if is_granted('ROLE_USER') %}
+                                        {% render controller('MindCommentaireBundle:CommentaireAvis:addCommentaireAvis', {'idAvis': unAvis.id}) %}    
+                                    {% else %}
+                                        {% include 'MindCommentaireBundle::message.html.twig' %}
+                                    {% endif %}
+                                </div>
+                                
+                                <div id="groupCommentaires">
+                                    {% render controller('MindCommentaireBundle:CommentaireAvis:getCommentaireAvis', {'idAvis': unAvis.id}) %}
                                 </div>
                             </div>
                         </div>
