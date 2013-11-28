@@ -3,6 +3,7 @@
 namespace Mind\CommentaireBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * CommentaireQuestion
@@ -68,7 +69,7 @@ class CommentaireQuestion
      * @ORM\Column(name="commentaire_date_publication", type="datetime")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Asser\DateTime(message="Le type n'est pas valide.")
+     * @Assert\DateTime(message="Le type n'est pas valide.")
      */
     private $commentaireDatePublication;
 
