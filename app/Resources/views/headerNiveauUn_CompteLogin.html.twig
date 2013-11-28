@@ -3,7 +3,7 @@
     {# FORM HEADER CONNEXION #}
     <div id="headerConnexion" class="navbar-search pull-right" >
         
-        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        {% if is_granted("ROLE_USER") %}
         
             {# Connecté #}
             {% include '::headerNiveauUnMenuRight.html.twig' %}
