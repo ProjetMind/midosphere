@@ -210,10 +210,11 @@ class QuestionController extends Controller
        
        if($request->getMethod() == "POST"){
            
+           $question->setQuestionDateEdition(new \DateTime());
            $form = $this->createForm(new QuestionModifierType(), $question);
            
            $form->bind($request);
-           $question->setQuestionDateEdition(new \DateTime());
+           
            
            if($form->isValid()){
                

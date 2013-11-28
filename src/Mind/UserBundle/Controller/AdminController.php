@@ -44,13 +44,12 @@ class AdminController extends Controller
         
         if($request->getMethod() == "POST")
         {
-            $form->bind($request);
-            
             $idAuteur = $this->get('security.context')->getToken()->getUser()->getId();
             $domaine->setIdAuteur($idAuteur);
             $domaine->setDateCreation(new \DateTime);
             $domaine->setDomaineSup(-1);
             
+            $form->bind($request);
             
             if($form->isValid())
             {

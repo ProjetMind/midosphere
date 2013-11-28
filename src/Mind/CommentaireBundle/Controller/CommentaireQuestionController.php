@@ -33,11 +33,11 @@ class CommentaireQuestionController extends Controller
         
         if($request->getMethod() == "POST"){
             
-            $form->bind($request);
-            
             $idAuteur = $this->get('security.context')->getToken()->getUser()->getId();
             $commentaireQuestion->setCommentaireIdAuteur($idAuteur);
             $commentaireQuestion->setIdQuestion($idQuestion);
+            
+            $form->bind($request);
             
             if($form->isValid()){
                 

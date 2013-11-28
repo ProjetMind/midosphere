@@ -30,8 +30,8 @@ class VoteQuestionController extends Controller
         
         if(!empty($questionExiste) and $aDejaVote == false){
             
-            $validateur = $this->get('validator');
-            $opinionQuestion = new \Mind\MediaBundle\Entity\OpinionQuestion;
+            $validateur = $this->get('validator'); 
+            $opinionQuestion = new \Mind\MediaBundle\Entity\OpinionQuestion; 
             
             $opinionQuestion->setIdQuestion($idQuestion);
             $opinionQuestion->setIdAuteur($idAuteur);

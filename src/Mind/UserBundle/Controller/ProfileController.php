@@ -310,15 +310,14 @@ class ProfileController extends BaseController
      
     if($request->getMethod() == 'POST' )
     {
-      // Ici, on s'occupera de la création et de la gestion du formulaire
-        
-        $form->bind($request);
         
         $idAuteur = $idAuteur = $this->get('security.context')->getToken()->getUser()->getId();
         $idDomaine = $form->getData()->getAvisDomaine()->getId();
         
         $avis->setAvisAuteur($idAuteur);
         $avis->setAvisDomaine($idDomaine);
+        
+        $form->bind($request);
         
         if($form->isValid()){
              

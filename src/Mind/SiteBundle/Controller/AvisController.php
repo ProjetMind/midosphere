@@ -219,12 +219,11 @@ class AvisController extends Controller
      
     if($request->getMethod() == 'POST')
     {
-      // Ici, on s'occupera de la création et de la gestion du formulaire
-        
-        $form->bind($request);
         
         $idAuteur = $this->get('security.context')->getToken()->getUser()->getId();
         $avis->setAvisAuteur($idAuteur);
+        
+        $form->bind($request);
         
         if($form->isValid()){
              
@@ -290,10 +289,11 @@ class AvisController extends Controller
        
        if($request->getMethod() == "POST"){
            
+           $avis->setAvisDateEdition(new \DateTime());
            $form = $this->createForm(new AvisModifierType($domaineArray), $avis);
            
            $form->bind($request);
-           $avis->setAvisDateEdition(new \DateTime());
+           
            
            if($form->isValid()){
                

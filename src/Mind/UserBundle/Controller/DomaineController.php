@@ -31,10 +31,10 @@ class DomaineController extends Controller
         
         if($request->getMethod() == "POST")
         {
-            $form->bind($request);
-            
             $idAuteur = $idAuteur = $this->get('security.context')->getToken()->getUser()->getId();
             $domaine->setIdAuteur($idAuteur);
+            
+            $form->bind($request);
             
             if($form->isValid())
             { 
