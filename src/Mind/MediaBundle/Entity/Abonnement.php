@@ -3,6 +3,8 @@
 namespace Mind\MediaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Abonnement
@@ -25,6 +27,9 @@ class Abonnement
      * @var integer
      *
      * @ORM\Column(name="id_user", type="integer")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idUser;
     
@@ -33,6 +38,9 @@ class Abonnement
      * @var integer
      * 
      * @ORM\Column(name="id_souscripteur", type="integer")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      *  
      */
     private $idSouscripteur;

@@ -70,6 +70,9 @@ class ImageAvis
      * @ORM\Column(name="avis", type="integer")
      * @ORM\OneToOne(targetEntity="Mind\MediaBundle\Entity\ImageAvis")
      * @ORM\JoinColumn(name="avis", referencedColumnName="id")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $avis;
 

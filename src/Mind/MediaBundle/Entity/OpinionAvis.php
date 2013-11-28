@@ -35,12 +35,18 @@ class OpinionAvis
      * @ORM\OneToOne(targetEntity="MindSiteBundle\Entity\Avis")
      * @ORM\JoinColumn(name="id_avis", referencedColumnName="id")
      * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * 
      */
     private $idAvis;
     
     /**
      * 
      * @ORM\Column(name="date_publication_opinion", type="datetime")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\DateTime(message="Le type n'est pas valide")
      */
     private $datePublicationOpinion;
     
@@ -51,6 +57,9 @@ class OpinionAvis
      * @ORM\Column(name="id_auteur", type="integer")
      * @ORM\OneToOne(targetEntity="MindUserBundle\Entity\User")
      * @ORM\JoinColumn(name="id_membre", referencedColumnName="id")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idAuteur;
 
@@ -58,6 +67,9 @@ class OpinionAvis
      * @var integer
      *
      * @ORM\Column(name="type_opinion", type="integer", length=3)
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="booleab", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $typeOpinion;
 

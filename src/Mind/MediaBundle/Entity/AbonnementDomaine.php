@@ -25,6 +25,9 @@ class AbonnementDomaine
      * @var integer
      *
      * @ORM\Column(name="id_user", type="integer")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idUser;
 
@@ -32,6 +35,9 @@ class AbonnementDomaine
      * @var integer
      *
      * @ORM\Column(name="id_domaine", type="integer")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idDomaine;
 

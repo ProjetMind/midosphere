@@ -25,6 +25,9 @@ class Suivis
      * @var integer
      *
      * @ORM\Column(name="id_user", type="integer")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idUser;
 
@@ -32,6 +35,9 @@ class Suivis
      * @var integer
      *
      * @ORM\Column(name="id_entity", type="integer")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idEntity;
 
@@ -39,6 +45,9 @@ class Suivis
      * @var string
      *
      * @ORM\Column(name="type_entity", type="string", length=10)
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="string", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $typeEntity;
 
@@ -46,6 +55,9 @@ class Suivis
      * @var boolean
      *
      * @ORM\Column(name="disabled", type="boolean")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="boolean", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $disabled;
 
