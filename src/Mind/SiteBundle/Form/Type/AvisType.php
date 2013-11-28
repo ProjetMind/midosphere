@@ -69,7 +69,7 @@ class AvisType extends AbstractType
                                 ))
                 
             ->add('avisDomaine', 'text', array(
-                                                'required'  => true,
+                                                'required'  => false,
                                                 'label'     => "Domaines :",
                                                 'label_attr'    => array(
                                                                             'class' => 'control-label',

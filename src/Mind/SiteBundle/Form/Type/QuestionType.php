@@ -44,7 +44,7 @@ class QuestionType extends AbstractType
                             ))
                 
             ->add('questionDomaine', 'text', array(
-                                                'required'      => true,
+                                                'required'      => false,
                                                 'label' => "Domaine :",
                                                 'label_attr'    => array(
                                                                         'class' => 'control-label',
