@@ -35,6 +35,9 @@ class Conversation
      * @ORM\Column(name="auteur_conversation", type="integer")
      * @ORM\OneToOne(targetEntity="Mind\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="auteur_conversation", referencedColumnName="id")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $auteurConversation;
 
@@ -43,6 +46,9 @@ class Conversation
      * @var DateTime
      * 
      * @ORM\Column(name="date_debut_conversation", type="datetime")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\DateTime(message="Le type n'est pas valide.")
      */
     private $dateDebutConversation;
     

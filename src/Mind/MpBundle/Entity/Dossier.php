@@ -25,6 +25,9 @@ class Dossier
      * @var integer
      *
      * @ORM\Column(name="id_user", type="integer")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idUser;
 
@@ -32,6 +35,9 @@ class Dossier
      * @var integer
      *
      * @ORM\Column(name="id_conversation", type="integer")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idConversation;
 
@@ -39,6 +45,9 @@ class Dossier
      * @var string
      *
      * @ORM\Column(name="dossier", type="string", length=10)
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="string", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $dossier;
 

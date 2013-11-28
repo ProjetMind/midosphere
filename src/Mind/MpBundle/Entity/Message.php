@@ -34,6 +34,9 @@ class Message
      * @ORM\OneToOne(targetEntity="Mind\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="auteur_conversation", referencedColumnName="id")
      * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * 
      */
     private $idExpediteur;
     
@@ -45,9 +48,13 @@ class Message
     public $destinataires;
 
     /**
-     * @var string
+     * @var text
      *
-     * @ORM\Column(name="contenu_message", type="string", length=255)
+     * @ORM\Column(name="contenu_message", type="text", length=255)
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="text", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * 
      */
     private $contenuMessage;
 
@@ -55,6 +62,9 @@ class Message
      * @var \DateTime
      *
      * @ORM\Column(name="date_envoi_message", type="datetime")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\DateTime(message="Le type n'est pas valide.")
      */
     private $dateEnvoiMessage;
 
@@ -64,6 +74,9 @@ class Message
      * @ORM\Column(name="id_conversation", type="integer")
      * @ORM\OneToOne(targetEntity="MindMessageBundle\Entity\Conversation")
      * @ORM\JoinColumn(name="id_conversation", referencedColumnName="id")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      * 
      */
     private $idConversation;
@@ -110,7 +123,7 @@ class Message
      */
     public function setContenuMessage($contenuMessage)
     {
-        $this->contenuMessage = $contenuMessage;
+        $this->contenuMessage = nl2br($contenuMessage);
 
         return $this;
     }
