@@ -121,6 +121,8 @@ class User extends BaseUser
      * 
      * @ORM\Column(name="ville", type="string", length=50, nullable=true)
      * 
+     * @Assert\Type(type="string", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * 
      */
     private $ville;
     
@@ -130,6 +132,7 @@ class User extends BaseUser
      * 
      * @ORM\Column(name="pays", type="string", length=50, nullable=true)
      * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
      * @Assert\Type(type="string", message="le pays doit être une chaine de caractère.")
      * @Assert\Length(
      *                  min=2, max=20, 
@@ -156,7 +159,7 @@ class User extends BaseUser
      *
      * @var type boolean
      * 
-     * @ORM\Column(name="cdt_generales", type="boolean", nullable=true)
+     * @ORM\Column(name="cdt_generales", type="boolean")
      * @Assert\NotBlank(message="Vous devez accepté les conditions générales du site.")
      * 
      */
@@ -168,6 +171,8 @@ class User extends BaseUser
      * @var type text
      * 
      * @Orm\Column(name="descrip_user", type="text", nullable=true)
+     * 
+     * @Assert\Type(type="text", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $descripUser;
 

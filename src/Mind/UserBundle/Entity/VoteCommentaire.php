@@ -25,6 +25,9 @@ class VoteCommentaire
      * @var \DateTime
      *
      * @ORM\Column(name="commentaire_date_vote", type="datetime")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\DateTime(message="Le type de champ n'est valide.")
      */
     private $commentaireDateVote;
     
@@ -46,6 +49,9 @@ class VoteCommentaire
      * @ORM\Column(name="commentaire_auteur_vote", type="integer")
      * @ORM\OneToOne(targetEntity="Mind\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="commentaire_auteur_vote", referencedColumnName="id")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $commentaireAuteurVote;
     
@@ -56,6 +62,9 @@ class VoteCommentaire
      * @ORM\Column(name="commentaire", type="integer")
      * @ORM\OneToOne(targetEntity="Mind\SiteBundle\Entity\Avis")
      * @ORM\JoinColumn(name="commentaire", referencedColumnName="id")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $commentaire;
 

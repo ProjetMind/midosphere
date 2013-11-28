@@ -25,6 +25,9 @@ class VoteQuestion
      * @var \DateTime
      *
      * @ORM\Column(name="question_date_vote", type="datetime")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\DateTime(message="Le type de champ n'est valide.")
      */
     private $questionDateVote;
     
@@ -46,6 +49,9 @@ class VoteQuestion
      * @ORM\Column(name="question_auteur_vote", type="integer")
      * @ORM\OneToOne(targetEntity="Mind\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="question_auteur_vote", referencedColumnName="id")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $questionAuteurVote;
     
@@ -56,6 +62,9 @@ class VoteQuestion
      * @ORM\Column(name="avis", type="integer")
      * @ORM\OneToOne(targetEntity="Mind\SiteBundle\Entity\Avis")
      * @ORM\JoinColumn(name="question", referencedColumnName="id")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $question;
 
