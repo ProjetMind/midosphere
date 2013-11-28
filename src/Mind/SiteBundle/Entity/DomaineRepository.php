@@ -13,6 +13,18 @@ use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 class DomaineRepository extends NestedTreeRepository
 {
     
+    
+    public function getDomaineByNiveau($niveau){
+    
+        $query = $this->_em->createQuery('SELECT d
+                                          FROM MindSiteBundle:Domaine d
+                                          WHERE d.niveau = :niveau
+                                          ORDER BY d.libelle DESC
+                                         ');
+        $query->setParameter('niveau', $niveau);
+        return $query->getResult();
+    }
+    
     public function getSql($optionsFiltres, $termsDeRecherche){
         
         $sql            = "SELECT d

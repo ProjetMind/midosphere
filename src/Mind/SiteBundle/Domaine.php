@@ -270,6 +270,8 @@ class Domaine extends NestedTreeRepository{
     
     /**
      * 
+     * Unitulisé
+     * 
      * Permet de récupérer le domaine qui est séléctionné
      * 
      * @return int l'id du domaine selectionné
@@ -289,6 +291,8 @@ class Domaine extends NestedTreeRepository{
     }
         
     /**
+     * 
+     * Inutilisé
      * 
      * Permet de récupérer le formulaire domaine pour :
      * - l'ajout et la modification de domaine
@@ -337,6 +341,8 @@ class Domaine extends NestedTreeRepository{
     
     /**
      * 
+     * Inutilisé 
+     * 
      * Permet de récupérer dans un tableau le label et le input d'un élément de formulaire de domaine :
      * - Le label open : "labelOpen" 
      * - Le label close : "labelClose"
@@ -372,6 +378,8 @@ class Domaine extends NestedTreeRepository{
     }
     
     /**
+     * 
+     * Inutilisé 
      * 
      * @param int $idDomaine 
      * @param string $libelle
@@ -422,6 +430,45 @@ class Domaine extends NestedTreeRepository{
         }
         
         return $tabDomaine;
+    }
+    
+    public function getListeDomaine(){
+        
+        $tabDomaineNiveauUn = $this->manager->getRepository('MindSiteBundle:Domaine')->getDomaineByNiveau(0);
+        
+        $tabTree = array();
+        
+        $childSort = array(
+                            'field' => 'title',
+                            'dir'   => 'asc'
+        );
+        $options = array(
+                            'childSort' => $childSort,
+                            'decorate' => true,
+                            'rootOpen' => '<ul>',
+                            'rootClose' => '</ul>',
+                            'childOpen' => '<li>',
+                            'childClose' => '</li>',
+                            'nodeDecorator' => function($node){
+                                return '<a href="'.$this->router->generate("mind_site_domaine_voir",
+                                    array("slug"=>$node['slug'])).'">'.$node['libelle'].'<sub> ('.
+                                    $this->childCount($this->find($node['id']), true).')</sub></a>';
+                            }
+            );
+        
+            foreach ($tabDomaineNiveauUn as $domaine){
+           
+                $tabTree[] = $this->childrenHierarchy($domaine, false, $options, true);
+            
+            }
+        
+        return $tabTree;
+        
+    }
+    
+    public function getNbChild($idDomaine){
+        
+        $this->manager->getRepository($className);
     }
 }
 

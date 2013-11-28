@@ -26,9 +26,13 @@
                             {{ form_errors(form.etat) }}
                     </div>
 
-                    <div class="divDomaineInForm">
-                        <label>Séléctionnez le domaine parent :</label>
-                        {{ lesDomaines|raw }}
+                    <div class="control-group">
+                        {{ form_label(form.parent) }}
+                        
+                        <div class='controls'>
+                            {{ form_widget(form.parent) }}
+                            {{ form_errors(form.parent) }}
+                        </div>
                     </div>
 
                     {#

@@ -1,0 +1,48 @@
+{# empty Twig template #}
+
+{% set nbDiv    = lesDomaines|length / 4 %}
+{% set nbElmt   = lesDomaines|length // 4 %}
+{% set tabIndex = 0 %}
+
+{% if nbDiv > nbElmt %}
+    {% set nbElmt = nbElmt + 1 %}
+{% endif %}
+
+<table class="table table-striped table-bordered">
+    
+    <tbody>
+        {% for i in 1..nbElmt %}
+        <tr>
+            {% if lesDomaines[tabIndex] is defined %}
+                <td>{{ lesDomaines[tabIndex]|raw }}</td>
+                {% set tabIndex = tabIndex + 1 %}
+            {% else %}
+                <td></td>
+            {% endif %}
+            
+            {% if lesDomaines[tabIndex] is defined %}    
+                <td>{{ lesDomaines[tabIndex]|raw }}</td>
+                {% set tabIndex = tabIndex + 1 %}
+            {% else %}
+                <td></td>
+            {% endif %}
+            
+            {% if lesDomaines[tabIndex] is defined %}
+                <td>{{ lesDomaines[tabIndex]|raw }}</td>
+                {% set tabIndex = tabIndex + 1 %}
+            {% else %}
+                <td></td>
+            {% endif %}
+                
+            {% if lesDomaines[tabIndex] is defined %}
+                <td>{{ lesDomaines[tabIndex]|raw }}</td>
+                {% set tabIndex = tabIndex + 1 %}
+            {% else %}
+                <td></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        
+    </tbody>
+    
+</table>

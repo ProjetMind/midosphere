@@ -20,19 +20,19 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
  */
 class DomaineController extends Controller
 {
-    public function getDomainesTreeAction(){
-    
-        $domaines = $this->getDoctrine()
-                        ->getManager()
-                        ->getRepository('MindSiteBundle:Domaine')
-                        ->getDomainesTree();
-        
-        $template = sprintf('MindSiteBundle:Forms:form_domaines_tree.html.twig');
-        return $this->container->get('templating')->renderResponse($template, 
-                array(
-                        'domaines'  => $domaines
-                ));
-    }
+//    public function getDomainesTreeAction(){
+//    
+//        $domaines = $this->getDoctrine()
+//                        ->getManager()
+//                        ->getRepository('MindSiteBundle:Domaine')
+//                        ->getDomainesTree();
+//        
+//        $template = sprintf('MindSiteBundle:Forms:form_domaines_tree.html.twig');
+//        return $this->container->get('templating')->renderResponse($template, 
+//                array(
+//                        'domaines'  => $domaines
+//                ));
+//    }
     
     /**
      * 
@@ -104,7 +104,7 @@ class DomaineController extends Controller
     public function getListeDomainePageAction(){
         
         $domaineService = $this->container->get('mind_site.domaine');
-        $lesDomaines    = $domaineService->getHtmlListeDomaine();
+        $lesDomaines    = $domaineService->getListeDomaine();
         
         $template = sprintf('MindSiteBundle:Domaines:page_domaines.html.twig');
         return $this->container->get('templating')->renderResponse($template,
@@ -134,37 +134,37 @@ class DomaineController extends Controller
         
     }
 
-    public function getDomaineWithAvisAction($slug){
-        
-        $controllerAvis = new AvisController();
-        $manager    = $this->getDoctrine()->getManager();
-        
-        $leDomaine = $this->getDoctrine()
-                          ->getManager()
-                          ->getRepository('MindSiteBundle:Domaine')
-                          ->getDomaineBySlug($slug);
-        
-        $idDuDomaine = $leDomaine->getId();
-        
-        $lesAvis = $this->getDoctrine()
-                        ->getManager()
-                        ->getRepository('MindSiteBundle:Avis')
-                        ->getAvisByDomaine($idDuDomaine);
-                      
-        $lesDomaines                = $controllerAvis->getDomaineWithLink($lesAvis, $manager);
-        $lesAuteurs                 = $controllerAvis->getAuteursAvis($lesAvis, $manager); 
-        $lesDatesDePublication      = $controllerAvis->getDatePublication($lesAvis, $manager);  
-
-        $template = sprintf('MindSiteBundle:Avis:tout_les_avis.html.twig');
-        return $this->container->get('templating')->renderResponse($template, 
-                array('titreGroupAvis'  => "Les avis du domaine",
-                      'lesAvis' => $lesAvis, 
-                      'lesDomaines' => $lesDomaines,
-                      'lesAuteurs'  => $lesAuteurs,
-                      'lesDates'    => $lesDatesDePublication
-                       ));
-        
-    }
+//    public function getDomaineWithAvisAction($slug){
+//        
+//        $controllerAvis = new AvisController();
+//        $manager    = $this->getDoctrine()->getManager();
+//        
+//        $leDomaine = $this->getDoctrine()
+//                          ->getManager()
+//                          ->getRepository('MindSiteBundle:Domaine')
+//                          ->getDomaineBySlug($slug);
+//        
+//        $idDuDomaine = $leDomaine->getId();
+//        
+//        $lesAvis = $this->getDoctrine()
+//                        ->getManager()
+//                        ->getRepository('MindSiteBundle:Avis')
+//                        ->getAvisByDomaine($idDuDomaine);
+//                      
+//        $lesDomaines                = $controllerAvis->getDomaineWithLink($lesAvis, $manager);
+//        $lesAuteurs                 = $controllerAvis->getAuteursAvis($lesAvis, $manager); 
+//        $lesDatesDePublication      = $controllerAvis->getDatePublication($lesAvis, $manager);  
+//
+//        $template = sprintf('MindSiteBundle:Avis:tout_les_avis.html.twig');
+//        return $this->container->get('templating')->renderResponse($template, 
+//                array('titreGroupAvis'  => "Les avis du domaine",
+//                      'lesAvis' => $lesAvis, 
+//                      'lesDomaines' => $lesDomaines,
+//                      'lesAuteurs'  => $lesAuteurs,
+//                      'lesDates'    => $lesDatesDePublication
+//                       ));
+//        
+//    }
     
     public function getDomainesAjaxAction($id){
        
@@ -179,14 +179,14 @@ class DomaineController extends Controller
          
    }
    
-   public function getMetaDataDomaine(){
-       
-       return $this->getDoctrine()
-                   ->getManager()
-                   ->getRepository('MindSiteBundle:Domaine')
-                   ->getMetaDataDomaine();
-   }
-   
+//   public function getMetaDataDomaine(){
+//       
+//       return $this->getDoctrine()
+//                   ->getManager()
+//                   ->getRepository('MindSiteBundle:Domaine')
+//                   ->getMetaDataDomaine();
+//   }
+//   
  
    public function getDomaineForFormAction(){
        
@@ -198,4 +198,5 @@ class DomaineController extends Controller
        
        return $response;
    }
+   
 }

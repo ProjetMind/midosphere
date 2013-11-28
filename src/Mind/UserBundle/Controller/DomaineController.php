@@ -36,9 +36,8 @@ class DomaineController extends Controller
             $idAuteur = $idAuteur = $this->get('security.context')->getToken()->getUser()->getId();
             $domaine->setIdAuteur($idAuteur);
             
-            
             if($form->isValid())
-            {
+            { 
                 $em = $this->getDoctrine()->getEntityManager();
                 $em->persist($domaine);
                 $em->flush();
