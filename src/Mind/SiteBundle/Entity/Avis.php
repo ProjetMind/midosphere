@@ -40,7 +40,16 @@ class Avis
      *
      * @var type \string
      * 
-     * @ORM\Column(name="avis_titre", type="string", length=100)
+     * @ORM\Column(name="avis_titre", type="string", length=200)
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="string", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Length(
+     *      min = "2",
+     *      max = "200",
+     *      minMessage = "Votre titre doit faire au moins {{ limit }} caractères",
+     *      maxMessage = "Votre titre ne peut pas être plus long que {{ limit }} caractères"
+     * )
      * 
      */
     private $avisTitre;
@@ -64,6 +73,9 @@ class Avis
      *
      * @ORM\Column(name="avis", type="text")
      * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="text", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * 
      */
     private $avis;
     
@@ -72,6 +84,9 @@ class Avis
      * @var type integer
      * 
      * @ORM\Column(name="type_opinion", type="integer", length=3)
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="boolean", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $typeOpinion;
 
@@ -79,6 +94,9 @@ class Avis
      * @var \DateTime
      *
      * @ORM\Column(name="avis_date_publication", type="datetime")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\DateTime(message="Le type n'est pas valide.")
      */
     private $avisDatePublication;
 
@@ -86,6 +104,7 @@ class Avis
      * @var \DateTime
      *
      * @ORM\Column(name="avis_date_edition", type="datetime", nullable=true)
+     * @Assert\DateTime(message="Le type n'est pas valide.")
      */
     private $avisDateEdition;
 
@@ -99,6 +118,9 @@ class Avis
      * @ORM\Column(name="avis_auteur", type="integer")
      * @ORM\OneToOne(targetEntity="Mind\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="avis_auteur", referencedColumnName="id")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $avisAuteur;
     
@@ -108,6 +130,7 @@ class Avis
      * @ORM\Column(name="avis_adresse", type="integer", nullable=true)
      * @ORM\OneToOne(targetEntity="Mind\SiteBundle\Entity\Adresse")
      * @ORM\JoinColumn(name="avis_adresse", referencedColumnName="id")
+     * 
      */
     private $avisAdresse;
     
@@ -121,6 +144,7 @@ class Avis
      * @ORM\JoinColumn(name="domaine_id", referencedColumnName="id")
      * 
      * @Assert\NotBlank(message="Vous devez indiquez un domaine.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $avisDomaine;
     

@@ -38,6 +38,9 @@ class Domaine implements \Gedmo\Tree\Node
      * @ORM\JoinColumn(name="id_auteur", referencedColumnName="id")
      * 
      * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * 
      */
     private $idAuteur;
 
@@ -47,6 +50,13 @@ class Domaine implements \Gedmo\Tree\Node
      * @ORM\Column(name="libelle", type="string", length=50)
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="string", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Length(
+     *      min = "2",
+     *      max = "50",
+     *      minMessage = "Votre libelle doit faire au moins {{ limit }} caractères",
+     *      maxMessage = "Votre libelle ne peut pas être plus long que {{ limit }} caractères"
+     * )
      */
     private $libelle;
     
@@ -63,6 +73,7 @@ class Domaine implements \Gedmo\Tree\Node
      * @ORM\Column(name="etat", type="boolean")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="boolean", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $etat;
     
@@ -73,6 +84,9 @@ class Domaine implements \Gedmo\Tree\Node
      * @ORM\Column(name="date_creation", type="datetime")
      * @Assert\DateTime(message="Ce champ doit être de type date.")
      * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\DateTime(message="Le type de champ n'est pas valide.")
+     * 
      */
     private $dateCreation;
     
@@ -81,7 +95,7 @@ class Domaine implements \Gedmo\Tree\Node
      * @var type \DateTime
      * 
      * @ORM\Column(name="date_update", type="datetime", nullable=true)
-     * @Assert\DateTime(message="Ce champ doit être de type date.")
+     * @Assert\DateTime(message="Le type de champ n'est pas valide.")
      * 
      */
     private $dateUpdate;

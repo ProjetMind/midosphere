@@ -32,7 +32,16 @@ class Question
     /**
      * @var string
      *
-     * @ORM\Column(name="question_titre", type="string", length=100)
+     * @ORM\Column(name="question_titre", type="string", length=200)
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="string", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Length(
+     *      min = "2",
+     *      max = "200",
+     *      minMessage = "Votre titre doit faire au moins {{ limit }} caractères",
+     *      maxMessage = "Votre titre ne peut pas être plus long que {{ limit }} caractères"
+     * )
      * 
      */
     private $questionTitre;
@@ -48,6 +57,8 @@ class Question
      *
      * @ORM\Column(name="question", type="text")
      * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="text", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $question;
     
@@ -56,6 +67,9 @@ class Question
      *
      * @ORM\Column(name="question_date_publication", type="datetime")
      * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\DateTime(message="Le type n'est pas valide.")
+     * 
      */
     private $questionDatePublication;
 
@@ -63,6 +77,8 @@ class Question
      * @var \DateTime
      *
      * @ORM\Column(name="question_date_edition", type="datetime", nullable=true)
+     * 
+     * @Assert\DateTime(message="Le type n'est pas valide.")
      */
     private $questionDateEdition;
     
@@ -75,6 +91,9 @@ class Question
      * @ORM\Column(name="question_auteur", type="integer")
      * @ORM\OneToOne(targetEntity="Mind\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="question_auteur", referencedColumnName="id")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $questionAuteur;
     
@@ -87,6 +106,8 @@ class Question
      * @ORM\JoinColumn(name="question_domaine", referencedColumnName="id")
      * 
      * @Assert\NotBlank(message="Vous devez indiquez un domaine.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * 
      */
     private $questionDomaine;
     
