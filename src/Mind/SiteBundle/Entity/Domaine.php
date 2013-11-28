@@ -39,7 +39,7 @@ class Domaine implements \Gedmo\Tree\Node
      * 
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      * 
      */
     private $idAuteur;
@@ -167,7 +167,7 @@ class Domaine implements \Gedmo\Tree\Node
      */
     public function setIdAuteur($idAuteur)
     {
-        $this->idAuteur = $idAuteur;
+        $this->idAuteur = intval($idAuteur);
 
         return $this;
     }

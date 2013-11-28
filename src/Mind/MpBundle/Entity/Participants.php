@@ -28,7 +28,7 @@ class Participants
      * @ORM\Column(name="id_conversation", type="integer")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      * 
      */
     private $idConversation;
@@ -39,7 +39,7 @@ class Participants
      * @ORM\Column(name="id_user", type="integer")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idUser;
 
@@ -62,7 +62,7 @@ class Participants
      */
     public function setIdConversation($idConversation)
     {
-        $this->idConversation = $idConversation;
+        $this->idConversation = intval($idConversation);
 
         return $this;
     }
@@ -85,7 +85,7 @@ class Participants
      */
     public function setIdUser($idUser)
     {
-        $this->idUser = $idUser;
+        $this->idUser = intval($idUser);
 
         return $this;
     }

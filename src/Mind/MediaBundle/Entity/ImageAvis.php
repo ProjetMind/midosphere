@@ -72,7 +72,7 @@ class ImageAvis
      * @ORM\JoinColumn(name="avis", referencedColumnName="id")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $avis;
 
@@ -176,7 +176,7 @@ class ImageAvis
      */
     public function setAvis($avis)
     {
-        $this->avis = $avis;
+        $this->avis = intval($avis);
 
         return $this;
     }

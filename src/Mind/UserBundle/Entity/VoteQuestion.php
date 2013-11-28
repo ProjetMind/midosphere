@@ -51,7 +51,7 @@ class VoteQuestion
      * @ORM\JoinColumn(name="question_auteur_vote", referencedColumnName="id")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $questionAuteurVote;
     
@@ -64,7 +64,7 @@ class VoteQuestion
      * @ORM\JoinColumn(name="question", referencedColumnName="id")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $question;
 
@@ -133,7 +133,7 @@ class VoteQuestion
      */
     public function setQuestionAuteurVote($questionAuteurVote)
     {
-        $this->questionAuteurVote = $questionAuteurVote;
+        $this->questionAuteurVote = intval($questionAuteurVote);
 
         return $this;
     }
@@ -156,7 +156,7 @@ class VoteQuestion
      */
     public function setQuestion($question)
     {
-        $this->question = $question;
+        $this->question = intval($question);
 
         return $this;
     }

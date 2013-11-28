@@ -74,7 +74,7 @@ class Avis
      * @ORM\Column(name="avis", type="text")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="text", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="string", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      * 
      */
     private $avis;
@@ -86,7 +86,7 @@ class Avis
      * @ORM\Column(name="type_opinion", type="integer", length=3)
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="boolean", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $typeOpinion;
 
@@ -120,7 +120,7 @@ class Avis
      * @ORM\JoinColumn(name="avis_auteur", referencedColumnName="id")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $avisAuteur;
     
@@ -144,7 +144,7 @@ class Avis
      * @ORM\JoinColumn(name="domaine_id", referencedColumnName="id")
      * 
      * @Assert\NotBlank(message="Vous devez indiquez un domaine.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $avisDomaine;
     
@@ -261,7 +261,7 @@ class Avis
      */
     public function setTypeOpinion($typeOpinion)
     {
-        $this->typeOpinion = $typeOpinion;
+        $this->typeOpinion = intval($typeOpinion);
 
         return $this;
     }
@@ -330,7 +330,7 @@ class Avis
      */
     public function setAvisAuteur($avisAuteur)
     {
-        $this->avisAuteur = $avisAuteur;
+        $this->avisAuteur = intval($avisAuteur);
 
         return $this;
     }
@@ -376,7 +376,7 @@ class Avis
      */
     public function setAvisDomaine($avisDomaine)
     {
-        $this->avisDomaine = $avisDomaine;
+        $this->avisDomaine = intval($avisDomaine);
 
         return $this;
     }

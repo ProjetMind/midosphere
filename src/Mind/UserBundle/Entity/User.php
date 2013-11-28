@@ -172,7 +172,7 @@ class User extends BaseUser
      * 
      * @Orm\Column(name="descrip_user", type="text", nullable=true)
      * 
-     * @Assert\Type(type="text", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="string", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $descripUser;
 

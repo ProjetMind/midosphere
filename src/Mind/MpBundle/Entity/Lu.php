@@ -33,7 +33,7 @@ class Lu
      * @ORM\Column(name="id_user", type="integer")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idUser;
 
@@ -43,7 +43,7 @@ class Lu
      * @ORM\Column(name="id_message", type="integer")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idMessage;
 
@@ -53,7 +53,7 @@ class Lu
      * @ORM\Column(name="id_conversation", type="integer")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idConversation;
 
@@ -86,7 +86,7 @@ class Lu
      */
     public function setIdUser($idUser)
     {
-        $this->idUser = $idUser;
+        $this->idUser = intval($idUser);
 
         return $this;
     }
@@ -109,7 +109,7 @@ class Lu
      */
     public function setIdMessage($idMessage)
     {
-        $this->idMessage = $idMessage;
+        $this->idMessage = intval($idMessage);
 
         return $this;
     }
@@ -132,7 +132,7 @@ class Lu
      */
     public function setIdConversation($idConversation)
     {
-        $this->idConversation = $idConversation;
+        $this->idConversation = intval($idConversation);
 
         return $this;
     }

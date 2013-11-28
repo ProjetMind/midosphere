@@ -149,11 +149,10 @@ class QuestionController extends Controller
     if($request->getMethod() == 'POST' )
     {
       // Ici, on s'occupera de la création et de la gestion du formulaire
-        
-        $form->bind($request);
-        
         $idAuteur = $idAuteur = $this->get('security.context')->getToken()->getUser()->getId();
         $question->setQuestionAuteur($idAuteur);
+        
+        $form->bind($request);
         
         if($form->isValid()){
             

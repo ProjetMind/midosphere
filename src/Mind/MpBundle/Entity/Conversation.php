@@ -38,7 +38,7 @@ class Conversation
      * @ORM\JoinColumn(name="auteur_conversation", referencedColumnName="id")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $auteurConversation;
 
@@ -71,7 +71,7 @@ class Conversation
      */
     public function setAuteurConversation($auteurConversation)
     {
-        $this->auteurConversation = $auteurConversation;
+        $this->auteurConversation = intval($auteurConversation);
 
         return $this;
     }

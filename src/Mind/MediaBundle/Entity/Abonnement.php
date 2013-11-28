@@ -29,7 +29,7 @@ class Abonnement
      * @ORM\Column(name="id_user", type="integer")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idUser;
     
@@ -40,7 +40,7 @@ class Abonnement
      * @ORM\Column(name="id_souscripteur", type="integer")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      *  
      */
     private $idSouscripteur;
@@ -64,7 +64,7 @@ class Abonnement
      */
     public function setIdUser($idUser)
     {
-        $this->idUser = $idUser;
+        $this->idUser = intval($idUser);
 
         return $this;
     }
@@ -87,7 +87,7 @@ class Abonnement
      */
     public function setIdSouscripteur($idSouscripteur)
     {
-        $this->idSouscripteur = $idSouscripteur;
+        $this->idSouscripteur = intval($idSouscripteur);
 
         return $this;
     }

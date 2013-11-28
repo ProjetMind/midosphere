@@ -51,7 +51,7 @@ class VoteAvis
      * @ORM\JoinColumn(name="avis_auteur_vote", referencedColumnName="id")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $avisAuteurVote;
     
@@ -64,7 +64,7 @@ class VoteAvis
      * @ORM\JoinColumn(name="avis", referencedColumnName="id")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $avis;
 
@@ -133,7 +133,7 @@ class VoteAvis
      */
     public function setAvisAuteurVote($avisAuteurVote)
     {
-        $this->avisAuteurVote = $avisAuteurVote;
+        $this->avisAuteurVote = intval($avisAuteurVote);
 
         return $this;
     }
@@ -156,7 +156,7 @@ class VoteAvis
      */
     public function setAvis($avis)
     {
-        $this->avis = $avis;
+        $this->avis = intval($avis);
 
         return $this;
     }

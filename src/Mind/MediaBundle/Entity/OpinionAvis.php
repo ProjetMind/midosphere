@@ -36,7 +36,7 @@ class OpinionAvis
      * @ORM\JoinColumn(name="id_avis", referencedColumnName="id")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      * 
      */
     private $idAvis;
@@ -59,7 +59,7 @@ class OpinionAvis
      * @ORM\JoinColumn(name="id_membre", referencedColumnName="id")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idAuteur;
 
@@ -69,7 +69,7 @@ class OpinionAvis
      * @ORM\Column(name="type_opinion", type="integer", length=3)
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="booleab", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $typeOpinion;
 
@@ -94,7 +94,7 @@ class OpinionAvis
      */
     public function setIdAvis($idAvis)
     {
-        $this->idAvis = $idAvis;
+        $this->idAvis = intval($idAvis);
 
         return $this;
     }
@@ -117,7 +117,7 @@ class OpinionAvis
      */
     public function setIdAuteur($idMembre)
     {
-        $this->idAuteur = $idMembre;
+        $this->idAuteur = intval($idMembre);
 
         return $this;
     }
@@ -140,7 +140,7 @@ class OpinionAvis
      */
     public function setTypeOpinion($typeOpinion)
     {
-        $this->typeOpinion = $typeOpinion;
+        $this->typeOpinion = intval($typeOpinion);
 
         return $this;
     }

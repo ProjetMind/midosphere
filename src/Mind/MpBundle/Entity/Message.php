@@ -36,7 +36,7 @@ class Message
      * @ORM\JoinColumn(name="auteur_conversation", referencedColumnName="id")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      * 
      */
     private $idExpediteur;
@@ -54,7 +54,7 @@ class Message
      * @ORM\Column(name="contenu_message", type="text", length=255)
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="text", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="string", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      * 
      */
     private $contenuMessage;
@@ -77,7 +77,7 @@ class Message
      * @ORM\JoinColumn(name="id_conversation", referencedColumnName="id")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      * 
      */
     private $idConversation;
@@ -101,7 +101,7 @@ class Message
      */
     public function setIdExpediteur($idExpediteur)
     {
-        $this->idExpediteur = $idExpediteur;
+        $this->idExpediteur = intval($idExpediteur);
 
         return $this;
     }
@@ -170,7 +170,7 @@ class Message
      */
     public function setIdConversation($idConversation)
     {
-        $this->idConversation = $idConversation;
+        $this->idConversation = intval($idConversation);
 
         return $this;
     }

@@ -36,7 +36,7 @@ class CommentaireQuestion
      * @ORM\JoinColumn(name="id_question", referencedColumnName="id")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idQuestion;
 
@@ -48,7 +48,7 @@ class CommentaireQuestion
      * @ORM\JoinColumn(name="commentaire_id_auteur", referencedColumnName="id")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $commentaireIdAuteur;
 
@@ -58,7 +58,7 @@ class CommentaireQuestion
      * @ORM\Column(name="commentaire", type="text")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="text", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="string", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $commentaire;
     
@@ -92,7 +92,7 @@ class CommentaireQuestion
      */
     public function setIdQuestion($idQuestion)
     {
-        $this->idQuestion = $idQuestion;
+        $this->idQuestion = intval($idQuestion);
 
         return $this;
     }
@@ -115,7 +115,7 @@ class CommentaireQuestion
      */
     public function setCommentaireIdAuteur($commentaireIdAuteur)
     {
-        $this->commentaireIdAuteur = $commentaireIdAuteur;
+        $this->commentaireIdAuteur = intval($commentaireIdAuteur);
 
         return $this;
     }

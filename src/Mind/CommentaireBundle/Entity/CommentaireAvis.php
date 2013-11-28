@@ -39,7 +39,7 @@ class CommentaireAvis
      *
      * @ORM\Column(name="commentaire", type="text")
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="text", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="string", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      * 
      */
     private $commentaire;
@@ -49,7 +49,7 @@ class CommentaireAvis
      *
      * @ORM\Column(name="commentaire_date_publication", type="datetime")
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Asser\DateTime(message="Le type n'est pas valide.")
+     * @Assert\DateTime(message="Le type n'est pas valide.")
      * 
      */
     private $commentaireDatePublication;
@@ -64,7 +64,7 @@ class CommentaireAvis
      * @ORM\JoinColumn(name="id_avis", referencedColumnName="id")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idAvis;
     
@@ -77,7 +77,7 @@ class CommentaireAvis
      * @ORM\JoinColumn(name="commentaire_id_auteur", referencedColumnName="id")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $commentaireIdAuteur;
 
@@ -99,7 +99,7 @@ class CommentaireAvis
      */
     public function setIdAvis($idAvis)
     {
-        $this->idAvis = $idAvis;
+        $this->idAvis = intval($idAvis);
 
         return $this;
     }
@@ -122,7 +122,7 @@ class CommentaireAvis
      */
     public function setCommentaireIdAuteur($commentaireIdAuteur)
     {
-        $this->commentaireIdAuteur = $commentaireIdAuteur;
+        $this->commentaireIdAuteur = intval($commentaireIdAuteur);
 
         return $this;
     }

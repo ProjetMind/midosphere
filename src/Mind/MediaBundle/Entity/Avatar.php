@@ -156,7 +156,7 @@ class Avatar
      */
     public function setIdUser($idUser)
     {
-        $this->idUser = $idUser;
+        $this->idUser = intval($idUser);
 
         return $this;
     }

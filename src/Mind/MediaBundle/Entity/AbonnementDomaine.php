@@ -27,7 +27,7 @@ class AbonnementDomaine
      * @ORM\Column(name="id_user", type="integer")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idUser;
 
@@ -37,7 +37,7 @@ class AbonnementDomaine
      * @ORM\Column(name="id_domaine", type="integer")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idDomaine;
 
@@ -60,7 +60,7 @@ class AbonnementDomaine
      */
     public function setIdUser($idUser)
     {
-        $this->idUser = $idUser;
+        $this->idUser = intval($idUser);
 
         return $this;
     }
@@ -83,7 +83,7 @@ class AbonnementDomaine
      */
     public function setIdDomaine($idDomaine)
     {
-        $this->idDomaine = $idDomaine;
+        $this->idDomaine = intval($idDomaine);
 
         return $this;
     }

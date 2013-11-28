@@ -35,7 +35,7 @@ class Question
      * @ORM\Column(name="question_titre", type="string", length=200)
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="string", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="string", message="La valeur '{{ value }}' n'est pas un type {{ type }} valide.")
      * @Assert\Length(
      *      min = "2",
      *      max = "200",
@@ -58,7 +58,7 @@ class Question
      * @ORM\Column(name="question", type="text")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="text", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="string", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $question;
     
@@ -93,7 +93,7 @@ class Question
      * @ORM\JoinColumn(name="question_auteur", referencedColumnName="id")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $questionAuteur;
     
@@ -106,7 +106,7 @@ class Question
      * @ORM\JoinColumn(name="question_domaine", referencedColumnName="id")
      * 
      * @Assert\NotBlank(message="Vous devez indiquez un domaine.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      * 
      */
     private $questionDomaine;
@@ -222,7 +222,7 @@ class Question
      */
     public function setQuestionAuteur($questionAuteur)
     {
-        $this->questionAuteur = $questionAuteur;
+        $this->questionAuteur = intval($questionAuteur);
 
         return $this;
     }
@@ -245,7 +245,7 @@ class Question
      */
     public function setQuestionDomaine($questionDomaine)
     {
-        $this->questionDomaine = $questionDomaine;
+        $this->questionDomaine = intval($questionDomaine);
 
         return $this;
     }

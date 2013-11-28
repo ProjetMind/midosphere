@@ -28,7 +28,7 @@ class Suivis
      * @ORM\Column(name="id_user", type="integer")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idUser;
 
@@ -38,7 +38,7 @@ class Suivis
      * @ORM\Column(name="id_entity", type="integer")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idEntity;
 
@@ -81,7 +81,7 @@ class Suivis
      */
     public function setIdUser($idUser)
     {
-        $this->idUser = $idUser;
+        $this->idUser = intval($idUser);
 
         return $this;
     }
@@ -104,7 +104,7 @@ class Suivis
      */
     public function setIdEntity($idEntity)
     {
-        $this->idEntity = $idEntity;
+        $this->idEntity = intval($idEntity);
 
         return $this;
     }

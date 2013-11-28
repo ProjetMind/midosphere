@@ -51,7 +51,7 @@ class VoteCommentaire
      * @ORM\JoinColumn(name="commentaire_auteur_vote", referencedColumnName="id")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $commentaireAuteurVote;
     
@@ -64,7 +64,7 @@ class VoteCommentaire
      * @ORM\JoinColumn(name="commentaire", referencedColumnName="id")
      * 
      * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $commentaire;
 
@@ -133,7 +133,7 @@ class VoteCommentaire
      */
     public function setCommentaireAuteurVote($commentaireAuteurVote)
     {
-        $this->commentaireAuteurVote = $commentaireAuteurVote;
+        $this->commentaireAuteurVote = intval($commentaireAuteurVote);
 
         return $this;
     }
@@ -156,7 +156,7 @@ class VoteCommentaire
      */
     public function setCommentaire($commentaire)
     {
-        $this->commentaire = $commentaire;
+        $this->commentaire = intval($commentaire);
 
         return $this;
     }
