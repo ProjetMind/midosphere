@@ -4,6 +4,7 @@ namespace Mind\CommentaireBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * CommentaireAvis
@@ -37,6 +38,9 @@ class CommentaireAvis
      * @var string
      *
      * @ORM\Column(name="commentaire", type="text")
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="text", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * 
      */
     private $commentaire;
 
@@ -44,6 +48,9 @@ class CommentaireAvis
      * @var \DateTime
      *
      * @ORM\Column(name="commentaire_date_publication", type="datetime")
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Asser\DateTime(message="Le type n'est pas valide.")
+     * 
      */
     private $commentaireDatePublication;
 
@@ -55,6 +62,9 @@ class CommentaireAvis
      * @ORM\Column(name="id_avis", type="integer")
      * @ORM\OneToOne(targetEntity="Mind\SiteBundle\Entity\Avis")
      * @ORM\JoinColumn(name="id_avis", referencedColumnName="id")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idAvis;
     
@@ -65,6 +75,9 @@ class CommentaireAvis
      * @ORM\Column(name="commentaire_id_auteur", type="integer")
      * @ORM\OneToOne(targetEntity="Mind\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="commentaire_id_auteur", referencedColumnName="id")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $commentaireIdAuteur;
 

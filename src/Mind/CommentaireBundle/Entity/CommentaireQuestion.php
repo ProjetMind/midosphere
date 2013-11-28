@@ -33,6 +33,9 @@ class CommentaireQuestion
      * @ORM\Column(name="id_question", type="integer")
      * @ORM\OneToOne(targetEntity="Mind\SiteBundle\Entity\Question")
      * @ORM\JoinColumn(name="id_question", referencedColumnName="id")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idQuestion;
 
@@ -42,6 +45,9 @@ class CommentaireQuestion
      * @ORM\Column(name="commentaire_id_auteur", type="integer")
      * @ORM\OneToOne(targetEntity="Mind\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="commentaire_id_auteur", referencedColumnName="id")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $commentaireIdAuteur;
 
@@ -49,6 +55,9 @@ class CommentaireQuestion
      * @var text
      *
      * @ORM\Column(name="commentaire", type="text")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Type(type="text", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $commentaire;
     
@@ -57,6 +66,9 @@ class CommentaireQuestion
      * @var \DateTime
      *
      * @ORM\Column(name="commentaire_date_publication", type="datetime")
+     * 
+     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Asser\DateTime(message="Le type n'est pas valide.")
      */
     private $commentaireDatePublication;
 
