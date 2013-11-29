@@ -133,6 +133,7 @@ class BaseManager {
                 $lu->setIdConversation($idConversation);
                 $lu->setIdMessage($idMessage);
                 $lu->setIdUser($unIdParticipant);
+                $lu->setLu(false);
                 $this->manager->persist($lu);
                 $this->manager->flush();
                 
@@ -165,13 +166,15 @@ class BaseManager {
             'idConversation'    => $idConversation,
             'idUser'            => $idUserCourant
         );
-        
+            
         $lu = $repo->findOneBy($optionsSearch);
+        
         if(!empty($lu)){
             $lu->setLu(true);
             $this->manager->persist($lu);
             $this->manager->flush();
         }
+        
     }
 
 
@@ -311,5 +314,26 @@ class BaseManager {
             $tabUser[] = $repoUser->find($participant->getIdUser());
         }
         return $tabUser;
+    }
+    
+    /**
+     * 
+     * Fournit la liste des participants pour une conversation lors de l'ajout d'un nouveau message
+     * 
+     * @param type $idConversation
+     * @return type
+     */
+    public function getArrayParticipantForSetLu($idConversation){
+        
+        $idUserCourant = $this->security->getToken()->getUser()->getId();
+        $repo = $this->manager->getRepository('MindMpBundle:Participants');
+        $tabDest = array();
+        $participants = $repo->findParticipantsByConversation($idConversation, $idUserCourant);
+        
+        foreach ($participants as $participant){
+            $tabDest[]  = $participant->getIdUser();
+        }
+        
+        return $tabDest;
     }
 }

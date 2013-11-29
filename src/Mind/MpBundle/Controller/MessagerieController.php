@@ -135,9 +135,9 @@ class MessagerieController extends Controller {
     public function conversationAction($idConversation){
         
         $serviceConversation    = $this->container->get('mind_mp.conversation');
-        
-        
         $arrayParticipants      = $serviceConversation->getArrayParticipantsForConversation($idConversation);
+        
+        $this->setLuAction($idConversation);
         
         $template = 'MindMpBundle:Conversation:conversation.html.twig';
         return $this->container->get('templating')->renderResponse($template,
@@ -181,6 +181,8 @@ class MessagerieController extends Controller {
                 $em->persist($message);
                 $em->flush();
                 
+                $tabDest = $serviceMessage->getArrayParticipantForSetLu($idConversation);
+                $serviceMessage->createLuGet($conversation, $message, $tabDest);
                 
                 $tabMessage[] = array(
                     'message'       => $message,

@@ -12,4 +12,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class ParticipantsRepository extends EntityRepository
 {
+    public function findParticipantsByConversation($idConversation, $idUserCourant){
+        
+        $query = $this->_em->createQuery('SELECT p 
+                                          FROM MindMpBundle:Participants p
+                                          WHERE p.idConversation = :idConversation
+                                          AND p.idUser != :idUserCourant
+                                         ');
+        
+        $query->setParameter('idConversation', $idConversation);
+        $query->setParameter('idUserCourant', $idUserCourant);
+        
+        return $query->getResult();
+    }
 }
