@@ -1,1 +1,0 @@
-function supprimer(a){var b={success:showResponseSupprimer,dataType:"json"};$("#form"+a).ajaxForm(b)}function showResponseSupprimer(a){$("#"+a.id).remove()};

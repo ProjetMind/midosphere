@@ -13,18 +13,33 @@ class MessageType extends AbstractType
         $builder 
             ->add('destinataires', 'collection',
                     array(
+                        'label'         => 'Destinataires :',
                         'type'          => 'text',
                         'allow_add'     => true,
                         'allow_delete'  => true,
                         'prototype'     => true,
                         'options'  => array(
-                                                'required'  => true
-                                            )
+                                                'required'  => false
+                                            ),
+                        'attr' => array(
+                                            'class' => 'input-xlarge',
+                                        ),
+                        'label_attr'    => array(
+                                            'class' => 'control-label',
+                                            'style' => 'text-align:left;'
+                            )
                     ))
             ->add('contenuMessage', 'textarea',
                     array(
-                            'label'         => "Message",
-                            'required'       => TRUE
+                            'label'         => "Message :",
+                            'required'       => false,
+                            'attr' => array(
+                                            'class' => 'input-xlarge',
+                                        ),
+                            'label_attr'    => array(
+                                            'class' => 'control-label',
+                                            'style' => 'text-align:left;'
+                            )
                     ))
             
         ;

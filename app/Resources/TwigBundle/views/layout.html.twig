@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" type="text/css" />
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"> </script>
+        <script type="text/javascript" src="http://malsup.github.com/jquery.form.js"></script>
+        <script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
+            
+        {% block blockHeaderTitle %}        
+            <title>
+                    {% block headerTitle %}Bienvenue sur le site Midosphere {% endblock %}
+            </title>
+        {% endblock %}
+                
+        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('bundles/mindsite/images/midosphere.ico') }}" />
+
+    </head>
+    
+    <body>
+        <section id="containerErrors" class="container-fluid">
+            
+        {% block body %}
+        
+            <div class="hero-unit">
+                
+                <h1>
+                    {% block errorTitle %}
+                    {% endblock %}
+                </h1>
+                
+                <p>
+                    <h2>
+                        {% block errorStatus %}
+                        {% endblock %}
+                    </h2>
+                </p>
+                
+                <p>
+                    {% block errorMessage %}
+                    {% endblock %}
+                </p>
+                <p>
+                    {% block errorBack %}
+                        <a class="btn btn-primary btn-large" href="{{ path('mind_site_homepage') }}">
+                        Retour au site
+                        </a>
+                    {% endblock %}
+                </p>
+            </div>
+            
+        {% endblock %}
+        </section>
+    </body>
+    
+</html>

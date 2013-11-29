@@ -1,1 +1,0 @@
-$(document).ready(function(){var a={success:showResponseCommentaire,clearForm:true,resetForm:true};$("#formAddCommentaireAvis").ajaxForm(a);$("#formAddCommentaireQuestion").ajaxForm(a)});function showResponseCommentaire(b,c,d,a){$("#groupCommentaires").append(b)};

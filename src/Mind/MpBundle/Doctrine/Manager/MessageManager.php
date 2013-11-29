@@ -18,7 +18,8 @@ class MessageManager extends BaseManager {
      * @param \Mind\MpBundle\Entity\Message|null $message
      * @return \Mind\MpBundle\Entity\Message
      */
-    public function createMessageGet(\Mind\MpBundle\Entity\Message $message = null){
+    public function createMessageGet(\Mind\MpBundle\Entity\Conversation $conversation, 
+                                     \Mind\MpBundle\Entity\Message $message = null){
         
         if($message == null){
             $message = new \Mind\MpBundle\Entity\Message;
@@ -26,6 +27,7 @@ class MessageManager extends BaseManager {
         
         $idExpediteur   = $this->security->getToken()->getUser()->getId();
         $message->setIdExpediteur($idExpediteur);
+        $message->setIdConversation($conversation->getId());
 
         return $message;
     }

@@ -14,3 +14,9 @@
 .mediaConversation{
     margin-left: 10px;
 }
+
+#msgContent{
+    max-height:400px; 
+    overflow:scroll;;
+}
+

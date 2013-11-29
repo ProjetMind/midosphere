@@ -1,24 +1,33 @@
 {# empty Twig template #}
 
+{% if formErrors is defined and formErrors is not empty %}
+{{ dump(formErrors) }}
+{% endif %}
 
+{% if messages is not empty %}
 
 {% for message in messages %}
 
     <div class="unMessage media">
         <div>
-            <a class="pull-left" href="#" style="width:70px;height:70px;">
+            <a class="pull-left" href="{{ path('mind_user_profile_voir', {'slug': message['auteur'].slug}) }}" style="width:70px;height:70px;">
                 <img class="media-object" data-src="" src="{{ asset(message['auteur'].path) }}"/>
             </a>
         </div>
         
         <div class="media-body">
-            <h6 class="media-heading">
-                <strong>{{ message['auteur'].username }}</strong>
-                <time>{{ message['message'].dateEnvoiMessage|date('d/m/y h:m') }}</time>
-            </h6>
+            
+                <small class="muted dateElmt">
+                    <span>
+                        Par <a href="{{ path('mind_user_profile_voir', {'slug': message['auteur'].slug}) }}">{{ message['auteur'].username }}</a>
+                    <time>{{ message['message'].dateEnvoiMessage|date('d/m/y h:m') }}</time>
+                </small>
+            
             <p>{{ message['message'].contenuMessage }}</p>
         </div>
 
     </div>
 
 {% endfor %}
+
+{% endif %}

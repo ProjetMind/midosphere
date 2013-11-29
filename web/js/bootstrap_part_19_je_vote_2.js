@@ -1,1 +1,0 @@
-function jeVote(){$("#jeVote > button").click(function(){typeOpinion=this.id;idAvis=document.getElementById("inputIdAvis").value;url=Routing.generate("mind_media_opinion_vote",{idAvis:idAvis,typeOpinion:typeOpinion});$.ajax({type:"POST",url:url,cache:false,success:function(a){$("#messageVote").html(a)}});return false})}$(function(){jeVote()});

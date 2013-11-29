@@ -30,10 +30,14 @@ knp_menu:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    form:
+        resources:
+            - '::form.html.twig'
 
 bc_bootstrap:
     less_filter: lessphp
     assets_dir:  %kernel.root_dir%/../vendor/twitter/bootstrap
+    jquery_path: %kernel.root_dir%/../vendor/jquery/jquery-1.10.2/jquery-1.10.2.min.js
 #    
 # Assetic Configuration
 assetic:
@@ -63,6 +67,7 @@ assetic:
                 - %kernel.root_dir%/../src/Mind/MpBundle/Resources/public/css/*
                 - %kernel.root_dir%/../src/Mind/MediaBundle/Resources/public/css/*
                 - %kernel.root_dir%/../src/Mind/UserBundle/Resources/public/css/*
+                - %kernel.root_dir%/../src/Mind/RechercheBundle/Resources/public/css/*
                 - %kernel.root_dir%/../vendor/twitter/bootstrap/less/bootstrap.less
                 - %kernel.root_dir%/../vendor/twitter/bootstrap/less/responsive.less
             output: css/bootstrap.css
@@ -72,13 +77,16 @@ assetic:
                 - cssrewrite
         bootstrap_js:
             inputs:
-                - %kernel.root_dir%/../web/js/fos_js_routes.js
                 - %kernel.root_dir%/../web/bundles/fosjsrouting/js/router.js
+                - %kernel.root_dir%/../web/js/fos_js_routes.js
                 - %kernel.root_dir%/../src/Mind/SiteBundle/Resources/public/js/*
                 - %kernel.root_dir%/../src/Mind/CommentaireBundle/Resources/public/js/* 
                 - %kernel.root_dir%/../src/Mind/MpBundle/Resources/public/js/*
                 - %kernel.root_dir%/../src/Mind/MediaBundle/Resources/public/js/*
                 - %kernel.root_dir%/../src/Mind/UserBundle/Resources/public/js/*
+                - %kernel.root_dir%/../src/Mind/RechercheBundle/Resources/public/js/*
+                - %kernel.root_dir%/../web/resources-js/a-bootstrap-editable.min.js
+                - %kernel.root_dir%/../web/resources-js/jquery.form.js
                 - %kernel.root_dir%/../vendor/twitter/bootstrap/js/bootstrap-transition.js
                 - %kernel.root_dir%/../vendor/twitter/bootstrap/js/bootstrap-alert.js
                 - %kernel.root_dir%/../vendor/twitter/bootstrap/js/bootstrap-button.js
@@ -97,8 +105,11 @@ assetic:
                 - yui_js
         jquery:
             inputs:
-                - %kernel.root_dir%/../vendor/jquery/jquery/jquery-1.9.1.js
+                - %kernel.root_dir%/../vendor/jquery/jquery-1.10.2/jquery-1.10.2.min.js
+                - %kernel.root_dir%/../vendor/jquery/jquery-ui/jquery-ui.min.js
             output: js/jquery.js
+            filters:
+                - yui_js
     #Fin asset
     
 # Doctrine Configuration
@@ -111,8 +122,8 @@ doctrine:
         user:     %database_user%
         password: %database_password%
         charset:  UTF8
-        types:
-          json: Sonata\Doctrine\Types\JsonType
+        #types:
+          #json: Sonata\Doctrine\Types\JsonType
         # if using pdo_sqlite as your database driver, add the path in parameters.yml
         # e.g. database_path: %kernel.root_dir%/data/data.db3
         # path:     %database_path%

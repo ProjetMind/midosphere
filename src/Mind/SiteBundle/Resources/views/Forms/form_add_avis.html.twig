@@ -81,7 +81,7 @@
     
     $(function(){
         //local source
-        $('#addDomaine').select2({
+        $('#mind_sitebundle_avistype_avisDomaine').select2({
                                 width: 530,
                                 placeholder: 'Selectionnez un domaine',
                                 send: 'never',
@@ -90,8 +90,8 @@
                        } );
                        
        //Event
-       $('#mind_sitebundle_questiontype_questionDomaine').on('select2-selecting', function(e){
-           $('#mind_sitebundle_questiontype_questionDomaine').attr('value', e.val);
+       $('#mind_sitebundle_avistype_avisDomaine').on('select2-selecting', function(e){
+           $('#mind_sitebundle_avistype_avisDomaine').attr('value', e.val);
        });
     });
         

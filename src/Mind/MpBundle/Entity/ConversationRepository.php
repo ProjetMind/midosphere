@@ -60,6 +60,23 @@ class ConversationRepository extends EntityRepository
         return $query->getResult();
     }
     
-    
+    /**
+     * 
+     * Il s'agit des conversations pour la notification
+     * 
+     * @param type $idUser
+     * @return type
+     */
+    public function findConversationByIdUser($idUser){
+        
+        $query = $this->_em->createQuery('SELECT c
+                                          FROM MindMpBundle:Conversation c, MindMpBundle:Participants p
+                                          WHERE c.id = p.idConversation 
+                                          AND p.idUser = :idUser
+                                         ');
+        $query->setParameter('idUser', $idUser);
+        
+        return $query->getResult();
+    }
     
 }

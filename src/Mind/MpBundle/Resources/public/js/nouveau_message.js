@@ -1,6 +1,6 @@
 $(document).ready(function() { 
 
-     var options = { 
+     var optionsMessage = { 
         //target:        '#groupCommentaires',   // target element(s) to be updated with server response 
         //beforeSubmit:  showRequest,  // pre-submit callback 
         success:       showResponseMessage,  // post-submit callback 
@@ -16,12 +16,12 @@ $(document).ready(function() {
         //timeout:   3000 
     }; 
     
-    $('#formNouveauMessage').ajaxForm(options); 
+    $('#formNouveauMessage').ajaxForm(optionsMessage); 
 });
 
 
 // post-submit callback 
 function showResponseMessage(responseText, statusText, xhr, $form)  { 
  
-    $("#containerMessage").append(responseText);
+    $("#msgContent").append(responseText);
 }

@@ -19,6 +19,8 @@ class MessagerieController extends Controller {
      * Fonction pour la page d'accueil de la messagerie et la boite au lettre
      * 
      * @return Symfony\Component\HttpFoundation\Response
+     * 
+     * @Secure(roles="ROLE_USER")
      */
     public function indexAction(){
         
@@ -127,6 +129,8 @@ class MessagerieController extends Controller {
      * 
      * @param integer $idConversation
      * @return Response
+     * 
+     * @Secure(roles="ROLE_USER")
      */
     public function conversationAction($idConversation){
         
@@ -149,19 +153,27 @@ class MessagerieController extends Controller {
      * 
      * @param integer $idConversation
      * @return Response
+     * 
+     * @Secure(roles="ROLE_USER")
      */
     public function nouveauMessageAction($idConversation){
         
         $message                = new \Mind\MpBundle\Entity\Message;
         $form                   = $this->createForm(new LectureType(), $message);
         $request                = $this->container->get('request');
+        $serviceMessage         = $this->container->get('mind_mp.message');
+        
         $tabMessage             = array();
         
         if($request->getMethod() === "POST"){
             
+            $conversation = $this->getDoctrine()->getManager()->getRepository('MindMpBundle:Conversation')->find($idConversation);
+            if(!empty($conversation)){
+                $message = $serviceMessage->createMessageGet($conversation, $message);
+                $message->setDestinataires(-1);
+            }
+            
             $form->bind($request);
-            $message->setIdConversation($idConversation);
-            $message->setIdExpediteur($this->getUser()->getId());
             
             if($form->isValid()){
                 
@@ -172,17 +184,16 @@ class MessagerieController extends Controller {
                 
                 $tabMessage[] = array(
                     'message'       => $message,
-                    'auteur'        => $this->getUser()
+                    'auteur'        => $this->container->get('security.context')->getToken()->getUser()
                 );
-            }else{
-                $tabMessage[] = array('message' => null, 'auteur' => null );
             }
         }
         
         $template = 'MindMpBundle:message:un_message.html.twig';
         return $this->container->get('templating')->renderResponse($template,
                 array(
-                        'messages'  => $tabMessage
+                        'messages'      => $tabMessage,
+                        'formErrors'    => $form->getErrors()
                 ));
         
     }
@@ -216,6 +227,8 @@ class MessagerieController extends Controller {
      * 
      * @param integer $idConversation
      * @return Response
+     * 
+     * @Secure(roles="ROLE_USER")
      */
     public function getMessagesAction($idConversation){
         
@@ -252,19 +265,22 @@ class MessagerieController extends Controller {
        
         if($request->getMethod() === "POST"){
             
-            $tabDest = $_POST['mind_mpbundle_messagetype']['destinataires'];
+            $tabDest = $this->getRequest()->get('mind_mpbundle_messagetype');
+            if(isset($tabDest['destinataires'])){
+                $tabDest = $tabDest['destinataires'];
+            }
+            
+            $conversation   = $conversationManager->createConversationGet();
+            $em->persist($conversation);
+            $em->flush();
+            
+            $message = $messageManager->createMessageGet($conversation, $message);
+            
             $form->bind($request);
             
             if($form->isValid()){
                 
-                $conversation   = $conversationManager->createConversationGet();
-                $em->persist($conversation);
-                $em->flush();
-                
-                $message        = $messageManager->createMessageGet($message);
-                $message->setIdConversation($conversation->getId());
                 $em->persist($message);
-                
                 $em->flush();
                 
                 $tabPart        = $messageManager->createParticipantsGet($conversation, $tabDest);
@@ -285,6 +301,9 @@ class MessagerieController extends Controller {
                     'idConversation'        => $conversation->getId()
                 )));
                 
+            }else{
+                $em->remove($conversation);
+                $em->flush();
             }
         }
         
@@ -334,6 +353,8 @@ class MessagerieController extends Controller {
      * 
      * @param type $idConversation
      * @return \Symfony\Component\HttpFoundation\Response
+     * 
+     * @Secure(roles="ROLE_USER")
      */
     public function  getLastMessageForConversationAction($idConversation){
         
@@ -378,6 +399,12 @@ class MessagerieController extends Controller {
                 ));
     }
     
+    /**
+     * 
+     * @return \Symfony\Component\HttpFoundation\Response
+     * 
+     * @Secure(roles="ROLE_USER")
+     */
     public function getNbConversationNonLuAction(){
         
         $idUser = $this->getUser()->getId();

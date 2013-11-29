@@ -35,7 +35,7 @@ class Message
      * @ORM\OneToOne(targetEntity="Mind\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="auteur_conversation", referencedColumnName="id")
      * 
-     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\NotBlank(message="Le champ expéditeur est obligatoire.")
      * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      * 
      */
@@ -44,16 +44,18 @@ class Message
     /**
      *
      * 
+     * @Assert\NotBlank(message="Le champ Destinataires est obligatoire.")
+     * 
      * @var type 
      */
-    public $destinataires;
+    public $destinataires ;
 
     /**
      * @var text
      *
      * @ORM\Column(name="contenu_message", type="text", length=255)
      * 
-     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\NotBlank(message="Le champ Message est obligatoire.")
      * @Assert\Type(type="string", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      * 
      */
@@ -76,7 +78,7 @@ class Message
      * @ORM\OneToOne(targetEntity="MindMessageBundle\Entity\Conversation")
      * @ORM\JoinColumn(name="id_conversation", referencedColumnName="id")
      * 
-     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\NotBlank(message="Le champ id conversation est obligatoire.")
      * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      * 
      */
@@ -183,6 +185,12 @@ class Message
     public function getIdConversation()
     {
         return $this->idConversation;
+    }
+    
+    public function setDestinataires($dest = null){
+        $this->destinataires = $dest;
+        
+        return $this;
     }
 
 }

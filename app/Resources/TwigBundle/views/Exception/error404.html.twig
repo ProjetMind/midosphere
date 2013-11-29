@@ -1,0 +1,28 @@
+{# empty Twig template #}
+
+
+{% extends 'TwigBundle::layout.html.twig' %}
+
+{% block headerTitle %}
+Erreur 404 
+{% endblock %}
+
+{% block errorTitle %}
+    Hum... ! Comment dire ? 
+{% endblock %}
+
+{% block errorStatus %}
+    La page que vous cherchez n'existe pas. Le serveur a retourné une erreur "{{ status_code }}".
+{% endblock %}
+    
+{% block errorMessage %}
+    <p>
+        De manière générale, cette page d'erreur s'affiche lorsque vous tentez d'accèder à une url ou une resource qui 
+        n'existe pas. 
+    </p>
+    
+    <p>
+        Dans tous les cas vous pouvez néanmoins contactez l'administrateur du site à l'adresse email suivante :
+        webmaster@midopshere.com
+    </p>
+{% endblock %}

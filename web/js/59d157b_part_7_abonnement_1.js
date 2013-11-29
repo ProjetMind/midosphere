@@ -1,1 +1,0 @@
-$(document).ready(function(){var a={success:showResponseAbonnement,clearForm:false,resetForm:false};$("#formAbonnement").ajaxForm(a)});function showResponseAbonnement(b,c,d,a){$("#formAbonnement").html(b)};

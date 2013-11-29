@@ -13,6 +13,7 @@ class AbonnementController extends Controller
     
     /**
      * 
+     * Methiode inutilisé
      * 
      * @param type $idUser
      * @param type $idDuDomaine
@@ -97,7 +98,7 @@ class AbonnementController extends Controller
      */
     public function deleteAbonnementDomaineAction($options){
         
-        $serviceAcl = $this->container->get('midn_site.acl_security');
+        $serviceAcl = $this->container->get('mind_site.acl_security');
         
         $manager = $this->getDoctrine()
                         ->getManager();

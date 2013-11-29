@@ -1,1 +1,0 @@
-function getDomaines(){$("#containerDiv_AddAvis_Domaines > label > input").click(function(){idDuDomaineParent=this.value;leLabelContainer=this.id;var a=Routing.generate("mind_site_get_domaine_ajax",{id:idDuDomaineParent});$.ajax({type:"POST",url:a,cache:false,success:function(b){$("label[for="+leLabelContainer+"]").append(b)}})})}$(function(){getDomaines()});

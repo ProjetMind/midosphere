@@ -2,21 +2,29 @@
 
 
 
-<form id="formNouvelleConversation" action="{{ path("mind_mp_nouveau_conversation") }}" class="form-inline editableform" method="POST">
+<form id="formNouvelleConversation" action="{{ path("mind_mp_nouveau_conversation") }}" class="form-horizontal editableform" method="POST">
     
-    {{ form_errors(form) }}
+    <div>
+        {{ form_errors(form) }}
+        {{ form_errors(form.contenuMessage) }}
+    </div>
     
-    
-    <input required="required" class="select2-input" id="destinataires" type="text" data-prototype="{{ form_widget(form.destinataires.vars.prototype) | e }}"/>
-    
-    <div>           
-                    {{ form_errors(form.contenuMessage) }}
-                    {{ form_widget(form.contenuMessage) }}
-
+    <div class="control-group">
+        <label for="destinataires" class="control-label" style="text-align: left;">Destinataires :</label>
+        <div class="controls">
+            <input class="select2-input input-xlarge" id="destinataires" type="text" data-prototype="{{ form_widget(form.destinataires.vars.prototype) | e }}"/>
+        </div>
+    <div>     
+        
+    <div class="control-group">
+        {{ form_label(form.contenuMessage) }}
+        <div class="controls">
+            {{ form_widget(form.contenuMessage) }}
+        </div>
     </div>
     
     <div style="margin-top: 50px;">
-        <input id="btnSendMp" type="submit" class="btn btn-primary" value="Envoyer">
+        <input id="btnSendMp" type="submit" class="btn btn-primary btn-large" value="Envoyer">
     </div>
 
     {{ form_widget(form._token) }}
