@@ -38,7 +38,7 @@ class CommentaireAvis
      * @var string
      *
      * @ORM\Column(name="commentaire", type="text")
-     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\NotBlank(message="Le champ commentaire est obligatoire.")
      * @Assert\Type(type="string", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      * 
      */
@@ -48,7 +48,7 @@ class CommentaireAvis
      * @var \DateTime
      *
      * @ORM\Column(name="commentaire_date_publication", type="datetime")
-     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\NotBlank(message="Le champ date de publication est obligatoire.")
      * @Assert\DateTime(message="Le type n'est pas valide.")
      * 
      */
@@ -63,7 +63,7 @@ class CommentaireAvis
      * @ORM\OneToOne(targetEntity="Mind\SiteBundle\Entity\Avis")
      * @ORM\JoinColumn(name="id_avis", referencedColumnName="id")
      * 
-     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\NotBlank(message="Le champ est obligatoire.")
      * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idAvis;

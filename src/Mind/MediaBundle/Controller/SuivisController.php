@@ -30,6 +30,7 @@ class SuivisController extends Controller {
         
         if($request->getMethod() == "POST"){
          
+            
             $form->bindRequest($request);
             
             if($form->isValid() and $tabOptions['initTabIsOk'] == true){ 
@@ -38,6 +39,8 @@ class SuivisController extends Controller {
                 
                 return $this->redirect($route);
             }
+        }else{
+            
         }
         
         $template = sprintf('MindMediaBundle:Forms:form_suivis.html.twig');

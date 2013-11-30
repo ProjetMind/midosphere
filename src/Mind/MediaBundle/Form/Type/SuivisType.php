@@ -11,9 +11,10 @@ class SuivisType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('idUser', 'hidden')
-            ->add('idEntity', 'hidden')
+            ->add('idUser',     'hidden')
+            ->add('idEntity',   'hidden')
             ->add('typeEntity', 'hidden')
+            ->add('disabled',   'hidden')    
         ;
     }
 

@@ -13,6 +13,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Suivis
 {
+    
+    public function __construct() {
+        
+        $this->disabled = 0;
+    }
+
     /**
      * @var integer
      *
@@ -27,7 +33,7 @@ class Suivis
      *
      * @ORM\Column(name="id_user", type="integer")
      * 
-     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\NotBlank(message="Le champ id user est obligatoire.")
      * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idUser;
@@ -37,7 +43,7 @@ class Suivis
      *
      * @ORM\Column(name="id_entity", type="integer")
      * 
-     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\NotBlank(message="Le champ id entity est obligatoire.")
      * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idEntity;
@@ -47,7 +53,7 @@ class Suivis
      *
      * @ORM\Column(name="type_entity", type="string", length=10)
      * 
-     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\NotBlank(message="Le champ type entity est obligatoire.")
      * @Assert\Type(type="string", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $typeEntity;
@@ -57,7 +63,7 @@ class Suivis
      *
      * @ORM\Column(name="disabled", type="boolean")
      * 
-     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\NotBlank(message="Le champ disabled est obligatoire.")
      * @Assert\Type(type="boolean", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $disabled;
@@ -150,7 +156,11 @@ class Suivis
      */
     public function setDisabled($disabled)
     {
-        $this->disabled = $disabled;
+        if($disabled = 0){
+            $this->disabled = false;
+        }else{
+            $this->disabled = true;
+        }
 
         return $this;
     }

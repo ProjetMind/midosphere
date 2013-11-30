@@ -35,7 +35,7 @@ class CommentaireQuestion
      * @ORM\OneToOne(targetEntity="Mind\SiteBundle\Entity\Question")
      * @ORM\JoinColumn(name="id_question", referencedColumnName="id")
      * 
-     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\NotBlank(message="Le champ question est obligatoire.")
      * @Assert\Type(type="int", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $idQuestion;
