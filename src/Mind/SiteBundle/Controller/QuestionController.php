@@ -30,6 +30,7 @@ class QuestionController extends Controller
       $template             = sprintf('MindSiteBundle::une_question.html.twig');
       $paginator            = $this->get('knp_paginator');
       $serviceQuestion      = $this->container->get('mind_site.questions');
+      $limitParPage         = 6;
       
       switch ($routeName){
           
@@ -73,7 +74,7 @@ class QuestionController extends Controller
       $lesQuestions = $paginator->paginate(
             $lesQuestions,
             $page/*page number*/,
-            2/*limit per page*/
+            $limitParPage
         );
       
       
