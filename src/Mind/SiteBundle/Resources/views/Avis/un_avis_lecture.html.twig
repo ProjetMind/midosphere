@@ -79,6 +79,10 @@
                             {# Les commentaires #}
                             <div class="tab-pane" id="commentairesLecture">
                                 
+                                <div id="groupCommentaires">
+                                    {% render controller('MindCommentaireBundle:CommentaireAvis:getCommentaireAvis', {'idAvis': unAvis.id}) %}
+                                </div>
+                                
                                 <div class="formAddCommentaire">
                                     <input id="inputIdAvis" type="hidden" name="idAvis" value="{{ unAvis.id }}">
                                     {% if is_granted('ROLE_USER') %}
@@ -86,10 +90,6 @@
                                     {% else %}
                                         {% include 'MindCommentaireBundle::message.html.twig' %}
                                     {% endif %}
-                                </div>
-                                
-                                <div id="groupCommentaires">
-                                    {% render controller('MindCommentaireBundle:CommentaireAvis:getCommentaireAvis', {'idAvis': unAvis.id}) %}
                                 </div>
                             </div>
                         </div>
