@@ -37,6 +37,9 @@ class SuivisController extends Controller {
                 $this->createSuivisForUserAction($suivis);
                 $route = $this->getUriAction($suivis->getIdUser(), $suivis->getIdEntity(), $suivis->getTypeEntity());
                 
+                $message = "Vous suivez maintenant cet avis.";
+                $serviceBootstrapFlash->success($message);
+                
                 return $this->redirect($route);
             }
         }else{

@@ -5,9 +5,13 @@ namespace Mind\MediaBundle;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Mind\SiteBundle\Acl\AclSecurity;
+use Bc\Bundle\BootstrapBundle\Session\FlashMessage;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Suivis {
 
+    protected $container;
+    protected $bcBootsrapFlash;
     protected $aclSecurity;
     protected $doctrine;
     protected $manager;
@@ -22,14 +26,16 @@ class Suivis {
                                         'typeEntity'    => ""
                                     );
 
-    public function __construct(Registry $doctrine, SecurityContextInterface $security, AclSecurity $aclSecurity) {
+    public function __construct(Registry $doctrine, SecurityContextInterface $security, AclSecurity $aclSecurity,
+            FlashMessage $bcBootstrapFlash, ContainerInterface $container) {
         
         $this->doctrine         = $doctrine;
         $this->manager          = $doctrine->getManager();
         $this->repository       = $this->manager->getRepository('MindMediaBundle:Suivis');
         $this->security         = $security;
         $this->aclSecurity      = $aclSecurity;
-        
+        $this->bc_bootsrapFlash = $bcBootstrapFlash;
+        $this->container        = $container;
     }
 
     public function getSuivisAvis($idUser){
@@ -106,14 +112,17 @@ class Suivis {
             $tabAcl = array();
             $tabAcl[] = $suivis;
             $this->aclSecurity->updateAcl($tabAcl);
+            $message = "Vous suivez maintenat cet avis.";
             
         }else{ 
             $suivis = $this->repository->findOneBy($this->optionsSearch);
             $this->manager->remove($suivis);
             $this->manager->flush();
+            $message = "Vous ne suivez plus cet avis.";
+            
         }
         
-        
+        //$this->bcBootsrapFlash->success($message);
        
     }
 

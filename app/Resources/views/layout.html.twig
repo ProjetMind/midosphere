@@ -74,7 +74,7 @@
 
             <section id="corpsPrincipal" class="row-fluid">
                 
-                 {% include '::messageFlashBag.html.twig' %}
+                 
                 <section id="corps" class="span12 row-fluid">
                     <section id="menuGauche" class="span3">
                     {% block menuGauche %}
@@ -93,7 +93,8 @@
                                 <span class="byline">Où trouver et partager toutes sortes d'experiences</span> 
                              </div>
      
-                            {% include 'BcBootstrapBundle::flash.html.twig' with { 'close': true } %}
+                        {% include 'BcBootstrapBundle::flash.html.twig' with { 'close': true } %}
+                        {% include '::messageBienvenue.html.twig' %}
                             {% render controller('MindSiteBundle:Avis:getAvis', {"page": 1, '_route': 'avis_for_accueil'}) %}
                             
                         

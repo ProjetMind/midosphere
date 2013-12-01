@@ -42,17 +42,20 @@ class VoteQuestionController extends Controller
                 
                 $erreurs = $erreursListe;
                 $message = "Erreur lors de lors de l'enregistrement de votre vote.";
-                $serviceBootstrapFlash->error($message);
+                //$serviceBootstrapFlash->error($message);
+                 $this->get('session')->getFlashBag()->add('error', $message);
                 
                 
             }
             else{
-                $message = "Votre vote a été enregistré.";
-                $serviceBootstrapFlash->success($message);
                 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($opinionQuestion);
                 $em->flush();
+                
+                $message = "Votre vote a été enregistré.";
+                //$serviceBootstrapFlash->success($message);
+                $this->get('session')->getFlashBag()->add('success', $message);
                 
                 //Acl 
                 $serviceAcl = $this->container->get('mind_site.acl_security');
@@ -65,11 +68,13 @@ class VoteQuestionController extends Controller
         else{
             if(empty($questionExiste)){
                 $message = "La question pour laquelle vous voulez voter n'existe pas.";
-                $serviceBootstrapFlash->info($message);
+                //$serviceBootstrapFlash->info($message);
+                $this->get('session')->getFlashBag()->add('info', $message);
             }
             if($aDejaVote == true){
                 $message = "Vous avez déjà voté pour cette question."; 
-                $serviceBootstrapFlash->info($message);
+                //$serviceBootstrapFlash->info($message);
+                $this->get('session')->getFlashBag()->add('info', $message);
             }
         }
         
@@ -112,6 +117,7 @@ class VoteQuestionController extends Controller
         $questionExiste = $manager->getRepository('MindSiteBundle:Question')->find($idQuestion);
         $auteurQuestion = $manager->getRepository('MindUserBundle:User')->find($questionExiste->getQuestionAuteur());
         $idAuteur = $auteurQuestion->getId();
+        $serviceBootstrapFlash = $this->container->get('bc_bootstrap.flash');
         
         if(!empty($questionExiste)){
             
