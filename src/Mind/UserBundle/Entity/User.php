@@ -19,9 +19,9 @@ class User extends BaseUser
             parent::__construct();
             
             $this->dateInscription = new \DateTime;
-            $this->nom = null;
-            $this->prenom = null;
-            $this->ville = null;
+            $this->nom = 'Diallo';
+            $this->prenom = 'Ibrahim';
+            $this->ville = 'Antony';
             $this->roles = array('ROLE_ADMIN');
            
         }
@@ -76,7 +76,7 @@ class User extends BaseUser
      * 
      * @ORM\Column(name="prenom", type="string", length=100, nullable=true)
      * 
-     * @Assert\Type(type="string", message="le prénom doit être une chaine de caractère.")
+     * @Assert\Type(type="string", message="Le prénom doit être une chaine de caractère.")
      * @Assert\Length(
      *                  min=2, max=20, 
      *                  minMessage="Le prénom doit faire au moins {{min}} caracrères.", 
@@ -260,6 +260,13 @@ class User extends BaseUser
      */
     public function setSexe($sexe)
     {
+        if($sexe == 0){
+            $this->sexe = false;
+        }
+        if($sexe == 1)
+        {
+            $this->sexe = true; 
+        }
         $this->ville = $sexe;
 
         return $this;
@@ -339,7 +346,13 @@ class User extends BaseUser
      */
     public function setCdtGenerales($cdtGenerales)
     {
-        $this->cdtGenerales = $cdtGenerales;
+        
+        if($cdtGenerales == 0){
+            $this->cdtGenerales = false;
+        }
+        if($cdtGenerales == 1){
+            $this->cdtGenerales = true;
+        }
 
         return $this;
     }

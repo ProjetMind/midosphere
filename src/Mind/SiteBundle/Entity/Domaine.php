@@ -72,7 +72,7 @@ class Domaine implements \Gedmo\Tree\Node
      * 
      * @ORM\Column(name="etat", type="boolean")
      * 
-     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\NotBlank(message="Le champ état est obligatoire.")
      * @Assert\Type(type="boolean", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $etat;
@@ -213,7 +213,13 @@ class Domaine implements \Gedmo\Tree\Node
      */
     public function setEtat($etat)
     {
-        $this->etat = $etat;
+        if($etat == 1){
+            $this->etat = true;
+        }
+        
+        if($etat == 0){
+            $this->etat = false;
+        }
 
         return $this;
     }
