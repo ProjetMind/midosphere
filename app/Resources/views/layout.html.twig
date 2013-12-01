@@ -93,7 +93,7 @@
                                 <span class="byline">Où trouver et partager toutes sortes d'experiences</span> 
                              </div>
      
-                            {% include '::messageBienvenue.html.twig' %}
+                            {% include 'BcBootstrapBundle::flash.html.twig' with { 'close': true } %}
                             {% render controller('MindSiteBundle:Avis:getAvis', {"page": 1, '_route': 'avis_for_accueil'}) %}
                             
                         

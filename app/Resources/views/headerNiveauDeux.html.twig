@@ -7,7 +7,7 @@
       {# Le menu est gérer par KnpMenuBundle et Bootstrap(précisiement BcBootstrapBundle 
          La class se situe dans SiteBundle/Menu/Menu.php #}
         
-      {{ knp_menu_render('MindSiteBundle:Menu:getMenuHeader', {'currentClass': 'active'}) }}
+      {{ knp_menu_render('MindSiteBundle:Menu:getMenuHeader', {'currentClass': 'active'})|raw }}
       
                 {# HEADER NIVEAU 1. #}
                     {% include '::headerNiveauUn_CompteLogin.html.twig' %}

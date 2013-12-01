@@ -23,6 +23,7 @@ class AbonnementController extends Controller
      */
     public function abonnementDomaineAction($idUser, $idDuDomaine){
         
+        $serviceBootstrapFlash = $this->container->get('bc_bootstrap.flash');
         $idUserCourant = $this->get('security.context')->getToken()->getUser()->getId();
         $abonnementDomaine = new \Mind\MediaBundle\Entity\AbonnementDomaine;
         

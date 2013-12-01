@@ -18,7 +18,7 @@ class SuivisController extends Controller {
     public function indexAction($stringOptions){
         
         $suivis         = new \Mind\MediaBundle\Entity\Suivis;
-                
+        $serviceBootstrapFlash = $this->container->get('bc_bootstrap.flash');        
         $tabOptions = $this->initTabOptionsAction($stringOptions);
         $suivis->setIdUser($tabOptions['idUser']);
         $suivis->setIdEntity($tabOptions['idEntity']);

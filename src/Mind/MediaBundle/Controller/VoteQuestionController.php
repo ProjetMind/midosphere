@@ -18,8 +18,7 @@ class VoteQuestionController extends Controller
     public function jeVoteQuestionAction($idQuestion, $typeOpinion)
     {
         $erreurs = "";
-        $message = "<ul>";
-        $voteEnregistre = false;
+        $serviceBootstrapFlash = $this->get('bc_bootstrap.flash');
         $manager = $this->getDoctrine()
                         ->getManager();
         $questionExiste = $manager->getRepository('MindSiteBundle:Question')
@@ -42,11 +41,15 @@ class VoteQuestionController extends Controller
             if(count($erreursListe) > 0){
                 
                 $erreurs = $erreursListe;
-                $message .= "<li>Erreur lors de l'ajout</li>";
+                $message = "Erreur lors de lors de l'enregistrement de votre vote.";
+                $serviceBootstrapFlash->error($message);
+                
                 
             }
             else{
-                $message .= "Vote enregistré.";
+                $message = "Votre vote a été enregistré.";
+                $serviceBootstrapFlash->success($message);
+                
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($opinionQuestion);
                 $em->flush();
@@ -57,15 +60,16 @@ class VoteQuestionController extends Controller
                 $tabAcl[]   = $opinionQuestion;
                 $serviceAcl->updateAcl($tabAcl);
                 
-                $voteEnregistre = true;
             }
         }
         else{
             if(empty($questionExiste)){
-                $message .= "<li>L'question n'existe pas</li>";
+                $message = "La question pour laquelle vous voulez voter n'existe pas.";
+                $serviceBootstrapFlash->info($message);
             }
             if($aDejaVote == true){
-                $message .= "<li>Vous avez déjà voté pour cet question</li>"; 
+                $message = "Vous avez déjà voté pour cette question."; 
+                $serviceBootstrapFlash->info($message);
             }
         }
         
@@ -74,9 +78,8 @@ class VoteQuestionController extends Controller
         $urlQuestion = $this->generateUrl('mind_site_question_voir',
                                                array('slug'     => $questionExiste->getSlug(),
                                                      'auteur'   => $slugAuteur));
-        $this->get('session')->getFlashBag()->add('success', $message.'</ul>');
-        $this->get('session')->getFlashBag()->add('erreurs', $erreurs);
-        $this->get('session')->getFlashBag()->add('ok', $voteEnregistre);
+        
+        //$this->get('session')->getFlashBag()->add('ok', $voteEnregistre);
         
         return $this->redirect($urlQuestion);
     }
@@ -105,7 +108,6 @@ class VoteQuestionController extends Controller
      */
     public function SupprimerVoteAction($idQuestion){
         
-        $message = "<ul>";
         $manager = $this->getDoctrine()->getManager();
         $questionExiste = $manager->getRepository('MindSiteBundle:Question')->find($idQuestion);
         $auteurQuestion = $manager->getRepository('MindUserBundle:User')->find($questionExiste->getQuestionAuteur());
@@ -122,12 +124,13 @@ class VoteQuestionController extends Controller
             $manager->remove($opinionQuestion);
             $manager->flush();
             
-            $message .= "<li>Vote supprimé avec succès.</li>";
+            $message = "Vote supprimé avec succès.";
+            $serviceBootstrapFlash->info($message);
             
                     
         }
         else{
-            $message .= "<li>L'question n'existe pas.</li>";
+            $message .= "L'question n'existe pas.";
         }
         
         $urlQuestion = $this->generateUrl('mind_site_question_voir',

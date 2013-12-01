@@ -187,7 +187,8 @@ class Menu extends ContainerAware
             //Attributes pour les sous menu publier
             $menu['Publier']->setChildrenAttribute('style', 'left:0;');
             $menu['Publier']->setChildrenAttribute('class', 'dropdown-menu');
-            $menu['Publier']->setName('Publier <span class="caret"></span>');
+            $menu['Publier']->setName('Publier <b class="caret"></b>');
+           
             
         }
         return $menu;

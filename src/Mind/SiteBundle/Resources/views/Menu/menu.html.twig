@@ -161,7 +161,7 @@
     {% set labelAttributes = item.labelAttributes %}
     {% set labelAttributes = labelAttributes|merge({'class': (labelAttributes.class|default('') ~ ' dropdown-toggle')|trim}) %}
     {% set labelAttributes = labelAttributes|merge({'data-toggle': 'dropdown'}) %}
-    <a href="#"{{ _self.attributes(labelAttributes) }}>{{ block('label') }} <b class="caret"></b></a>
+<a href="#"{{ _self.attributes(labelAttributes) }}>{{ block('label')|raw }} <b class="caret"></b></a>
 {% endspaceless %}
 {% endblock dropdownElement %}
 
@@ -172,5 +172,5 @@
 
 {% block spanElement %}<span{{ _self.attributes(item.labelAttributes) }}>{{ block('label') }}</span>{% endblock %}
 
-{% block label %}{% if options.allow_safe_labels and item.getExtra('safe_label', false) %}{{ item.label|raw|parse_icons }}{% else %}{{ item.label|parse_icons }}{% endif %}{% endblock %}
+{% block label %}{% if options.allow_safe_labels and item.getExtra('safe_label', false) %}{{ item.label|raw|parse_icons }}{% else %}{{ item.label|raw|parse_icons }}{% endif %}{% endblock %}
 

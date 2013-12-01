@@ -17,6 +17,7 @@ class VoteAvisController extends Controller
      */
     public function jeVoteAvisAction($idAvis, $typeOpinion)
     { 
+        $serviceBootstrapFlash = $this->container->get('bc_bootstrap.flash');
         $erreurs = "";
         $message = "<ul>";
         $voteEnregistre = false;

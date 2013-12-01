@@ -13,8 +13,8 @@ class VoteController extends Controller
     {
         
         $erreurs = "";
-        $message = "<ul>";
-        $voteEnregistre = false;
+        $message = "";
+        $voteEnregistre = null;
         $manager = $this->getDoctrine()
                         ->getManager();
         $avisExiste = $manager->getRepository('MindSiteBundle:Avis')
@@ -37,7 +37,8 @@ class VoteController extends Controller
             if(count($erreursListe) > 0){
                 
                 $erreurs = $erreursListe;
-                $message .= "<li>Erreur lors de l'ajout</li>";
+                $message .= "Erreur lors de l'ajout.";
+                $voteEnregistre = false;
                 
             }
             else{
@@ -50,10 +51,12 @@ class VoteController extends Controller
         }
         else{
             if(empty($avisExiste)){
-                $message .= "<li>L'avis n'existe pas</li>";
+                $message .= "L'avis n'existe pas.";
+                $voteEnregistre = false;
             }
             if($aDejaVote == true){
-                $message .= "<li>Vous avez déjà voté pour cet avis</li>"; 
+                $message .= "Vous avez déjà voté pour cet avis."; 
+                $voteEnregistre = false;
             }
         }
         
@@ -62,17 +65,16 @@ class VoteController extends Controller
         $urlAvis = $this->generateUrl('mind_site_avis_voir',
                                                array('slug'     => $avisExiste->getSlug(),
                                                      'auteur'   => $slugAuteur));
-        $this->get('session')->getFlashBag()->add('success', $message.'</ul>');
-        $this->get('session')->getFlashBag()->add('erreurs', $erreurs);
+        if($voteEnregistre == true){
+            $this->get('session')->getFlashBag()->add('success', $message);
+        }
+        if($voteEnregistre == false){
+            $this->get('session')->getFlashBag()->add('erreurs', $erreurs);
+        }
+       
         $this->get('session')->getFlashBag()->add('ok', $voteEnregistre);
         return $this->redirect($urlAvis);
         
-//        return $this->container->get('templating')->renderResponse('MindMediaBundle::message_vote.html.twig', 
-//                array(
-//                        'message' =>        $message.'</ul>',
-//                        'erreurs'           => $erreurs,
-//                        'avisAjoutOk'       => $voteEnregistre
-//                    ));
     }
     
     public function aDejaVote($idAvis, $idAuteur, $manager = null){
@@ -92,8 +94,9 @@ class VoteController extends Controller
     
     public function SupprimerVoteAction($idAvis){
         
-        $message = "<ul>";
+        $message = "";
         $manager = $this->getDoctrine()->getManager();
+        $ok = null;
         $avisExiste = $manager->getRepository('MindSiteBundle:Avis')->find($idAvis);
         $auteurAvis = $manager->getRepository('MindUserBundle:User')->find($avisExiste->getAvisAuteur());
         $idAuteur = $auteurAvis->getId();
@@ -102,19 +105,28 @@ class VoteController extends Controller
             
             $manager->getRepository('MindMediaBundle:OpinionAvis')->deleteVoteAvis($idAvis, $idAuteur);
             
-            $message .= "<li>Vote supprimé avec succès.</li>";
+            $message .= "Vote supprimé avec succès.";
+            $ok = true;
             
                     
         }
         else{
-            $message .= "<li>L'avis n'existe pas.</li>";
+            $message .= "L'avis n'existe pas.";
+            $ok = false;
+        }
+        
+        if($ok == true){
+            $this->get('session')->getFlashBag()->add('success', $message);
+        }
+        if($ok == false){
+            $this->get('session')->getFlashBag()->add('erreurs', $message);
         }
         
         $urlAvis = $this->generateUrl('mind_site_avis_voir',
                                                array('slug'     => $avisExiste->getSlug(),
                                                      'auteur'   => $auteurAvis->getSlug()));
         
-        $this->get('session')->getFlashBag()->add('success', $message.'</ul>');
+        
         return $this->redirect($urlAvis);
     }
 }
