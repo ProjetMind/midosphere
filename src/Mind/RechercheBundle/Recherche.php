@@ -14,11 +14,11 @@ class Recherche {
     protected $dateFormatage;
     protected $security;
     protected $container;
-    protected $minLengthTerms = 5;
+    protected $minLengthTerms = 2;
     protected $msg  = array(
-        'termsVide'     => 'Vous devez indiquez au moins un terme de recherche.',
-        'optionsVide'   => 'Vous devez indiquez au moins une options de recherche.',       
-        'termsCourt'     => 'La valeur du champ de recherche est trop court. Il doit faire au minimum %s caractètes'
+        'termsVide'     => 'Vous devez saisir au moins un terme de recherche.',
+        'optionsVide'   => 'Vous devez saisir au moins une option de recherche.',       
+        'termsCourt'     => 'La valeur du champ de recherche est trop courte. Elle doit faire au minimum %s caractères.'
     );
 
 

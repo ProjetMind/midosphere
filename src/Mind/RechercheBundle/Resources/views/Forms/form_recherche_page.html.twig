@@ -2,16 +2,7 @@
 
 {# empty Twig template #}
 
-{% if msg is not empty %}
-    <div class="alert alert-warning">
-        <button type="button" class="close" data-dismiss="alert">×</button>
-        <ul>
-            {% for message in msg %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-{% endif %}
+
 
 <form id="formHeaderSearch" class="form-inline" method="POST" action="{{ path('mind_recherche_homepage') }}">
     
@@ -24,7 +15,7 @@
     <div class="divOptionsSearch row-fluid">
         
         <span class="span6">
-            <div class="btnOptions btn disabled">Recherchez dans :</div> 
+            <div class="btnOptions btn disabled">Rechercher dans :</div> 
             <br/>
             <label for="inputOptionsAvis">
                 <input type="checkbox" id="inputOptionsAvis" name="optionsDeRecherche[]" value="1"
@@ -49,7 +40,7 @@
         </span>
         
         <span class="span6">
-            <div class="btnOptions btn disabled">Recherchez :</div> 
+            <div class="btnOptions btn disabled">Filtre :</div> 
             <br/>
             <label for="optionsFiltres1">
                 <input id="optionsFiltres1" type="radio" name="optionsFiltres" value="1"
@@ -64,7 +55,7 @@
             <label for="optionsFiltres3">
                 <input id="optionsFiltres3" type="radio" name="optionsFiltres" value="3"
                        {% if optionsFiltres == 3 %}checked="{{'checked'}}"{% endif %}/>
-                Contenant le terme exacte
+                Contenant le terme exact
             </label>
         </span>
     </div>

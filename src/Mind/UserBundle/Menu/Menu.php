@@ -22,7 +22,7 @@ class Menu extends ContainerAware
         //Childrens
         $menu->addChild('Listener', array('uri'   => ''));
         $menu['Listener']->setAttribute('class', 'nav-header menuGDTitle');
-        $menu->addChild('Abonnement',           array(
+        $menu->addChild('Abonnements',           array(
                                                         'route'           => 'mind_user_profile_voir',
                                                         'routeParameters' => array('slug'   => $slug)
                                                      ));
@@ -35,11 +35,11 @@ class Menu extends ContainerAware
         #$menu->addChild('Commentaires',         array('route'           => 'mind_site_homepage'));
         
         //URI childrends 
-        $uriAbonnement = $menu['Abonnement']->getUri();
+        $uriAbonnement = $menu['Abonnements']->getUri();
         $uriSuivis     = $menu['Suivis']->getUri();
         
         //SET children attributes
-        $menu['Abonnement']->setUri($uriAbonnement.'#les-abonnements');
+        $menu['Abonnements']->setUri($uriAbonnement.'#les-abonnements');
         $menu['Suivis']->setUri($uriSuivis.'#les-suivis');
         return $menu;
         
@@ -132,16 +132,16 @@ class Menu extends ContainerAware
         
         //Children name : ajout des icones 
         $menu['informationsPersonnelles']->setLabel('<i class="icon-user"></i> Informations personnelles');
-        $menu['parametresDuCompte']->setLabel('<i class="icon-cog"></i> Paramètre du compte');
-        $menu['messagerie']->setLabel('<i class="icon-envelope"></i> Méssagerie');
+        $menu['parametresDuCompte']->setLabel('<i class="icon-cog"></i> Paramètres du compte');
+        $menu['messagerie']->setLabel('<i class="icon-envelope"></i> Messagerie');
         
         if($this->container->get('security.context')->isGranted('ROLE_ADMIN')){
             
-            $menu['admin']->setLabel('<i class="icon-wrench"></i> admin');
+            $menu['admin']->setLabel('<i class="icon-wrench"></i> Admin');
             $menu['utilisateurs']->setLabel('<i class="icon-user"></i>Utilisateurs');
             $menu['domaines']->setLabel('<i class="icon-list-alt"></i>Domaines');
-            $menu['avis']->setLabel('Avis');
-            $menu['questions']->setLabel('Question');
+            $menu['avis']->setLabel('<i class="icon-exclamation-sign"></i>Avis');
+            $menu['questions']->setLabel('<i class="icon-question-sign"></i>Questions');
             $menu['deconnexion']->setLabel('<i class="icon-off"></i> Déconnexion');
             
         }

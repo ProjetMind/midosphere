@@ -84,6 +84,7 @@
                     </section>
                     
                     <section id="corpsContenu" class="span9" >
+                    
                     {% block body %}
                         
                         
@@ -92,8 +93,8 @@
                                 <h2>Bienvenue sur Midosphere</h2>
                                 <span class="byline">Où trouver et partager toutes sortes d'experiences</span> 
                              </div>
-     
-                        {% include 'BcBootstrapBundle::flash.html.twig' with { 'close': true } %}
+                        
+                        
                         {% include '::messageBienvenue.html.twig' %}
                             {% render controller('MindSiteBundle:Avis:getAvis', {"page": 1, '_route': 'avis_for_accueil'}) %}
                             

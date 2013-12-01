@@ -20,6 +20,11 @@ class RechercheController extends Controller
         $termsDeRecherche       = $serviceRecherche->getTermsRecherche();
         $optionsFiltres         = $serviceRecherche->getOptionsFiltres();
         $msg                    = $serviceRecherche->getMessage();
+        $serviceBcBootstrapFlash = $this->container->get('bc_bootstrap.flash');
+        
+        foreach ($msg as $unMsg){
+            $serviceBcBootstrapFlash->error($unMsg);
+        }
         
         $template = "MindRechercheBundle:Recherche:recherche.html.twig";
         return $this->container->get('templating')->renderResponse($template,

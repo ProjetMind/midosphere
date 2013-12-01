@@ -1,8 +1,13 @@
 {# empty Twig template #}
 
-<h3>Résultat de votre recherche</h3>
+<h3>Résultats de votre recherche</h3>
+
+{% block messageFlash %}
+        {% include 'BcBootstrapBundle::flash.html.twig' with { 'close': true } %}
+{% endblock %}
 
 {% include 'MindRechercheBundle:Forms:form_recherche_page.html.twig' %}
+
 
     <ul class="nav nav-tabs" id="tabResultats">
         <li class="active">

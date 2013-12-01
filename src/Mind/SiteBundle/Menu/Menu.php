@@ -38,7 +38,7 @@ class Menu extends ContainerAware
         $menu->setCurrentUri($currentItem);
         
         //Children 
-        $menu->addChild('Toutes les question',  array('route'   => 'mind_site_question_afficher'));
+        $menu->addChild('Toutes les questions',  array('route'   => 'mind_site_question_afficher'));
         $menu->addChild('Les plus récentes',    array('route'   => 'mind_site_question_afficher_recent'));
         $menu->addChild('Les plus anciennes',   array('route'   => 'mind_site_question_afficher_anciens'));
         $menu->addChild('Les plus notées',      array('route'   => 'mind_site_question_afficher_plus_note'));
@@ -140,13 +140,13 @@ class Menu extends ContainerAware
         
         //Children name : ajout des icones 
         $menu['user']['informationsPersonnelles']->setLabel('<i class="icon-user"></i> Informations personnelles');
-        $menu['user']['parametresDuCompte']->setLabel('<i class="icon-cog"></i> Paramètre du compte');
-        $menu['user']['messagerie']->setLabel('<i class="icon-envelope"></i> Méssagerie');
-        $menu['user']['admin']->setLabel('<i class="icon-wrench"></i> admin');
+        $menu['user']['parametresDuCompte']->setLabel('<i class="icon-cog"></i> Paramètres du compte');
+        $menu['user']['messagerie']->setLabel('<i class="icon-envelope"></i> Messagerie');
+        $menu['user']['admin']->setLabel('<i class="icon-wrench"></i> Admin');
         $menu['user']['utilisateurs']->setLabel('<i class="icon-user"></i>Utilisateurs');
         $menu['user']['domaines']->setLabel('<i class="icon-list-alt"></i>Domaines');
-        $menu['user']['avis']->setLabel('Avis');
-        $menu['user']['questions']->setLabel('Question');
+        $menu['user']['avis']->setLabel('<i class="icon-exclamation-sign"></i>Avis');
+        $menu['user']['questions']->setLabel('<i class="icon-question-sign"></i>Questions');
         $menu['user']['deconnexion']->setLabel('<i class="icon-off"></i> Déconnexion');
         
         //Attributes pour les sous menu publier

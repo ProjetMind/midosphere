@@ -5,7 +5,7 @@ $(function(){
     $('#destinataires').select2({
             multiple: true,
             minimumInputLength: 2,
-            placeholder: 'Destinataires',
+            placeholder: 'Pseudo',
             width: 150,
             allowClear: true,
             id: function (item) {
