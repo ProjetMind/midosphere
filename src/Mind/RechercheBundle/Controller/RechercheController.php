@@ -23,7 +23,7 @@ class RechercheController extends Controller
         $serviceBcBootstrapFlash = $this->container->get('bc_bootstrap.flash');
         
         foreach ($msg as $unMsg){
-            $serviceBcBootstrapFlash->error($unMsg);
+            $serviceBcBootstrapFlash->info($unMsg);
         }
         
         $template = "MindRechercheBundle:Recherche:recherche.html.twig";
