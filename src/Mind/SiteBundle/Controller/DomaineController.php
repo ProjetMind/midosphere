@@ -47,6 +47,7 @@ class DomaineController extends Controller
         $domaine = new \Mind\SiteBundle\Entity\Domaine;
         $form = $this->createForm(new DomaineType(), $domaine);
         $domaineService = $this->container->get('mind_site.domaine');
+        $serviceBootstrapFlash = $this->container->get('bc_bootstrap.flash');
         
         $request = $this->getRequest('request');
         
@@ -69,13 +70,14 @@ class DomaineController extends Controller
                 $tabAcl[]   = $domaine;
                 $serviceAcl->updateAcl($tabAcl);
                 
-                if($this->container->get('request')->get('mind_sitebundle_domainetype') == 1){
+                $etat = $domaine->getEtat();
+                if($etat == 1){
                     $messageDomaine = "Le domaine a été publié.";
-                    $this->get('session')->getFlashBag()->add('success', $messageDomaine);
+                    $serviceBootstrapFlash->success($messageDomaine);
                 }
                 else{
                     $messageDomaine = "Le domaine n'a pas été publié. Pensez à le publié.";
-                    $this->get('session')->getFlashBag()->add('erreurs',$messageDomaine);
+                    $serviceBootstrapFlash->info($messageDomaine);
                 }
                 
                 //On retournera peut-être la liste des videos

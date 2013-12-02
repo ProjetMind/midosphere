@@ -90,7 +90,9 @@
                     
                     {% block body %}
                         
-                        
+                        {% block messageFlash %}
+                            {% include 'BcBootstrapBundle::flash.html.twig' with { 'close': true } %}
+                        {% endblock %}
                             
                             <div class="title">
                                 <h2>Bienvenue sur Midosphere</h2>

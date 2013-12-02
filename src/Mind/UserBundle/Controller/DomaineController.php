@@ -5,6 +5,7 @@ namespace Mind\UserBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Mind\SiteBundle\Form\Type\DomaineType;
 use Symfony\Component\HttpFoundation\Response;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 /**
  * Cette classe gère les domaine :
@@ -19,13 +20,16 @@ class DomaineController extends Controller
      * 
      * Permet l'ajout d'un nouveau domaine avec jquery form 
      * 
+     * @Secure(roles="ROLE_ADMIN")
      * @return type
      */
     public function domainesAction(){
         
+        
         $domaine = new \Mind\SiteBundle\Entity\Domaine;
         $form = $this->createForm(new DomaineType(), $domaine);
         $domaineService = $this->container->get('mind_site.domaine');
+        $serviceBootstrapFlash = $this->container->get('bc_bootstrap.flash');
         
         $request = $this->getRequest('request');
         
@@ -42,12 +46,14 @@ class DomaineController extends Controller
                 $em->persist($domaine);
                 $em->flush();
                 
-                //On retournera peut-être la liste des videos
-                $this->get('session')->getFlashBag()->add('success', 'Le domaine a été enregistré avec succées.');
-                return $this->redirect( $this->generateUrl('mind_admin_domaine') );
+                $message = 'Le domaine a été enregistré avec succées.';
+                $serviceBootstrapFlash->success($message);
+                
+                return new Response();
+                //return $this->redirect( $this->generateUrl('mind_admin_domaine') );
             }
             
-           
+           return new Response();
         }
         
         $lesDomaines    = $domaineService->getHtmlFormForAdmin();

@@ -14,6 +14,8 @@ mind_admin_user:
 mind_admin_domaine:
   pattern: /domaines
   defaults: { _controller: MindUserBundle:Domaine:getListeDomaine }
+  options:
+      expose: true
   
 mind_admin_domaine_add:
     pattern: /domaines/ajouter-un-domaine

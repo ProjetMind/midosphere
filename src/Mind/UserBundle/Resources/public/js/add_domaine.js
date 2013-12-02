@@ -24,6 +24,8 @@ $(document).ready(function() {
 // post-submit callback 
 function showResponseDomaine(responseText, statusText, xhr, $form)  { 
  
+    var url = Routing.generate('mind_admin_domaine');
+    {window.location=url;}
     //$("#groupCommentaires").append(responseText);
 }
 

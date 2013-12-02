@@ -143,6 +143,7 @@ class QuestionController extends Controller
       //Création du formulaire à partir de l'entité et du type de formulaire
      $question = new \Mind\SiteBundle\Entity\Question;
      $form = $this->createForm(new QuestionType(), $question);
+     $serviceBootstrapFlash = $this->container->get('bc_bootstrap.flash');
      
      //On récupère la classe requete
      $request = $this->getRequest();
@@ -177,8 +178,13 @@ class QuestionController extends Controller
             
             //message de confirmation 
             $messageDeConfirmation = "La question a été publié avec succès.";
-            $this->get('session')->getFlashBag()->add('success', $messageDeConfirmation);
-            return $this->redirect($this->generateUrl('mind_site_homepage'));
+            $serviceBootstrapFlash->success($messageDeConfirmation);
+            
+            $parametres = array(
+                'auteur'    => $this->getUser()->getSlug(),
+                'slug'      => $question->getSlug()
+            );
+            return $this->redirect($this->generateUrl('mind_site_question_voir', $parametres));
         }
        
     }
@@ -201,6 +207,7 @@ class QuestionController extends Controller
        $serviceQuestion = $this->container->get('mind_site.questions');
        $domaineService = $this->container->get('mind_site.domaine');
        $serviceAcl      = $this->container->get('mind_site.acl_security');
+       $serviceBootstrapFlash = $this->container->get('bc_bootstrap.flash');
        
        $request = $this->getRequest();
        $em = $this->getDoctrine()->getManager();
@@ -230,9 +237,14 @@ class QuestionController extends Controller
                
                //message de confirmation 
                $messageDeConfirmation = "La question a été modifié avec succès.";
-               $this->get('session')->getFlashBag()->add('success', $messageDeConfirmation);
-               return $this->redirect($this->generateUrl('mind_site_homepage'));
-           }
+               $serviceBootstrapFlash->success($messageDeConfirmation);
+            
+                $parametres = array(
+                    'auteur'    => $this->getUser()->getSlug(),
+                    'slug'      => $question->getSlug()
+                );
+                    return $this->redirect($this->generateUrl('mind_site_question_voir', $parametres));
+               }
        }else{
             
             $form = $this->createForm(new QuestionModifierType(), $question);

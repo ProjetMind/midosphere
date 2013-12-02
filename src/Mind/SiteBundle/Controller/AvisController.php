@@ -204,9 +204,9 @@ class AvisController extends Controller
   public function ajouterAction()
   {
      $serviceAcl = $this->container->get('mind_site.acl_security'); 
+     $serviceBootstrapFlash = $this->container->get('bc_bootstrap.flash');
      $suivis = $this->container->get('mind_media.suivis');
      $domaineService = $this->container->get('mind_site.domaine');
-     #$listener = $this->container->get('gedmo.listener.uploadable');
      $em = $this->getDoctrine()->getManager();
      $domaineArray = $em->getRepository('MindSiteBundle:Domaine')->getAllDomainesInArray();
       
@@ -252,8 +252,14 @@ class AvisController extends Controller
             
             //message de confirmation 
             $messageDeConfirmation = "L'avis a été publié avec succès.";
-            $this->get('session')->getFlashBag()->add('success', $messageDeConfirmation);
-            return $this->redirect($this->generateUrl('mind_site_homepage'));
+            $serviceBootstrapFlash->success($messageDeConfirmation);
+            
+            $parametres = array(
+                'auteur'    => $this->container->get('security.context')->getToken()->getUser()->getSlug(),
+                'slug'      => $avis->getSlug()
+            );            
+            
+            return $this->redirect($this->generateUrl('mind_site_avis_voir', $parametres));
         }
        
     }
@@ -279,6 +285,7 @@ class AvisController extends Controller
        $serviceAcl = $this->container->get('mind_site.acl_security');
        $serviceAvis = $this->container->get('mind_site.avis');
        $domaineService = $this->container->get('mind_site.domaine');
+       $serviceBootstrapFlash = $this->container->get('bc_bootstrap.flash');
        
        $request = $this->getRequest();
        $em = $this->getDoctrine()->getManager();
@@ -308,8 +315,14 @@ class AvisController extends Controller
                
                //message de confirmation 
                $messageDeConfirmation = "L'avis a été modifié avec succès.";
-               $this->get('session')->getFlashBag()->add('success', $messageDeConfirmation);
-               return $this->redirect($this->generateUrl('mind_site_homepage'));
+               $serviceBootstrapFlash->success($messageDeConfirmation);
+               
+               $parametre = array(
+                   'auteur'     => $this->getUser()->getSlug(),
+                   'slug'       => $avis->getSlug()
+               );
+               
+               return $this->redirect($this->generateUrl('mind_site_avis_voir', $parametre));
            }
        }else{
             

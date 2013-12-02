@@ -19,6 +19,7 @@ class Domaine implements \Gedmo\Tree\Node
     public function __construct() {
         
         $this->dateCreation = new \DateTime();
+        $this->etat = true;
     }
     
     /**
