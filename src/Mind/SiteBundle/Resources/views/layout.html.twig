@@ -4,6 +4,9 @@
 
 {% block body %}
 
+{% block messageFlash %}
+    {% include 'BcBootstrapBundle::flash.html.twig' with { 'close': true } %}
+{% endblock %}
     {% block sectionCorps %}
     
     {% endblock %}

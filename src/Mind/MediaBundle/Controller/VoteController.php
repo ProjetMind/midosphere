@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * class unitilisé je crois, à verifier
+ * @deprecated since version 1.0
  */
 class VoteController extends Controller
 {

@@ -71,9 +71,10 @@
         <div class="container-fluid">
 
             {% include '::header.html.twig' %}
-             {% block messageFlash %}
+            
+            {# block messageFlash %}
                             {% include 'BcBootstrapBundle::flash.html.twig' with { 'close': true } %}
-                    {% endblock %}
+             {% endblock #}
             <section id="corpsPrincipal" class="row-fluid">
                 
                  

@@ -68,6 +68,7 @@ class MessagerieController extends Controller {
         
         $serviceConversation    = $this->container->get('mind_mp.conversation');
         $tabConversation        = $this->getRequest()->get('mind_mpbundle_conversationtype')['id'];
+        $serviceBootstrapFlash  = $this->container->get('bc_bootstrap.flash');
        
         if(!empty($tabConversation)){
             
@@ -75,13 +76,13 @@ class MessagerieController extends Controller {
             
             //message de confirmation 
             $messageDeConfirmation = "Conversation(s) supprimer avec succès.";
-            $this->get('session')->getFlashBag()->add('success', $messageDeConfirmation);
+            $serviceBootstrapFlash->success($messageDeConfirmation);
             
         }else{
             
             //message d'e confirmation'erreur 
             $messageDeConfirmation = "Vous devez séléctionner au moins une conversation.";
-            $this->get('session')->getFlashBag()->add('erreurs', $messageDeConfirmation);
+            $serviceBootstrapFlash->info($messageDeConfirmation);
             
         }
         
@@ -102,6 +103,7 @@ class MessagerieController extends Controller {
         
         $serviceConversation    = $this->container->get('mind_mp.conversation');
         $tabConversation        = $this->getRequest()->get('mind_mpbundle_conversationtype')['id'];
+        $serviceBootstrapFlash  = $this->container->get('bc_bootstrap.flash');
         
         if(!empty($tabConversation)){
             
@@ -109,13 +111,13 @@ class MessagerieController extends Controller {
 
             //message de confirmation 
             $messageDeConfirmation = "Conversation(s) archiver avec succès.";
-            $this->get('session')->getFlashBag()->add('success', $messageDeConfirmation);
+            $serviceBootstrapFlash->success($messageDeConfirmation);
             
         }else{
             
             //message d'e confirmation'erreur 
             $messageDeConfirmation = "Vous devez séléctionner au moins une conversation.";
-            $this->get('session')->getFlashBag()->add('erreurs', $messageDeConfirmation);
+            $serviceBootstrapFlash->info($messageDeConfirmation);
         }
         
         $url = $this->generateUrl('mind_mp_homepage');
