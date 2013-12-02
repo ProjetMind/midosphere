@@ -1,6 +1,9 @@
-{% extends "MindUserBundle::layout.html.twig" %}
+{% extends "::layout.html.twig" %}
 
+
+{% block body %}
 {% block sectionCorps %}
+
 
     {% block fos_user_content %}
 
@@ -13,6 +16,7 @@
     {% endblock fos_user_content %}
     
 {% endblock %}
+        {% endblock %}
     
     
     

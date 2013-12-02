@@ -13,6 +13,8 @@ namespace Mind\UserBundle\Controller;
 
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use FOS\UserBundle\Model\UserInterface;
 
 /**
  * Controller managing the registration
@@ -39,7 +41,7 @@ class RegistrationController extends BaseController
 
         $process = $formHandler->process($confirmationEnabled);
         if ($process) {
-            $user = $form->getData();
+            $user = $form->getData(); 
 
             $authUser = false;
             if ($confirmationEnabled) {
@@ -62,40 +64,35 @@ class RegistrationController extends BaseController
         }
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:register.html.'.$this->getEngine(), array(
-            'form' => $form->createView(),
+            'form'          => $form->createView()
         ));
     }
 
-    
     /**
-     * Receive the confirmation token from user email provider, login the user
+     * Tell the user his account is now confirmed
      */
-    public function confirmAction($token)
+    public function confirmedAction()
     {
-        $user = $this->container->get('fos_user.user_manager')->findUserByConfirmationToken($token);
         $serviceAcl = $this->container->get('mind_site.acl_security');
-        if (null === $user) {
-            throw new NotFoundHttpException(sprintf('The user with confirmation token "%s" does not exist', $token));
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            throw new AccessDeniedException('This user does not have access to this section.');
         }
-
-        $user->setConfirmationToken(null);
-        $user->setEnabled(true);
-        $user->setLastLogin(new \DateTime());
         
-        $user = $this->checkPathProfileAvatar($user);
+        $pathAvatar = $this->checkPathProfileAvatar($user->getSexe());
+        $user->setPath($pathAvatar);
         $this->createAvatar($user->getId(), $user->getPath());
-
-        $this->container->get('fos_user.user_manager')->updateUser($user);
         
+        $this->container->get('fos_user.user_manager')->updateUser($user);
+
         //Acl
         $tabAcl = array();
         $tabAcl[] = $user;
         $serviceAcl->updateAcl($tabAcl);
         
-        $response = new RedirectResponse($this->container->get('router')->generate('fos_user_registration_confirmed'));
-        $this->authenticateUser($user, $response);
-
-        return $response;
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:confirmed.html.'.$this->getEngine(), array(
+            'user' => $user,
+        ));
     }
     
     /**
@@ -104,19 +101,19 @@ class RegistrationController extends BaseController
      * 
      * @param type $user
      */
-    public function checkPathProfileAvatar($user){
+    public function checkPathProfileAvatar($sexe){
         
         $pathAvatar = "../web/img/";
         
         //Check path of profile image
-        if($user->getSexe() == 1){
+        if($sexe == 1){
 
-            $user->setPath($pathAvatar.'avatar-homme.jpeg');
+            $pathAvatar = $pathAvatar.'avatar-homme.jpeg';
         }else{
-            $user->setPath($pathAvatar.'avatar-femme.jpeg');
+            $pathAvatar = $pathAvatar.'avatar-femme.jpeg';
         }
         
-        return $user;
+        return $pathAvatar;
     }
     
     /**

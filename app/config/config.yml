@@ -30,9 +30,9 @@ knp_menu:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
-    form:
-        resources:
-            - '::form.html.twig'
+#    form:
+#        resources:
+#            - 'MindUserBundle:Form:form.html.twig'
 
 bc_bootstrap:
     less_filter: lessphp

@@ -1,0 +1,12 @@
+{# empty Twig template #}
+{{ dump(formErrors) }}
+{% if formErrors|length > 0 %}
+
+    <ul class="alert alert-message alert-error">
+    {% for error in formErrors %}
+        <li>{{ error }}</li>
+    {% endfor %}
+    </ul>    
+
+{% endif %}
+    

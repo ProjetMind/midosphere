@@ -2,61 +2,6 @@
 
 <section id="formInscription" class="row-fluid">
     
-    <!--<span class="span6">
-    
-        <div class="media">
-                    <a class="pull-left" href="#">
-                        <img style="width:225px; height: 228px;" class="media-object" data-src="" />
-                    </a>
-                    <div class="media-body">
-                        <p class="media-heading">
-                            <h3>Mind, c'est une grande communauté</h3>
-                        </p>
-
-                        <p class="contenuNotification">
-                            bla bla dd df fjekrj erjf er rlkf e sfkl kjfkdj vdfk njdkfnvkdf nfkvnjdkfjvd
-                            dflkvldfkv dflk,dlfkv dlfklvmdflvm dfklm v dfmvldm flvm dfvmdmv dfvl,dmfvlmd
-                            zfezkf zehe pzepogrtjgijf  oioerifrupezfoi pjoergper joer
-                        </p>
-                    </div>
-         </div>
-        
-        <div class="media">
-                    <a class="pull-left" href="#">
-                        <img style="width:225px; height: 228px;" class="media-object" data-src="" />
-                    </a>
-                    <div class="media-body">
-                        <p class="media-heading">
-                            <h3>des milions d'avis en un clic</h3>
-                        </p>
-
-                        <p class="contenuNotification">
-                            bla bla dd df fjekrj erjf er rlkf e sfkl kjfkdj vdfk njdkfnvkdf nfkvnjdkfjvd
-                            dflkvldfkv dflk,dlfkv dlfklvmdflvm dfklm v dfmvldm flvm dfvmdmv dfvl,dmfvlmd
-                            zfezkf zehe pzepogrtjgijf  oioerifrupezfoi pjoergper joer
-                        </p>
-                    </div>
-         </div>
-        
-        <div class="media">
-                    <a class="pull-left" href="#">
-                        <img style="width:225px; height: 228px;" class="media-object" data-src="" />
-                    </a>
-                    <div class="media-body">
-                        <p class="media-heading">
-                            <h3>Dénichez les escros et ne vous fatites plus avoir</h3>
-                        </p>
-
-                        <p class="contenuNotification">
-                            bla bla dd df fjekrj erjf er rlkf e sfkl kjfkdj vdfk njdkfnvkdf nfkvnjdkfjvd
-                            dflkvldfkv dflk,dlfkv dlfklvmdflvm dfklm v dfmvldm flvm dfvmdmv dfvl,dmfvlmd
-                            zfezkf zehe pzepogrtjgijf  oioerifrupezfoi pjoergper joer
-                        </p>
-                    </div>
-         </div>
-                        
-    </span>-->
-    
     <span class="span2"></span>
 
     <span class="span8 formSpan well" >
@@ -66,12 +11,12 @@
             <fieldset>
                 <legend class="btn-primary">Inscription</legend>
                 {{ form_errors(form) }}
+                {# include 'MindUserBundle:Form:form.html.twig' #}
                 
                 <div class="control-group">
                     {{ form_label(form.username) }}
                     <div class="controls">
                         {{ form_widget(form.username) }}
-                        {{ form_errors(form.username) }}
                     </div>
                 </div>
                     
