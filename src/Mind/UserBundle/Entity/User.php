@@ -18,11 +18,11 @@ class User extends BaseUser
     public function __construct() {
             parent::__construct();
             
-            $this->dateInscription = new \DateTime;
-            $this->nom = 'Diallo';
-            $this->prenom = 'Ibrahim';
-            $this->ville = 'Antony';
-            $this->roles = array('ROLE_ADMIN');
+            $this->dateInscription  = new \DateTime;
+            $this->nom              = 'Diallo';
+            $this->prenom           = 'Ibrahim';
+            $this->ville            = 'Antony';
+            $this->roles            = array('ROLE_ADMIN');
            
         }
         
@@ -79,8 +79,8 @@ class User extends BaseUser
      * @Assert\Type(type="string", message="Le prénom doit être une chaine de caractère.")
      * @Assert\Length(
      *                  min=2, max=20, 
-     *                  minMessage="Le prénom doit faire au moins {{min}} caracrères.", 
-     *                  maxMessage="Le prénom ne peut pas excédé {{max}} caractères."
+     *                  minMessage="Le prénom doit faire au moins {{ limit }} caracrères.", 
+     *                  maxMessage="Le prénom ne peut pas excédé {{ limit }} caractères."
      *              )
      * @Assert\Regex(
      *                  pattern ="#^[A-Z][a-z]+(-[A-Z][a-z]+)*$#",
@@ -97,8 +97,8 @@ class User extends BaseUser
      * 
      * @ORM\Column(name="date_naissance", type="date")
      * 
-     * @Assert\Date(message="Ce champ doit être de type date.")
-     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\Date(message="La valeur du champ date de naissance n'est pas valide.")
+     * @Assert\NotBlank(message="Le champ date de naissance est obligatoire.")
      */
     private $dateNaissance;
 
@@ -110,21 +110,11 @@ class User extends BaseUser
      * 
      * @Assert\Type(
      *              type="boolean",
-     *              message= "Le sexe doit être de type boolean : 0 ou 1"
+     *              message= "Le sexe doit être de type boolean : femme ou homme."
      *              )
      */
     private $sexe;
     
-    /**
-     *
-     * @var string
-     * 
-     * @ORM\Column(name="ville", type="string", length=50, nullable=true)
-     * 
-     * @Assert\Type(type="string", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
-     * 
-     */
-    private $ville;
     
     /**
      *
@@ -132,17 +122,41 @@ class User extends BaseUser
      * 
      * @ORM\Column(name="pays", type="string", length=50, nullable=true)
      * 
-     * @Assert\NotBlank(message="Ce champ est obligatoire.")
-     * @Assert\Type(type="string", message="le pays doit être une chaine de caractère.")
+     * @Assert\NotBlank(message="Le champ pays est obligatoire.")
+     * @Assert\Type(type="string", message="Le pays doit être une chaine de caractère.")
      * @Assert\Length(
      *                  min=2, max=20, 
-     *                  minMessage="Le pays doit faire au moins {{min}} caracrères.", 
-     *                  maxMessage="Le pays ne peut pas excédé {{max}} caractères."
+     *                  minMessage="Le pays doit faire au moins {{ limit }} caracrères.", 
+     *                  maxMessage="Le pays ne peut pas excédé {{ limit }} caractères."
      *              )
      
      * 
      */
     private $pays;
+    
+    /**
+     *
+     * @var string
+     * 
+     * @ORM\Column(name="ville", type="string", length=100, nullable=true)
+     * 
+     * @Assert\Type(
+     *              type="string",
+     *              message= "Le sexe doit être de type boolean : femme ou homme."
+     *              )
+     * 
+     * @Assert\Length(
+     *                  min=2, max=20, 
+     *                  minMessage="Le nom de la ville doit faire au moins {{ limit }} caracrères.", 
+     *                  maxMessage="Le nom de la ville ne peut pas excédé {{ limit }} caractères."
+     *              )
+     * @Assert\Regex(
+     *                  pattern ="#^[A-Z][a-z]+(-[A-Z][a-z]+)*$#",
+     *                  match = true,
+     *                  message = "Le nom de la ville n'est pas correct."
+     *                )
+     */
+    private $ville;
 
     /**
      *
@@ -150,8 +164,8 @@ class User extends BaseUser
      * 
      * @ORM\Column(name="date_inscription", type="datetime")
      * 
-     * @Assert\DateTime(message="Ce champ doit être de type date.")
-     * @Assert\NotBlank(message="Ce champ est obligatoire.")
+     * @Assert\DateTime(message="Le champ date d'inscription doit être de type date.")
+     * @Assert\NotBlank(message="Le champ date d'inscription est obligatoire.")
      */
     private $dateInscription;
     
@@ -172,7 +186,7 @@ class User extends BaseUser
      * 
      * @Orm\Column(name="descrip_user", type="text", nullable=true)
      * 
-     * @Assert\Type(type="string", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="string", message="La valeur {{ value }} du champ description n'est pas un type {{ type }} valide.")
      */
     private $descripUser;
 
@@ -267,7 +281,6 @@ class User extends BaseUser
         {
             $this->sexe = true; 
         }
-        $this->ville = $sexe;
 
         return $this;
     }

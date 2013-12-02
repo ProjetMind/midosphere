@@ -19,6 +19,7 @@ class RegistrationFormType extends BaseType
    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
         $builder
             ->add('username', 'text', 
                     array(
@@ -42,7 +43,7 @@ class RegistrationFormType extends BaseType
                                                         'required'  => true,
                                                         'widget'    => 'choice',
                                                         'format'    => 'dd-MM-yyyy',
-                                                        'years'     => range(1902, 2013),
+                                                        'years'     => range(2013, 1902),
                                                         'empty_value'   => array(
                                                                                     'year'  => "Année :",
                                                                                     'month' => "Mois :", 
@@ -99,7 +100,8 @@ class RegistrationFormType extends BaseType
                                                 'label' => "Pays :",
                                                 'required' => true,
                                                 'translation_domain' => 'FOSUserBundle',
-                                                'empty_value'   => "Pays",
+                                                'empty_value'   => false,
+                                                'preferred_choices' => array('FR'),
                                                 'label_attr'    => array(
                                                                 'class' => 'control-label',
                                                                 'style' => 'text-align:left;'
@@ -124,7 +126,7 @@ class RegistrationFormType extends BaseType
                 
             ->add('cdtGenerales', 'checkbox', array(
                                             'required'  => true,
-                                            'label'     => 'Condtions :',
+                                            'label'     => 'J\'accepte les condtions générales d\'utilisation du site :',
                                             'value'     => true,
                                             'label_attr'    => array(
                                                                 'class' => 'control-label',
