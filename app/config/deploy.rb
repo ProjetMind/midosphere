@@ -6,7 +6,7 @@ set :deploy_to,   "/var/www/midosphere"
 set :user, "root"
 
 set :shared_files,      ["app/config/parameters.yml"]
-#set :shared_children,     [app_path + "/logs", web_path + "/uploads", "vendor"]
+set :shared_children,     [app_path + "/logs", web_path + "/uploads", "vendor"]
 set :use_composer, true
 set :update_vendors, true
 set :dump_assetic_assets, false
