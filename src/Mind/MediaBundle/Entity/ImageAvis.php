@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="image_avis")
  * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="Mind\MediaBundle\Entity\ImageAvisRepository")
- * @Gedmo\Uploadable(allowOverwrite=true, callback="afterMoveImage", filenameGenerator="SHA1", path="../web/uploads/avis/images")
+ * @Gedmo\Uploadable(allowOverwrite=true, callback="afterMoveImage", filenameGenerator="SHA1", path="uploads/avis/images")
  */
 class ImageAvis
 {

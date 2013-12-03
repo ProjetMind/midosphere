@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="avatar")
  * @ORM\Entity(repositoryClass="Mind\MediaBundle\Entity\AvatarRepository")
- * @Gedmo\Uploadable(allowOverwrite=true, filenameGenerator="SHA1", path="../web/uploads/user/avatars")
+ * @Gedmo\Uploadable(allowOverwrite=true, filenameGenerator="SHA1", path="uploads/user/avatars")
  */
 class Avatar
 {

@@ -103,7 +103,7 @@ class RegistrationController extends BaseController
      */
     public function checkPathProfileAvatar($sexe){
         
-        $pathAvatar = "../web/img/";
+        $pathAvatar = "img/";
         
         //Check path of profile image
         if($sexe == 1){
