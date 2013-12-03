@@ -20,10 +20,7 @@ class User extends BaseUser
             parent::__construct();
             
             $this->dateInscription  = new \DateTime;
-            $this->nom              = 'Diallo';
-            $this->prenom           = 'Ibrahim';
-            $this->ville            = 'Antony';
-            $this->roles            = array('ROLE_ADMIN');
+            $this->roles            = array('ROLE_USER');
            
         }
         

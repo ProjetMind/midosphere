@@ -13,3 +13,19 @@ parameters:
     mailer_password: 1678Silencedial94
     mailer_host: ~
     engine: twig
+    
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: 8889
+    database_name: mind
+    database_user: root
+    database_password: root
+    locale: fr
+    secret: 1012f81593948edb73974f92399979839
+    database_path: null
+    mailer_transport: sendmail
+    mailer_user: ~
+    mailer_password: 1678Silencedial94
+    mailer_host: ~
+    engine: twig
