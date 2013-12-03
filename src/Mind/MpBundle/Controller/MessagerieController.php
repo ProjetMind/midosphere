@@ -193,7 +193,7 @@ class MessagerieController extends Controller {
             }
         }
         
-        $template = 'MindMpBundle:message:un_message.html.twig';
+        $template = 'MindMpBundle:Message:un_message.html.twig';
         return $this->container->get('templating')->renderResponse($template,
                 array(
                         'messages'      => $tabMessage,
