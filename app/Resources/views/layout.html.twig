@@ -7,13 +7,10 @@
         
         {% if app.environment == "prod" %}
            
-            
                 <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" type="text/css" />
-            
                 <script type="text/javascript" src="{{ asset('js/jquery.js') }}"></script>
                 <script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
                 
-            
         {% else %}
            
             {% stylesheets 
