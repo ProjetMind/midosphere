@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "6adf7008d2463655fc870fa166ced245",
+    "hash": "5fd75d06d7a369adb6420a00901c65d0",
     "packages": [
         {
             "name": "braincrafted/bootstrap-bundle",
@@ -2370,16 +2370,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.2.10",
+            "version": "v2.2.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "14979a3bf96f42cd6d6710f44216c4c2a6aebcb2"
+                "reference": "6a9c223b066a2553b8f59fd26f84ea630eff403c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/14979a3bf96f42cd6d6710f44216c4c2a6aebcb2",
-                "reference": "14979a3bf96f42cd6d6710f44216c4c2a6aebcb2",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/6a9c223b066a2553b8f59fd26f84ea630eff403c",
+                "reference": "6a9c223b066a2553b8f59fd26f84ea630eff403c",
                 "shasum": ""
             },
             "require": {
@@ -2465,7 +2465,34 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-11-13 14:29:12"
+            "time": "2013-12-02 07:14:10"
+        },
+        {
+            "name": "twbs/bootstrap",
+            "version": "v2.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twbs/bootstrap.git",
+                "reference": "b4c4072679943773a7582daa63f545ba818fa627"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/b4c4072679943773a7582daa63f545ba818fa627",
+                "reference": "b4c4072679943773a7582daa63f545ba818fa627",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Sleek, intuitive, and powerful front-end framework for faster and easier web development.",
+            "homepage": "http://twbs.github.com/bootstrap/",
+            "keywords": [
+                "bootstrap",
+                "css"
+            ],
+            "time": "2013-07-27 06:36:38"
         },
         {
             "name": "twig/extensions",
@@ -2564,33 +2591,6 @@
             "time": "2013-10-30 08:20:53"
         },
         {
-            "name": "twitter/bootstrap",
-            "version": "v2.3.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "b4c4072679943773a7582daa63f545ba818fa627"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/b4c4072679943773a7582daa63f545ba818fa627",
-                "reference": "b4c4072679943773a7582daa63f545ba818fa627",
-                "shasum": ""
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "description": "Sleek, intuitive, and powerful front-end framework for faster and easier web development.",
-            "homepage": "http://twbs.github.com/bootstrap/",
-            "keywords": [
-                "bootstrap",
-                "css"
-            ],
-            "time": "2013-07-27 06:36:38"
-        },
-        {
             "name": "willdurand/jsonp-callback-validator",
             "version": "v1.0.0",
             "source": {
@@ -2629,58 +2629,6 @@
             ],
             "description": "JSONP callback validator.",
             "time": "2013-10-21 12:01:32"
-        },
-        {
-            "name": "winzou/console-bundle",
-            "version": "dev-master",
-            "target-dir": "CoreSphere/ConsoleBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/winzou/ConsoleBundle.git",
-                "reference": "f189929c13de8ddc5177b49f0a69f8680c9a9862"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/winzou/ConsoleBundle/zipball/f189929c13de8ddc5177b49f0a69f8680c9a9862",
-                "reference": "f189929c13de8ddc5177b49f0a69f8680c9a9862",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "symfony/console": ">=2.1.0,<3.0",
-                "symfony/framework-bundle": ">=2.1.0,<3.0"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-0": {
-                    "CoreSphere\\ConsoleBundle": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Laszlo Korte",
-                    "email": "coresphere@laszlokorte.de"
-                },
-                {
-                    "name": "Marmus Ullman",
-                    "email": "mail@markus-ullmann.de"
-                },
-                {
-                    "name": "Alexandre winzou Bacco",
-                    "homepage": "http://www.tutoriel-symfony2.fr/"
-                }
-            ],
-            "description": "This bundle allows you accessing the symfony2 console via your browser",
-            "keywords": [
-                "console",
-                "javascript",
-                "symfony"
-            ],
-            "time": "2013-02-22 08:46:21"
         }
     ],
     "packages-dev": [
@@ -2691,7 +2639,6 @@
     ],
     "minimum-stability": "alpha",
     "stability-flags": {
-        "winzou/console-bundle": 20,
         "knplabs/knp-paginator-bundle": 20,
         "stof/doctrine-extensions-bundle": 20,
         "doctrine/doctrine-fixtures-bundle": 20

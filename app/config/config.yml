@@ -36,8 +36,11 @@ twig:
 
 bc_bootstrap:
     less_filter: lessphp
-    assets_dir:  %kernel.root_dir%/../vendor/twitter/bootstrap
+    assets_dir:  %kernel.root_dir%/../vendor/twbs/bootstrap
     jquery_path: %kernel.root_dir%/../vendor/jquery/jquery-1.10.2/jquery-1.10.2.min.js
+    auto_configure:
+        assetic: false
+
 #    
 # Assetic Configuration
 assetic:
@@ -58,6 +61,10 @@ assetic:
         yui_css:
             jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar
             #apply_to: "\.css$"
+#        lessphp: 
+#            node:       /usr/local/bin/node
+#            node_paths: [/usr/local/lib/node_modules]
+#            apply_to:   "\.less$"
     #Asset
     assets:
         bootstrap_css:
@@ -68,8 +75,8 @@ assetic:
                 - %kernel.root_dir%/../src/Mind/MediaBundle/Resources/public/css/*
                 - %kernel.root_dir%/../src/Mind/UserBundle/Resources/public/css/*
                 - %kernel.root_dir%/../src/Mind/RechercheBundle/Resources/public/css/*
-                - %kernel.root_dir%/../vendor/twitter/bootstrap/less/bootstrap.less
-                - %kernel.root_dir%/../vendor/twitter/bootstrap/less/responsive.less
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/less/bootstrap.less
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/less/responsive.less
             output: css/bootstrap.css
             filters:
                 - yui_css
@@ -85,21 +92,21 @@ assetic:
                 - %kernel.root_dir%/../src/Mind/MediaBundle/Resources/public/js/*
                 - %kernel.root_dir%/../src/Mind/UserBundle/Resources/public/js/*
                 - %kernel.root_dir%/../src/Mind/RechercheBundle/Resources/public/js/*
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-transition.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-alert.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-button.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-carousel.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-collapse.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-dropdown.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-modal.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-tooltip.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-popover.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-scrollspy.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-tab.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-typeahead.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-affix.js
                 - %kernel.root_dir%/../web/resources-js/a-bootstrap-editable.min.js
                 - %kernel.root_dir%/../web/resources-js/jquery.form.js
-                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/bootstrap-transition.js
-                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/bootstrap-alert.js
-                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/bootstrap-button.js
-                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/bootstrap-carousel.js
-                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/bootstrap-collapse.js
-                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/bootstrap-dropdown.js
-                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/bootstrap-modal.js
-                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/bootstrap-tooltip.js
-                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/bootstrap-popover.js
-                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/bootstrap-scrollspy.js
-                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/bootstrap-tab.js
-                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/bootstrap-typeahead.js
-                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/bootstrap-affix.js
             output: js/bootstrap.js
             filters:
                 - yui_js
