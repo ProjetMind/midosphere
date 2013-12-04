@@ -23,13 +23,19 @@ class ResettingFormType extends AbstractType
                                                 'type' => 'password',
                                                 'options' => array(
                                                                     'translation_domain' => 'FOSUserBundle',
-                                                                    'attr'  => array(
-                                                                                                'class' => 'input-large'
-                                                                                            )
+                                                                    'attr' => array(
+                                                                                        'class' => 'input-xlarge'
+                                                                                    ),
                                                                    ),
                                                 'first_options' => array('label' => 'form.new_password'),
                                                 'second_options' => array('label' => 'form.new_password_confirmation'),
                                                 'invalid_message' => 'fos_user.password.mismatch',
+                                                
+                                                'label_attr'    => array(
+                                                                    'class' => 'control-label',
+                                                                    'style' => 'text-align:left;'
+                                                    ),
+                                                'label' => 'Mot de passe :'
         ));
     }
 

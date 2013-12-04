@@ -1,6 +1,12 @@
-{% extends "::layout.html.twig" %}
+{% extends "MindUserBundle::layout.html.twig" %}
 
-{% block body %}
+{% block menuUser %}
+    
+        {% include '::menuGauche.html.twig' %}
+    
+{% endblock %}
+
+{% block sectionCorps %}
 
 {% block fos_user_content %}
 {% include "FOSUserBundle:Resetting:reset_content.html.twig" %}
