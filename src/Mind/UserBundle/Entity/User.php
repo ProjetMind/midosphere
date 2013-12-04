@@ -20,7 +20,7 @@ class User extends BaseUser
             parent::__construct();
             
             $this->dateInscription  = new \DateTime;
-            $this->roles            = array('ROLE_USER');
+            $this->roles            = array('ROLE_ADMIN');
            
         }
         

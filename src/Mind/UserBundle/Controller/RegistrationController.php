@@ -106,7 +106,7 @@ class RegistrationController extends BaseController
         $pathAvatar = "img/";
         
         //Check path of profile image
-        if($sexe == 1){
+        if($sexe == 0){
 
             $pathAvatar = $pathAvatar.'avatar-homme.jpeg';
         }else{
