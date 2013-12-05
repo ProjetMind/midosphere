@@ -1,5 +1,4 @@
-parameters:
-    #fos_js_routing.request_context_base_url: 
+
     
 imports:
     - { resource: config.yml }

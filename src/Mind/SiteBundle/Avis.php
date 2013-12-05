@@ -56,12 +56,28 @@ class Avis {
             $this->manager->remove($avis);
             $this->supprimerCommentaireAvis($idAvis);
             $this->supprimerImageAvis($idAvis);
-            //supprimer suivis, abonnement
+            $this->supprimerSuivisAvis($idAvis);
             $this->manager->flush();
         }
         
     }
     
+    public function supprimerSuivisAvis($idAvis){
+        
+        $suivis = $this->manager
+                       ->getRepository('MindMediaBundle:Suivis')
+                        ->findBy(
+                                array(
+                                        'idEntity'      => $idAvis, 
+                                        'typeEntity'    => 'avis'
+                                    )
+                                );
+        
+        foreach ($suivis as $unSuivis){
+            $this->manager->remove($unSuivis);
+        }
+    }
+
     public function supprimerCommentaireAvis($idAvis){
         
         $commentaires = $this->manager

@@ -113,10 +113,26 @@ class Questions {
                  
             $this->manager->remove($question);
             $this->supprimerCommentaireQuestion($idQuestion);
-            //supprimer suivis, abonnement
+            $this->supprimerSuivisQuestion($idQuestion);
             $this->manager->flush();
         }
         
+    }
+    
+    public function supprimerSuivisQuestion($idQuestion){
+        
+        $suivis = $this->manager
+                       ->getRepository('MindMediaBundle:Suivis')
+                        ->findBy(
+                                array(
+                                        'idEntity'      => $idQuestion,
+                                        'typeEntity'    => 'question'
+                                    )
+                                );
+        
+        foreach ($suivis as $unSuivis){
+            $this->manager->remove($unSuivis);
+        }
     }
     
     public function supprimerCommentaireQuestion($idQuestion){
