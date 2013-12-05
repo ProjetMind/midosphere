@@ -2,12 +2,24 @@
 
 {% extends "MindUserBundle::layout.html.twig" %}
 
+{% block menuGauche %}
 {% block menuUser %}
 
         {% include '::menu_profile.html.twig'%}
         {{ knp_menu_render('MindUserBundle:Menu:getMenuCompte', {'currentClass': 'active'}) }}
 
-{% endblock %}
+{% endblock menuUser %}
+{% endblock menuGauche %}
+
+
+{% set route = app.request.attributes.get('_route') %}
+{% if route == 'mind_user_compte_infos_persos' %}
+    {% set page = 'Informations personnelles' %}
+{% elseif 'mind_user_compte_parametres' %}
+    {% set page = 'Paramètres du compte' %}
+{% endif %}
+
+{% block title %}Profile | {{ page }}{% endblock %}
 
 {% block sectionCorps %}
 

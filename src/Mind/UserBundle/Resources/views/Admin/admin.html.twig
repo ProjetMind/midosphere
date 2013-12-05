@@ -5,11 +5,13 @@
 {% extends "MindUserBundle::layout.html.twig" %}
 
 
+{% block menuGauche %}
 {% block menuUser %}
 
         {{ knp_menu_render('MindUserBundle:Menu:getMenuAdmin', {'currentClass': 'active'}) }}
     
-{% endblock %}
+{% endblock menuUser %}
+{% endblock menuGauche %}
 
 {% block sectionCorps %}
 

@@ -1,8 +1,10 @@
 {# empty Twig template #}
 
-{% extends "::layout.html.twig" %}
+{% extends "MindUserBundle::layout.html.twig" %}
 
-{% block body %}
+{% block title %}Connexion{% endblock %}
+
+{% block sectionCorps %}
 
 {% block fos_user_content %}
 {% if error %}
@@ -65,6 +67,6 @@
     
     {% endblock fos_user_content %}
     
-{% endblock %}
+{% endblock sectionCorps %}
     
         

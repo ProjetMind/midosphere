@@ -2,6 +2,8 @@
 
 {% extends "MindSiteBundle::layout.html.twig" %}
 
+{% block title %}Les domaines | {{ leDomaine.libelle }} {% endblock %}
+
 {% block sectionCorps %}
 
 {% if is_granted('ROLE_USER') %}

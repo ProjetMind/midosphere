@@ -6,6 +6,8 @@
     
 {% endblock %}
 
+{% block title %}Inscription{% endblock %}
+
 {% if app.security.token.authenticated('IS_AUTHENTICATED_ANONYMOUSLY') %}
 
 {% block sectionCorps %}

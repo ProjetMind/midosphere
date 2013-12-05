@@ -3,6 +3,8 @@
 
 {% extends "MindSiteBundle::layout.html.twig" %}
 
+{% block title %}Avis | {{ lesAvis[0].avisTitre }}{% endblock %}
+
 {% block sectionCorps %}
 
         {% if lesAvis is defined %}

@@ -3,6 +3,8 @@
 
 {% extends "MindSiteBundle::layout.html.twig" %}
 
+{% block title %}Question | {{ lesQuestions[0].questionTitre }}{% endblock %}
+
 {% block sectionCorps %}
 
         {% if lesQuestions is defined %}

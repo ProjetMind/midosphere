@@ -29,3 +29,8 @@ set  :keep_releases,  3
 
 # Be more verbose by uncommenting the following line
 logger.level = Logger::MAX_LEVEL
+
+after "deploy" do
+    run "cd #{latest_release} && php app/console cache:clear --env=prod && php app/console fos:js-routing:dump --env=prod && php app/console assetic:dump --env=prod && chmod -R 777 app/cache && chmod -R 777 app/logs"
+   
+end
