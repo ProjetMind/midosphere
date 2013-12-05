@@ -18,6 +18,7 @@
 
                         <div>
                             <input class="btn btn-primary btn-small" type="submit" value="Modifier mon avatar"/>
+                            
                         </div>
 
                                     {{ form_rest(form) }}
@@ -25,4 +26,9 @@
 
         </div>
 </div>
+
+<script type="text/javascript">
+
+    $('#imgAvatar').attr('src', "{{ asset(avatar.path) }}");
+</script>
         

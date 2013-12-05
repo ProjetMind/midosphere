@@ -81,7 +81,14 @@ assetic:
             filters:
                 - yui_css
                 - lessphp
-                - cssrewrite
+                - cssrewrite     
+        ext_lib:
+            inputs:
+                - %kernel.root_dir%/../web/resources-js/jquery.form.js
+                - %kernel.root_dir%/../web/resources-js/a-bootstrap-editable.min.js
+            output: js/lib.js    
+            filters:
+                - yui_js
         bootstrap_js:
             inputs:
                 - %kernel.root_dir%/../web/bundles/fosjsrouting/js/router.js
@@ -105,8 +112,6 @@ assetic:
                 - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-tab.js
                 - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-typeahead.js
                 - %kernel.root_dir%/../vendor/twbs/bootstrap/js/bootstrap-affix.js
-                - %kernel.root_dir%/../web/resources-js/a-bootstrap-editable.min.js
-                - %kernel.root_dir%/../web/resources-js/jquery.form.js
             output: js/bootstrap.js
             filters:
                 - yui_js

@@ -99,7 +99,10 @@ class CompteController extends Controller
                 $em->persist($avatar); 
                 $serviceAvatar->supprimerAvatar($idUserCourant);
                 $em->flush();
+                
+                
                 $serviceAvatar->updateUserPath($avatar->getPath());
+                
                 
                 
             }

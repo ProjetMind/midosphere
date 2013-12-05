@@ -1,31 +1,51 @@
 
 $(document).ready(function() { 
-
+    
      var options = { 
-        success:       showResponseAvatar,  // post-submit callback 
+        success:       showResponseAvatar,
+        beforeSend: function() {
+            var bar = $('.bar');
+            var percent = $('.percent');
+            var status = $('#status');
+            var progressBarAvatar = $('#progressBarAvatar');
+    
+                                    progressBarAvatar.removeClass('hide');
+                                    status.empty();
+                                    var percentVal = '0%';
+                                    bar.width(percentVal)
+                                    percent.html(percentVal);
+                                },
+        uploadProgress: function(event, position, total, percentComplete) {
+            var bar = $('.bar');
+            var percent = $('.percent');
+            
+                                    var percentVal = percentComplete + '%';
+                                    bar.width(percentVal);
+                                    percent.html(percentVal);
+                                }, 
+        complete: function(xhr) {
+            var progressBarAvatar = $('#progressBarAvatar');
+                progressBarAvatar.addClass('hide');
+		//status.html(xhr.responseText);
+	},                        
         delegation: true,
-        clearForm: true,       // clear all form fields after successful submit 
-        resetForm: true        // reset the form after successful submit 
+        clearForm: true,        
+        resetForm: true        
  
     }; 
     
     $('#formAvatar').ajaxForm(options); 
+    
+    
 });
 
 
 // post-submit callback 
-function showResponseAvatar(responseText, statusText, xhr, $form)  { 
-    // for normal html responses, the first argument to the success callback 
-    // is the XMLHttpRequest object's responseText property 
- 
-    // if the ajaxForm method was passed an Options Object with the dataType 
-    // property set to 'xml' then the first argument to the success callback 
-    // is the XMLHttpRequest object's responseXML property 
- 
-    // if the ajaxForm method was passed an Options Object with the dataType 
-    // property set to 'json' then the first argument to the success callback 
-    // is the json data object returned by the server 
- 
+function showResponseAvatar(responseText, statusText, xhr, $form)  {
+    var bar = $('.bar');
+    var percent = $('.percent');
+    var percentVal = '100%';
+    bar.width(percentVal);
+    percent.html(percentVal); 
     $("#divAvatar").html(responseText);
 }
-

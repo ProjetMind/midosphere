@@ -5,7 +5,7 @@
 
 <div id="menuProfil" class="media">
         <a class="pull-left" href="{{ path('mind_user_profile_voir', {'slug': app.user.slug }) }}">
-            <img class="media-object" src="{{ asset(app.user.path) }}" />
+            <img id="imgAvatar" class="media-object" src="{{ asset(app.user.path) }}" />
         </a>
         <div class="media-body">
             <p class="media-heading">
