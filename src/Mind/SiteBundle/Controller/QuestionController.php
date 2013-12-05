@@ -8,6 +8,7 @@ use Mind\SiteBundle\Form\Type\QuestionType;
 use Symfony\Component\HttpFoundation\Response;
 use Mind\SiteBundle\Form\Type\QuestionModifierType;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class QuestionController extends Controller
 {
@@ -106,6 +107,10 @@ class QuestionController extends Controller
                        ->getRepository('MindSiteBundle:Question')
                        ->findQuestionsBySlug($slug);
       
+      if(empty($question)){
+           throw new NotFoundResourceException;
+       }
+       
       $lesDomaines              =   $serviceQuestion->getDomaineWithLink($question, $manager);
       $lesAuteurs               =   $serviceQuestion->getAuteursQuestion($question, $manager);
       $lesDatesDePublication    =   $serviceQuestion->getDatePublication($question, $manager);
@@ -214,6 +219,9 @@ class QuestionController extends Controller
        $domaineArray = $em->getRepository('MindSiteBundle:Domaine')->getAllDomainesInArray();
        $question = $serviceQuestion->getQuestionToUpdate($idQuestion);
        
+       if(empty($question)){
+           throw new NotFoundResourceException;
+       }
        $serviceAcl->checkPermission('EDIT', $question);
        
        if($request->getMethod() == "POST"){

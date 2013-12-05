@@ -8,6 +8,7 @@ use Mind\SiteBundle\Form\Type\AvisModifierType;
 use Mind\MediaBundle\Controller\VoteAvisController;
 use Symfony\Component\HttpFoundation\Response;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class AvisController extends Controller
 {
@@ -168,6 +169,9 @@ class AvisController extends Controller
                                ->getManager()
                                ->getRepository('MindSiteBundle:Avis')
                                ->findAvisBySlug($slug);
+      if(empty($avis)){
+           throw new NotFoundResourceException;
+       }
     
       $lesDomaines              =   $serviceAvis->getDomaineWithLink($avis);
       $lesAuteurs               =   $serviceAvis->getAuteursAvis($avis);
@@ -291,7 +295,11 @@ class AvisController extends Controller
        $em = $this->getDoctrine()->getManager();
        $domaineArray = $em->getRepository('MindSiteBundle:Domaine')->getAllDomainesInArray();
        $avis = $serviceAvis->getAvisToUpdate($idAvis);
-       
+      
+       if(empty($avis)){
+           throw new NotFoundResourceException;
+       }
+
        $serviceAcl->checkPermission('EDIT', $avis);
        
        if($request->getMethod() == "POST"){

@@ -5,6 +5,4 @@ services:
         tags:
             - { name: form.type, alias: mind_user_registration }
             
-    mind_user.securty:
-        class: Mind\UserBundle\Security
-        arguments: ["@service_container"]
+    
