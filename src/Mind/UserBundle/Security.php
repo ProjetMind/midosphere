@@ -19,4 +19,13 @@ class Security {
         
         throw new AccessDeniedException("Vous n'avez pas accès à la resource demandée.'");
     }
+    
+    public function NotFound($object, $resources){
+        
+        if(empty($object)){
+            $message = "%s n'existe pas.";
+            throw new NotFoundHttpException(sprintf($message, $resources));
+        }
+        
+    }
 }
