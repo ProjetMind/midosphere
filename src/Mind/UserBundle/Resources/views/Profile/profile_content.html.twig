@@ -31,7 +31,7 @@
         
 {% endfor %}
 
-{% if is_granted('ROLE_USER') %}
+{% if is_granted('ROLE_USER') and app.user.id == idAuteur %}
 
     <div id="les-suivis">
         {% render controller('MindUserBundle:Profile:getSuivisAvis', {'idUser': idAuteur }) %}
