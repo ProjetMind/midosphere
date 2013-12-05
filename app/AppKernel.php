@@ -32,8 +32,7 @@ class AppKernel extends Kernel
             new Sonata\IntlBundle\SonataIntlBundle(),
             new Mind\MpBundle\MindMpBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
-            new Mind\RechercheBundle\MindRechercheBundle(),
-            new Mind\BootstrapBundle\MindBootstrapBundle(),
+            new Mind\RechercheBundle\MindRechercheBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

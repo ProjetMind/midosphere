@@ -1,0 +1,29 @@
+{# empty Twig template #}
+
+
+{% extends 'TwigBundle::layout.html.twig' %}
+
+{% block headerTitle %}
+Erreur 500
+{% endblock %}
+
+{% block errorTitle %}
+    Hum... ! Comment dire ? 
+{% endblock %}
+
+{% block errorStatus %}
+    La resource que vous cherchez n'existe pas. Le serveur a retourné une erreur "{{ status_code }}".
+{% endblock %}
+    
+{% block errorMessage %}
+    <p>
+        De manière générale, cette page d'erreur s'affiche lorsque vous tentez d'accèder à une une resource de type avis, question, domaine, profile qui 
+        n'existe pas dans notre base de données. Ce dernier est a été soit supprimé par son auteur ou un administrateur du site ou n'est tout simplement
+        pas accèssible pour le moment.
+    </p>
+    
+    <p>
+        Dans tous les cas vous pouvez néanmoins contactez l'administrateur du site à l'adresse email suivante :
+        webmaster@midopshere.com
+    </p>
+{% endblock %}

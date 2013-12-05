@@ -1,6 +1,3 @@
-#mind_bootstrap:
-#    resource: "@MindBootstrapBundle/Resources/config/routing.yml"
-#    prefix:   /
 
 mind_recherche:
     resource: "@MindRechercheBundle/Resources/config/routing.yml"
