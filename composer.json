@@ -30,6 +30,7 @@
         "sonata-project/intl-bundle": "*",
         "jquery/jquery-1.10.2": "1.10.2",
         "jquery/jquery-ui": "1.10.3",
+        "jquery/fileupload": "9.5.0",
         "doctrine/doctrine-fixtures-bundle": "dev-master"
     },
     "scripts": {
@@ -77,6 +78,17 @@
                 "dist": {
                     "url": "http://code.jquery.com/ui/1.10.3/jquery-ui.min.js",
                     "type": "file"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "jquery/fileupload",
+                "version": "9.5.0",
+                "dist": {
+                    "url": "https://github.com/blueimp/jQuery-File-Upload/archive/9.5.0.zip",
+                    "type": "zip"
                 }
             }
         }
