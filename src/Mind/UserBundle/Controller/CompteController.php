@@ -107,7 +107,7 @@ class CompteController extends Controller
                 //Acl
                 $tabAcl = array();
                 $tabAcl[] = $avatar;
-                $serviceAcl->createAcl($tabAcl);
+                $serviceAcl->updateAcl($tabAcl);
                 
                 
                 $serviceAvatar->updateUserPath($avatar->getPath());
