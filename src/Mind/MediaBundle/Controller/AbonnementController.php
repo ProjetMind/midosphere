@@ -112,6 +112,7 @@ class AbonnementController extends Controller
         
         $manager->remove($abonnement);
         $manager->flush();
+        $serviceAcl->deleteAcl($abonnement);
         
     }
 
@@ -211,6 +212,7 @@ class AbonnementController extends Controller
         
         $manager->remove($abonnement);
         $manager->flush();
+        $serviceAcl->deleteAcl($abonnement);
         
     }
 }

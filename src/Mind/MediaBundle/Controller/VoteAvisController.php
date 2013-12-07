@@ -16,7 +16,7 @@ class VoteAvisController extends Controller
      * @Secure(roles="ROLE_USER")
      */
     public function jeVoteAvisAction($idAvis, $typeOpinion)
-    { 
+    {   
         $serviceBootstrapFlash = $this->container->get('bc_bootstrap.flash');
         $erreurs = "";
         $voteEnregistre = false;
@@ -131,6 +131,7 @@ class VoteAvisController extends Controller
             
             $manager->remove($opinionAvis);
             $manager->flush();
+            $serviceAcl->deleteAcl($opinionAvis);
             
             $message = "Vote supprimé avec succès.";
             $serviceBootstrapFlash->success($message);

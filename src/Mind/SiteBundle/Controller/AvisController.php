@@ -212,11 +212,10 @@ class AvisController extends Controller
      $suivis = $this->container->get('mind_media.suivis');
      $domaineService = $this->container->get('mind_site.domaine');
      $em = $this->getDoctrine()->getManager();
-     $domaineArray = $em->getRepository('MindSiteBundle:Domaine')->getAllDomainesInArray();
       
       //Création du formulaire à partir de l'entité et du type de formulaire
      $avis = new \Mind\SiteBundle\Entity\Avis;
-     $form = $this->createForm(new AvisType($domaineArray), $avis);
+     $form = $this->createForm(new AvisType(), $avis);
      
      //On récupère la classe requete
      $request = $this->getRequest();
@@ -268,10 +267,9 @@ class AvisController extends Controller
        
     }
     
-    $lesDomaines = $domaineService->getHtmlFormDomaineTree('avis'); 
     
     $template = sprintf('MindSiteBundle:Forms:form_add_avis.html.twig'); 
-    return $this->container->get('templating')->renderResponse($template, array('lesDomaines'   => $lesDomaines,
+    return $this->container->get('templating')->renderResponse($template, array(
                                                                                 'form'  => $form->createView()
                                                                                 ));
   }

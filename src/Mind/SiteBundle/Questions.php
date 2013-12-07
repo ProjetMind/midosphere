@@ -6,6 +6,7 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
 use Mind\SiteBundle\DateFormatage;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Security\Core\SecurityContextInterface;
+use Mind\SiteBundle\Acl\AclSecurity;
 
 class Questions {
     
@@ -15,10 +16,11 @@ class Questions {
     protected $dateFormatage;
     protected $router;
     protected $security;
+    protected $aclSecurity;
 
 
     public function __construct(Registry $doctrine, DateFormatage $dateFormatage, Router $router,
-                                SecurityContextInterface $security) {
+                                SecurityContextInterface $security, AclSecurity $aclSecurity) {
         
         $this->doctrine         = $doctrine;
         $this->manager          = $doctrine->getManager();
@@ -26,6 +28,7 @@ class Questions {
         $this->dateFormatage    = $dateFormatage;
         $this->router           = $router;
         $this->security         = $security;
+        $this->aclSecurity      = $aclSecurity;
     }
     
     public function getQuestionToUpdate($idQuestion){
@@ -112,6 +115,8 @@ class Questions {
                          ->findOneBy($optionsSearch);
                  
             $this->manager->remove($question);
+            $this->aclSecurity->deleteAcl($question);
+            
             $this->supprimerCommentaireQuestion($idQuestion);
             $this->supprimerSuivisQuestion($idQuestion);
             $this->manager->flush();
@@ -132,6 +137,7 @@ class Questions {
         
         foreach ($suivis as $unSuivis){
             $this->manager->remove($unSuivis);
+            $this->aclSecurity->deleteAcl($unSuivis);
         }
     }
     
@@ -143,6 +149,7 @@ class Questions {
         
         foreach ($commentaires as $unCommentaire){
             $this->manager->remove($unCommentaire);
+            $this->aclSecurity->deleteAcl($unCommentaire);
         }
     }
     

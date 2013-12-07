@@ -16,12 +16,15 @@ use Mind\UserBundle\Form\InfosPersosCompteType;
 use Mind\UserBundle\Form\InfosPersosLocalisationType;
 use Mind\UserBundle\Form\ParametresConnexionType;
 use Mind\MediaBundle\Form\Type\AvatarType;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 /**
  * Cette classe gère les domaine :
  * - Ajout de domaine
  * - Modification 
  * - Suppression 
+ * 
+ * 
  */
 class CompteController extends Controller
 {
@@ -73,6 +76,7 @@ class CompteController extends Controller
         $serviceAvatar = $this->container->get('mind_media.avatar');
         $serviceImage = $this->container->get('mind_media.upload_file');
         $listener = $this->container->get('gedmo.listener.uploadable');
+        $serviceAcl = $this->container->get('mind_site.acl_security');
         $idUserCourant = $this->container->get('security.context')->getToken()->getUser()->getId();
         
         $avatar = new \Mind\MediaBundle\Entity\Avatar;
@@ -100,6 +104,11 @@ class CompteController extends Controller
                 $serviceAvatar->supprimerAvatar($idUserCourant);
                 $em->flush();
                 
+                //Acl
+                $tabAcl = array();
+                $tabAcl[] = $avatar;
+                $serviceAcl->createAcl($tabAcl);
+                
                 
                 $serviceAvatar->updateUserPath($avatar->getPath());
                 
@@ -126,6 +135,9 @@ class CompteController extends Controller
         $request = $this->getRequest('request');
         
         if($request->getMethod() == 'POST'){
+            
+            $serviceAcl = $this->container->get('mind_site.acl_security');
+            $serviceAcl->checkPermission('EDIT', $user);
             
             $form->bindRequest($request);
             
@@ -157,6 +169,9 @@ class CompteController extends Controller
         $request = $this->getRequest('request');
         
         if($request->getMethod() == 'POST'){
+            
+            $serviceAcl = $this->container->get('mind_site.acl_security');
+            $serviceAcl->checkPermission('EDIT', $user);
             
             $form->bindRequest($request);
             
@@ -195,6 +210,8 @@ class CompteController extends Controller
         
         if($request->getMethod() == 'POST'){
         
+            $serviceAcl = $this->container->get('mind_site.acl_security');
+            $serviceAcl->checkPermission('EDIT', $user);
             
             $form->bindRequest($request);
         

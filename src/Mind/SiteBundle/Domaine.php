@@ -9,6 +9,7 @@ use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Mind\SiteBundle\Form\Type\DomaineType;
 use Symfony\Component\Form\FormFactory;
+use Mind\SiteBundle\Acl\AclSecurity;
 
 class Domaine extends NestedTreeRepository{ 
     
@@ -19,6 +20,7 @@ class Domaine extends NestedTreeRepository{
     protected $container;
     protected $templating;
     protected $form;
+    protected $aclSecurity;
 
 
     public $rootOpen        = '<ul>';
@@ -28,7 +30,7 @@ class Domaine extends NestedTreeRepository{
 
 
     public function __construct(Registry $doctrine, Router $router, SecurityContextInterface $security,
-                                ContainerInterface $container, FormFactory $form) {
+                                ContainerInterface $container, FormFactory $form, AclSecurity $aclSecurity) {
         
         $this->doctrine         = $doctrine;
         $this->manager          = $doctrine->getManager();
@@ -37,6 +39,7 @@ class Domaine extends NestedTreeRepository{
         $this->container        = $container;
         $this->templating       = $container->get('templating');
         $this->form             = $form;
+        $this->aclSecurity      = $aclSecurity;
         
         parent::__construct($this->manager, $this->manager->getClassMetadata('MindSiteBundle:Domaine'));
       
@@ -62,7 +65,7 @@ class Domaine extends NestedTreeRepository{
                     break;
                 
                 case 'erreur':
-                    $htmlOpen = '<div class="alert alert-warni">';
+                    $htmlOpen = '<div class="alert alert-warning">';
                     $message = 'Une erreure inconnue est survenue lors de la mise à jour.';
                     break;
                     
@@ -125,6 +128,7 @@ class Domaine extends NestedTreeRepository{
         
         return $domaine;
     }
+    
     /**
      * 
      * fournit les radios bouton du formulaire pour ajouter des domaines
@@ -134,33 +138,33 @@ class Domaine extends NestedTreeRepository{
      * @param type $tree
      * @return string
      */
-    public function getHtmlFormForAdmin(){
-        
-        $childSort = array(
-                            'field'         => 'libelle',
-                            'direction'     => 'asc'
-        );
-        
-        $tree = $this->childrenHierarchy(
-                                            null,
-                                            false,
-            array(
-                    'decorate' => true,
-                    'childSort' => $childSort,
-                    'rootOpen' => $this->rootOpen,
-                    'rootClose' => $this->rootClose,
-                    'childOpen' => $this->childOpen,
-                    'childClose' => $this->childClose,
-                    'nodeDecorator' => function($node){
-                                        $htmlDomaine = $this->getHtmlFormInputAndLabelForAdmin($node['id'], $node['libelle']);
-                                        return $htmlDomaine['labelOpen'].$htmlDomaine['input'].$htmlDomaine['libelle'].$htmlDomaine['labelClose'];
-                    }
-                    
-        ));
-        
-        return $tree;
-        
-    }
+//    public function getHtmlFormForAdmin(){
+//        
+//        $childSort = array(
+//                            'field'         => 'libelle',
+//                            'direction'     => 'asc'
+//        );
+//        
+//        $tree = $this->childrenHierarchy(
+//                                            null,
+//                                            false,
+//            array(
+//                    'decorate' => true,
+//                    'childSort' => $childSort,
+//                    'rootOpen' => $this->rootOpen,
+//                    'rootClose' => $this->rootClose,
+//                    'childOpen' => $this->childOpen,
+//                    'childClose' => $this->childClose,
+//                    'nodeDecorator' => function($node){
+//                                        $htmlDomaine = $this->getHtmlFormInputAndLabelForAdmin($node['id'], $node['libelle']);
+//                                        return $htmlDomaine['labelOpen'].$htmlDomaine['input'].$htmlDomaine['libelle'].$htmlDomaine['labelClose'];
+//                    }
+//                    
+//        ));
+//        
+//        return $tree;
+//        
+//    }
     
     /**
      * 
@@ -276,19 +280,19 @@ class Domaine extends NestedTreeRepository{
      * 
      * @return int l'id du domaine selectionné
      */
-    public function getDomaineWhoIsSelected($typeEntity){
-    
-        $idDuDomaine = -1;
-        $request = $this->container->get('request');
-        if($request->getMethod() == "POST"){
-            
-            $dataForm       = $request->get('mind_sitebundle_'.$typeEntity.'type');
-            
-            $idDuDomaine    = $dataForm[$typeEntity.'Domaine'];
-        }
-        
-        return $idDuDomaine;
-    }
+//    public function getDomaineWhoIsSelected($typeEntity){
+//    
+//        $idDuDomaine = -1;
+//        $request = $this->container->get('request');
+//        if($request->getMethod() == "POST"){
+//            
+//            $dataForm       = $request->get('mind_sitebundle_'.$typeEntity.'type');
+//            
+//            $idDuDomaine    = $dataForm[$typeEntity.'Domaine'];
+//        }
+//        
+//        return $idDuDomaine;
+//    }
         
     /**
      * 
@@ -303,41 +307,41 @@ class Domaine extends NestedTreeRepository{
      * 
      * @return string
      */
-    public function getHtmlFormDomaineTree($typeEntity, $idEntityToUpdate = null){
-        
-        $childSort = array(
-                            'field' => 'libelle',
-                            'direction'   => 'asc'
-        );
-        $nbElmtDomaine = 0;
-        
-        $tree = $this->childrenHierarchy(
-                                            null,
-                                            false,
-            array(
-                    'decorate' => true,
-                    'childSort' => $childSort,
-                    'rootOpen' => function($tree){
-                                                    return $this->rootOpen;
-                                                 },
-                    'rootClose' => function($child){ 
-                                                    return $this->rootClose; 
-                                                    },
-                    'childOpen' => function($tree) {
-                                                        return $this->childOpen;
-                                                    },
-                    'childClose' => $this->childClose,
-                    'nodeDecorator' => function($node) use($typeEntity, &$nbElmtDomaine, $idEntityToUpdate){
-                                                            //return '<a href="'.$this->router->generate("mind_site_homepage",array("id"=>$node['id'])).'">'.$node['libelle'].'</a>&nbsp;';
-                                                            $htmlDomaine = $this->getHtmlFormImputAndLabel($typeEntity, $node['id'], $idEntityToUpdate);
-                                                            $nbElmtDomaine++;
-                                                            return $htmlDomaine['labelOpen'].$node['libelle'].$htmlDomaine['input'].$htmlDomaine['labelClose'];
-                    }
-                    
-        ));
-        
-        return $tree;
-    }
+//    public function getHtmlFormDomaineTree($typeEntity, $idEntityToUpdate = null){
+//        
+//        $childSort = array(
+//                            'field' => 'libelle',
+//                            'direction'   => 'asc'
+//        );
+//        $nbElmtDomaine = 0;
+//        
+//        $tree = $this->childrenHierarchy(
+//                                            null,
+//                                            false,
+//            array(
+//                    'decorate' => true,
+//                    'childSort' => $childSort,
+//                    'rootOpen' => function($tree){
+//                                                    return $this->rootOpen;
+//                                                 },
+//                    'rootClose' => function($child){ 
+//                                                    return $this->rootClose; 
+//                                                    },
+//                    'childOpen' => function($tree) {
+//                                                        return $this->childOpen;
+//                                                    },
+//                    'childClose' => $this->childClose,
+//                    'nodeDecorator' => function($node) use($typeEntity, &$nbElmtDomaine, $idEntityToUpdate){
+//                                                            //return '<a href="'.$this->router->generate("mind_site_homepage",array("id"=>$node['id'])).'">'.$node['libelle'].'</a>&nbsp;';
+//                                                            $htmlDomaine = $this->getHtmlFormImputAndLabel($typeEntity, $node['id'], $idEntityToUpdate);
+//                                                            $nbElmtDomaine++;
+//                                                            return $htmlDomaine['labelOpen'].$node['libelle'].$htmlDomaine['input'].$htmlDomaine['labelClose'];
+//                    }
+//                    
+//        ));
+//        
+//        return $tree;
+//    }
     
     /**
      * 
@@ -354,28 +358,28 @@ class Domaine extends NestedTreeRepository{
      * @param int $idEntityToUpdate l'id de l'avis qu'on va modifer
      * @return array les éléments formulaire en html d'un domaine
      */
-    public function getHtmlFormImputAndLabel($typeEntity, $idEntityDomaine, $idEntityToUpdate = null){
-    
-        $idDuDomaine = $this->getDomaineWhoIsSelected($typeEntity);
-       
-        if($idDuDomaine == $idEntityDomaine or $idEntityDomaine == $idEntityToUpdate){
-            $htmlIsCourantElmt = 'checked="checked"';
-        }else{
-            $htmlIsCourantElmt = null;
-        }
-        
-        $htmlFormDomaine = 
-                array(
-                        'labelOpen'    => '<label style="display:inline-block;" for="mind_sitebundle_'.$typeEntity.'type_'.$typeEntity.'Domaine_%d" class="radio required">',
-                        'input'         => '<input %s type="radio" id="mind_sitebundle_'.$typeEntity.'type_'.$typeEntity.'Domaine_%d" name="mind_sitebundle_'.$typeEntity.'type['.$typeEntity.'Domaine]" required="required" name="domaineParent" value="%d" /> ',
-                        'labelClose'    => '</label>'        
-            );
-        
-        $htmlFormDomaine['labelOpen']   = sprintf($htmlFormDomaine['labelOpen'], $idEntityDomaine);
-        $htmlFormDomaine['input']       = sprintf($htmlFormDomaine['input'], $htmlIsCourantElmt, $idEntityDomaine, $idEntityDomaine);
-        
-        return $htmlFormDomaine;
-    }
+//    public function getHtmlFormImputAndLabel($typeEntity, $idEntityDomaine, $idEntityToUpdate = null){
+//    
+//        $idDuDomaine = $this->getDomaineWhoIsSelected($typeEntity);
+//       
+//        if($idDuDomaine == $idEntityDomaine or $idEntityDomaine == $idEntityToUpdate){
+//            $htmlIsCourantElmt = 'checked="checked"';
+//        }else{
+//            $htmlIsCourantElmt = null;
+//        }
+//        
+//        $htmlFormDomaine = 
+//                array(
+//                        'labelOpen'    => '<label style="display:inline-block;" for="mind_sitebundle_'.$typeEntity.'type_'.$typeEntity.'Domaine_%d" class="radio required">',
+//                        'input'         => '<input %s type="radio" id="mind_sitebundle_'.$typeEntity.'type_'.$typeEntity.'Domaine_%d" name="mind_sitebundle_'.$typeEntity.'type['.$typeEntity.'Domaine]" required="required" name="domaineParent" value="%d" /> ',
+//                        'labelClose'    => '</label>'        
+//            );
+//        
+//        $htmlFormDomaine['labelOpen']   = sprintf($htmlFormDomaine['labelOpen'], $idEntityDomaine);
+//        $htmlFormDomaine['input']       = sprintf($htmlFormDomaine['input'], $htmlIsCourantElmt, $idEntityDomaine, $idEntityDomaine);
+//        
+//        return $htmlFormDomaine;
+//    }
     
     /**
      * 
@@ -385,30 +389,30 @@ class Domaine extends NestedTreeRepository{
      * @param string $libelle
      * @return array 
      */
-    public function getHtmlFormInputAndLabelForAdmin($idDomaine, $libelle, $idDomaineWhoIsSelected = null){
-        
-//        if ($idDomaine == $idDomaineWhoIsSelected){
-//            
-//            $isSelected = 'checked = "checked"';
-//            
-//        }else{
-//            $isSelected = null;
-//        }
-        
-        $htmlFormDomaine = 
-                array(
-                        'labelOpen'     =>  '<label class="radio" for="mind_sitebundle_domainetype_parent_%d" style="display:inline-block;">',
-                        'input'         =>  '<input id="mind_sitebundle_domainetype_parent_%d" type="radio" value="%d" name="mind_sitebundle_domainetype[parent]">',
-                        'libelle'       =>  '%s',
-                        'labelClose'    =>  '</label>'
-                    );
-        
-        $htmlFormDomaine['labelOpen']   = sprintf($htmlFormDomaine['labelOpen'], $idDomaine);
-        $htmlFormDomaine['input']       = sprintf($htmlFormDomaine['input'], $idDomaine, $idDomaine);
-        $htmlFormDomaine['libelle']     = sprintf($htmlFormDomaine['libelle'], $libelle);
-        
-        return $htmlFormDomaine;
-    }
+//    public function getHtmlFormInputAndLabelForAdmin($idDomaine, $libelle, $idDomaineWhoIsSelected = null){
+//        
+////        if ($idDomaine == $idDomaineWhoIsSelected){
+////            
+////            $isSelected = 'checked = "checked"';
+////            
+////        }else{
+////            $isSelected = null;
+////        }
+//        
+//        $htmlFormDomaine = 
+//                array(
+//                        'labelOpen'     =>  '<label class="radio" for="mind_sitebundle_domainetype_parent_%d" style="display:inline-block;">',
+//                        'input'         =>  '<input id="mind_sitebundle_domainetype_parent_%d" type="radio" value="%d" name="mind_sitebundle_domainetype[parent]">',
+//                        'libelle'       =>  '%s',
+//                        'labelClose'    =>  '</label>'
+//                    );
+//        
+//        $htmlFormDomaine['labelOpen']   = sprintf($htmlFormDomaine['labelOpen'], $idDomaine);
+//        $htmlFormDomaine['input']       = sprintf($htmlFormDomaine['input'], $idDomaine, $idDomaine);
+//        $htmlFormDomaine['libelle']     = sprintf($htmlFormDomaine['libelle'], $libelle);
+//        
+//        return $htmlFormDomaine;
+//    }
     
     /**
      * 
@@ -466,10 +470,10 @@ class Domaine extends NestedTreeRepository{
         
     }
     
-    public function getNbChild($idDomaine){
-        
-        $this->manager->getRepository($className);
-    }
+//    public function getNbChild($idDomaine){
+//        
+//        $this->manager->getRepository($className);
+//    }
 }
 
 ?>

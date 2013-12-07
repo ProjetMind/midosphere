@@ -10,12 +10,6 @@ use Mind\SiteBundle\Entity\DomaineRepository;
 class AvisType extends AbstractType
 {
     
-    protected $choicesDomaineArray = array();
-    
-    public function __construct($choicesDomaineArray) {
-        $this->choicesDomaineArray = $choicesDomaineArray;
-    }
-    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

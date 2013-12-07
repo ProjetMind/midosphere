@@ -5,14 +5,14 @@ namespace Mind\MediaBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
- * class unitilisé je crois, à verifier
+ * class unitilisé 
  * @deprecated since version 1.0
  */
 class VoteController extends Controller
 {
     public function jeVoteAvisAction($idAvis, $typeOpinion)
     {
-        
+        echo 'lol';
         $erreurs = "";
         $message = "";
         $voteEnregistre = null;

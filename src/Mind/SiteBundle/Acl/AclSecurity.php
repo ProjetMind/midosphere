@@ -24,13 +24,11 @@ class AclSecurity {
        
     }
     
-    public function deleteAcl(array $objets){
+    public function deleteAcl($objet){
     
-        foreach ($objets as $objet){
-            
-            $objetIdentity = ObjectIdentity::fromDomainObject($objet);
-            $this->aclProvider->deleteAcl($objetIdentity);
-        }
+        $objetIdentity = ObjectIdentity::fromDomainObject($objet);
+        $this->aclProvider->deleteAcl($objetIdentity);
+        
     }
     
     /**

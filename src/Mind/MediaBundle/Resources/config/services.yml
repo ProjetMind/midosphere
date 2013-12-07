@@ -9,7 +9,7 @@ services:
   
     mind_media.avatar:
         class: %mind_media.avatar.class%
-        arguments: ["@doctrine", "@security.context"]
+        arguments: ["@doctrine", "@security.context", "@mind_site.acl_security"]
         tags:
             - { name: twig.extension }
         

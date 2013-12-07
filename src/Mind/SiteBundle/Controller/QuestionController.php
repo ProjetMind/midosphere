@@ -194,10 +194,8 @@ class QuestionController extends Controller
        
     }
     
-    $lesDomaines = $domaineService->getHtmlFormDomaineTree('question'); 
-    
     $template = sprintf('MindSiteBundle:Forms:form_add_question.html.twig'); 
-    return $this->container->get('templating')->renderResponse($template, array('lesDomaines'   => $lesDomaines,
+    return $this->container->get('templating')->renderResponse($template, array(
                                                                                 'form'  => $form->createView()
                                                                                 ));
   }

@@ -7,6 +7,7 @@ use Mind\SiteBundle\DateFormatage;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Mind\MediaBundle\Images;
+use Mind\SiteBundle\Acl\AclSecurity;
 
 class Avis {
     
@@ -17,9 +18,10 @@ class Avis {
     protected $router;
     protected $security;
     protected $images;
+    protected $aclSecurity;
 
     public function __construct(Registry $doctrine, DateFormatage $dateFormatage, Router $router,
-                                SecurityContextInterface $security, Images $images) {
+                                SecurityContextInterface $security, Images $images, AclSecurity $aclSecurity) {
         
         $this->doctrine         = $doctrine;
         $this->manager          = $doctrine->getManager();
@@ -28,6 +30,7 @@ class Avis {
         $this->router           = $router;
         $this->security         = $security;
         $this->images           = $images;
+        $this->aclSecurity      = $aclSecurity;
     }
     
     public function getAvisToUpdate($idAvis){
@@ -54,6 +57,8 @@ class Avis {
                          ->findOneBy($optionsSearch);
                  
             $this->manager->remove($avis);
+            $this->aclSecurity->deleteAcl($avis);
+            
             $this->supprimerCommentaireAvis($idAvis);
             $this->supprimerImageAvis($idAvis);
             $this->supprimerSuivisAvis($idAvis);
@@ -75,6 +80,7 @@ class Avis {
         
         foreach ($suivis as $unSuivis){
             $this->manager->remove($unSuivis);
+            $this->aclSecurity->deleteAcl($unSuivis);
         }
     }
 
@@ -86,6 +92,7 @@ class Avis {
         
         foreach ($commentaires as $unCommentaire){
             $this->manager->remove($unCommentaire);
+            $this->aclSecurity->deleteAcl($unCommentaire);
         }
     }
     
@@ -98,6 +105,7 @@ class Avis {
         if(!empty($images)){
         foreach ($images as $uneImage){
            $this->manager->remove($uneImage);
+           $this->aclSecurity->deleteAcl($uneImage);
         }}
         
     }

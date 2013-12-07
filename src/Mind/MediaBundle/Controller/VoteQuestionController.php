@@ -126,6 +126,7 @@ class VoteQuestionController extends Controller
             
             $manager->remove($opinionQuestion);
             $manager->flush();
+            $serviceAcl->deleteAcl($opinionQuestion);
             
             $message = "Vote supprimé avec succès.";
             $serviceBootstrapFlash->success($message);

@@ -69,9 +69,17 @@
                         <div class="tab-content">
                             
                             <div class="tab-pane active" id="contenuLecture">
-                                <p align="justify">
+                                <div align="justify">
+                                    <div>
+                                        {% set firstImage = images[unAvis.id] %}
+                                        {% if firstImage[0] is defined and firstImage[0] is not empty %} 
+                                            <img src="{{ asset(firstImage[0].path) }}" title=""/>
+                                        {% endif %}
+                                    </div>
+                                    <p>
                                     {{ unAvis.avis|raw }}
-                                </p>
+                                    </p>
+                                </div>
                             </div>
                             
                             <div class="tab-pane" id="enImageLecture">
