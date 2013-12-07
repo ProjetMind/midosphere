@@ -3,8 +3,19 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "6b7c997085ff88b6a8a9bffcda8d9ecd",
+    "hash": "f16b5e088f277d884620338587a25d64",
     "packages": [
+        {
+            "name": "blueimp/fileupload",
+            "version": "9.5.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/blueimp/jQuery-File-Upload/archive/9.5.0.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "library"
+        },
         {
             "name": "braincrafted/bootstrap-bundle",
             "version": "v1.5",
@@ -1358,17 +1369,6 @@
                 "security"
             ],
             "time": "2013-02-18 08:46:41"
-        },
-        {
-            "name": "jquery/fileupload",
-            "version": "9.5.0",
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/blueimp/jQuery-File-Upload/archive/9.5.0.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "type": "library"
         },
         {
             "name": "jquery/jquery-1.10.2",

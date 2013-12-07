@@ -81,7 +81,29 @@ assetic:
             filters:
                 - yui_css
                 - lessphp
-                - cssrewrite     
+                - cssrewrite
+        blueimp-css:
+            inputs:
+                - %kernel.root_dir%/../web/resources-css/blueimp-gallery.min.css
+                - %kernel.root_dir%/../vendor/blueimp/fileupload/css/jquery.fileupload-ui.css
+                - %kernel.root_dir%/../vendor/blueimp/fileupload/css/jquery.fileupload-ui-noscript.css
+            output: css/blueimp
+            filters:
+                - yui_css
+                - lessphp
+                - cssrewrite
+        blueimp-js:
+            inputs: 
+                - %kernel.root_dir%/../web/resources-js/blueimp/tmpl.min.js
+                - %kernel.root_dir%/../web/resources-js/blueimp/load-image.min.js
+                - %kernel.root_dir%/../web/resources-js/blueimp/canvas-to-blob.min.js
+                - %kernel.root_dir%/../web/resources-js/blueimp/jquery.blueimp-gallery.min.js
+                - %kernel.root_dir%/../vendor/blueimp/fileupload/js/jquery.iframe-transport.js
+                - %kernel.root_dir%/../vendor/blueimp/fileupload/js/jquery.fileupload-jquery-ui.js
+                - %kernel.root_dir%/../vendor/blueimp/fileupload/js/main.js
+            output: js/blueimp
+            filters: 
+                - yui_js
         ext_lib:
             inputs:
                 - %kernel.root_dir%/../web/resources-js/jquery.form.js

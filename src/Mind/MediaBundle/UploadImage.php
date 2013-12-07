@@ -44,17 +44,19 @@ class UploadImage {
         $nbImage = count($images["name"]);
         $i = 0;
         
-        while($i < $nbImage and $images['name'][$i] != null){
+        while($i < $nbImage){
             
-            $imageInfos = array(
-                                    'error'         =>  $images['error'][$i],
-                                    'size'          =>  $images['size'][$i],
-                                    'type'          =>  $images['type'][$i],
-                                    'tmp_name'      =>  $images['tmp_name'][$i],
-                                    'name'          =>  $images['name'][$i]
-                    );
-            
-            $tabInfosImage[] = $imageInfos;
+            if($images['name'][$i] != null){
+                $imageInfos = array(
+                                        'error'         =>  $images['error'][$i],
+                                        'size'          =>  $images['size'][$i],
+                                        'type'          =>  $images['type'][$i],
+                                        'tmp_name'      =>  $images['tmp_name'][$i],
+                                        'name'          =>  $images['name'][$i]
+                        );
+
+                $tabInfosImage[] = $imageInfos;
+            }
             $i++;
         }
         

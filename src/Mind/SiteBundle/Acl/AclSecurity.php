@@ -21,6 +21,16 @@ class AclSecurity {
         $this->container        = $container;
         $this->aclProvider      = $this->container->get('security.acl.provider');
         $this->securityContext  = $this->container->get('security.context');
+       
+    }
+    
+    public function deleteAcl(array $objets){
+    
+        foreach ($objets as $objet){
+            
+            $objetIdentity = ObjectIdentity::fromDomainObject($objet);
+            $this->aclProvider->deleteAcl($objetIdentity);
+        }
     }
     
     /**
