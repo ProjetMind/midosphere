@@ -18,6 +18,7 @@ class VoteAvisController extends Controller
     public function jeVoteAvisAction($idAvis, $typeOpinion)
     {   
         $serviceBootstrapFlash = $this->container->get('bc_bootstrap.flash');
+        $serviceAvis = $this->container->get('mind_site.avis');
         $erreurs = "";
         $voteEnregistre = false;
         $manager = $this->getDoctrine()
@@ -26,7 +27,8 @@ class VoteAvisController extends Controller
                               ->find($idAvis);
         
         $idAuteur = $avisExiste->getAvisAuteur();
-        $aDejaVote = $this->aDejaVote($idAvis, $idAuteur, $manager);
+        $idUserCourant = $this->getUser()->getId();
+        $aDejaVote = $serviceAvis->aDejaVote($idAvis);
         
         if(!empty($avisExiste) and $aDejaVote == false){
             
@@ -34,7 +36,7 @@ class VoteAvisController extends Controller
             $opinionAvis = new \Mind\MediaBundle\Entity\OpinionAvis;
             
             $opinionAvis->setIdAvis($idAvis);
-            $opinionAvis->setIdAuteur($idAuteur);
+            $opinionAvis->setIdAuteur($idUserCourant);
             $opinionAvis->setTypeOpinion($typeOpinion);
             
             $erreursListe = $validateur->validate($opinionAvis);
@@ -91,21 +93,6 @@ class VoteAvisController extends Controller
 //                    ));
     }
     
-    public function aDejaVote($idAvis, $idAuteur, $manager = null){
-        
-        $aDejaVote = $manager->getRepository('MindMediaBundle:OpinionAvis')
-                             ->aDejaVote($idAvis, $idAuteur);
-        
-        if(!empty($aDejaVote)){
-            $aDejaVote = true;
-        }
-        else{
-            $aDejaVote = false;
-        }
-        
-        return $aDejaVote;
-    }
-    
     /**
      * 
      * @param type $idAvis
@@ -136,7 +123,6 @@ class VoteAvisController extends Controller
             $message = "Vote supprimé avec succès.";
             $serviceBootstrapFlash->success($message);
             
-                    
         }
         else{
             $message = "L'avis n'existe pas.";

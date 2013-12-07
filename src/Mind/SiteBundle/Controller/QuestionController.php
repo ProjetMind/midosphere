@@ -118,8 +118,7 @@ class QuestionController extends Controller
       $lesVotes                 =   $serviceQuestion->getLesVotes($question, $manager);
       
       $idQuestion = $question[0]->getId();
-      $idAuteur = $lesAuteurs[$idQuestion]['id'];
-      $aDejaVote = $voteController->aDejaVote($idQuestion, $idAuteur, $manager);
+      $aDejaVote = $serviceQuestion->aDejaVote($idQuestion);
       
       $template = sprintf('MindSiteBundle:Question:une_question_lecture.html.twig');
       return $this->container->get('templating')->renderResponse($template, 

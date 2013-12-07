@@ -19,13 +19,15 @@ class VoteQuestionController extends Controller
     {
         $erreurs = "";
         $serviceBootstrapFlash = $this->container->get('bc_bootstrap.flash');
+        $serviceQuestion = $this->container->get('mind_site.questions');
         $manager = $this->getDoctrine()
                         ->getManager();
         $questionExiste = $manager->getRepository('MindSiteBundle:Question')
                               ->find($idQuestion);
         
         $idAuteur = $questionExiste->getQuestionAuteur();
-        $aDejaVote = $this->aDejaVote($idQuestion, $idAuteur, $manager);
+        $idUserCourant = $this->getUser()->getId();
+        $aDejaVote = $serviceQuestion->aDejaVote($idQuestion);
         
         if(!empty($questionExiste) and $aDejaVote == false){
             
@@ -33,7 +35,7 @@ class VoteQuestionController extends Controller
             $opinionQuestion = new \Mind\MediaBundle\Entity\OpinionQuestion; 
             
             $opinionQuestion->setIdQuestion($idQuestion);
-            $opinionQuestion->setIdAuteur($idAuteur);
+            $opinionQuestion->setIdAuteur($idUserCourant);
             $opinionQuestion->setTypeOpinion($typeOpinion);
             
             $erreursListe = $validateur->validate($opinionQuestion);
@@ -84,21 +86,6 @@ class VoteQuestionController extends Controller
         //$this->get('session')->getFlashBag()->add('ok', $voteEnregistre);
         
         return $this->redirect($urlQuestion);
-    }
-    
-    public function aDejaVote($idQuestion, $idAuteur, $manager = null){
-        
-        $aDejaVote = $manager->getRepository('MindMediaBundle:OpinionQuestion')
-                             ->aDejaVote($idQuestion, $idAuteur);
-        
-        if(!empty($aDejaVote)){
-            $aDejaVote = true;
-        }
-        else{
-            $aDejaVote = false;
-        }
-        
-        return $aDejaVote;
     }
     
     /**

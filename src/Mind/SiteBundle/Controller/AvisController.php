@@ -182,7 +182,8 @@ class AvisController extends Controller
       
       $idAvis = $avis[0]->getId();
       $idAuteur = $lesAuteurs[$idAvis]['id'];
-      $aDejaVote = $voteController->aDejaVote($idAvis, $idAuteur, $manager);
+      //$aDejaVote = $this->mana$voteController->aDejaVote($idAvis, $idAuteur, $manager);
+      $aDejaVote = $serviceAvis->aDejaVote($idAvis);
       
       $template = sprintf('MindSiteBundle:Avis:un_avis_lecture.html.twig');
       return $this->container->get('templating')->renderResponse($template, 

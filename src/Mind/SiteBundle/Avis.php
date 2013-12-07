@@ -268,6 +268,23 @@ class Avis {
       
       return $lesVotes;
   }
+  
+  public function aDejaVote($idAvis){
+      
+      $aDejaVote = false;
+      if($this->security->isGranted('ROLE_USER')){
+          
+          $idUser = $this->security->getToken()->getUser()->getId();
+          $vote = $this->manager->getRepository('MindMediaBundle:OpinionAvis')
+                                ->aDejaVote($idAvis, $idUser);
+          
+          if(!empty($vote)){
+              $aDejaVote = true;
+          }
+          
+          return $aDejaVote;
+      }
+  }
 }
 
 ?>

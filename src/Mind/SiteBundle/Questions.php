@@ -237,6 +237,22 @@ class Questions {
       
       return $lesVotes;
   }
+  
+  public function aDejaVote($idQuestion){
+      
+      $aDejaVote = false;
+      if($this->security->isGranted('ROLE_USER')){
+          
+          $idUser = $this->security->getToken()->getUser()->getId();
+          $vote = $this->manager->getRepository('MindMediaBundle:OpinionQuestion')
+                                ->aDejaVote($idQuestion, $idUser);
+          
+          if(!empty($vote)){
+              $aDejaVote = true;
+          }
+          
+          return $aDejaVote;
+    }
+  }
 }
 
-?>
