@@ -82,6 +82,15 @@ assetic:
                 - yui_css
                 - lessphp
                 - cssrewrite
+        select2-css:
+            inputs:
+                - %kernel.root_dir%/../vendor/select2/select2-bootstrap.css
+                - %kernel.root_dir%/../vendor/select2/select2.css
+            output: css/select2.css
+            filters:
+                - yui_css
+                - lessphp
+                - cssrewrite
         blueimp-css:
             inputs:
                 - %kernel.root_dir%/../web/resources-css/blueimp-gallery.min.css
@@ -109,6 +118,13 @@ assetic:
                 - %kernel.root_dir%/../web/resources-js/jquery.form.js
                 - %kernel.root_dir%/../web/resources-js/a-bootstrap-editable.min.js
             output: js/lib.js    
+            filters:
+                - yui_js
+        select2-js:
+            inputs:
+                - %kernel.root_dir%/../vendor/select2/select2.js
+                - %kernel.root_dir%/../vendor/select2/select2_locale_fr.js
+            output: js/select2.js
             filters:
                 - yui_js
         bootstrap_js:

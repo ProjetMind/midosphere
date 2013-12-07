@@ -8,13 +8,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class AvisModifierType extends AbstractType
 {
-    
-    protected $choicesDomaineArray = array();
-    
-    public function __construct($choicesDomaineArray) {
-        $this->choicesDomaineArray = $choicesDomaineArray;
-    }
-    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

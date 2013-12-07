@@ -96,7 +96,7 @@ class AclSecurity {
      */
     public function checkPermission($action, $object){
         
-        // check for edit access
+        // check for access
         if (false === $this->securityContext->isGranted(strtoupper($action), $object))
         {
             throw new AccessDeniedException();

@@ -214,7 +214,6 @@ class QuestionController extends Controller
        
        $request = $this->getRequest();
        $em = $this->getDoctrine()->getManager();
-       $domaineArray = $em->getRepository('MindSiteBundle:Domaine')->getAllDomainesInArray();
        $question = $serviceQuestion->getQuestionToUpdate($idQuestion);
        
        if(empty($question)){
@@ -257,14 +256,11 @@ class QuestionController extends Controller
             
        }
        
-       $lesDomaines = $domaineService->getHtmlFormDomaineTree('question', $question->getQuestionDomaine()); 
-       
        $template = sprintf('MindSiteBundle:Forms:form_modifier_question.html.twig');
        return $this->container->get('templating')->renderResponse($template, 
                array(
                         'form'          => $form->createView(),
-                        'idQuestion'        => $idQuestion,
-                        'lesDomaines'   => $lesDomaines
+                        'idQuestion'        => $idQuestion
                ));
   }
  

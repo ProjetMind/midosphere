@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "f16b5e088f277d884620338587a25d64",
+    "hash": "59cf9f1e4a693b546b0a1f632d6496ec",
     "packages": [
         {
             "name": "blueimp/fileupload",
@@ -1890,6 +1890,17 @@
                 "psr-3"
             ],
             "time": "2012-12-21 11:40:51"
+        },
+        {
+            "name": "select2",
+            "version": "3.4.5",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/ivaynberg/select2/archive/3.4.5.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "library"
         },
         {
             "name": "sensio/distribution-bundle",

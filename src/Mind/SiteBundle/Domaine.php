@@ -7,7 +7,6 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Routing\Router;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Mind\SiteBundle\Form\Type\DomaineType;
 use Symfony\Component\Form\FormFactory;
 use Mind\SiteBundle\Acl\AclSecurity;
 
@@ -138,33 +137,33 @@ class Domaine extends NestedTreeRepository{
      * @param type $tree
      * @return string
      */
-//    public function getHtmlFormForAdmin(){
-//        
-//        $childSort = array(
-//                            'field'         => 'libelle',
-//                            'direction'     => 'asc'
-//        );
-//        
-//        $tree = $this->childrenHierarchy(
-//                                            null,
-//                                            false,
-//            array(
-//                    'decorate' => true,
-//                    'childSort' => $childSort,
-//                    'rootOpen' => $this->rootOpen,
-//                    'rootClose' => $this->rootClose,
-//                    'childOpen' => $this->childOpen,
-//                    'childClose' => $this->childClose,
-//                    'nodeDecorator' => function($node){
-//                                        $htmlDomaine = $this->getHtmlFormInputAndLabelForAdmin($node['id'], $node['libelle']);
-//                                        return $htmlDomaine['labelOpen'].$htmlDomaine['input'].$htmlDomaine['libelle'].$htmlDomaine['labelClose'];
-//                    }
-//                    
-//        ));
-//        
-//        return $tree;
-//        
-//    }
+    public function getHtmlFormForAdmin(){
+        
+        $childSort = array(
+                            'field'         => 'libelle',
+                            'direction'     => 'asc'
+        );
+        
+        $tree = $this->childrenHierarchy(
+                                            null,
+                                            false,
+            array(
+                    'decorate' => true,
+                    'childSort' => $childSort,
+                    'rootOpen' => $this->rootOpen,
+                    'rootClose' => $this->rootClose,
+                    'childOpen' => $this->childOpen,
+                    'childClose' => $this->childClose,
+                    'nodeDecorator' => function($node){
+                                        $htmlDomaine = $this->getHtmlFormInputAndLabelForAdmin($node['id'], $node['libelle']);
+                                        return $htmlDomaine['labelOpen'].$htmlDomaine['input'].$htmlDomaine['libelle'].$htmlDomaine['labelClose'];
+                    }
+                    
+        ));
+        
+        return $tree;
+        
+    }
     
     /**
      * 
@@ -389,30 +388,30 @@ class Domaine extends NestedTreeRepository{
      * @param string $libelle
      * @return array 
      */
-//    public function getHtmlFormInputAndLabelForAdmin($idDomaine, $libelle, $idDomaineWhoIsSelected = null){
-//        
-////        if ($idDomaine == $idDomaineWhoIsSelected){
-////            
-////            $isSelected = 'checked = "checked"';
-////            
-////        }else{
-////            $isSelected = null;
-////        }
-//        
-//        $htmlFormDomaine = 
-//                array(
-//                        'labelOpen'     =>  '<label class="radio" for="mind_sitebundle_domainetype_parent_%d" style="display:inline-block;">',
-//                        'input'         =>  '<input id="mind_sitebundle_domainetype_parent_%d" type="radio" value="%d" name="mind_sitebundle_domainetype[parent]">',
-//                        'libelle'       =>  '%s',
-//                        'labelClose'    =>  '</label>'
-//                    );
-//        
-//        $htmlFormDomaine['labelOpen']   = sprintf($htmlFormDomaine['labelOpen'], $idDomaine);
-//        $htmlFormDomaine['input']       = sprintf($htmlFormDomaine['input'], $idDomaine, $idDomaine);
-//        $htmlFormDomaine['libelle']     = sprintf($htmlFormDomaine['libelle'], $libelle);
-//        
-//        return $htmlFormDomaine;
-//    }
+    public function getHtmlFormInputAndLabelForAdmin($idDomaine, $libelle, $idDomaineWhoIsSelected = null){
+        
+//        if ($idDomaine == $idDomaineWhoIsSelected){
+//            
+//            $isSelected = 'checked = "checked"';
+//            
+//        }else{
+//            $isSelected = null;
+//        }
+        
+        $htmlFormDomaine = 
+                array(
+                        'labelOpen'     =>  '<label class="radio" for="mind_sitebundle_domainetype_parent_%d" style="display:inline-block;">',
+                        'input'         =>  '<input id="mind_sitebundle_domainetype_parent_%d" type="radio" value="%d" name="mind_sitebundle_domainetype[parent]">',
+                        'libelle'       =>  '%s',
+                        'labelClose'    =>  '</label>'
+                    );
+        
+        $htmlFormDomaine['labelOpen']   = sprintf($htmlFormDomaine['labelOpen'], $idDomaine);
+        $htmlFormDomaine['input']       = sprintf($htmlFormDomaine['input'], $idDomaine, $idDomaine);
+        $htmlFormDomaine['libelle']     = sprintf($htmlFormDomaine['libelle'], $libelle);
+        
+        return $htmlFormDomaine;
+    }
     
     /**
      * 
@@ -443,9 +442,10 @@ class Domaine extends NestedTreeRepository{
         $tabTree = array();
         
         $childSort = array(
-                            'field' => 'title',
+                            'field' => 'libelle',
                             'dir'   => 'asc'
         );
+        
         $options = array(
                             'childSort' => $childSort,
                             'decorate' => true,
@@ -463,9 +463,11 @@ class Domaine extends NestedTreeRepository{
             foreach ($tabDomaineNiveauUn as $domaine){
            
                 $tabTree[] = $this->childrenHierarchy($domaine, false, $options, true);
+                //$tabTree[] = $this->getChildren($domaine, FALSE, 'libelle', 'asc', true);
+                
             
             }
-        
+            
         return $tabTree;
         
     }

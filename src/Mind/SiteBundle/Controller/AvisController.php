@@ -291,7 +291,6 @@ class AvisController extends Controller
        
        $request = $this->getRequest();
        $em = $this->getDoctrine()->getManager();
-       $domaineArray = $em->getRepository('MindSiteBundle:Domaine')->getAllDomainesInArray();
        $avis = $serviceAvis->getAvisToUpdate($idAvis);
       
        if(empty($avis)){
@@ -336,14 +335,11 @@ class AvisController extends Controller
             
        }
        
-       $lesDomaines = $domaineService->getHtmlFormDomaineTree('avis', $avis->getAvisDomaine()); 
-       
        $template = sprintf('MindSiteBundle:Forms:form_modifier_avis.html.twig');
        return $this->container->get('templating')->renderResponse($template, 
                array(
                         'form'          => $form->createView(),
-                        'idAvis'        => $idAvis,
-                        'lesDomaines'   => $lesDomaines
+                        'idAvis'        => $idAvis
                ));
    }
  

@@ -19,7 +19,7 @@ class DomaineRepository extends NestedTreeRepository
         $query = $this->_em->createQuery('SELECT d
                                           FROM MindSiteBundle:Domaine d
                                           WHERE d.niveau = :niveau
-                                          ORDER BY d.libelle DESC
+                                          ORDER BY d.libelle asc
                                          ');
         $query->setParameter('niveau', $niveau);
         return $query->getResult();
