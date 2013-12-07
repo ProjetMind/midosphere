@@ -24,7 +24,7 @@
         {% endif %}
         
                 <div style="margin-top: 10px;" id="{{unAvis.id}}" class="media span6 elmtEntityOne">
-                        <a class="pull-left" href="#">
+                        <a class="pull-left" title="{{ unAvis.avisTitre }}" href="{{ path('mind_site_avis_voir', {"auteur": lesAuteurs[unAvis.id].slug, "slug": unAvis.slug }) }}">
                          {% if images[unAvis.id] is not empty %}
                             <img class="media-object" src="{{ asset(images[unAvis.id][0].path) }}" />
                          {% else %}
@@ -36,7 +36,7 @@
                             <div class="media-heading">
                                 {% include 'MindSiteBundle:Forms:form_avis_supprimer.html.twig' %}
                                 
-                                <a href="{{ path('mind_site_avis_voir', {"auteur": lesAuteurs[unAvis.id].slug, "slug": unAvis.slug }) }}">
+                                <a title="{{ unAvis.avisTitre }}" href="{{ path('mind_site_avis_voir', {"auteur": lesAuteurs[unAvis.id].slug, "slug": unAvis.slug }) }}">
                                     {{ unAvis.avisTitre }} 
                                 </a>
                                 

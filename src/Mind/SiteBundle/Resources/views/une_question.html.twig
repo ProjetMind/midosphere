@@ -19,14 +19,14 @@
         {% endif %}
             
                 <div id="{{uneQuestion.id}}" class="media span6 elmtEntityOne" style="margin-top: 10px;">
-                        <a class="pull-left" href="#">
+                        <a class="pull-left" title="{{ uneQuestion.questionTitre }}" href="{{ path('mind_site_question_voir', {"auteur": lesAuteurs[uneQuestion.id].slug, "slug": uneQuestion.slug }) }}">
                             <img class="media-object" data-src="" />
                         </a>
 
                         <div class="media-body">
                             <div class="media-heading">
                                 {% include 'MindSiteBundle:Forms:form_question_supprimer.html.twig' %}
-                                <a href="{{ path('mind_site_question_voir', {"auteur": lesAuteurs[uneQuestion.id].slug, "slug": uneQuestion.slug }) }}">
+                                <a title="{{ uneQuestion.questionTitre }}" href="{{ path('mind_site_question_voir', {"auteur": lesAuteurs[uneQuestion.id].slug, "slug": uneQuestion.slug }) }}">
                                     {{ uneQuestion.questionTitre }} 
                                 </a>
                                 <small class="muted dateElmt">
