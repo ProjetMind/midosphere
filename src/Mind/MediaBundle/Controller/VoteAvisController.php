@@ -116,9 +116,9 @@ class VoteAvisController extends Controller
             $serviceAcl = $this->container->get('mind_site.acl_security');
             $serviceAcl->checkPermission('DELETE', $opinionAvis);
             
+            $serviceAcl->deleteAcl($opinionAvis);
             $manager->remove($opinionAvis);
             $manager->flush();
-            $serviceAcl->deleteAcl($opinionAvis);
             
             $message = "Vote supprimé avec succès.";
             $serviceBootstrapFlash->success($message);

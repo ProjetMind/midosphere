@@ -114,9 +114,9 @@ class Suivis {
             
         }else{ 
             $suivis = $this->repository->findOneBy($this->optionsSearch);
+            $this->aclSecurity->deleteAcl($suivis);
             $this->manager->remove($suivis);
             $this->manager->flush();
-            $this->aclSecurity->deleteAcl($suivis);
             
             $message = "Vous ne suivez plus cet avis.";
             $this->container->get('bc_bootstrap.flash')->success($message);

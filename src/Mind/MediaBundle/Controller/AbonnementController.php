@@ -110,10 +110,9 @@ class AbonnementController extends Controller
         
         $serviceAcl->checkPermission('DELETE', $abonnement);
         
+        $serviceAcl->deleteAcl($abonnement);
         $manager->remove($abonnement);
         $manager->flush();
-        $serviceAcl->deleteAcl($abonnement);
-        
     }
 
     /**
@@ -210,10 +209,9 @@ class AbonnementController extends Controller
         
         $serviceAcl->checkPermission('DELETE', $abonnement);
         
+        $serviceAcl->deleteAcl($abonnement);
         $manager->remove($abonnement);
         $manager->flush();
-        $serviceAcl->deleteAcl($abonnement);
-        
     }
 }
 

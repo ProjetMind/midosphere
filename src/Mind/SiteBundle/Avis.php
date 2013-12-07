@@ -55,9 +55,9 @@ class Avis {
             $avis = $this->manager
                          ->getRepository('MindSiteBundle:Avis')
                          ->findOneBy($optionsSearch);
-                 
+            
+            $this->aclSecurity->deleteAcl($avis);     
             $this->manager->remove($avis);
-            $this->aclSecurity->deleteAcl($avis);
             
             $this->supprimerCommentaireAvis($idAvis);
             $this->supprimerImageAvis($idAvis);
@@ -79,8 +79,10 @@ class Avis {
                                 );
         
         foreach ($suivis as $unSuivis){
-            $this->manager->remove($unSuivis);
+            
             $this->aclSecurity->deleteAcl($unSuivis);
+            $this->manager->remove($unSuivis);
+            
         }
     }
 
@@ -91,8 +93,10 @@ class Avis {
                             ->findBy(array('idAvis' => $idAvis));
         
         foreach ($commentaires as $unCommentaire){
-            $this->manager->remove($unCommentaire);
+            
             $this->aclSecurity->deleteAcl($unCommentaire);
+            $this->manager->remove($unCommentaire);
+            
         }
     }
     
@@ -104,8 +108,10 @@ class Avis {
         
         if(!empty($images)){
         foreach ($images as $uneImage){
-           $this->manager->remove($uneImage);
+            
            $this->aclSecurity->deleteAcl($uneImage);
+           $this->manager->remove($uneImage);
+           
         }}
         
     }

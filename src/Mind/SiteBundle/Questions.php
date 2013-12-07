@@ -113,9 +113,9 @@ class Questions {
             $question = $this->manager
                          ->getRepository('MindSiteBundle:Question')
                          ->findOneBy($optionsSearch);
-                 
+             
+            $this->aclSecurity->deleteAcl($question);    
             $this->manager->remove($question);
-            $this->aclSecurity->deleteAcl($question);
             
             $this->supprimerCommentaireQuestion($idQuestion);
             $this->supprimerSuivisQuestion($idQuestion);
@@ -136,8 +136,10 @@ class Questions {
                                 );
         
         foreach ($suivis as $unSuivis){
-            $this->manager->remove($unSuivis);
+            
             $this->aclSecurity->deleteAcl($unSuivis);
+            $this->manager->remove($unSuivis);
+            
         }
     }
     
@@ -148,8 +150,10 @@ class Questions {
                             ->findBy(array('idQuestion' => $idQuestion));
         
         foreach ($commentaires as $unCommentaire){
-            $this->manager->remove($unCommentaire);
+            
             $this->aclSecurity->deleteAcl($unCommentaire);
+            $this->manager->remove($unCommentaire);
+            
         }
     }
     

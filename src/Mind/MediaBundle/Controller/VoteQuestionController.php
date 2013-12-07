@@ -111,9 +111,9 @@ class VoteQuestionController extends Controller
             $serviceAcl = $this->container->get('mind_site.acl_security');
             $serviceAcl->checkPermission('DELETE', $opinionQuestion);
             
+            $serviceAcl->deleteAcl($opinionQuestion);
             $manager->remove($opinionQuestion);
             $manager->flush();
-            $serviceAcl->deleteAcl($opinionQuestion);
             
             $message = "Vote supprimé avec succès.";
             $serviceBootstrapFlash->success($message);

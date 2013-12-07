@@ -38,9 +38,9 @@ class Avatar extends \Twig_Extension {
                        ->findOneBy(array('idUser'=>$idUser));
         if(!empty($avatar)){
             if($avatar->getPath() != "img/avatar-homme.jpeg" and $avatar->getPath() != "img/avatar-fmme.jpeg "){
+                $this->aclSecurity->deleteAcl($avatar);
                 $this->manager->remove($avatar);
                 $this->manager->flush();
-                $this->aclSecurity->deleteAcl($avatar);
             }
         }
     }
