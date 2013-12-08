@@ -216,16 +216,16 @@ fos_user:
             enabled: true
             from_email:
                 address: postmaster@midosphere.com
-                sender_name: Mind inscription
+                sender_name: Midosphere inscription
     from_email:
         address: postmaster@midosphere.com  
-        sender_name: Mind 
+        sender_name: Midosphere 
     resetting:
         email:
             #template: MindUserBundle:Mailer:reset_password.html.twig
             from_email: 
                 address: postmaster@midosphere.com
-                sender_name: Mind, changer de mot de passe
+                sender_name: Midosphere, changer de mot de passe
     service:
         mailer: fos_user.mailer.twig_swift
        
