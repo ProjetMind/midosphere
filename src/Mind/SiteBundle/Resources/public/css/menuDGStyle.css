@@ -12,7 +12,7 @@ Communs
 --------------------------------------------------------------------------------
 */
 
-#menuGauche, #menuDroit, #menuProfil{
+#menuGauche, #menuDroit{
 background-color: #FFFFFF;
 border: 1px solid #e5e5e5;
 border-radius: 5px 5px 5px 5px;
@@ -29,7 +29,7 @@ margin: 10px 0px;
 
 #menuGauche a{
 padding: 8px 14px;
-border-bottom: 1px solid #e5e5e5;
+/*border-bottom: 1px solid #e5e5e5;*/
 }
 
 header #notification i, #compte .compteI i {
@@ -37,7 +37,8 @@ header #notification i, #compte .compteI i {
 }
 
 .menuGDTitle{
-    border-bottom: 1px solid #e5e5e5
+    border-bottom: 1px solid #e5e5e5;
+    border-top: 1px solid #E5E5E5;
 }
 
 

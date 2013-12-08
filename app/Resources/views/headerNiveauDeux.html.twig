@@ -1,17 +1,27 @@
 {# empty Twig template #}
 
-<nav class="navbar navbar-static-top">
+<nav class="navbar navbar-static-top row-fluid">
   <div class="navbar-inner">
     <div class="container-fluid" style= "margin-left:10px; padding-right: 0; padding-left: 0; ">
       
       {# Le menu est gérer par KnpMenuBundle et Bootstrap(précisiement BcBootstrapBundle 
          La class se situe dans SiteBundle/Menu/Menu.php #}
+       <span class="span5">
+        {{ knp_menu_render('MindSiteBundle:Menu:getMenuHeader', {'currentClass': 'active'})|raw }}
+       </span>
         
-      {{ knp_menu_render('MindSiteBundle:Menu:getMenuHeader', {'currentClass': 'active'})|raw }}
-      
-                {# HEADER NIVEAU 1. #}
-                    {% include '::headerNiveauUn_CompteLogin.html.twig' %}
-
+      {# include '::social_header.html.twig' #}  
+      <span class="span4">
+        {% set routeSearch = app.request.attributes.get('_route') %}
+        {% if routeSearch != 'mind_recherche_homepage' %}  
+            {% include 'MindRechercheBundle:Forms:form_recherche.html.twig' %} 
+        {% endif %}
+      </span>
+        
+      {# HEADER NIVEAU 1. #}
+      <span class="span3">
+        {% include '::headerNiveauUn_CompteLogin.html.twig' %}
+      </span>
      
 
     </div>

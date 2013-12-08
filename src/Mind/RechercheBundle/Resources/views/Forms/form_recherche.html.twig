@@ -1,16 +1,13 @@
 {# empty Twig template #}
 
-<form id="formHeaderSearch" class="form-inline" method="POST" action="{{ path('mind_recherche_homepage') }}">
+<form id="formHeaderSearch" class="navbar-form" style="display:inline-block;" method="POST" action="{{ path('mind_recherche_homepage') }}">
+    
     <div class="input-append">
-        <input id="appendedInput" class="input-xlarge" type="search" name="inputHeaderSearch" placeholder="Avis, Questions, Domaine ou membres" />
-        <button class="btn btn-primary" type="submit" >Rechercher</button>
+        <input id="appendedInput" type="search" name="inputHeaderSearch" placeholder="Recherche">
+        <button class="btn input-small" type="submit"><i class="icon-search"></i></button>
+        <button id="optionsDeRecherche" date-url="#" href="#" title="Rechercher dans :" data-type="checklist" data-pk="1" class="btn input-small" type="button">Options</button>
     </div>
-    <div>
-        <span class="btnOptions btn disabled btnBodySearch">Rechercher dans :</span>
-        <a id="optionsDeRecherche" date-url="#" href="#" title="Rechercher dans :" data-type="checklist" data-pk="1"> </a>
-
-    </div>
-
+    
     <input id="inputOptions" type="hidden" name="optionsDeRecherche" value="1,2"/>
 </form>
 
@@ -35,7 +32,7 @@ $(function(){
                 ],
         display: function(value, sourceData) {
             //display checklist as comma-separated values
-            var html = [],
+            /*var html = [],
                 checked = $.fn.editableutils.itemsByValue(value, sourceData);
             
             if(checked.length) {
@@ -43,7 +40,7 @@ $(function(){
                                     $(this).html(html.join(', '));
             } else {
                 $(this).empty();
-            }
+            }*/
         }
     };
     
