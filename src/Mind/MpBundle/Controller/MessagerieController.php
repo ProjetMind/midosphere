@@ -137,9 +137,9 @@ class MessagerieController extends Controller {
     public function conversationAction($idConversation){
         
         $serviceConversation    = $this->container->get('mind_mp.conversation');
-        $serviceSecurity        = $this->container->get('mind_user.security');
+        //$serviceSecurity        = $this->container->get('mind_user.security');
         
-        $conversation           = $serviceConversation->findByIdUser($idConversation);
+        //$conversation           = $serviceConversation->findByIdUser($idConversation);
         
         //$serviceSecurity->notFound($conversation, "La conversation");
         
