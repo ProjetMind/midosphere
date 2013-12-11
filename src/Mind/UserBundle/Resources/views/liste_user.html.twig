@@ -14,7 +14,7 @@
         {% set countElmt = 1 %}
         {% for user in users %}
         <tr>
-            <td>{{ countElmt }} <img src="{{ user.path }}"></td>
+            <td>{{ countElmt }} <img style="display:inline-block;" class="media-object" src="{{ user.path }}" title="{{user.username}}"></td>
             <td><a href="{{ path('mind_user_profile_voir', {'slug': user.slug}) }}">{{ user.username }}</a></td>
             <td>{{ user.dateInscription|date('d/m/Y') }}</td>
         </tr>
