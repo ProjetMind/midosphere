@@ -287,6 +287,7 @@ class AvisController extends Controller
        
        $serviceAcl = $this->container->get('mind_site.acl_security');
        $serviceAvis = $this->container->get('mind_site.avis');
+       $serviceImage = $this->container->get('mind_media.images');
        $domaineService = $this->container->get('mind_site.domaine');
        $serviceBootstrapFlash = $this->container->get('bc_bootstrap.flash');
        
@@ -299,6 +300,8 @@ class AvisController extends Controller
        }
 
        $serviceAcl->checkPermission('EDIT', $avis);
+       $serviceImage->setTypeEntity('avis');
+       $images = $serviceImage->getImages(array($avis));
        
        if($request->getMethod() == "POST"){
            
@@ -340,7 +343,8 @@ class AvisController extends Controller
        return $this->container->get('templating')->renderResponse($template, 
                array(
                         'form'          => $form->createView(),
-                        'idAvis'        => $idAvis
+                        'idAvis'        => $idAvis,
+                        'images'        => $images[$idAvis]
                ));
    }
  

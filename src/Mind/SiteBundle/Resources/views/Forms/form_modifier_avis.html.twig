@@ -50,22 +50,27 @@
                         {{ form_widget(form.avisDomaine) }}
                     </div>
                 </div>
-                {#<div>
-                    <div class="alert alert-info">Changez de domaine si vous le désirez.</div>
-                    {{ form_label(form.avisDomaine) }}
-                    {% render controller('MindSiteBundle:Domaine:getDomainesTree') %}
-                </div>
-                {{ form_widget(form.file) }}
                 
                 <div id="imagesForUpload">
-                    <input type="file" name="filesImages[]" multiple="multiple" /><br/>
-                    <input type="file" name="filesImages[]" multiple="multiple" /><br/>
-                    <input type="file" name="filesImages[]" multiple="multiple"/>
+                    <ul class="inline">
+                        {% set nbImage = 1 %}
+                        {% for image in images %}
+                        <li id="image{{nbImage}}">
+                            <img src="{{asset(image.path)}}" class="img-polaroid">
+                            {% set nbImage = nbImage + 1%}
+                            {#<input type="file" name="filesImages[]" multiple="multiple" />#}
+                        </li>
+                        {% endfor %}
+                        
+                        <li id="image2">
+                            <input type="file" name="filesImages[]" multiple="multiple" />
+                        </li>
+                        
+                        <li class="image3">
+                            <input type="file" name="filesImages[]" multiple="multiple"/>
+                        </li>
+                    </ul>
                 </div>
-                
-                <div class="existingFile">
-                    
-                </div>#}
                 
                 <div class="control-group">
                     <div class="controls">
