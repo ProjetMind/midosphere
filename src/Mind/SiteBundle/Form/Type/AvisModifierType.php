@@ -55,7 +55,7 @@ class AvisModifierType extends AbstractType
                 
             ->add('avisDomaine', 'text', array(
                                                 'required'  => true,
-                                                'label'     => "Domaines",
+                                                'label'     => "Domaines :",
                                                 'label_attr'    => array(
                                                                             'class' => 'control-label',
                                                                             'style' => 'text-align:left;'

@@ -288,7 +288,6 @@ class AvisController extends Controller
        $serviceAcl = $this->container->get('mind_site.acl_security');
        $serviceAvis = $this->container->get('mind_site.avis');
        $serviceImage = $this->container->get('mind_media.images');
-       $domaineService = $this->container->get('mind_site.domaine');
        $serviceBootstrapFlash = $this->container->get('bc_bootstrap.flash');
        
        $request = $this->getRequest();
@@ -306,7 +305,7 @@ class AvisController extends Controller
        if($request->getMethod() == "POST"){
            
            $avis->setAvisDateEdition(new \DateTime());
-           $form = $this->createForm(new AvisModifierType($domaineArray), $avis);
+           $form = $this->createForm(new AvisModifierType(), $avis);
            
            $form->bind($request);
            
@@ -315,12 +314,16 @@ class AvisController extends Controller
                
                $em->persist($avis);
                
+               //Supprimer images 
+               $tabIdImages = explode(',', $this->getRequest()->get('fileToDelete'));
+               $serviceAvis->supprimerImagesAvisForUpdate($idAvis, $tabIdImages);
+               
                //Images
-//                $actionImage = $this->container->get('mind_media.upload_file');
-//                $images = $actionImage->createFileInfos();
-//                $actionImage->persisteImagesForAvis($images, $avis);
-            
-               $em->flush();
+                $actionImage = $this->container->get('mind_media.upload_file');
+                $images = $actionImage->createFileInfos();
+                $actionImage->persisteImagesForAvis($images, $avis);
+               
+                $em->flush();
                
                //message de confirmation 
                $messageDeConfirmation = "L'avis a été modifié avec succès.";
@@ -399,5 +402,6 @@ class AvisController extends Controller
       $response->headers->set('Content-Type', 'application/json');
       return $response;
   }
+  
 }
 

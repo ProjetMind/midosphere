@@ -116,6 +116,26 @@ class Avis {
         
     }
     
+    public function supprimerImagesAvisForUpdate($idAvis, $tabIdImages = array()){
+    
+        foreach ($tabIdImages as $unIdImage){
+        
+            $image = $this->manager
+                          ->getRepository('MindMediaBundle:ImageAvis')
+                          ->findOneBy(
+                                  array(
+                                            'avis'  => $idAvis,
+                                            'id'    => $unIdImage
+                                        )
+                                   );
+            if(!empty($image)){
+                $this->aclSecurity->deleteAcl($image);
+                $this->manager->remove($image);
+            }
+        }
+        
+    }
+    
     public function isOurAvis($idAvis){
        
         $idUserCourant = $this->security->getToken()->getUser()->getId();

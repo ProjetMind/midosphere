@@ -109,7 +109,13 @@ class Suivis {
             $tabAcl = array();
             $tabAcl[] = $suivis;
             $this->aclSecurity->updateAcl($tabAcl);
-            $message = "Vous suivez maintenat cet avis.";
+            if($this->typeEntity == "avis"){
+                $message = "Vous suivez maintenat cet avis.";
+            }
+            if($this->typeEntity == "question"){
+                $message = "Vous suivez maintenat cette question.";
+            }
+            
             $this->container->get('bc_bootstrap.flash')->success($message);
             
         }else{ 

@@ -51,25 +51,36 @@
                     </div>
                 </div>
                 
-                <div id="imagesForUpload">
-                    <ul class="inline">
-                        {% set nbImage = 1 %}
+                <div class="control-group" id="imagesForUpload">
+                    <label class="control-label" style="text-align:left;">Images :</label>
+                        
+                    <div class="controls">
+                        
+                        {# Ajout d'une nouvelle image #}
+                        <div class="control-group">
+                            <div class="contols">
+                                <span id="addNewImage" class="btn"><i class="icon-plus"></i>Ajouter une image</span>
+                                <div id="newImages">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
                         {% for image in images %}
-                        <li id="image{{nbImage}}">
-                            <img src="{{asset(image.path)}}" class="img-polaroid">
-                            {% set nbImage = nbImage + 1%}
-                            {#<input type="file" name="filesImages[]" multiple="multiple" />#}
-                        </li>
+                        <span id="image{{image.id}}" class="row-fluid media">
+                            <span class="span2 pull-left">
+                                <img src="{{asset(image.path)}}" class="img-polaroid media-object">
+                            </span>
+                            
+                            <span class="media-body">
+                                <span id="{{image.id}}" class="toRemove btn btn-mini btn-primary"><i class="icon-remove"></i>Supprimer</span>
+                            </span>
+                            
+                        </span>
                         {% endfor %}
                         
-                        <li id="image2">
-                            <input type="file" name="filesImages[]" multiple="multiple" />
-                        </li>
-                        
-                        <li class="image3">
-                            <input type="file" name="filesImages[]" multiple="multiple"/>
-                        </li>
-                    </ul>
+                    </div>
                 </div>
                 
                 <div class="control-group">
@@ -80,8 +91,8 @@
                 
                 {{ form_widget(form._token) }}
             </fieldset>
-            
-            
+            <input id="filesToDelete" type="hidden" value="" name="fileToDelete">
+            <input class="hide" type="file" multiple="multiple" name="filesImages[]">
         </form>
             
     </span>
@@ -105,8 +116,46 @@
            
            $('#mind_sitebundle_avismodifiertype_avisDomaine').attr('value', e.val);
        });
-    });
+       
+       //Add new image
+        $("#addNewImage").on('click',function(){
+            var dataHtml = '<span class="row-fluid"><input type="file" multiple="multiple" name="filesImages[]"></span>';
+            $("#newImages").append(dataHtml);
+        });
         
+        $("body").on('click','.toRemove', function(){
+            
+              var idImages = $("#filesToDelete").attr("value");
+              if(idImages.length === 0){
+                tabIdImage = new Array; 
+              }else{
+                var tabIdImage = idImages.split(',');
+              }
+              if($.inArray(this.id, tabIdImage) === -1){
+
+                tabIdImage.push(this.id);
+                $("#filesToDelete").attr("value", tabIdImage.join(','));
+
+                var newHtmlData = '<span id="'+this.id+'" class="toAnnuler btn btn-mini btn-success"><i class="icon-repeat"></i>Annuler</span>';
+                $(this).replaceWith(newHtmlData);
+
+              }
+
+        });
+        
+        $("body").on('click','.toAnnuler',function(){
+    
+            var idImages = $("#filesToDelete").attr("value");
+            var tabIdImage = idImages.split(',');
+            var indexValue = $.inArray(this.id, tabIdImage);
+            tabIdImage.splice(indexValue,1);
+            $("#filesToDelete").attr("value", tabIdImage.join(','));    
+            var newHtmlData = '<span id="'+this.id+'" class="toRemove btn btn-mini btn-primary"><i class="icon-remove"></i>Supprimer</span>';
+            $(this).replaceWith(newHtmlData);
+
+      });
+       
+    });
     
 </script>
 {% endblock %}
