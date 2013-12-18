@@ -4,5 +4,7 @@ services:
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: mind_user_registration }
+    mind_user.twitter_api:
+        class: Mind\UserBundle\TwitterApi
             
     

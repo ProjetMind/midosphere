@@ -1,3 +1,11 @@
+#hwi_oauth:
+#    firewall_name: secured_area
+#    resource_owners:
+#        twitter:
+#            type:                twitter
+#            client_id:  ZOirAXMLdi3Egu6JtxLGMw
+#            client_secret:  DKo2mQ9XH6QaeZoVctdKpVrSsHHg0OqdlN9BXfodA       
+
 jms_security_extra:
     secure_all_services: false
     expressions: true
@@ -34,6 +42,8 @@ security:
         # Cette expression régulière permet de prendre /login (mais pas /login_check !)
             pattern:   ^/connexion$
             anonymous: true
+#        oauth_user_provider:
+#            service: mind_user.oauth
         main:
             switch_user: true
             pattern: ^/

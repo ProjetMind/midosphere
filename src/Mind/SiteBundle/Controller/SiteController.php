@@ -12,6 +12,11 @@ class SiteController extends Controller
         return $this->render('::layout.html.twig');
     }
 
+    public function getNbFollowsAction(){
+        
+        $serviceTwitterApi = $this->container->get('mind_user.twitter_api');
+        return new Response($serviceTwitterApi->getNbFollows());
+    }
     
 }
 

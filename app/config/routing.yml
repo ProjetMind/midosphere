@@ -78,3 +78,6 @@ fos_js_routing:
 #    resource: '@SonataMediaBundle/Resources/config/routing/media.xml'
 #    prefix: /media
     
+#hwi_oauth_redirect:
+#    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+#    prefix:   /connect

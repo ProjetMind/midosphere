@@ -33,6 +33,7 @@ class AppKernel extends Kernel
             new Mind\MpBundle\MindMpBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Mind\RechercheBundle\MindRechercheBundle()
+            #new HWI\Bundle\OAuthBundle\HWIOAuthBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
