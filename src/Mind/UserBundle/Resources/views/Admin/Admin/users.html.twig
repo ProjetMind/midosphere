@@ -5,5 +5,9 @@
 {% extends "MindUserBundle:Admin:admin.html.twig" %}
 
 {% block admin_contenu %}
-    users
+
+<span class="row-fluid">
+    <h3>Les utilisateurs</h3>
+    {% include 'MindUserBundle::liste_user.html.twig' %}
+</span>
 {% endblock admin_contenu %}

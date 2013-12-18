@@ -7,6 +7,9 @@
             <th>#</th>
             <th>Pseudo</th>
             <th>Date d'inscription</th>
+            {% if is_granted('ROLE_ADMIN') %}
+            <th>Rôle</th>
+            {% endif %}
         </tr>
     </thead>
     
@@ -14,9 +17,14 @@
         {% set countElmt = 1 %}
         {% for user in users %}
         <tr>
-            <td>{{ countElmt }} <img style="display:inline-block;" class="media-object" src="{{ user.path }}" title="{{user.username}}"></td>
+            <td>{{ countElmt }} <img style="display:inline-block;" class="media-object" src="{{ asset(user.path) }}" title="{{user.username}}"></td>
             <td><a href="{{ path('mind_user_profile_voir', {'slug': user.slug}) }}">{{ user.username }}</a></td>
             <td>{{ user.dateInscription|date('d/m/Y') }}</td>
+            {% if is_granted('ROLE_ADMIN') %}
+            <td id="role{{ user.id }}">
+                {% render controller('MindUserBundle:Admin:updateUserRoles', {'idUser': user.id}) %}
+            </td>
+            {% endif %}
         </tr>
         {% endfor %}
     </tbody>

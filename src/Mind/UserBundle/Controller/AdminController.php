@@ -13,6 +13,7 @@ namespace Mind\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Mind\SiteBundle\Form\Type\DomaineType;
+use Mind\UserBundle\Form\Type\UpdateRolesType;
 
 
 
@@ -31,8 +32,16 @@ class AdminController extends Controller
     
     public function usersAction(){
         
+        $users = $this->getDoctrine()
+                      ->getManager()
+                      ->getRepository('MindUserBundle:User')
+                      ->findAll();
+        
         $template = sprintf('MindUserBundle:Admin/Admin:users.html.%s', $this->container->getParameter('fos_user.template.engine'));
-        return $this->container->get('templating')->renderResponse($template);
+        return $this->container->get('templating')->renderResponse($template,
+                array(
+                        'users'     => $users
+                ));
         
     }
     
@@ -99,33 +108,40 @@ class AdminController extends Controller
         $template = sprintf('MindUserBundle:Admin/Admin:questions.html.%s', $this->container->getParameter('fos_user.template.engine'));
         return $this->container->get('templating')->renderResponse($template);
     }
+   
     
-    public function getListeDomaineUn(){ 
-       
-        $repository = $this->getDoctrine()
-                           ->getManager()
-                           ->getRepository('MindSiteBundle:Domaine');
+    public function UpdateUserRolesAction($idUser){
         
-        $tabDomaineUn = $repository->getDomaineNiveauUn();
+        $user = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('MindUserBundle:User')
+                     ->find($idUser);
         
+        $form = $this->createForm(new UpdateRolesType(), $user);
         
-        return $tabDomaineUn;
+        $request = $this->getRequest();
+        if($request->getMethod() === "POST"){
         
-    }
-    
-    public function getSousDomaine($tabDomaineUn){
-        
-        $clee = "";
-        $valeur = "";
-        
-        if(!empty($tabDomaineUn)){
+            $form->bindRequest($request);
             
-            foreach ($lesIdSousDomaine as $clee => $valeur){
+            if($form->isValid()){
+                $em = $this->getDoctrine()
+                           ->getManager();
+                $em->persist($user);
+                $em->flush();
                 
+                $url = $this->generateUrl('mind_admin_user');
+                return $this->redirect($url);
             }
         }
         
         
+        $template = 'MindUserBundle:Form:form_update_roles.html.twig';
+        return $this->container->get('templating')->renderResponse($template, 
+                array(
+                        'form'  => $form->createView(),
+                        'idUser'=> $idUser
+                ));
     }
     
 }

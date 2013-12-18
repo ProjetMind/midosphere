@@ -1,0 +1,32 @@
+{# empty Twig template #}
+
+{#{% form_theme form _self %}
+{% block choice_widget_expanded %}
+    {% spaceless %}
+        <div {{ block('widget_container_attributes') }}>
+            <ul>
+        {% for child in form %}
+                <li class="inline">
+                    {{ form_widget(child) }}
+                    {{ form_label(child) }}
+                </li>
+        {% endfor %}
+            </ul>
+        </div>
+    {% endspaceless %}
+    {% endblock choice_widget_expanded %}
+#}
+
+<form id="formUpdateUserRoles" class="form-horizontal" action="{{ path('mind_admin_update_user_role', {'idUser': idUser}) }}" method="POST">
+    
+    {{ form_errors(form) }}
+    {{ form_widget(form.roles) }}
+    {{ form_widget(form._token) }}
+    
+    <div class="control-group">
+        <div class="controls">
+            <input type="submit" class="btn btn-small btn-primary" value="Mettre à jour les roles">
+        </div>
+    <div>
+</form>
+

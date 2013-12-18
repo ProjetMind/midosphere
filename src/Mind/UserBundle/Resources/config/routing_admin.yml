@@ -9,6 +9,10 @@ mind_admin_index:
 mind_admin_user:
   pattern: /utilisateurs
   defaults: { _controller: MindUserBundle:Admin:users }
+
+mind_admin_update_user_role:
+    pattern: /utilisateurs/update-user-role/{idUser}
+    defaults: { _controller: MindUserBundle:Admin:UpdateUserRoles }
   
 ## Domaine  
 mind_admin_domaine:
