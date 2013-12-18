@@ -166,4 +166,9 @@ class ConversationManager extends BaseManager {
         
         return $conversations;
     }
+    
+    public function findById($id){
+        
+        return $this->manager->getRepository('MindMpBundle:Conversation')->find($id);
+    }
 }

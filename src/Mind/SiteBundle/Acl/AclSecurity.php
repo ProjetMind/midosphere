@@ -3,6 +3,7 @@
 namespace Mind\SiteBundle\Acl;
 
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
@@ -100,6 +101,13 @@ class AclSecurity {
         if (false === $this->securityContext->isGranted(strtoupper($action), $object))
         {
             throw new AccessDeniedException();
+        }
+    }
+    
+    public function notFound($object){
+        
+        if(empty($object)){
+            throw  new \Symfony\Component\Translation\Exception\NotFoundResourceException();
         }
     }
     
