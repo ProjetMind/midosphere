@@ -153,7 +153,7 @@ class Question
      */
     public function setQuestion($question)
     {
-        $this->question = nl2br($question);
+        $this->question = $question;
 
         return $this;
     }

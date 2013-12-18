@@ -161,7 +161,7 @@ class CommentaireQuestion
      */
     public function setCommentaire($commentaire)
     {
-        $this->commentaire = nl2br($commentaire);
+        $this->commentaire = $commentaire;
 
         return $this;
     }

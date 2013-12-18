@@ -23,7 +23,7 @@
                     <time>{{ message['message'].dateEnvoiMessage|date('d/m/y h:m') }}</time>
                 </small>
             
-            <p>{{ message['message'].contenuMessage }}</p>
+            <p>{{ message['message'].contenuMessage|nl2br }}</p>
         </div>
 
     </div>

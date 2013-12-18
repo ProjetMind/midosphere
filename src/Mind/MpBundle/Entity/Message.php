@@ -126,7 +126,7 @@ class Message
      */
     public function setContenuMessage($contenuMessage)
     {
-        $this->contenuMessage = nl2br($contenuMessage);
+        $this->contenuMessage = $contenuMessage;
 
         return $this;
     }

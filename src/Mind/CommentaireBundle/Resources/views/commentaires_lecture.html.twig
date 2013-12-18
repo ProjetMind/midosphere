@@ -18,7 +18,7 @@
                 <time datetime="{{ lesDatesCom[unCommentaire.id].datePub }}">{{ lesDatesCom[unCommentaire.id].message }}</time>
             </small>
         </div>
-        <p class="commentaire">{{ unCommentaire.commentaire }}</p>
+        <p class="commentaire">{{ unCommentaire.commentaire|nl2br }}</p>
     </div>
 </div>
 

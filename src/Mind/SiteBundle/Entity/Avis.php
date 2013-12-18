@@ -238,7 +238,7 @@ class Avis
      */
     public function setAvis($avis)
     {
-        $this->avis = nl2br($avis);
+        $this->avis = $avis;
 
         return $this;
     }
