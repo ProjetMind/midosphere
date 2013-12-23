@@ -31,6 +31,6 @@ set  :keep_releases,  3
 logger.level = Logger::MAX_LEVEL
 
 after "deploy" do
-    run "cd #{latest_release} && php app/console cache:clear --env=prod && php app/console fos:js-routing:dump --env=prod && php app/console assetic:dump --env=prod && php app/console cache:clear -e prod && chmod -R 777 app/cache && chmod -R 777 app/logs"
-   
+    run "cd #{latest_release} && php app/console cache:clear --env=prod && php app/console fos:js-routing:dump --env=prod && php app/console assetic:dump --env=prod"
+    run "cd #{latest_release} && pwd && php app/console doctrine:schema:update --dump-sql --env=prod && php app/console doctrine:schema:update --force --env=prod && php app/console cache:clear -e prod && chmod -R 777 app/cache && chmod -R 777 app/logs"
 end

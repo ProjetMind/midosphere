@@ -2,6 +2,11 @@
 
 {% extends "MindSiteBundle::layout.html.twig" %}
 
+
+{% 
+    set tabLettres = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'] 
+%}
+
 {% block title %}Les domaines {% endblock %}
 
 {% block sectionCorps %}
@@ -9,8 +14,30 @@
     <div>
         <h3>Les domaines publiés</h3>
     </div>
+
+    {# Lettre de l'alphabet #}
+    <div class="row-fluid">
+            
+            <ul class="well" style="margin-left: 0px;">
+                
+                {% for lettre in tabLettres %}
+                    {% if lettre|upper in lettres %}
+                        <li class="btn btn-small">
+                            <a style="font-weight:bold;" title="{{ lettre|upper }}" href="#{{lettre}}">{{ lettre|upper }}</a>
+                        </li>
+                    {% else %}
+                        <li class="btn btn-small disabled">
+                            {{ lettre|upper}}
+                        </li>
+                    {% endif %}
+                        
+                {% endfor %}
+                
+            </ul>
     
+    </div>
+
     {% include 'MindSiteBundle:Domaines:liste_domaine.html.twig' %}
     
-                         
+           
 {% endblock %}

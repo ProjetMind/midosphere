@@ -13,7 +13,20 @@ use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 class DomaineRepository extends NestedTreeRepository
 {
     
-    
+    public function getDomaineByNiveauAndFirstLetter($niveau, $lettre){
+        
+        $query = $this->_em->createQuery('SELECT d
+                                          FROM MindSiteBundle:Domaine d
+                                          WHERE d.niveau = :niveau
+                                          AND d.libelle LIKE :lettre
+                                          ORDER BY d.libelle asc
+                                         ');
+        $query->setParameter('niveau', $niveau);
+        $query->setParameter('lettre', $lettre.'%');
+        return $query->getResult();
+        
+    }
+
     public function getDomaineByNiveau($niveau){
     
         $query = $this->_em->createQuery('SELECT d
