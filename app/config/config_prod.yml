@@ -1,4 +1,6 @@
-
+twig:
+    globals:
+        env_: prod
     
 imports:
     - { resource: config.yml }

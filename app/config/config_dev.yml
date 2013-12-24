@@ -1,3 +1,6 @@
+twig:
+    globals:
+        env_: dev
 parameters:
     fos_js_routing.request_context_base_url: /midosphere/web/app_dev.php
     
