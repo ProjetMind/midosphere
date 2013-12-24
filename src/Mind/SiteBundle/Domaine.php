@@ -347,7 +347,7 @@ class Domaine extends NestedTreeRepository{
                                     $premiereLettre = strtoupper($tree[0]['libelle'][0]);
                                     $idBadge = strtolower($tree[0]['libelle'][0]);
                                     $tabLetterExiste[] = $premiereLettre;
-                                    return '<span id="'.$idBadge.'" class="badge">'.$premiereLettre.'</span><ul>';
+                                    return '<span id="'.$idBadge.'" class="badge badge-warning">'.$premiereLettre.'</span><ul>';
                                 }else{
                                     return '<ul>';
                                 }
