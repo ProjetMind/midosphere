@@ -199,7 +199,7 @@ class AbonnementController extends Controller
      */
     public function deleteAbonnementAction($options){
         
-        $serviceAcl = $this->container->get('acl_security');
+        $serviceAcl = $this->container->get('mind_site.acl_security');
         $manager = $this->getDoctrine()
                         ->getManager();
         
