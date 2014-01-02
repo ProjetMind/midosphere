@@ -41,7 +41,7 @@ class CommentaireQuestionController extends Controller
             
             if($form->isValid()){
                 
-                $em = $this->getDoctrine()->getEntityManager();
+                $em = $this->getDoctrine()->getManager();
                 $em->persist($commentaireQuestion);
                 $em->flush();
                            

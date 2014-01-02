@@ -143,7 +143,7 @@ class CompteController extends Controller
             
             if($form->isValid()){
                 
-                $em = $this->getDoctrine()->getEntityManager();
+                $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
                 $em->flush();
                 
@@ -177,7 +177,7 @@ class CompteController extends Controller
             
             if($form->isValid()){
                 
-                $em = $this->getDoctrine()->getEntityManager();
+                $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
                 $em->flush();
                 
@@ -223,7 +223,7 @@ class CompteController extends Controller
             
             if($form->isValid()){
                 
-                $em = $this->getDoctrine()->getEntityManager();
+                $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
                 $em->flush();
                 

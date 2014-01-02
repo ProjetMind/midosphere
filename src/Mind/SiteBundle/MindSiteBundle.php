@@ -9,12 +9,12 @@ class MindSiteBundle extends Bundle
     public function boot() {
 
         $doctrine = $this->container->get('doctrine');
-	        $doctrine->getEntityManager()->getConfiguration()->addFilter(
+	        $doctrine->getManager()->getConfiguration()->addFilter(
 	            'soft-deleteable',
 	            'Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter'
 	            );
 
-        $em = $doctrine->getEntityManager();
+        $em = $doctrine->getManager();
         $em->getFilters()->enable('soft-deleteable');
     }
 }
