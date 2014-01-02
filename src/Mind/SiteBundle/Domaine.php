@@ -445,6 +445,8 @@ class Domaine extends NestedTreeRepository{
     
     /**
      * 
+     * Inutilisé
+     * 
      * Permet de savoir si un domaine enfant est le dernier enfant
      * 
      * @param type $parentBorneDroit
@@ -461,6 +463,11 @@ class Domaine extends NestedTreeRepository{
         }
     }
     
+    /**
+     * Inutilisé
+     * @param type $isLastChildren
+     * @return string
+     */
     public function getHtmlFormLastChildren($isLastChildren){
         
         if($isLastChildren === true){
@@ -477,6 +484,13 @@ class Domaine extends NestedTreeRepository{
         }
     }
     
+    /**
+     * 
+     * Supprime un domaine et les entitées qui y sont liées
+     * 
+     * @param type $domaine
+     * @return boolean
+     */
     public function supprimer($domaine){
         
         if(!empty($domaine)){
@@ -495,11 +509,18 @@ class Domaine extends NestedTreeRepository{
     public function supprimerEntityByDomaine($domaine){
         
         $idDomaine = $domaine->getId();
+        
         //Avis
         $avis = $this->manager->getRepository('MindSiteBundle:Avis')->findBy(array('avisDomaine' => $idDomaine));
         foreach ($avis as $unAvis){
             $this->manager->remove($unAvis);
         }
+        
+        //Questions
+        $questions = $this->manager->getRepository('MindSiteBundle:Question')->findBy(array('questionDomaine' => $idDomaine));
+        foreach ($questions as $uneQuestion){
+            $this->manager->remove($uneQuestion);
+        };
         
         $this->manager->flush();
     }
