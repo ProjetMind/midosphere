@@ -44,13 +44,8 @@
             {% endjavascripts %}
                 
             {% elseif env_ == 'prod' %}    #}
-           
-            {% stylesheets 
-                filter='lessphp, yui_css, cssrewrite'
-                '../web/css/bootstrap.css'
-            %}    
-                <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
-            {% endstylesheets %}
+             
+            <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" type="text/css" />
             
             <script type="text/javascript" src="{{ asset('js/jquery.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
