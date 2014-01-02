@@ -520,7 +520,7 @@ class Domaine extends NestedTreeRepository{
         $questions = $this->manager->getRepository('MindSiteBundle:Question')->findBy(array('questionDomaine' => $idDomaine));
         foreach ($questions as $uneQuestion){
             $this->manager->remove($uneQuestion);
-        };
+        }
         
         $this->manager->flush();
     }
