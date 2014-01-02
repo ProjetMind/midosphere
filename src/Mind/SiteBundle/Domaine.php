@@ -221,7 +221,7 @@ class Domaine extends NestedTreeRepository{
                         . 'data-url="'.$this->router->generate("mind_admin_domaine_modifier").'"'
                         . 'data-id="'.$node['id'].'" '
                         . 'class="parent" '
-                        . 'href="#">update parent<i class="icon-pencil"></i>'.
+                        . 'href="#"><i class="icon-pencil"></i>'.
                 '</a>';
     
     
@@ -234,7 +234,7 @@ class Domaine extends NestedTreeRepository{
         $htmlBtn = '<a '
                         . 'href="'.$this->router->generate("mind_admin_domaine_supprimer", array('id'=>$node['id'])).'"'
                         . 'class="delete" '
-                        . '>Supprimer<i class="icon-remove"></i>'.
+                        . '><i class="icon-remove"></i>'.
                 '</a>';
         
     return $htmlBtn;

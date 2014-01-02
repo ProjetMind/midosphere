@@ -25,7 +25,12 @@
     <!-- Button to trigger modal -->
     <h3>Les domaines<a href="#modalAddDomaine" role="button" data-toggle="modal" class="btn btn-link">Ajouter un domaine</a></h3>
     <div>
-        
+        <div class="alert alert-warning">
+            <ul>
+                <li>Attention, la suppression d'un domaine est irréversible.</li>
+                <li>Pour modifier le libéllé d'un domaine, il suffit de cliquer sur le stylot., entrer la nouveau libellé et valider ou annuler.</li>
+            </ul>
+        </div>
         {#{ htmlToDeleteDomaine|raw }#}
     </div>
 </span>
