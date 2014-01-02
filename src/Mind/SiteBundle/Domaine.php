@@ -194,7 +194,7 @@ class Domaine extends NestedTreeRepository{
                                             . 'data-id="'.$node['id'].'" '
                                             . 'class="libelle" '
                                             . 'href="#">'.$node['libelle'].
-                                    '</a>'.$this->getBtnToSetParentDomaine($node).$this->getBtnToDelete($node);
+                                    '</a>'./*$this->getBtnToSetParentDomaine($node).*/$this->getBtnToDelete($node);
                                     ;
                             
 //                          return '<a data-toggle="popover" href="'.$this->router->generate("mind_site_domaine_voir",
