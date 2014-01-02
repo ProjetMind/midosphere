@@ -5,6 +5,7 @@
 <div align="justify" class="desc alert alert-message alert-info">
     <button type="button" class="close" data-dismiss="alert">×</button>
     
+    {#
     <p>
         L'idée : constituer une communauté d’internautes mieux avisée et nous enrichir mutuellement 
         en partageant nos expériences de vie et nos avis et commentaires sur tous les biens et services 
@@ -45,7 +46,84 @@
         donner votre avis.
     </p>#}
     
+    <p>
+        Midosphere est une communauté d’internautes mieux avisée qui s’enrichit mutuellement en partageant nos 
+        expériences de vie, nos avis et nos commentaires sur tous les biens et services que nous avons appréciés 
+        ou non à destination des visiteurs du site.
+    </p>
+    
+<p>
+    La « communauté » peut apporter réponses et conseils aux questions de vie courante mais aussi échanger ou poser 
+    des questions sur tous les domaines qui tissent nos vies quotidiennes, de A comme « amour » à Z comme « Zola ».
+    <a id="lirePlus" href="#" title="Lire plus">lire plus…</a>
+</p>
+
+<div class="hide" id="groupHide">
+<p>
+<ul style="list-style: circle;">
+    <li>Avis individuels</li>
+    <li>
+        <ul style="list-style: circle;">
+            <li>
+                L’internaute peut interagir avec les autres membres du site en leur posant des questions sur des avis qu’ils 
+                ont posés pour bénéficier de leur expérience.
+            </li>
+            
+            <li>
+                Si l’internaute a un centre d’intérêt particulier, il peut s’abonner aux flux d’avis et de questions publiés 
+dans ledit centre d’intérêt, ex je veux être informé de tous les avis/questions publiés dans le domaine « Mode », 
+« Luxe », « Shopping » en choisissant la zone de publication des avis ex France, Belgique…
+            </li>
+            <li> 
+                L’internaute peut être alerté dès lors qu’un avis/question est publié avec un mot clé que l’internaute aura 
+                préalablement défini, ex de mot clé : Paris 5, Sorbonne, CCA.
+            </li>
+            <li>
+                L’internaute peut s’abonner aux avis/questions d’un membre en particulier parce que ses avis sont populaires 
+                et ses analyses pertinentes. 
+            </li>
+        </ul>
+    </li>
+</ul>
+</p>
+
+<p>
+    <ul style="list-style: circle;">
+        <li>Avis collectifs</li>
+        <ul style="list-style: circle;">
+            <li>
+                L’internaute peut poser une question de société et solliciter le vote des membres, ex 
+            « avez-vous confiance aux hommes politiques ?» soit oui/non, soit des réponses avec des degrés de nuance
+            </li>
+            <li>
+                L’internaute peut lancer un débat sur un sujet prédéfini, ex « l’homophobie à l’égard des homosexuels » ou « montée de la xénophobie ».
+            </li>
+            
+            <li>
+                L’internaute peut lancer une pétition.
+            </li>
+        </ul>
+    </ul>
+</p>
+
+<p>
+Exemple concret : vous voulez passer un an d’étude en Australie ou Canada mais vous ne connaissez pas le coût de la 
+vie, Midosphère vous fournit l’avis de ceux qui ont déjà fait le voyage. Si l’avis n’existe pas, vous pouvez poser 
+une question à la « communauté Midosphère », question qui sera vue par tout internaute dans le domaine « Voyage » 
+ou « Etude ».
+</p>
 </div>
+    
+</div>
+
+<script type="text/javascript">
+    
+    $(function(){
+       $('body').on('click', '#lirePlus', function(){
+           $('#groupHide').removeClass('hide'); 
+       }) ;
+    });
+</script>
                           
                       
                             
