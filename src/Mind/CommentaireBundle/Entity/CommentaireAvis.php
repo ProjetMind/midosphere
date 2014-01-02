@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="commentaire_avis")
  * @ORM\Entity(repositoryClass="Mind\CommentaireBundle\Entity\CommentaireAvisRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class CommentaireAvis
 {
@@ -28,6 +29,7 @@ class CommentaireAvis
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
     
     /**
      * @ORM\Column(name="deletedAt", type="datetime", nullable=true)

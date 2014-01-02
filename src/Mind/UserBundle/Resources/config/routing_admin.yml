@@ -31,6 +31,10 @@ mind_admin_domaine_modifier:
     pattern: /domaines/modifier
     defaults: { _controller: MindUserBundle:Domaine:modifier }
  
+mind_admin_domaine_supprimer:
+    pattern: /domaine/supprimer/{id}
+    defaults: { _controller: MindUserBundle:Domaine:supprimer }
+ 
 mind_admin_domaine_json:
     pattern: /domaines/get-json-data
     defaults: { _controller: MindUserBundle:Domaine:getDataSourceForParent }

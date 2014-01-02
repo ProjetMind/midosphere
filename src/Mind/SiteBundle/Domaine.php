@@ -194,7 +194,7 @@ class Domaine extends NestedTreeRepository{
                                             . 'data-id="'.$node['id'].'" '
                                             . 'class="libelle" '
                                             . 'href="#">'.$node['libelle'].
-                                    '</a>'.$this->getBtnToSetParentDomaine($node);
+                                    '</a>'.$this->getBtnToSetParentDomaine($node).$this->getBtnToDelete($node);
                                     ;
                             
 //                          return '<a data-toggle="popover" href="'.$this->router->generate("mind_site_domaine_voir",
@@ -221,7 +221,7 @@ class Domaine extends NestedTreeRepository{
                         . 'data-url="'.$this->router->generate("mind_admin_domaine_modifier").'"'
                         . 'data-id="'.$node['id'].'" '
                         . 'class="parent" '
-                        . 'href="#"><i class="icon-move"></i>'.
+                        . 'href="#">update parent<i class="icon-pencil"></i>'.
                 '</a>';
     
     
@@ -229,14 +229,12 @@ class Domaine extends NestedTreeRepository{
     
     }
     
-    public function getBtnToEtat(){
+    public function getBtnToDelete($node){
         
-        $htmlBtn = '<span>Supprimer un domaine : </span><a '
-                        . 'data-type="number"'
-                        . 'data-name="etat"'
-                        . 'data-url="'.$this->router->generate("mind_admin_domaine_modifier").'"'
-                        . 'class="etat" '
-                        . 'href="#"><i class="icon-remove-sign"></i>'.
+        $htmlBtn = '<a '
+                        . 'href="'.$this->router->generate("mind_admin_domaine_supprimer", array('id'=>$node['id'])).'"'
+                        . 'class="delete" '
+                        . '>Supprimer<i class="icon-remove"></i>'.
                 '</a>';
         
     return $htmlBtn;
@@ -330,44 +328,76 @@ class Domaine extends NestedTreeRepository{
     
     public function getListeDomaine(){
         
+        
         $tabDomaineNiveauUn = $this->manager->getRepository('MindSiteBundle:Domaine')->getDomaineByNiveau(0);
         $tabLetterExiste = array();
         $tabTree = array();
-        
-        $childSort = array(
-                            'field' => 'libelle',
-                            'dir'   => 'asc'
-        );
+        $tabLettersDomaines = $this->getLettersDomaine($tabDomaineNiveauUn);
         
         $options = array(
-                            'childSort' => $childSort,
+                            'childSort' => array(
+                                                    'field' => 'libelle',
+                                                    'dir'   => 'asc'
+                                                ),
                             'decorate' => true,
                             'rootOpen' => function($tree)use(&$tabLetterExiste){
-                                if($tree[0]['niveau'] == 0){
-                                    $premiereLettre = strtoupper($tree[0]['libelle'][0]);
-                                    $idBadge = strtolower($tree[0]['libelle'][0]);
+                                $premiereLettre = strtoupper(ucfirst($tree[0]['libelle'][0]));
+                                if($tree[0]['niveau'] == 0 and !in_array($premiereLettre, $tabLetterExiste)){
+                                    
+                                    $idBadge = strtolower(lcfirst($tree[0]['libelle'][0]));
                                     $tabLetterExiste[] = $premiereLettre;
+                                    
                                     return '<span id="'.$idBadge.'" class="badge badge-warning">'.$premiereLettre.'</span><ul>';
                                 }else{
                                     return '<ul>';
                                 }
                             },
-                            'rootClose' => '</ul>',
+                            'rootClose' => function($child){
+                        
+//                                    $idDomaine = $child[0]['id'];
+//                                    $parent = $this->getParentDomaine($idDomaine);
+//                                    
+//                                    if(!empty($parent)){
+//                                        $parentBorneDroit = $parent->getBorneDroit();
+//                                        $enfantBorneDroit = $child[0]['borneDroit'];
+//                                        $isLastChildren = $this->isLastChildren($parentBorneDroit, $enfantBorneDroit);
+//                                    }else{
+//                                        $isLastChildren = true;
+//                                    }
+//                                $htmlForm = $this->getHtmlFormLastChildren($isLastChildren);    
+                                return '</ul>';
+                            },
                             'childOpen' => '<li>',
                             'childClose' => '</li>',
                             'nodeDecorator' => function($node){
+                                
+                                $premiereLettre = ucfirst($node['libelle']);
+                                
                                 return '<a href="'.$this->router->generate("mind_site_domaine_voir",
-                                    array("slug"=>$node['slug'])).'">'.$node['libelle'].'<sub> ('.
+                                    array("slug"=>$node['slug'])).'">'.$premiereLettre.'<sub> ('.
                                     $this->childCount($this->find($node['id']), true).')</sub></a>';
                             }
             );
         
-            foreach ($tabDomaineNiveauUn as $domaine){
+            //print_r($tabLettersDomaines['a']);
+            $i = 0;
+            foreach ($tabLettersDomaines as $lettre){
            
-                $tabTree[] = $this->childrenHierarchy($domaine, false, $options, true);
+                if(!isset($tabTree[$i])){
+                    $tabTree[$i] = "";
+                }
+                if(!empty($lettre)){
+                    foreach ($lettre as $domaine){
+                        if(!empty($domaine)){
+                            $tabTree[$i] .= $this->childrenHierarchy($domaine, false, $options, true);
+                        }
+                    }
+                    $i++;
+                }
+                
+                //$tabTree[] = $this->childrenHierarchy($domaine, false, $options, true);
                 //$tabTree[] = $this->getChildren($domaine, FALSE, 'libelle', 'asc', true);
                 
-            
             }
             
             $data = array();
@@ -378,6 +408,99 @@ class Domaine extends NestedTreeRepository{
         
     }
     
+    /**
+     * 
+     * Permet de récupérer les domaines par lettre alphabétique
+     * 
+     * @param type $lesDomaines
+     * @return array
+     */
+    public function getLettersDomaine($lesDomaines){
+        
+        $tabLetters = array('a'=>null,'b'=>null,'c'=>null,'d'=>null,'e'=>null,'f'=>null,'g'=>null,'h'=>null,'i'=>null,'j'=>null,'k'=>null,'l'=>null,'m'=>null,'n'=>null,'o'=>null,'p'=>null,'q'=>null,'r'=>null,'s'=>null,'t'=>null,'u'=>null,'v'=>null,'w'=>null,'x'=>null,'y'=>null,'z'=>null);
+        
+        foreach ($lesDomaines as $unDomaine){
+            $premiereLettreDomaine = lcfirst($unDomaine->getLibelle()[0]);
+            $tabLetters[$premiereLettreDomaine][] = $unDomaine;
+        }
+        
+//        foreach ($tabLetters as $keyLettre => $value){
+//           
+//            foreach ($lesDomaines as $unDomaine){
+//                $premiereLettreDomaine = lcfirst($unDomaine->getLibelle()[0]);
+//                if($premiereLettreDomaine == $keyLettre){
+//                    $tabLetters[$keyLettre][] = $unDomaine;
+//                }else{
+//                    $tabLetters[$keyLettre][] = array();
+//                }
+//            }
+//        }
+        return $tabLetters;
+    }
+    
+    public function getParentDomaine($idDomaine){
+        
+        return $this->manager->getRepository('MindSiteBundle:Domaine')->getParentDomaine($idDomaine);
+    }
+    
+    /**
+     * 
+     * Permet de savoir si un domaine enfant est le dernier enfant
+     * 
+     * @param type $parentBorneDroit
+     * @param type $enfantBorneDroit
+     * @return boolean
+     */
+    public function isLastChildren($parentBorneDroit, $enfantBorneDroit){
+        
+        $result = $parentBorneDroit - $enfantBorneDroit; 
+        if($result === 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    public function getHtmlFormLastChildren($isLastChildren){
+        
+        if($isLastChildren === true){
+            return '<ul>'
+                                        . '<li>'
+                                            . '<form class="form-inline" style="padding:0px;">'
+                                                . '<input name="libelle" type="text" style="padding:4px 6px;">'
+                                                . '<input name="parentId" type="hidden" value="0" />'
+                                            . '</form>'
+                                        . '</li>'
+                                 . '</ul>';
+        }else{
+            return "";
+        }
+    }
+    
+    public function supprimer($domaine){
+        
+        if(!empty($domaine)){
+            
+            $this->removeFromTree($domaine);
+            $this->clear();
+            
+            $this->supprimerEntityByDomaine($domaine);
+            
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    public function supprimerEntityByDomaine($domaine){
+        
+        $idDomaine = $domaine->getId();
+        //Avis
+        $avis = $this->manager->getRepository('MindSiteBundle:Avis')->findBy(array('avisDomaine' => $idDomaine));
+        foreach ($avis as $unAvis){
+            $this->manager->remove($unAvis);
+        }
+        
+        $this->manager->flush();
+    }
 }
-
-?>

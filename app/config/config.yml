@@ -197,7 +197,7 @@ stof_doctrine_extensions:
             tree: true
             sluggable: true
             uploadable: true
-            #softdeleteable: true
+            softdeleteable: true
 # Swiftmailer Configuration
 swiftmailer:
     transport: %mailer_transport%

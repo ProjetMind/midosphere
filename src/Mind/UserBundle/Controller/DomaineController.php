@@ -91,6 +91,28 @@ class DomaineController extends Controller
     
     /**
      * 
+     * @param type $id
+     * 
+     * @Secure(roles="ROLE_ADMIN")
+     */
+    public function supprimerAction($id){
+        
+        $serviceBootstrapFlash = $this->container->get('bc_bootstrap.flash');
+        $domaineService = $this->container->get('mind_site.domaine');
+        $domaine = $domaineService->getDomaineById($id);
+        $ok = $domaineService->supprimer($domaine);
+        
+        if($ok === true){
+            $serviceBootstrapFlash->success('Le domaine " '.$domaine->getLibelle().'" à été supprimé.');
+        }else{
+            $serviceBootstrapFlash->error('Une erreur inconnue est survenue lors de la tentative de suppression.');
+        }
+        
+        return $this->redirect($this->generateUrl('mind_admin_domaine'));
+    }
+
+    /**
+     * 
      * permet de modifier une entité domaine
      * 
      * @return \Symfony\Component\HttpFoundation\Response

@@ -3,6 +3,7 @@
 namespace Mind\MpBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -10,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="participants")
  * @ORM\Entity(repositoryClass="Mind\MpBundle\Entity\ParticipantsRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class Participants
 {
@@ -21,6 +23,11 @@ class Participants
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     /**
      * @var integer
@@ -98,5 +105,28 @@ class Participants
     public function getIdUser()
     {
         return $this->idUser;
+    }
+
+    /**
+     * Set deletedAt
+     *
+     * @param \DateTime $deletedAt
+     * @return Participants
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedAt
+     *
+     * @return \DateTime 
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
     }
 }

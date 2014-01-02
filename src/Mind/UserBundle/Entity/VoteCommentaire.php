@@ -3,6 +3,7 @@
 namespace Mind\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -10,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="vote_commentaire")
  * @ORM\Entity(repositoryClass="Mind\UserBundle\Entity\VoteCommentaireRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class VoteCommentaire
 {
@@ -22,6 +24,11 @@ class VoteCommentaire
      */
     private $id;
 
+    /**
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     */
+    private $deletedAt;
+    
     /**
      * @var \DateTime
      *
@@ -170,5 +177,28 @@ class VoteCommentaire
     public function getCommentaire()
     {
         return $this->commentaire;
+    }
+
+    /**
+     * Set deletedAt
+     *
+     * @param \DateTime $deletedAt
+     * @return VoteCommentaire
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedAt
+     *
+     * @return \DateTime 
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
     }
 }

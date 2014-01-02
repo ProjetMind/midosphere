@@ -3,6 +3,7 @@
 namespace Mind\MediaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -10,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="opinion_avis")
  * @ORM\Entity(repositoryClass="Mind\MediaBundle\Entity\OpinionAvisRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class OpinionAvis
 {
@@ -28,6 +30,11 @@ class OpinionAvis
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     /**
      * @var integer
@@ -154,5 +161,51 @@ class OpinionAvis
     public function getTypeOpinion()
     {
         return $this->typeOpinion;
+    }
+
+    /**
+     * Set deletedAt
+     *
+     * @param \DateTime $deletedAt
+     * @return OpinionAvis
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedAt
+     *
+     * @return \DateTime 
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
+
+    /**
+     * Set datePublicationOpinion
+     *
+     * @param \DateTime $datePublicationOpinion
+     * @return OpinionAvis
+     */
+    public function setDatePublicationOpinion($datePublicationOpinion)
+    {
+        $this->datePublicationOpinion = $datePublicationOpinion;
+
+        return $this;
+    }
+
+    /**
+     * Get datePublicationOpinion
+     *
+     * @return \DateTime 
+     */
+    public function getDatePublicationOpinion()
+    {
+        return $this->datePublicationOpinion;
     }
 }

@@ -13,6 +13,16 @@ use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 class DomaineRepository extends NestedTreeRepository
 {
     
+    public function getParentDomaine($idDomaine){
+    
+        $query = $this->_em->createQuery('SELECT d
+                                          FROM MindSiteBundle:Domaine d
+                                          WHERE d.id = :idDomaine
+                                        ');
+        $query->setParameter('idDomaine', $idDomaine);
+        return $query->getOneOrNullResult()->getParent();
+    }
+    
     public function getDomaineByNiveauAndFirstLetter($niveau, $lettre){
         
         $query = $this->_em->createQuery('SELECT d

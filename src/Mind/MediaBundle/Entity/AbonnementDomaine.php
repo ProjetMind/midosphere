@@ -3,6 +3,7 @@
 namespace Mind\MediaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -10,6 +11,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Mind\MediaBundle\Entity\AbonnementDomaineRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
+ * 
  */
 class AbonnementDomaine
 {
@@ -21,6 +24,11 @@ class AbonnementDomaine
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     /**
      * @var integer
@@ -97,5 +105,28 @@ class AbonnementDomaine
     public function getIdDomaine()
     {
         return $this->idDomaine;
+    }
+
+    /**
+     * Set deletedAt
+     *
+     * @param \DateTime $deletedAt
+     * @return AbonnementDomaine
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedAt
+     *
+     * @return \DateTime 
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
     }
 }

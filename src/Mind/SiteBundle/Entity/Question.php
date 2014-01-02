@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="question")
  * @ORM\Entity(repositoryClass="Mind\SiteBundle\Entity\QuestionRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class Question
 {
@@ -28,6 +29,11 @@ class Question
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     /**
      * @var string
@@ -281,5 +287,28 @@ class Question
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Set deletedAt
+     *
+     * @param \DateTime $deletedAt
+     * @return Question
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedAt
+     *
+     * @return \DateTime 
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
     }
 }

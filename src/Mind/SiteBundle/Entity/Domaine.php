@@ -10,8 +10,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Domaine
  * 
  *@Gedmo\Tree(type="nested")
- * @ORM\Table(name="domaine")
- * @ORM\Entity(repositoryClass="Mind\SiteBundle\Entity\DomaineRepository")
+ *@ORM\Table(name="domaine")
+ *@ORM\Entity(repositoryClass="Mind\SiteBundle\Entity\DomaineRepository")
+ *@Gedmo\SoftDeleteable(fieldName="deletedAt")
+ * 
  */
 class Domaine implements \Gedmo\Tree\Node
 {
@@ -30,6 +32,11 @@ class Domaine implements \Gedmo\Tree\Node
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     */
+    private $deletedAt;
     
     /**
      * @var \integer
@@ -450,5 +457,28 @@ class Domaine implements \Gedmo\Tree\Node
     public function getSlug()
     {
         return $this->slug;
+    }
+    
+    /**
+     * Set deletedAt
+     *
+     * @param \DateTime $deletedAt
+     * @return Avis
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedAt
+     *
+     * @return \DateTime 
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
     }
 }

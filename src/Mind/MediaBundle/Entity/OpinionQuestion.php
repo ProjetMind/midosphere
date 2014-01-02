@@ -3,12 +3,14 @@
 namespace Mind\MediaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * OpinionQuestion
  *
  * @ORM\Table(name="opinion_question")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  * @ORM\Entity(repositoryClass="Mind\MediaBundle\Entity\OpinionQuestionRepository")
  */
 class OpinionQuestion
@@ -29,6 +31,11 @@ class OpinionQuestion
      */
     private $id;
 
+    /**
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     */
+    private $deletedAt;
+    
     /**
      * @var integer
      *
@@ -173,5 +180,28 @@ class OpinionQuestion
     public function getDatePublicationOpinion()
     {
         return $this->datePublicationOpinion;
+    }
+
+    /**
+     * Set deletedAt
+     *
+     * @param \DateTime $deletedAt
+     * @return OpinionQuestion
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedAt
+     *
+     * @return \DateTime 
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
     }
 }
