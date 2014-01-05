@@ -21,7 +21,7 @@ class User extends BaseUser
             parent::__construct();
             
             $this->dateInscription  = new \DateTime;
-            $this->roles            = array('ROLE_ADMIN', 'ROLE_ALLOWED_TO_SWITCH');
+            $this->roles            = array('ROLE_USER');
            
         }
         
