@@ -25,6 +25,7 @@
                 {% render controller('MindUserBundle:Admin:updateUserRoles', {'idUser': user.id}) %}
             </td>
             {% endif %}
+            {% set countElmt = countElmt + 1 %}
         </tr>
         {% endfor %}
     </tbody>

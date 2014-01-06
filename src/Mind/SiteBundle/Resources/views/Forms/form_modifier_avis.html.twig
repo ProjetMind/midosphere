@@ -103,6 +103,7 @@
     $(function(){
         //local source
         var data = {% render controller('MindSiteBundle:Domaine:getDomaineForForm') %};
+        
         $('#mind_sitebundle_avismodifiertype_avisDomaine').select2({
                                 width: 530,
                                 placeholder: 'Selectionnez un domaine',
