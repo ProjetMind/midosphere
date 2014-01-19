@@ -5,10 +5,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
-            {#
-           
+            
+           {#
             {% stylesheets 
-                filter='lessphp, yui_css, cssrewrite'
+                filter='?lessphp, ?yui_css, cssrewrite'
                 '@MindSiteBundle/Resources/public/css/*.css'
                 '@MindMpBundle/Resources/public/css/*.css'
                 '@MindCommentaireBundle/Resources/public/css/*'
@@ -36,13 +36,13 @@
                 'bundles/fosjsrouting/js/router.js'
                 '../vendor/twbs/bootstrap/js/*'
                 'js/fos_js_routes.js'
-                 output='css/bootstrap.css'
+                 output='js/bootstrap.js'
             %}
                 
                 <script type="text/javascript" src="{{ asset_url }}"></script>
                 
             {% endjavascripts %}
-                
+            {#    
             {% elseif env_ == 'prod' %}    #}
              
             <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" type="text/css" />
@@ -50,6 +50,8 @@
             <script type="text/javascript" src="{{ asset('js/jquery.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
             <script type="text/javascript" src="{{ asset('js/lib.js') }}"> </script>
+            
+            
             {#
             {% endif %} #}
                 

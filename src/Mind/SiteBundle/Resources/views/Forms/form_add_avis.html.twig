@@ -48,6 +48,8 @@
                 <div class="control-group">
                     {{ form_label(form.avisDomaine) }}
                     <div class="controls">
+                        
+                        <a href="#domainesModal" role="button" data-toggle="modal"><i class="icon-eye-open"></i></a>
                         {{ form_widget(form.avisDomaine) }}
                         {{ form_errors(form.avisDomaine) }}
                     </div>
@@ -97,7 +99,9 @@
            $('#mind_sitebundle_avistype_avisDomaine').attr('value', e.val);
        });
     });
-        
-    
 </script>
+
+    <!-- Modal -->
+    {% include 'MindSiteBundle:Domaines:domaines_modal.html.twig' %}
+    
 {% endblock %}

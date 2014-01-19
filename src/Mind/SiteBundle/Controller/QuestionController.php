@@ -193,10 +193,13 @@ class QuestionController extends Controller
        
     }
     
+    $lesDomaines = $domaineService->getListeDomaine();
     $template = sprintf('MindSiteBundle:Forms:form_add_question.html.twig'); 
-    return $this->container->get('templating')->renderResponse($template, array(
-                                                                                'form'  => $form->createView()
-                                                                                ));
+    return $this->container->get('templating')->renderResponse($template, 
+            array(
+                    'form'          => $form->createView(),
+                    'lesDomaines'   => $lesDomaines[0]
+            ));
   }
   
   /**
@@ -210,6 +213,7 @@ class QuestionController extends Controller
        $domaineService = $this->container->get('mind_site.domaine');
        $serviceAcl      = $this->container->get('mind_site.acl_security');
        $serviceBootstrapFlash = $this->container->get('bc_bootstrap.flash');
+       $domaineService = $this->container->get('mind_site.domaine');
        
        $request = $this->getRequest();
        $em = $this->getDoctrine()->getManager();
@@ -255,11 +259,13 @@ class QuestionController extends Controller
             
        }
        
+       $lesDomaines = $domaineService->getListeDomaine();
        $template = sprintf('MindSiteBundle:Forms:form_modifier_question.html.twig');
        return $this->container->get('templating')->renderResponse($template, 
                array(
                         'form'          => $form->createView(),
-                        'idQuestion'        => $idQuestion
+                        'idQuestion'        => $idQuestion,
+                        'lesDomaines'   => $lesDomaines[0]
                ));
   }
  

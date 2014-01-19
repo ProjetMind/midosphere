@@ -1,0 +1,18 @@
+{# empty Twig template #}
+
+ <!-- Modal -->
+    <div style="width:700px;" id="domainesModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Tous les domaines disponibles</h3>
+        </div>
+        
+        <div class="modal-body">
+            <p>{% include 'MindSiteBundle:Domaines:liste_domaine.html.twig' %}</p>
+        </div>
+    
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Fermer</button>
+        </div>
+    </div>

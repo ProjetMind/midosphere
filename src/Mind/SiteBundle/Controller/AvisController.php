@@ -268,11 +268,13 @@ class AvisController extends Controller
        
     }
     
-    
+    $lesDomaines = $domaineService->getListeDomaine();
     $template = sprintf('MindSiteBundle:Forms:form_add_avis.html.twig'); 
-    return $this->container->get('templating')->renderResponse($template, array(
-                                                                                'form'  => $form->createView()
-                                                                                ));
+    return $this->container->get('templating')->renderResponse($template, 
+            array(
+                    'form'          => $form->createView(),
+                    'lesDomaines'   => $lesDomaines[0]
+                ));
   }
   
    /**
@@ -284,7 +286,7 @@ class AvisController extends Controller
     */
    public function modifierAction($idAvis)
    {
-       
+       $domaineService = $this->container->get('mind_site.domaine');
        $serviceAcl = $this->container->get('mind_site.acl_security');
        $serviceAvis = $this->container->get('mind_site.avis');
        $serviceImage = $this->container->get('mind_media.images');
@@ -342,12 +344,14 @@ class AvisController extends Controller
             
        }
        
+       $lesDomaines = $domaineService->getListeDomaine();
        $template = sprintf('MindSiteBundle:Forms:form_modifier_avis.html.twig');
        return $this->container->get('templating')->renderResponse($template, 
                array(
                         'form'          => $form->createView(),
                         'idAvis'        => $idAvis,
-                        'images'        => $images[$idAvis]
+                        'images'        => $images[$idAvis],
+                        'lesDomaines'   => $lesDomaines[0]
                ));
    }
  

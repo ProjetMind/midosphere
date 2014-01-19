@@ -43,6 +43,7 @@
                     <div class="control-group">
                         {{ form_label(form.questionDomaine) }}
                         <div class="controls">
+                            <a href="#domainesModal" role="button" data-toggle="modal"><i class="icon-eye-open"></i></a>
                             {{ form_widget(form.questionDomaine) }}  
                             {{ form_errors(form.questionDomaine) }}
                         </div>
@@ -86,4 +87,6 @@
         
     
 </script>
+<!-- Modal -->
+    {% include 'MindSiteBundle:Domaines:domaines_modal.html.twig' %}
 {% endblock %}
