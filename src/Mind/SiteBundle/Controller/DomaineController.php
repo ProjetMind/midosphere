@@ -14,6 +14,8 @@ namespace Mind\SiteBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Mind\SiteBundle\Form\Type\DomaineType;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\HttpFoundation\Response;
+
 
 /**
  * 
@@ -138,15 +140,44 @@ class DomaineController extends Controller
          
    }
 
+
    public function getDomaineForFormAction(){
        
        $serviceDomaine = $this->container->get('mind_site.domaine');
        $arrayDomaine = $serviceDomaine->getDomaineForForm();
        
-       $response = new \Symfony\Component\HttpFoundation\Response(json_encode($arrayDomaine));
+       $response = new Response(json_encode($arrayDomaine));
        $response->headers->set('Content-Type', 'application/json');
        
        return $response;
    }
    
+//   public function getDomaineByNiveauAction($niveau){
+//       
+//       $serviceDomaine  = $this->container->get('mind_site.domaine');
+//       $domaineNiveau = $serviceDomaine->getDomaineByNiveau($niveau);
+//      
+//       $response = new Response(json_encode(array('domaineNiveau'=>$domaineNiveau
+//               )));
+//       $response->headers->set('Content-Type', 'application/json');
+//       return $response;
+//   }
+//   
+//   public function isNiveauZeroAction($id){
+//       
+//       $serviceDomaine  = $this->container->get('mind_site.domaine');
+//       $domaine = $serviceDomaine->getDomaineById($id);
+//      
+//       if(!empty($domaine[0])){
+//           if($domaine->getNiveau() == 0){
+//               $response = Response(json_encode(array('isNiveau'=>true)));
+//           }  else {
+//               $response = Response(json_encode(array('isNiveau'=>false)));
+//           }
+//           
+//       }else{
+//           $response = Response(json_encode(array('isNiveau'=>null)));
+//       }
+//       return $response->headers->set('Content-Type', 'application/json');
+//   }
 }

@@ -46,7 +46,7 @@
                 <div class="control-group">
                     {{ form_label(form.avisDomaine) }}
                     <div class="controls">
-                        <a href="#domainesModal" role="button" data-toggle="modal"><i class="icon-eye-open"></i></a>
+                        <span id="popoverDomainesEye"><i class="icon-eye-open"></i></span>
                         {{ form_errors(form.avisDomaine) }}
                         {{ form_widget(form.avisDomaine) }}
                     </div>
@@ -119,6 +119,27 @@
            $('#mind_sitebundle_avismodifiertype_avisDomaine').attr('value', e.val);
        });
        
+       //Popover Domaine
+       var optionsPopoverEye = {
+                        'html': true,
+                        'placement': 'bottom',
+                        'trigger': 'click',
+                        'title': 'Choisisez un domaine',
+                        'content': '{% spaceless %}{% include 'MindSiteBundle:Domaines:liste_domaine_popover.html.twig' %}{% endspaceless %}'
+        };
+       
+        $('#popoverDomainesEye').popover(optionsPopoverEye);
+        
+       //Popover domaine click on elmt
+       $("body").on('click', '#popoverTable span', function(){
+            
+            var libelle = $('#'+this.id).attr('data-libelle');
+            $("#mind_sitebundle_avismodifiertype_avisDomaine").select2(
+                    "data", {id: this.id, text: libelle}); 
+           
+           $('#popoverDomainesEye').popover('hide');
+        });
+       
        //Add new image
         $("#addNewImage").on('click',function(){
             var dataHtml = '<span class="row-fluid"><input type="file" multiple="multiple" name="filesImages[]"></span>';
@@ -160,6 +181,14 @@
     });
     
 </script>
-<!-- Modal -->
-    {% include 'MindSiteBundle:Domaines:domaines_modal.html.twig' %}
+<style type="text/css">
+    
+    #domainePopover .popover{
+        max-width: 800px;
+    }
+    #popoverTable span{
+        cursor: pointer;
+        color: #333333;
+    }
+</style>
 {% endblock %}

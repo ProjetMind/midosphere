@@ -193,7 +193,7 @@ class QuestionController extends Controller
        
     }
     
-    $lesDomaines = $domaineService->getListeDomaine();
+    $lesDomaines = $domaineService->getListeDomainePopover();
     $template = sprintf('MindSiteBundle:Forms:form_add_question.html.twig'); 
     return $this->container->get('templating')->renderResponse($template, 
             array(
@@ -259,7 +259,7 @@ class QuestionController extends Controller
             
        }
        
-       $lesDomaines = $domaineService->getListeDomaine();
+       $lesDomaines = $domaineService->getListeDomainePopover();
        $template = sprintf('MindSiteBundle:Forms:form_modifier_question.html.twig');
        return $this->container->get('templating')->renderResponse($template, 
                array(

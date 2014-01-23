@@ -2,11 +2,13 @@
 
 {% extends "MindSiteBundle::layout.html.twig" %}
 
+{# form_theme form 'MindSiteBundle:Forms:form_domaine_perso.html.twig' #}
+
+                    
 {% block title %}Ajouter un avis {% endblock %}
 
-
 {% block sectionCorps %}
-    
+
 <section class="row-fluid"> 
     
     <span class="span1"></span>
@@ -45,11 +47,12 @@
                 </div>
                 
                 
-                <div class="control-group">
+                <div class="control-group" id="domainePopover">
                     {{ form_label(form.avisDomaine) }}
                     <div class="controls">
                         
-                        <a href="#domainesModal" role="button" data-toggle="modal"><i class="icon-eye-open"></i></a>
+                        <span id="popoverDomainesEye"><i class="icon-eye-open"></i></span>
+                        {#<a id="popoverDomaines" href="#domainesModal" role="button" data-toggle="modal"><i class="icon-eye-open"></i></a>#}
                         {{ form_widget(form.avisDomaine) }}
                         {{ form_errors(form.avisDomaine) }}
                     </div>
@@ -98,10 +101,42 @@
        $('#mind_sitebundle_avistype_avisDomaine').on('select2-selecting', function(e){
            $('#mind_sitebundle_avistype_avisDomaine').attr('value', e.val);
        });
+       
+       //Popover Domaine
+       var optionsPopoverEye = {
+                        'html': true,
+                        'placement': 'bottom',
+                        'trigger': 'click',
+                        'title': 'Choisisez un domaine',
+                        'content': '{% spaceless %}{% include 'MindSiteBundle:Domaines:liste_domaine_popover.html.twig' %}{% endspaceless %}'
+        };
+       
+        $('#popoverDomainesEye').popover(optionsPopoverEye);
+        
+       //Popover domaine click on elmt
+       $("body").on('click', '#popoverTable span', function(){
+            
+            var libelle = $('#'+this.id).attr('data-libelle');
+            $("#mind_sitebundle_avistype_avisDomaine").select2(
+                    "data", {id: this.id, text: libelle}); 
+           
+           $('#popoverDomainesEye').popover('hide');
+        });
+       
     });
 </script>
 
-    <!-- Modal -->
-    {% include 'MindSiteBundle:Domaines:domaines_modal.html.twig' %}
+<style type="text/css">
     
+    #domainePopover .popover{
+        max-width: 800px;
+    }
+    #popoverTable span{
+        cursor: pointer;
+        color: #333333;
+    }
+</style>
+ <!-- Modal -->
+    {# include 'MindSiteBundle:Domaines:domaines_modal.html.twig' #}
+        
 {% endblock %}

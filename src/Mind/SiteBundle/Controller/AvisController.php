@@ -268,7 +268,8 @@ class AvisController extends Controller
        
     }
     
-    $lesDomaines = $domaineService->getListeDomaine();
+    $lesDomaines = $domaineService->getListeDomainePopover();
+    
     $template = sprintf('MindSiteBundle:Forms:form_add_avis.html.twig'); 
     return $this->container->get('templating')->renderResponse($template, 
             array(
@@ -344,7 +345,7 @@ class AvisController extends Controller
             
        }
        
-       $lesDomaines = $domaineService->getListeDomaine();
+       $lesDomaines = $domaineService->getListeDomainePopover();
        $template = sprintf('MindSiteBundle:Forms:form_modifier_avis.html.twig');
        return $this->container->get('templating')->renderResponse($template, 
                array(

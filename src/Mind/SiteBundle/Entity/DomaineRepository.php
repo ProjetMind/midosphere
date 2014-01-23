@@ -172,4 +172,11 @@ class DomaineRepository extends NestedTreeRepository
         return $query;
         
     }
+    
+    public function getDomaineBuilder(){
+     $options = array(
+         'decorate' => true
+     );   
+     return $this->getNodesHierarchyQueryBuilder(NULL, false, $options, TRUE);
+    }
 }

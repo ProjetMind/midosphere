@@ -128,6 +128,30 @@ class Domaine extends NestedTreeRepository{
         return $domaine;
     }
     
+//    public function getDomaineByNiveau($niveau){
+//        
+//        $optionsSearch = array(
+//            'niveau'    => $niveau
+//        );
+//        $tabDomaine = array();
+//        
+//        $domaines = $this->manager
+//                         ->getRepository('MindSiteBundle:Domaine')
+//                         ->findBy($optionsSearch);
+//        
+//        
+//        
+//        foreach ($domaines as $domaine){
+//            
+//            $tabDomaine[] = array(
+//                                    'id'    => $domaine->getId(),
+//                                    'text'  => $domaine->getLibelle()
+//                    );
+//        }
+//        return $tabDomaine;
+//    }
+
+
     /**
      * 
      * fournit les radios bouton du formulaire pour ajouter des domaines
@@ -371,11 +395,81 @@ class Domaine extends NestedTreeRepository{
                             'childClose' => '</li>',
                             'nodeDecorator' => function($node){
                                 
-                                $premiereLettre = ucfirst($node['libelle']);
+                                $premiereLettre = addslashes(ucfirst($node['libelle']));
                                 
-                                return '<a href="'.$this->router->generate("mind_site_domaine_voir",
+                                return '<a id="'.$node['id'].'" href="'.$this->router->generate("mind_site_domaine_voir",
                                     array("slug"=>$node['slug'])).'">'.$premiereLettre.'<sub> ('.
                                     $this->childCount($this->find($node['id']), true).')</sub></a>';
+                            }
+            );
+        
+            //print_r($tabLettersDomaines['a']);
+            $i = 0;
+            foreach ($tabLettersDomaines as $lettre){
+           
+                if(!isset($tabTree[$i])){
+                    $tabTree[$i] = "";
+                }
+                if(!empty($lettre)){
+                    foreach ($lettre as $domaine){
+                        if(!empty($domaine)){
+                            $tabTree[$i] .= $this->childrenHierarchy($domaine, false, $options, true);
+                        }
+                    }
+                    $i++;
+                }
+                
+                //$tabTree[] = $this->childrenHierarchy($domaine, false, $options, true);
+                //$tabTree[] = $this->getChildren($domaine, FALSE, 'libelle', 'asc', true);
+                
+            }
+            
+            $data = array();
+            $data[0] = $tabTree;
+            $data[1] = $tabLetterExiste;
+            
+        return $data;
+        
+    }
+    
+    public function getListeDomainePopover(){
+        
+        
+        $tabDomaineNiveauUn = $this->manager->getRepository('MindSiteBundle:Domaine')->getDomaineByNiveau(0);
+        $tabLetterExiste = array();
+        $tabTree = array();
+        $tabLettersDomaines = $this->getLettersDomaine($tabDomaineNiveauUn);
+        
+        $options = array(
+                            'childSort' => array(
+                                                    'field' => 'libelle',
+                                                    'dir'   => 'asc'
+                                                ),
+                            'decorate' => true,
+                            'rootOpen' => function($tree)use(&$tabLetterExiste){
+                                $premiereLettre = strtoupper(ucfirst($tree[0]['libelle'][0]));
+                                if($tree[0]['niveau'] == 0 and !in_array($premiereLettre, $tabLetterExiste)){
+                                    
+                                    $idBadge = strtolower(lcfirst($tree[0]['libelle'][0]));
+                                    $tabLetterExiste[] = $premiereLettre;
+                                    
+                                    return '<span id="'.$idBadge.'" class="badge badge-warning">'.$premiereLettre.'</span><ul>';
+                                }else{
+                                    return '<ul>';
+                                }
+                            },
+                            'rootClose' => function($child){
+                           
+                                return '</ul>';
+                            },
+                            'childOpen' => '<li>',
+                            'childClose' => '</li>',
+                            'nodeDecorator' => function($node){
+                                
+                                $premiereLettre = addslashes(ucfirst($node['libelle']));
+                                
+                                return '<span data-libelle="'.$premiereLettre.'" id="'.$node['id'].'">'.$premiereLettre.'<sub> ('.
+                                    $this->childCount($this->find($node['id']), true).')</sub></span>';
                             }
             );
         

@@ -40,10 +40,10 @@
                             {{ form_errors(form.question) }}
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="control-group" id="domainePopover">
                         {{ form_label(form.questionDomaine) }}
                         <div class="controls">
-                            <a href="#domainesModal" role="button" data-toggle="modal"><i class="icon-eye-open"></i></a>
+                            <span id="popoverDomainesEye"><i class="icon-eye-open"></i></span>
                             {{ form_widget(form.questionDomaine) }}  
                             {{ form_errors(form.questionDomaine) }}
                         </div>
@@ -83,10 +83,42 @@
        $('#mind_sitebundle_questiontype_questionDomaine').on('select2-selecting', function(e){
            $('#mind_sitebundle_questiontype_questionDomaine').attr('value', e.val);
        });
-    });
+       
+       //Popover Domaine
+       var optionsPopoverEye = {
+                        'html': true,
+                        'placement': 'bottom',
+                        'trigger': 'click',
+                        'title': 'Choisisez un domaine',
+                        'content': '{% spaceless %}{% include 'MindSiteBundle:Domaines:liste_domaine_popover.html.twig' %}{% endspaceless %}'
+        };
+       
+        $('#popoverDomainesEye').popover(optionsPopoverEye);
         
-    
+       //Popover domaine click on elmt
+       $("body").on('click', '#popoverTable span', function(){
+            
+            var libelle = $('#'+this.id).attr('data-libelle');
+            $("#mind_sitebundle_questiontype_questionDomaine").select2(
+                    "data", {id: this.id, text: libelle}); 
+           
+           $('#popoverDomainesEye').popover('hide');
+        });
+       
+    });
 </script>
-<!-- Modal -->
-    {% include 'MindSiteBundle:Domaines:domaines_modal.html.twig' %}
+
+<style type="text/css">
+    
+    #domainePopover .popover{
+        max-width: 800px;
+    }
+    #popoverTable span{
+        cursor: pointer;
+        color: #333333;
+    }
+</style>
+ <!-- Modal -->
+    {# include 'MindSiteBundle:Domaines:domaines_modal.html.twig' #}
+        
 {% endblock %}

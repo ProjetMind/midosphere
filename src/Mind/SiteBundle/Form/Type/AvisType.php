@@ -10,6 +10,7 @@ use Mind\SiteBundle\Entity\DomaineRepository;
 class AvisType extends AbstractType
 {
     
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -63,12 +64,20 @@ class AvisType extends AbstractType
                                 ))
                 
             ->add('avisDomaine', 'text', array(
-                                                'required'  => false,
+                                                //'class'     => 'MindSiteBundle:Domaine',
+                                                //'property'  => 'libelle',
+                                                //'multiple'  => false,
+                                                //'expanded'  => false,
+                                                'required'  => true,
+                                                //'empty_value' => 'Choisissez un domaine',
                                                 'label'     => "Domaines :",
                                                 'label_attr'    => array(
                                                                             'class' => 'control-label',
                                                                             'style' => 'text-align:left;'
                                                             )
+                                                //'query_builder' => function(DomaineRepository $er){
+                                                //                        return $result = $er->getDomaineBuilder();
+                                                //                    }            
                                                 
                                             )
                     )

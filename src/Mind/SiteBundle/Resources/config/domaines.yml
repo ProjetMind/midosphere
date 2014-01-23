@@ -25,3 +25,4 @@ mind_site_domaine_supprimer:
     defaults:  { _controller: MindSiteBundle:Domaine:supprimer }
     requirements:
         id:  \d+
+        
