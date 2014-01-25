@@ -110,7 +110,7 @@ class User extends BaseUser
      *
      * @var type boolean
      * 
-     * @@ORM\Column(name="sexe", type="boolean")
+     * @ORM\Column(name="sexe", type="boolean")
      * 
      * @Assert\Type(
      *              type="boolean",
